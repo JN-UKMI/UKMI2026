@@ -4,7 +4,7 @@ import { MapEmbed } from "./MapEmbed";
 
 export function Footer() {
   return (
-    <footer className="bg-green-900 text-white mt-auto">
+    <footer className="bg-forest-900 text-white mt-auto">
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
           <Image
@@ -16,8 +16,8 @@ export function Footer() {
           />
           <div>
             <h3 className="text-xl font-bold">JN UKMI</h3>
-            <p className="text-green-200 text-sm">Jamaah Nurul Huda</p>
-            <p className="text-green-200 text-sm">Unit Kegiatan Mahasiswa Islam</p>
+            <p className="text-forest-400 text-sm">Jamaah Nurul Huda</p>
+            <p className="text-forest-400 text-sm">Unit Kegiatan Mahasiswa Islam</p>
           </div>
         </div>
 
@@ -29,7 +29,7 @@ export function Footer() {
           <MapEmbed />
         </div>
 
-        <div className="border-t border-green-700 pt-6 text-center text-sm text-green-300">
+        <div className="border-t border-forest-600 pt-6 text-center text-sm text-forest-400">
           &copy; {new Date().getFullYear()} JN UKMI. Hak Cipta Dilindungi.
         </div>
       </div>

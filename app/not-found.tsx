@@ -17,14 +17,14 @@ export default function NotFound() {
           height={100}
           className="mx-auto mb-8 opacity-80"
         />
-        <h1 className="text-6xl font-bold text-green-900 mb-4">404</h1>
+        <h1 className="text-6xl font-bold text-forest-900 mb-4">404</h1>
         <p className="text-xl text-gray-600 mb-2">Halaman tidak ditemukan</p>
         <p className="text-gray-500 mb-8">
           Halaman yang Anda cari mungkin telah dipindahkan atau tidak tersedia.
         </p>
         <Link
           href="/"
-          className="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+          className="inline-block bg-forest-700 hover:bg-forest-600 text-white font-medium px-6 py-3 rounded-lg transition-colors"
         >
           Kembali ke Beranda
         </Link>

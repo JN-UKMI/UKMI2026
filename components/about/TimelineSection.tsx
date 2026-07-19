@@ -1,0 +1,39 @@
+export type TimelineItemProps = {
+  year: string;
+  description: string;
+};
+
+function TimelineItem({ year, description }: TimelineItemProps) {
+  return (
+    <div className="relative mb-10 pl-8">
+      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-forest-400" />
+      <span className="text-xl font-bold text-forest-800 block mb-2">
+        {year}
+      </span>
+      <p className="text-base text-muted leading-relaxed">
+        {description}
+      </p>
+    </div>
+  );
+}
+
+type TimelineSectionProps = {
+  timeline: Array<{ year: string; description: string }>;
+};
+
+export function TimelineSection({ timeline }: TimelineSectionProps) {
+  return (
+    <section className="py-16 px-4 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold text-forest-900 mb-12 text-center">
+          Sejarah
+        </h2>
+        <div className="text-forest-900">
+          {timeline.map((item, index) => (
+            <TimelineItem key={index} {...item} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
