@@ -1,0 +1,19 @@
+{
+  "filosofi_logo": "Logo kami mencerminkan nilai-nilai keislaman, persatuan, dan semangat dakwah yang bersinar terang di kalangan mahasiswa.",
+  "pengurus": [
+    { "nama": "[Nama Ketua Umum]", "fakultas": "Fakultas Teknologi Informasi", "angkatan": "2023", "foto": "/placeholder.png", "role": "Ketua Umum" },
+    { "nama": "[Nama Koordinator Akhwat]", "fakultas": "Fakultas Ilmu Sosial", "angkatan": "2023", "foto": "/placeholder.png", "role": "Koordinator Akhwat" },
+    { "nama": "[Nama Kepala Sekretaris]", "fakultas": "Fakultas Sains", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Sekretaris" },
+    { "nama": "[Nama Wakil Sekretaris]", "fakultas": "Fakultas Teknik", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Sekretaris" },
+    { "nama": "[Nama Kepala Bendahara]", "fakultas": "Fakultas Ekonomi", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Bendahara" },
+    { "nama": "[Nama Wakil Bendahara]", "fakultas": "Fakultas Bisnis", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Bendahara" },
+    { "nama": "[Nama Kepala Media]", "fakultas": "Fakultas Teknologi Informasi", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Media" },
+    { "nama": "[Nama Wakil Media]", "fakultas": "Fakultas Seni", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Media" },
+    { "nama": "[Nama Kepala Syiar]", "fakultas": "Fakultas Agama", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Syiar" },
+    { "nama": "[Nama Wakil Syiar]", "fakultas": "Fakultas Pendidikan", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Syiar" },
+    { "nama": "[Nama Kepala Internal]", "fakultas": "Fakultas Hukum", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Internal" },
+    { "nama": "[Nama Wakil Internal]", "fakultas": "Fakultas Kesehatan", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Internal" },
+    { "nama": "[Nama Kepala Eksternal]", "fakultas": "Fakultas Teknologi Informasi", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Eksternal" },
+    { "nama": "[Nama Wakil Eksternal]", "fakultas": "Fakultas Komunikasi", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Eksternal" }
+  ]
+}

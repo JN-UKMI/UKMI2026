@@ -1,0 +1,12 @@
+{
+  "pagi": [
+    { "arabic": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", "latin": "Bismillahirrahmanirrahim", "terjemahan": "Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang. (Placeholder - ganti dengan doa authentic)" },
+    { "arabic": "اَللّٰهُمَّ بِكَ أَصْبَحْنَا", "latin": "Allahumma bika ashbahna", "terjemahan": "Ya Allah, dengan rahmat-Mu kami memasuki waktu pagi. (Placeholder)" },
+    { "arabic": "اَلْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "latin": "Alhamdulillahi rabbil 'alamin", "terjemahan": "Segala puji bagi Allah Tuhan semesta alam. (Placeholder)" }
+  ],
+  "sore": [
+    { "arabic": "اَللّٰهُمَّ بِكَ أَمْسَيْنَا", "latin": "Allahumma bika amsaina", "terjemahan": "Ya Allah, dengan rahmat-Mu kami memasuki waktu sore. (Placeholder)" },
+    { "arabic": "اَللّٰهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ", "latin": "Allahumma inni as'aluka al-'afiyah", "terjemahan": "Ya Allah, aku memohon keselamatan kepada-Mu. (Placeholder)" },
+    { "arabic": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً", "latin": "Rabbana atina fid dunya hasanah", "terjemahan": "Ya Tuhan kami, berilah kami kebaikan di dunia. (Placeholder)" }
+  ]
+}

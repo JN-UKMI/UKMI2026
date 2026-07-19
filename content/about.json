@@ -1,0 +1,17 @@
+{
+  "visi": "Menjadi organisasi mahasiswa Islam yang maju dan berdampak dalam mengembangkan nilai-nilai keislaman.",
+  "misi": "Mengembangkan dakwah Islam di kalangan mahasiswa dengan pendekatan yang modern dan relevan.",
+  "tujuan": [
+    "Meningkatkan pemahaman nilai-nilai keislaman",
+    "Membangun kaderisasi yang berkelanjutan",
+    "Memperkuat persaudaraan dalam komunitas",
+    "Berkontribusi pada masyarakat luas"
+  ],
+  "timeline": [
+    { "year": "2020", "description": "Pendirian organisasi dengan semangat dakwah" },
+    { "year": "2021", "description": "Ekspansi program dan kegiatan keislaman" },
+    { "year": "2022", "description": "Peningkatan partisipasi mahasiswa" },
+    { "year": "2023", "description": "Kolaborasi dengan organisasi kampus lainnya" },
+    { "year": "2024", "description": "Transformasi digital dan inovasi program" }
+  ]
+}

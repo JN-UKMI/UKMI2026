@@ -1,0 +1,14 @@
+[
+  { "nama": "SKI FKIP KENTINGAN", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Hafidz", "whatsapp": "+62 831-9840-3922" },
+  { "nama": "SKI FKIP PABELAN", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Sholeh", "whatsapp": "+62 823-3545-9319" },
+  { "nama": "SKI FIKP KLECO", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Kubro", "whatsapp": "+62 821-3496-2080" },
+  { "nama": "SKI FMIPA", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Rasyid", "whatsapp": "+62 896-7628-4230" },
+  { "nama": "SKI FT", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Jauza", "whatsapp": "+62 888-1621-616" },
+  { "nama": "SKI SV", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Hilmy", "whatsapp": "+62 896-4946-9582" },
+  { "nama": "SKI FIB", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Nashrul", "whatsapp": "+62 823-2249-4577" },
+  { "nama": "SKI FK", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Ahmad", "whatsapp": "+62 881-0255-85636" },
+  { "nama": "BPPI FEB", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Dzakky", "whatsapp": "+62 858-7632-2669" },
+  { "nama": "LKI FISIP", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Nizar", "whatsapp": "+62 852-9041-2897" },
+  { "nama": "FUSI FP & FAPET", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Rosyid", "whatsapp": "+62 856-4172-2593" },
+  { "nama": "FOSMI FH", "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "instagram_url": "#", "gambar": "/placeholder.png", "contact_person": "Hardiansah", "whatsapp": "+62 812-2906-3011" }
+]

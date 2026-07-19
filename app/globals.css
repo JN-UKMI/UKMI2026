@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-forest-900: #18230F;
+  --color-forest-800: #27391C;
+  --color-forest-600: #255F38;
+  --color-forest-400: #1F7D53;
+  --color-sage: #9CB080;
+  --color-muted: #618764;
+  --color-teal: #2B5748;
+  --color-charcoal: #273338;
+  --color-lime: #499A13;
+  --color-yellow-green: #BBDC12;
+  --color-fresh-lime: #8ECA3C;
+  --color-grass: #276F27;
+}
+
+body {
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
