@@ -9,6 +9,8 @@ import type {
   ContactInfo,
   DoaHarianContent,
   DoaItem,
+  Quote,
+  EventItem,
 } from "./types"
 
 const contentDir = path.join(process.cwd(), "content")
@@ -56,5 +58,15 @@ export async function loadDoaHarian(): Promise<DoaHarianContent> {
 
 export async function loadDoaDoa(): Promise<DoaItem[]> {
   const file = await fs.readFile(path.join(contentDir, "doa-doa.json"), "utf-8")
+  return JSON.parse(file)
+}
+
+export async function loadQuotes(): Promise<Quote[]> {
+  const file = await fs.readFile(path.join(contentDir, "quotes.json"), "utf-8")
+  return JSON.parse(file)
+}
+
+export async function loadEvents(): Promise<{ events: EventItem[] }> {
+  const file = await fs.readFile(path.join(contentDir, "events.json"), "utf-8")
   return JSON.parse(file)
 }

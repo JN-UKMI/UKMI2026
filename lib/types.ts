@@ -81,3 +81,18 @@ export interface DoaHarianContent {
   pagi: DoaItem[];
   sore: DoaItem[];
 }
+
+export interface Quote {
+  arabic: string;
+  translation: string;
+  source: string;
+  type: "ayat" | "hadis";
+}
+
+export interface EventItem {
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  type: string;
+}

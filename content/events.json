@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "title": "Kajian Rutin JN UKMI",
+      "date": "2025-08-15",
+      "time": "19:00 - 21:00",
+      "location": "Masjid Nurul Huda UNS",
+      "type": "Kajian"
+    },
+    {
+      "title": "Rapat Koordinasi Kabinet",
+      "date": "2025-08-20",
+      "time": "16:00 - 18:00",
+      "location": "Sekre OKI JN UKMI",
+      "type": "Rapat"
+    },
+    {
+      "title": "Bakti Sosial UKMI",
+      "date": "2025-09-05",
+      "time": "07:00 - 12:00",
+      "location": "Kawasan UNS",
+      "type": "Sosial"
+    },
+    {
+      "title": "Seminar Keislaman",
+      "date": "2025-09-15",
+      "time": "08:00 - 15:00",
+      "location": "Aula UNS",
+      "type": "Seminar"
+    }
+  ]
+}

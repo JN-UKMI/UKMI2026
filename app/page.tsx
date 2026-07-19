@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
-import { FeatureCards } from "@/components/home/FeatureCards";
-import { ContentColumns } from "@/components/home/ContentColumns";
+import { QuoteSection } from "@/components/home/QuoteSection";
+import { ArtikelTerbaruSection } from "@/components/home/ArtikelTerbaruSection";
+import { KalenderSection } from "@/components/home/KalenderSection";
 
 export const metadata: Metadata = {
   title: "Beranda | JN UKMI",
@@ -20,8 +21,9 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <FeatureCards />
-      <ContentColumns />
+      <QuoteSection />
+      <ArtikelTerbaruSection />
+      <KalenderSection />
     </>
   );
 }
