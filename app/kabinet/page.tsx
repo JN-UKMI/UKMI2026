@@ -15,7 +15,7 @@ export default function KabinetPage() {
       <section className="bg-gradient-to-b from-forest-900 to-forest-600 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <Image
-            src="/logo-jnukmi.png"
+            src="/image/logo-jnukmi.svg"
             alt="Logo JN UKMI"
             width={140}
             height={140}

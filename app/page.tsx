@@ -1,35 +1,27 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/home/Hero";
-import { UpcomingEventsSection } from "@/components/home/UpcomingEventsSection";
-import { FeaturedArticlesSection } from "@/components/home/FeaturedArticlesSection";
-import { loadHome } from "@/lib/content";
-import { getArticlesByCategory, getFeaturedArticles } from "@/lib/sanity";
+import { HeroSection } from "@/components/home/HeroSection";
+import { FeatureCards } from "@/components/home/FeatureCards";
+import { ContentColumns } from "@/components/home/ContentColumns";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
+export const metadata: Metadata = {
+  title: "Beranda | JN UKMI",
+  description:
+    "Website resmi Jamaah Nurul Huda UKMI Universitas Sebelas Maret. Organisasi kemahasiswaan Islam yang berkomitmen membina generasi qurani.",
+  openGraph: {
     title: "Beranda | JN UKMI",
     description:
       "Website resmi Jamaah Nurul Huda UKMI Universitas Sebelas Maret. Organisasi kemahasiswaan Islam yang berkomitmen membina generasi qurani.",
-    openGraph: {
-      title: "Beranda | JN UKMI",
-      description:
-        "Website resmi Jamaah Nurul Huda UKMI Universitas Sebelas Maret. Organisasi kemahasiswaan Islam yang berkomitmen membina generasi qurani.",
-      type: "website",
-      locale: "id_ID",
-    },
-  };
-}
+    type: "website",
+    locale: "id_ID",
+  },
+};
 
-export default async function Home() {
-  const homeContent = await loadHome();
-  const kegiatanArticles = await getArticlesByCategory("Kegiatan");
-  const featuredArticles = await getFeaturedArticles();
-
+export default function Home() {
   return (
-    <div className="min-h-screen">
-      <Hero tagline={homeContent.tagline} deskripsi={homeContent.deskripsi} />
-      <UpcomingEventsSection articles={kegiatanArticles} />
-      <FeaturedArticlesSection articles={featuredArticles} />
-    </div>
+    <>
+      <HeroSection />
+      <FeatureCards />
+      <ContentColumns />
+    </>
   );
 }

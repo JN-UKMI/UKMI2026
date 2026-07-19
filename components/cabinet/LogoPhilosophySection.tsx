@@ -6,10 +6,10 @@ interface LogoPhilosophySectionProps {
 }
 
 export function LogoPhilosophySection({
-  logoPath = "/public/logo-jnukmi.png",
+  logoPath = "/image/logo-jnukmi.svg",
   filosofi,
 }: LogoPhilosophySectionProps) {
-  const hasLogo = logoPath !== "/public/placeholder.png";
+  const hasLogo = logoPath !== "/placeholder.png";
 
   return (
     <section className="mb-12">
@@ -17,7 +17,7 @@ export function LogoPhilosophySection({
         <div className="flex flex-col md:flex-row gap-8 items-center p-8">
           <div className="w-1/2 max-w-lg flex-shrink-0">
             <Image
-              src={hasLogo ? logoPath : "/public/placeholder.png"}
+              src={hasLogo ? logoPath : "/placeholder.png"}
               alt="Logo JN UKMI"
               width={200}
               height={200}

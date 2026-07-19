@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Phone } from "lucide-react";
 
 type NavItem = {
   label: string;
@@ -31,6 +31,18 @@ export function MobileMenu({
           />
         )
       )}
+
+      {/* Kontak button at bottom */}
+      <div className="px-4 pt-3 mt-3 border-t border-gray-100">
+        <Link
+          href="/ldf"
+          onClick={onClose}
+          className="flex items-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+        >
+          <Phone className="w-4 h-4" />
+          Kontak
+        </Link>
+      </div>
     </div>
   );
 }
@@ -48,7 +60,7 @@ function MobileSubMenu({
     <div>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 font-medium"
+        className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-medium"
       >
         {item.label}
         <ChevronDown
@@ -99,7 +111,7 @@ function MobileLink({
   return (
     <Link
       href={href}
-      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
       onClick={onClick}
     >
       {label}

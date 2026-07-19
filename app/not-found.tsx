@@ -11,7 +11,7 @@ export default function NotFound() {
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="text-center max-w-md">
         <Image
-          src="/logo-jnukmi.png"
+          src="/image/logo-jnukmi.svg"
           alt="JN UKMI Logo"
           width={100}
           height={100}
