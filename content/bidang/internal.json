@@ -1,1 +1,134 @@
-{"name":"Internal","slug":"internal","deskripsi":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bidang Internal mengelola hubungan anggota dan pengembangan sumber daya manusia.","instagram_url":"#","program_kerja":[{"title":"Pengembangan Anggota","description":"Mengadakan pelatihan dan workshop untuk anggota."},{"title":"Data Anggota","description":"Mendata dan memperbarui informasi anggota."},{"title":"Kekeluargaan","description":"Menyelenggarakan kegiatan penguatan ukhuwah."}],"staff":[{"nama":"[Kepala Internal]","fakultas":"Fakultas Hukum","angkatan":"2023","foto":"/placeholder.png","role":"Kepala Bidang Internal"},{"nama":"[Wakil Internal]","fakultas":"Fakultas Kesehatan","angkatan":"2024","foto":"/placeholder.png","role":"Wakil Kepala Bidang Internal"},{"nama":"[Staff 1]","fakultas":"Fakultas Psikologi","angkatan":"2024","foto":"/placeholder.png","role":"Staff Internal"}]}
+{
+  "name": "Internal",
+  "slug": "internal",
+  "deskripsi": "Bidang Internal (HRD) berfokus pada pembinaan kepemimpinan kader, pemeliharaan ukhuwah antarpengurus kabinet, monitoring dan evaluasi kinerja organisasi, serta penyediaan ruang apresiasi internal.",
+  "instagram_url": "#",
+  "program_kerja": [
+    {
+      "title": "Upgrading & Leadership Training",
+      "description": "Pelatihan kepemimpinan dan manajemen organisasi untuk membekali pengurus dengan skill manajerial."
+    },
+    {
+      "title": "Gathering & Rihlah Pengurus",
+      "description": "Kegiatan outbound, rekreasi, dan makan bersama guna merawat keakraban serta menyegarkan kembali semangat pengurus."
+    },
+    {
+      "title": "Evaluasi Kinerja Tengah Tahun",
+      "description": "Melakukan survei kepuasan internal, wawancara evaluasi, dan analisis capaian kerja setengah periode."
+    },
+    {
+      "title": "Pengurus Terbaik Bulanan",
+      "description": "Pemberian apresiasi berkala bagi staf teraktif dan terkreatif di lingkungan pengurus kabinet."
+    },
+    {
+      "title": "Kajian Internal Pengurus",
+      "description": "Kajian keislaman rutin bulanan khusus pengurus kabinet untuk menjaga stabilitas keimanan dan motivasi berdakwah."
+    },
+    {
+      "title": "Konsolidasi Kaderisasi Pasif",
+      "description": "Pendekatan personal dan forum diskusi bagi pengurus yang mengalami kendala kehadiran atau penurunan keaktifan."
+    },
+    {
+      "title": "Farewell Party Pengurus",
+      "description": "Acara perpisahan dan serah terima kenang-kenangan antarpengurus di akhir masa jabatan kabinet."
+    },
+    {
+      "title": "Sambutan Pengurus Baru",
+      "description": "Open house, perkenalan kabinet, dan ta'aruf perdana bagi menyambut pengurus baru."
+    },
+    {
+      "title": "Layanan Curhat Pengurus",
+      "description": "Menyediakan wadah konseling sebaya yang rahasia untuk membantu mengatasi stress akademik atau organisasi."
+    },
+    {
+      "title": "Olahraga Bersama Pengurus",
+      "description": "Kegiatan fun futsal, badminton, atau lari pagi bersama pengurus untuk menjaga kebugaran jasmani."
+    }
+  ],
+  "staff": [
+    {
+      "nama": "[Kepala Internal]",
+      "fakultas": "Fakultas Hukum",
+      "angkatan": "2023",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Internal"
+    },
+    {
+      "nama": "[Wakil Internal]",
+      "fakultas": "Fakultas Kesehatan",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Wakil Kepala Bidang Internal"
+    },
+    {
+      "nama": "Ilham Habibie",
+      "fakultas": "Fakultas Psikologi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Zahra Salsabila",
+      "fakultas": "Fakultas Ilmu Sosial",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Rey Mbayang",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Dinda Hauw",
+      "fakultas": "Fakultas Kedokteran",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Raffi Ahmad",
+      "fakultas": "Fakultas Hukum",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Nagita Slavina",
+      "fakultas": "Fakultas Ekonomi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Baim Wong",
+      "fakultas": "Fakultas Pertanian",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Paula Verhoeven",
+      "fakultas": "Fakultas FKIP",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Irwansyah",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    },
+    {
+      "nama": "Zaskia Sungkar",
+      "fakultas": "Fakultas Seni Rupa",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Internal"
+    }
+  ]
+}

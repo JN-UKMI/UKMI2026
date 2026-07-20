@@ -14,6 +14,8 @@
     { "nama": "[Nama Kepala Internal]", "fakultas": "Fakultas Hukum", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Internal" },
     { "nama": "[Nama Wakil Internal]", "fakultas": "Fakultas Kesehatan", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Internal" },
     { "nama": "[Nama Kepala Eksternal]", "fakultas": "Fakultas Teknologi Informasi", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Eksternal" },
-    { "nama": "[Nama Wakil Eksternal]", "fakultas": "Fakultas Komunikasi", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Eksternal" }
+    { "nama": "[Nama Wakil Eksternal]", "fakultas": "Fakultas Komunikasi", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Eksternal" },
+    { "nama": "[Nama Kepala Kemuslimahan]", "fakultas": "Fakultas Ilmu Sosial", "angkatan": "2023", "foto": "/placeholder.png", "role": "Kepala Bidang Kemuslimahan" },
+    { "nama": "[Nama Wakil Kemuslimahan]", "fakultas": "Fakultas Agama", "angkatan": "2024", "foto": "/placeholder.png", "role": "Wakil Kepala Bidang Kemuslimahan" }
   ]
 }

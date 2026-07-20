@@ -1,1 +1,134 @@
-{"name":"Media","slug":"media","deskripsi":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bidang Media bertanggung jawab atas publikasi, dokumentasi, dan pengelolaan media sosial organisasi.","instagram_url":"#","program_kerja":[{"title":"Konten Kreatif","description":"Memproduksi konten visual dan video untuk media sosial."},{"title":"Dokumentasi Kegiatan","description":"Mendokumentasikan setiap kegiatan organisasi."},{"title":"Branding","description":"Mengelola identitas visual organisasi."}],"staff":[{"nama":"[Kepala Media]","fakultas":"Fakultas Teknologi Informasi","angkatan":"2023","foto":"/placeholder.png","role":"Kepala Bidang Media"},{"nama":"[Wakil Media]","fakultas":"Fakultas Seni","angkatan":"2024","foto":"/placeholder.png","role":"Wakil Kepala Bidang Media"},{"nama":"[Staff 1]","fakultas":"Fakultas Komunikasi","angkatan":"2024","foto":"/placeholder.png","role":"Staff Media"}]}
+{
+  "name": "Media",
+  "slug": "media",
+  "deskripsi": "Bidang Media bertanggung jawab atas desain grafis publikasi, dokumentasi lensa kamera kegiatan, pengelolaan website/portal berita resmi, and produksi konten kreatif di seluruh kanal sosial media JN UKMI.",
+  "instagram_url": "#",
+  "program_kerja": [
+    {
+      "title": "Konten Kreatif Harian",
+      "description": "Memproduksi reels, infografis dakwah, and feed edukatif berkala untuk dipublikasikan di Instagram & TikTok."
+    },
+    {
+      "title": "Dokumentasi Kegiatan",
+      "description": "Mengambil foto, merekam video, and membuat aftermovie komprehensif pada setiap program kerja organisasi."
+    },
+    {
+      "title": "Pengelolaan Website Resmi",
+      "description": "Melakukan pembaruan rutin artikel kajian, dokumentasi kegiatan, sitemap, and integrasi fitur islami pada website."
+    },
+    {
+      "title": "Branding Visual Organisasi",
+      "description": "Menyusun panduan identitas merek (brand guidelines), logo kabinet, and palet warna standar rujukan desain."
+    },
+    {
+      "title": "Media Partner Dakwah",
+      "description": "Menjalin kolaborasi publikasi dengan lembaga dakwah, organisasi kepemudaan, and pers kampus UNS."
+    },
+    {
+      "title": "Kelas Desain & Videografi",
+      "description": "Pelatihan internal berkala mengenai penggunaan software desain grafis and teknik editing video bagi kader."
+    },
+    {
+      "title": "Podcast Nurul Huda",
+      "description": "Memproduksi rekaman talkshow audio interaktif yang membahas gaya hidup dan pemikiran mahasiswa Muslim kekinian."
+    },
+    {
+      "title": "Rilis Berita Pers",
+      "description": "Menulis and mendistribusikan press release kegiatan organisasi ke media massa lokal and nasional."
+    },
+    {
+      "title": "Kampanye Isu Strategis",
+      "description": "Merancang infografis khusus untuk merespon isu keumatan, kemanusiaan, and lingkungan terkini."
+    },
+    {
+      "title": "Desain Ucapan Hari Besar",
+      "description": "Membuat visual ucapan hari raya keagamaan, hari nasional, serta ucapan selamat atas pencapaian anggota."
+    }
+  ],
+  "staff": [
+    {
+      "nama": "[Kepala Media]",
+      "fakultas": "Fakultas Teknologi Informasi",
+      "angkatan": "2023",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Media"
+    },
+    {
+      "nama": "[Wakil Media]",
+      "fakultas": "Fakultas Seni",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Wakil Kepala Bidang Media"
+    },
+    {
+      "nama": "Gavin Risyad",
+      "fakultas": "Fakultas Seni Rupa",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Nisa Sabyan",
+      "fakultas": "Fakultas Komunikasi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Ryan Hidayat",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Clara Shinta",
+      "fakultas": "Fakultas Ilmu Budaya",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Fero Walandouw",
+      "fakultas": "Fakultas MIPA",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Citra Kirana",
+      "fakultas": "Fakultas Psikologi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Andi Arsyil",
+      "fakultas": "Fakultas FKIP",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Irish Bella",
+      "fakultas": "Fakultas Pertanian",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Reza Alatas",
+      "fakultas": "Fakultas Hukum",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    },
+    {
+      "nama": "Dinda Hauw",
+      "fakultas": "Fakultas Kedokteran",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Media"
+    }
+  ]
+}

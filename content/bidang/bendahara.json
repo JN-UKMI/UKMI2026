@@ -1,1 +1,134 @@
-{"name":"Bendahara","slug":"bendahara","deskripsi":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bidang Bendahara mengelola keuangan organisasi secara transparan dan akuntabel.","instagram_url":"#","program_kerja":[{"title":"Pengelolaan Kas","description":"Mencatat dan mengelola pemasukan serta pengeluaran."},{"title":"Laporan Keuangan","description":"Menyusun laporan keuangan bulanan dan tahunan."},{"title":"Dana Kreatif","description":"Menginisiasi program penggalangan dana."}],"staff":[{"nama":"[Kepala Bendahara]","fakultas":"Fakultas Ekonomi","angkatan":"2023","foto":"/placeholder.png","role":"Kepala Bidang Bendahara"},{"nama":"[Wakil Bendahara]","fakultas":"Fakultas Bisnis","angkatan":"2024","foto":"/placeholder.png","role":"Wakil Kepala Bidang Bendahara"},{"nama":"[Staff 1]","fakultas":"Fakultas Akuntansi","angkatan":"2024","foto":"/placeholder.png","role":"Staff Bendahara"}]}
+{
+  "name": "Bendahara",
+  "slug": "bendahara",
+  "deskripsi": "Bidang Bendahara bertanggung jawab atas perputaran arus kas keuangan, pembukuan bulanan yang transparan, audit dana operasional dakwah, serta inisiasi fundraising kreatif guna menjaga kemandirian finansial JN UKMI.",
+  "instagram_url": "#",
+  "program_kerja": [
+    {
+      "title": "Pengelolaan Iuran Rutin",
+      "description": "Mengumpulkan, mencatat, dan mengelola uang kas bulanan dari seluruh pengurus aktif kabinet."
+    },
+    {
+      "title": "Laporan Transparansi Keuangan",
+      "description": "Menyusun dan memublikasikan rekapitulasi kas bulanan secara terbuka sebagai wujud akuntabilitas publik."
+    },
+    {
+      "title": "Penyusunan RAPB",
+      "description": "Merumuskan Rencana Anggaran Pendapatan dan Belanja organisasi bersama pimpinan harian tetap di awal periode."
+    },
+    {
+      "title": "Audit Keuangan Tengah Tahun",
+      "description": "Melakukan pemeriksaan silang catatan kuitansi pengeluaran dan sisa saldo kas di pertengahan masa kepengurusan."
+    },
+    {
+      "title": "Gerakan Infaq Jum'at",
+      "description": "Penggalangan kotak amal keliling di kalangan mahasiswa UNS saat shalat Jum'at untuk menyokong dana operasional dakwah."
+    },
+    {
+      "title": "Pelatihan Keuangan LDF",
+      "description": "Bimbingan SOP pelaporan keuangan dan pencatatan kuitansi standar bagi perwakilan bendahara LDF se-UNS."
+    },
+    {
+      "title": "Fundraising & Dana Usaha",
+      "description": "Memproduksi dan menjual merchandise resmi JN UKMI seperti kaos, pin, dan gantungan kunci Islami."
+    },
+    {
+      "title": "Optimalisasi Rekening Donasi",
+      "description": "Mengampanyekan pembukaan rekening donatur tetap dari kalangan alumni dan simpatisan dakwah kampus."
+    },
+    {
+      "title": "Audit Keuangan Akhir Tahun",
+      "description": "Melakukan audit final pembukuan laporan kas pengeluaran sebelum diserahterimakan pada pertanggungjawaban akhir."
+    },
+    {
+      "title": "Kemitraan Sponsorship",
+      "description": "Membangun proposal kerjasama dengan lembaga keuangan syariah atau unit usaha sebagai sponsor program besar."
+    }
+  ],
+  "staff": [
+    {
+      "nama": "[Kepala Bendahara]",
+      "fakultas": "Fakultas Ekonomi",
+      "angkatan": "2023",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Bendahara"
+    },
+    {
+      "nama": "[Wakil Bendahara]",
+      "fakultas": "Fakultas Bisnis",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Wakil Kepala Bidang Bendahara"
+    },
+    {
+      "nama": "Dina Malika",
+      "fakultas": "Fakultas Ekonomi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Yusuf Al-Fatih",
+      "fakultas": "Fakultas Pertanian",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Salma Salsabila",
+      "fakultas": "Fakultas Kedokteran",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Reza Rahardian",
+      "fakultas": "Fakultas Ilmu Sosial",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Anisa Rahma",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Dimas Seto",
+      "fakultas": "Fakultas MIPA",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Tiara Andini",
+      "fakultas": "Fakultas Hukum",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Aditya Putra",
+      "fakultas": "Fakultas Ekonomi",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Nabila Syakieb",
+      "fakultas": "Fakultas FKIP",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    },
+    {
+      "nama": "Habibi Riza",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Bendahara"
+    }
+  ]
+}

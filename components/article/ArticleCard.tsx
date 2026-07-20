@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Tag } from "lucide-react";
+import { Calendar, Pencil } from "lucide-react";
 import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 
@@ -8,50 +8,71 @@ export interface ArticleCardProps {
   article: ArticleListItem;
 }
 
-const categoryColors: Record<string, string> = {
-  Kegiatan: "bg-lime/10 text-lime",
-  Kajian: "bg-teal/10 text-teal",
-  Isu: "bg-sage/10 text-sage",
-};
-
 export function ArticleCard({ article }: ArticleCardProps) {
+  // Safe helper to resolve cover image URL
+  const getCoverImageUrl = () => {
+    if (!article.coverImage) return "/placeholder.png";
+    try {
+      // In case coverImage is a Sanity asset reference
+      if (typeof article.coverImage === "object" && article.coverImage.asset) {
+        return urlFor(article.coverImage).url();
+      }
+      // If it is already a string path (e.g. dummy local fallback image)
+      if (typeof article.coverImage === "string") {
+        return article.coverImage;
+      }
+    } catch {
+      return "/placeholder.png";
+    }
+    return "/placeholder.png";
+  };
+
   return (
     <Link
       href={`/artikel/${article.slug}`}
-      className="group flex flex-col h-full bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow"
+      className="group flex flex-col bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden"
     >
-      <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
-        {article.coverImage ? (
-          <Image
-            src={urlFor(article.coverImage).url()}
-            alt={article.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-forest-400/20 to-forest-600/20" />
-        )}
+      {/* Thumbnail Image with Category Badge overlay */}
+      <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
+        <Image
+          src={getCoverImageUrl()}
+          alt={article.title}
+          fill
+          className="object-cover transition-transform duration-300"
+          unoptimized
+        />
+        {/* Category Badge on top of image */}
+        <span className="absolute top-3 left-3 z-10 inline-block px-2.5 py-1 bg-forest-600 text-white text-xs font-bold rounded-md shadow">
+          {article.category}
+        </span>
       </div>
-      <div className="p-4 flex flex-col flex-1">
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span
-            className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${categoryColors[article.category] || "bg-gray-200 text-gray-700"}`}
-          >
-            <Tag className="w-3 h-3" />
-            {article.category}
-          </span>
-          <div className="text-xs text-gray-500">
-            {new Date(article.publishedAt).toLocaleDateString("id-ID", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </div>
-        </div>
-        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-forest-700">
+
+      <div className="flex flex-col flex-1 p-6">
+        <h3 className="font-semibold text-gray-900 group-hover:text-forest-600 transition-colors mb-2 line-clamp-2">
           {article.title}
         </h3>
-        <p className="text-sm text-gray-600 line-clamp-3 flex-1">{article.excerpt}</p>
+        <p className="text-sm text-gray-500 line-clamp-3 mb-4 flex-1">
+          {article.excerpt}
+        </p>
+
+        {/* Article Metadata info bar */}
+        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100 mb-4">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-3.5 h-3.5 text-forest-600" />
+            {new Date(article.publishedAt).toLocaleDateString("id-ID", {
+              year: "numeric", month: "long", day: "numeric",
+            })}
+          </span>
+          <span className="flex items-center gap-1">
+            <Pencil className="w-3.5 h-3.5 text-forest-600" />
+            {article.author || "Anonim"}
+          </span>
+        </div>
+
+        {/* Center Pill Button */}
+        <div className="w-full text-center py-2 px-4 rounded-full bg-forest-600 group-hover:bg-forest-750 text-white text-xs font-bold transition-colors mt-4">
+          Baca Selengkapnya
+        </div>
       </div>
     </Link>
   );

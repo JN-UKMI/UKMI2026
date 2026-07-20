@@ -14,6 +14,7 @@
   --color-fresh-lime: #8ECA3C;
   --color-grass: #276F27;
   --color-purple-600: #5E2D86;
+  --font-arabic: var(--font-amiri), serif;
 }
 
 body {

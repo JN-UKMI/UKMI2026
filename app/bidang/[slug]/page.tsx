@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { loadBidang } from "@/lib/content";
 import { BidangTemplate } from "@/components/bidang/BidangTemplate";
 
-const SLUGS = ["eksternal", "internal", "syiar", "media", "bendahara", "sekretaris"] as const;
+const SLUGS = ["eksternal", "internal", "syiar", "media", "bendahara", "sekretaris", "kemuslimahan"] as const;
 
 export function generateStaticParams() {
   return SLUGS.map((slug) => ({ slug }));

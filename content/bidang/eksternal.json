@@ -1,1 +1,134 @@
-{"name":"Eksternal","slug":"eksternal","deskripsi":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bidang Eksternal mengelola hubungan dengan organisasi lain dan masyarakat luas.","instagram_url":"#","program_kerja":[{"title":"Kolaborasi","description":"Menjalin kerjasama dengan organisasi eksternal."},{"title":"Publikasi","description":"Mempromosikan kegiatan organisasi ke publik."},{"title":"Fundraising","description":"Mengelola dana dari sumber eksternal."}],"staff":[{"nama":"[Kepala Eksternal]","fakultas":"Fakultas Teknologi Informasi","angkatan":"2023","foto":"/placeholder.png","role":"Kepala Bidang Eksternal"},{"nama":"[Wakil Eksternal]","fakultas":"Fakultas Komunikasi","angkatan":"2024","foto":"/placeholder.png","role":"Wakil Kepala Bidang Eksternal"},{"nama":"[Staff 1]","fakultas":"Fakultas Hubungan Internasional","angkatan":"2024","foto":"/placeholder.png","role":"Staff Eksternal"}]}
+{
+  "name": "Eksternal",
+  "slug": "eksternal",
+  "deskripsi": "Bidang Eksternal (Humas) bertugas menghubungkan JN UKMI dengan birokrasi kampus UNS, menjalin benchmarking silaturahmi dengan LDK kampus lain, melakukan aksi sosial kemanusiaan, and mensinergikan dakwah bersama Lembaga Dakwah Fakultas (LDF).",
+  "instagram_url": "#",
+  "program_kerja": [
+    {
+      "title": "Silaturahmi Birokrasi Kampus",
+      "description": "Melakukan audiensi berkala dengan rektorat, dekanat, and pembina UKM guna menyelaraskan kebijakan and program kerja."
+    },
+    {
+      "title": "Benchmarking LDK Nasional",
+      "description": "Kunjungan kerja ke Lembaga Dakwah Kampus universitas lain untuk berbagi wawasan manajemen organisasi & program syiar."
+    },
+    {
+      "title": "Sinergi Forum LDF UNS",
+      "description": "Menyelenggarakan rapat koordinasi berkala bersama perwakilan 12 LDF guna menyelaraskan gerakan dakwah kampus."
+    },
+    {
+      "title": "Bakti Sosial Desa Binaan",
+      "description": "Pemberdayaan masyarakat desa mitra melalui penyuluhan kesehatan, pembagian sembako, and pembinaan mengaji anak-anak."
+    },
+    {
+      "title": "Hubungan Pers & Publikasi",
+      "description": "Menjalin jejaring dengan pers kampus and jurnalis eksternal untuk meliput agenda besar organisasi."
+    },
+    {
+      "title": "Silaturahmi Alumni (Temu Alumni)",
+      "description": "Menyelenggarakan sarasehan bersama alumni JN UKMI untuk menghimpun masukan & dukungan materiil dakwah."
+    },
+    {
+      "title": "Aksi Tanggap Kemanusiaan",
+      "description": "Penggalangan dana kilat and penyaluran bantuan logistik bagi daerah terdampak bencana alam di Indonesia."
+    },
+    {
+      "title": "Kampanye Etika Kampus Islami",
+      "description": "Sosialisasi etika berpakaian sopan, sopan santun akademik, and kampanye anti-plagiarisme melalui poster."
+    },
+    {
+      "title": "Dialog Ormas & Kepemudaan",
+      "description": "Silaturahmi ke Majelis Ulama Indonesia setempat or ormas pemuda Islam untuk memperkuat ukhuwah islamiyah."
+    },
+    {
+      "title": "Kolaborasi Sosial Non-Profit",
+      "description": "Kerjasama program lingkungan, donor darah, or bersih-bersih masjid dengan komunitas kerelawanan umum."
+    }
+  ],
+  "staff": [
+    {
+      "nama": "[Kepala Eksternal]",
+      "fakultas": "Fakultas Teknologi Informasi",
+      "angkatan": "2023",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Eksternal"
+    },
+    {
+      "nama": "[Wakil Eksternal]",
+      "fakultas": "Fakultas Komunikasi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Wakil Kepala Bidang Eksternal"
+    },
+    {
+      "nama": "Atta Halilintar",
+      "fakultas": "Fakultas Ekonomi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Aurel Hermansyah",
+      "fakultas": "Fakultas Ilmu Sosial",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Verrell Bramasta",
+      "fakultas": "Fakultas Hubungan Internasional",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Natasha Wilona",
+      "fakultas": "Fakultas Ilmu Budaya",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Aliando Syarief",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Prilly Latuconsina",
+      "fakultas": "Fakultas Hukum",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Rizky Nazar",
+      "fakultas": "Fakultas FKIP",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Syifa Hadju",
+      "fakultas": "Fakultas Pertanian",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Jefri Nichol",
+      "fakultas": "Fakultas Komunikasi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    },
+    {
+      "nama": "Amanda Manopo",
+      "fakultas": "Fakultas Kedokteran",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Eksternal"
+    }
+  ]
+}

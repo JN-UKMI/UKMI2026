@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { LdfCard } from "@/components/ldf/LdfCard";
 import { loadLDF } from "@/lib/content";
 
+import { PageHero } from "@/components/layout/PageHero";
+
 export const metadata: Metadata = {
   title: "Lembaga Dakwah Fakultas | LDF Directory",
   description: "Direktori Lembaga Dakwah Fakultas di kampus UNS",
@@ -11,16 +13,9 @@ export default async function LdfPage() {
   const ldfList = await loadLDF();
 
   return (
-    <main className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-12 text-center">
-          <h1 className="text-3xl font-bold text-forest-900 sm:text-4xl">
-            Lembaga Dakwah Fakultas
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Direktori Lembaga Dakwah Fakultas di kampus UNS
-          </p>
-        </div>
+    <main className="min-h-screen bg-slate-50">
+      <PageHero title="Lembaga Dakwah Fakultas" subtitle="Direktori Lembaga Dakwah Fakultas di kampus UNS" />
+      <div className="mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
 
         {ldfList.length === 0 ? (
           <div className="text-center py-12">

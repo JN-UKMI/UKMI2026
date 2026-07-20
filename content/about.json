@@ -1,17 +1,54 @@
 {
-  "visi": "Menjadi organisasi mahasiswa Islam yang maju dan berdampak dalam mengembangkan nilai-nilai keislaman.",
-  "misi": "Mengembangkan dakwah Islam di kalangan mahasiswa dengan pendekatan yang modern dan relevan.",
+  "deskripsi": "Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) merupakan organisasi kemahasiswaan Islam tingkat universitas di Universitas Sebelas Maret (UNS), Surakarta. Kami berfokus pada pembinaan karakter generasi muda Muslim, syiar dakwah yang santun, kepemimpinan Islam, serta kegiatan sosial kemasyarakatan yang berdampak luas bagi civitas akademika UNS dan masyarakat umum.",
+  "visi": "Menjadi Lembaga Dakwah Kampus yang profesional, bersahabat, dan kolaboratif dalam mewujudkan Universitas Sebelas Maret yang madani.",
+  "misi": "Membentuk kader dakwah yang berkarakter islami, menyebarluaskan syiar Islam secara kreatif dan inklusif, serta membangun sinergi strategis baik internal maupun eksternal kampus.",
   "tujuan": [
-    "Meningkatkan pemahaman nilai-nilai keislaman",
-    "Membangun kaderisasi yang berkelanjutan",
-    "Memperkuat persaudaraan dalam komunitas",
-    "Berkontribusi pada masyarakat luas"
+    "Membina dan membimbing generasi muda Islam agar bertakwa dan berakhlak mulia",
+    "Menyelenggarakan syiar Islam yang inklusif, kreatif, dan inspiratif di lingkungan UNS",
+    "Melakukan kaderisasi kepemimpinan Islam yang tangguh, berwawasan luas, dan profesional",
+    "Mempererat ukhuwah islamiyah dan kolaborasi lintas organisasi dakwah di kampus UNS",
+    "Memberikan kontribusi sosial nyata bagi masyarakat sekitar kampus UNS"
   ],
   "timeline": [
-    { "year": "2020", "description": "Pendirian organisasi dengan semangat dakwah" },
-    { "year": "2021", "description": "Ekspansi program dan kegiatan keislaman" },
-    { "year": "2022", "description": "Peningkatan partisipasi mahasiswa" },
-    { "year": "2023", "description": "Kolaborasi dengan organisasi kampus lainnya" },
-    { "year": "2024", "description": "Transformasi digital dan inovasi program" }
+    {
+      "year": "1986",
+      "badge": "Perintisan",
+      "title": "Awal Mula Gerakan Dakwah",
+      "description": "Perintisan kelompok kajian keislaman kecil (halaqah) di kalangan mahasiswa Muslim di UNS.",
+      "iconType": "cake",
+      "narrative": "Pada tahun 1986, bibit-bibit dakwah kampus di Universitas Sebelas Maret mulai bertunas melalui kelompok-kelompok halaqah kecil yang digerakkan oleh para mahasiswa Muslim perintis. Berfokus di masjid-masjid fakultas, gerakan ini bertujuan untuk membina akhlak dan memberikan pemahaman keagamaan mendalam di kalangan mahasiswa akademisi. Kegiatan ini melandasi pentingnya wadah syiar dakwah yang lebih luas dan terorganisir di lingkungan universitas."
+    },
+    {
+      "year": "1996",
+      "badge": "Penyatuan",
+      "title": "Deklarasi Lembaga JN UKMI",
+      "description": "Penyatuan berbagai kelompok kajian fakultas menjadi satu wadah unit kegiatan mahasiswa Islam di tingkat universitas.",
+      "iconType": "globe",
+      "narrative": "Tepat sepuluh tahun kemudian pada tahun 1996, berbagai simpul gerakan dakwah dari seluruh fakultas di UNS sepakat untuk menyatukan visi dan langkah. Dideklarasikanlah Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) sebagai Unit Kegiatan Mahasiswa resmi di tingkat universitas. Penyatuan ini menandai era baru dakwah kampus yang lebih solid, formal, serta memiliki daya jangkau yang luas ke seluruh civitas akademika."
+    },
+    {
+      "year": "2006",
+      "badge": "Kaderisasi",
+      "title": "Sistem Pembinaan Terpadu",
+      "description": "Perumusan kurikulum kaderisasi kepemimpinan Islam yang sistematis dan terstandarisasi di tingkat universitas.",
+      "iconType": "users",
+      "narrative": "Memasuki tahun 2006, JN UKMI melakukan standarisasi sistem pembinaan dan kurikulum kaderisasi. Langkah ini bertujuan melahirkan generasi aktivis dakwah kampus yang tidak hanya kokoh secara spiritual, tetapi juga unggul secara akademis dan profesional. Sistem kaderisasi terpadu ini menyinergikan gerak langkah pembinaan kepemimpinan di seluruh Lembaga Dakwah Fakultas (LDF) se-UNS."
+    },
+    {
+      "year": "2016",
+      "badge": "Digitalisasi",
+      "title": "Inovasi Syiar & Media Digital",
+      "description": "Transformasi syiar dakwah memanfaatkan perkembangan teknologi informasi, media sosial, dan platform kreatif.",
+      "iconType": "star",
+      "narrative": "Pada tahun 2016, JN UKMI menyambut era digital dengan melakukan transformasi besar pada metode syiar. Mengintegrasikan teknologi informasi dan platform media sosial, JN UKMI meluncurkan berbagai konten visual dakwah kreatif yang santun, edukatif, dan inklusif. Pendekatan ini berhasil menjangkau ribuan mahasiswa Muslim milenial dan memperluas resonansi pesan dakwah melampaui batas fisik kampus."
+    },
+    {
+      "year": "2026",
+      "badge": "Kolaborasi",
+      "title": "Sinergi Kabinet Iskandar Muda",
+      "description": "Pemberdayaan dakwah berbasis kolaborasi lintas sektoral, pengabdian masyarakat masif, dan desa binaan berkelanjutan.",
+      "iconType": "heart",
+      "narrative": "Kini di tahun 2026, di bawah naungan Kabinet Iskandar Muda, JN UKMI memantapkan perannya sebagai motor dakwah kolaboratif. Kami berfokus pada pengabdian masyarakat secara nyata melalui program desa binaan berkelanjutan, sinergi erat lintas Organisasi Kemahasiswaan Islam, serta kampanye kepedulian sosial yang konkret untuk mewujudkan Universitas Sebelas Maret yang madani dan berdampak luas."
+    }
   ]
 }

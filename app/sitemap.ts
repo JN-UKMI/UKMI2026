@@ -17,6 +17,9 @@ const routes: { path: string; priority?: number }[] = [
   { path: "/bidang/syiar", priority: 0.5 },
   { path: "/bidang/internal", priority: 0.5 },
   { path: "/bidang/eksternal", priority: 0.5 },
+  { path: "/bidang/kemuslimahan", priority: 0.5 },
+  { path: "/kontak", priority: 0.8 },
+  { path: "/buku-ukmi", priority: 0.6 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -31,17 +31,19 @@ const navItems: NavItem[] = [
           { label: "Syiar", href: "/bidang/syiar" },
           { label: "Internal", href: "/bidang/internal" },
           { label: "Eksternal", href: "/bidang/eksternal" },
+          { label: "Kemuslimahan", href: "/bidang/kemuslimahan" },
         ],
       },
     ],
   },
   { label: "Artikel", href: "/artikel" },
   {
-    label: "Features",
+    label: "Layanan",
     items: [
       { label: "Doa-doa", href: "/doa-doa" },
       { label: "Al Kahfi", href: "/al-kahfi" },
       { label: "Al Masurat", href: "/al-masurat" },
+      { label: "Buku UKMI", href: "/buku-ukmi" },
     ],
   },
   { label: "LDF", href: "/ldf" },
@@ -83,7 +85,7 @@ export function Navbar() {
           {/* KANAN: Contact */}
           <div className="flex items-center gap-3">
             <Link
-              href="/ldf"
+              href="/kontak"
               className="hidden md:inline-flex items-center gap-1.5 bg-forest-600 hover:bg-forest-800 text-white text-sm font-medium px-4 py-1.5 rounded-full transition-colors"
             >
               Kontak

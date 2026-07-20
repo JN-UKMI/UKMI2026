@@ -1,1 +1,134 @@
-{"name":"Syiar","slug":"syiar","deskripsi":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bidang Syiar bertanggung jawab atas kegiatan dakwah dan keislaman.","instagram_url":"#","program_kerja":[{"title":"Kajian Rutin","description":"Menyelenggarakan kajian Islam mingguan."},{"title":"Dakwah Digital","description":"Menyebarkan konten dakwah melalui platform digital."},{"title":"Islamic Event","description":"Mengadakan acara keislaman berskala besar."}],"staff":[{"nama":"[Kepala Syiar]","fakultas":"Fakultas Agama","angkatan":"2023","foto":"/placeholder.png","role":"Kepala Bidang Syiar"},{"nama":"[Wakil Syiar]","fakultas":"Fakultas Pendidikan","angkatan":"2024","foto":"/placeholder.png","role":"Wakil Kepala Bidang Syiar"},{"nama":"[Staff 1]","fakultas":"Fakultas Ilmu Pengetahuan","angkatan":"2024","foto":"/placeholder.png","role":"Staff Syiar"}]}
+{
+  "name": "Syiar",
+  "slug": "syiar",
+  "deskripsi": "Bidang Syiar bertanggung jawab atas nafas dakwah keislaman utama di kampus, menyelenggarakan tabligh akbar, memfasilitasi kajian intensif tajwid/tahsin Quran, and menyebarkan nilai moral Islami di lingkungan civitas akademika.",
+  "instagram_url": "#",
+  "program_kerja": [
+    {
+      "title": "Kajian Umum Kampus",
+      "description": "Menyelenggarakan kajian akbar berkala bertema pemikiran Islam dengan mengundang ustadz kredibel nasional."
+    },
+    {
+      "title": "Tebar Buletin Jum'at",
+      "description": "Membagikan pamflet cetak ringkas berisi kajian hadits and fiqih praktis kepada jamaah shalat Jum'at di UNS."
+    },
+    {
+      "title": "Dakwah Mimbar Masjid",
+      "description": "Bekerja sama dengan takmir masjid universitas untuk menjadwalkan khatib and imam muda dari kader JN UKMI."
+    },
+    {
+      "title": "Gema Ramadhan UNS",
+      "description": "Rangkaian acara syiar semarak bulan suci Ramadhan, mulai dari tarawih keliling, takjil gratis, hingga tarhib."
+    },
+    {
+      "title": "Bimbingan Ibadah Praktis",
+      "description": "Workshop interaktif tata cara berwudhu, tayamum, shalat wajib, and pemulasaran jenazah sesuai tuntunan syariat."
+    },
+    {
+      "title": "Tahsin & Tahfidz Quran",
+      "description": "Program belajar membaca Al-Qur'an secara tartil and bimbingan menghafal Al-Qur'an gratis terbuka untuk umum."
+    },
+    {
+      "title": "Syiar On the Street",
+      "description": "Aksi simpatik turun ke jalan membagikan makanan sahur, takjil, and edukasi akhlak secara santun."
+    },
+    {
+      "title": "Konsultasi Syariah Online",
+      "description": "Fasilitasi layanan tanya jawab fikih dan syariah bersama dewan ustadz pembina via whatsapp."
+    },
+    {
+      "title": "Peringatan Hari Besar Islam",
+      "description": "Menyelenggarakan peringatan kreatif momentum PHBI seperti Isra Mi'raj, Nuzulul Quran, and Tahun Baru Hijriah."
+    },
+    {
+      "title": "Dakwah Video Pendek",
+      "description": "Memproduksi reels dakwah singkat berisi hikmah harian and ringkasan fikih praktis."
+    }
+  ],
+  "staff": [
+    {
+      "nama": "[Kepala Syiar]",
+      "fakultas": "Fakultas Agama",
+      "angkatan": "2023",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Syiar"
+    },
+    {
+      "nama": "[Wakil Syiar]",
+      "fakultas": "Fakultas Pendidikan",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Wakil Kepala Bidang Syiar"
+    },
+    {
+      "nama": "Luqman Hakim",
+      "fakultas": "Fakultas MIPA",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Aisyah Humaira",
+      "fakultas": "Fakultas Kedokteran",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Hanan Attaki",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Muzammil Hasballah",
+      "fakultas": "Fakultas Agama",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Zaskia Adya",
+      "fakultas": "Fakultas Hukum",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Teuku Wisnu",
+      "fakultas": "Fakultas Ekonomi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Shireen Sungkar",
+      "fakultas": "Fakultas Pertanian",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Dude Harlino",
+      "fakultas": "Fakultas FKIP",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Alyssa Soebandono",
+      "fakultas": "Fakultas Psikologi",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    },
+    {
+      "nama": "Oki Setiana",
+      "fakultas": "Fakultas Agama",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Syiar"
+    }
+  ]
+}

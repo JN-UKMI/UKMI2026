@@ -1,1 +1,134 @@
-{"name":"Sekretaris","slug":"sekretaris","deskripsi":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bidang Sekretaris bertanggung jawab atas administrasi dan dokumentasi organisasi.","instagram_url":"#","program_kerja":[{"title":"Administrasi Surat","description":"Mengelola surat masuk dan keluar organisasi."},{"title":"Arsip Digital","description":"Mendokumentasikan seluruh kegiatan dalam bentuk digital."},{"title":"Rapat Koordinasi","description":"Menjadwalkan dan memfasilitasi rapat rutin."}],"staff":[{"nama":"[Kepala Sekretaris]","fakultas":"Fakultas Teknologi Informasi","angkatan":"2023","foto":"/placeholder.png","role":"Kepala Bidang Sekretaris"},{"nama":"[Wakil Sekretaris]","fakultas":"Fakultas Ilmu Sosial","angkatan":"2024","foto":"/placeholder.png","role":"Wakil Kepala Bidang Sekretaris"},{"nama":"[Staff 1]","fakultas":"Fakultas Hukum","angkatan":"2024","foto":"/placeholder.png","role":"Staff Sekretaris"},{"nama":"[Staff 2]","fakultas":"Fakultas Ekonomi","angkatan":"2024","foto":"/placeholder.png","role":"Staff Sekretaris"}]}
+{
+  "name": "Sekretaris",
+  "slug": "sekretaris",
+  "deskripsi": "Bidang Sekretaris bertanggung jawab atas pengelolaan administrasi surat-menyurat, pengarsipan dokumen digital, penjadwalan syura kepengurusan, dan standarisasi SOP kesekretariatan untuk mendukung kelancaran operasional JN UKMI.",
+  "instagram_url": "#",
+  "program_kerja": [
+    {
+      "title": "Administrasi Surat Menyurat",
+      "description": "Mengelola, mencatat, dan menerbitkan seluruh surat masuk dan keluar secara tertib dan sistematis."
+    },
+    {
+      "title": "Arsip Digital Terpadu",
+      "description": "Membangun dan mengelola penyimpanan cloud terpusat untuk mendokumentasikan seluruh proposal, LPJ, dan berkas penting."
+    },
+    {
+      "title": "Rapat Koordinasi Rutin",
+      "description": "Menyusun jadwal, memfasilitasi, dan mendokumentasikan notulensi rapat koordinasi harian dan bulanan pengurus."
+    },
+    {
+      "title": "Pembuatan Database Pengurus",
+      "description": "Melakukan pendataan komprehensif data diri, keahlian, dan riwayat pelatihan seluruh kader pengurus aktif."
+    },
+    {
+      "title": "Penyusunan LPJ Tengah Tahun",
+      "description": "Mengoordinasi pengumpulan laporan pertanggungjawaban setengah periode dari seluruh bidang."
+    },
+    {
+      "title": "Standardisasi SOP Administrasi",
+      "description": "Merumuskan template proposal, lembar pengesahan, dan surat resmi untuk keseragaman administrasi."
+    },
+    {
+      "title": "Sekretaris Award",
+      "description": "Apresiasi berkala bagi sekretaris bidang dengan pengelolaan administrasi dan ketepatan waktu pengumpulan berkas terbaik."
+    },
+    {
+      "title": "Inventarisasi Aset Kesekretariatan",
+      "description": "Melakukan audit, pelabelan, dan perawatan berkala terhadap seluruh inventaris fisik di kantor sekretariat."
+    },
+    {
+      "title": "Pelatihan Kesekretariatan LDF",
+      "description": "Bimbingan teknis administrasi bagi perwakilan sekretaris Lembaga Dakwah Fakultas se-UNS."
+    },
+    {
+      "title": "Penyusunan LPJ Akhir Tahun",
+      "description": "Menyusun buku besar laporan pertanggungjawaban akhir periode kepengurusan sebagai arsip estafet kepemimpinan."
+    }
+  ],
+  "staff": [
+    {
+      "nama": "[Kepala Sekretaris]",
+      "fakultas": "Fakultas Teknologi Informasi",
+      "angkatan": "2023",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Sekretaris"
+    },
+    {
+      "nama": "[Wakil Sekretaris]",
+      "fakultas": "Fakultas Ilmu Sosial",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Wakil Kepala Bidang Sekretaris"
+    },
+    {
+      "nama": "Ahmad Dani",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Sarah Aulia",
+      "fakultas": "Fakultas Kedokteran",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Fikri Haikal",
+      "fakultas": "Fakultas Hukum",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Rania Humaira",
+      "fakultas": "Fakultas Ekonomi",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Zidan Fadhil",
+      "fakultas": "Fakultas MIPA",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Nabila Putri",
+      "fakultas": "Fakultas Ilmu Budaya",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Farhan Majid",
+      "fakultas": "Fakultas Pertanian",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Alya Zahra",
+      "fakultas": "Fakultas Ilmu Sosial",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Ihsan Kamil",
+      "fakultas": "Fakultas FKIP",
+      "angkatan": "2024",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    },
+    {
+      "nama": "Fitri Nuraini",
+      "fakultas": "Fakultas Teknik",
+      "angkatan": "2025",
+      "foto": "/placeholder.png",
+      "role": "Staff Sekretaris"
+    }
+  ]
+}

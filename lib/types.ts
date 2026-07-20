@@ -44,7 +44,11 @@ export interface LDF {
 
 export interface Timeline {
   year: string;
+  badge?: string;
+  title?: string;
   description: string;
+  iconType?: string;
+  narrative?: string;
 }
 
 export interface ContactInfo {
@@ -60,6 +64,8 @@ export interface HomeContent {
 }
 
 export interface AboutContent {
+  deskripsi: string;
+  sejarah_narasi?: string[];
   visi: string;
   misi: string;
   tujuan: string[];
