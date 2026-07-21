@@ -110,19 +110,33 @@ export function MemberCard({ member }: MemberCardProps) {
         <div className="relative w-full max-w-[268px] h-48 sm:h-52 md:h-56 bg-gray-50 border-2 border-gray-200/80 rounded-2xl p-1 shadow-sm flex items-center justify-center group-hover:border-forest-600/40 transition-colors">
           {/* Photo Container */}
           <div className="relative w-full h-full rounded-xl overflow-hidden bg-gray-100 border border-gray-200/50 flex items-center justify-center">
-            {member.foto && member.foto !== "/placeholder.png" && member.foto !== "/public/placeholder.png" ? (
-              <Image
-                src={member.foto}
-                alt={member.nama}
-                fill
-                className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                unoptimized
-              />
-            ) : (
-              <span className="font-mono text-3xl font-black text-gray-400 tracking-wider">
-                {initials(member.nama)}
-              </span>
-            )}
+            {(() => {
+              let photoSrc = member.foto;
+              if (
+                !photoSrc ||
+                photoSrc === "/placeholder.png" ||
+                photoSrc === "/public/placeholder.png" ||
+                photoSrc === "#"
+              ) {
+                const isFemale =
+                  member.role?.includes("Wakil") ||
+                  member.role?.includes("Akhwat") ||
+                  member.role?.includes("Kemuslimahan") ||
+                  member.role?.includes("Bendahara");
+
+                photoSrc = isFemale ? "/image/perempuan.png" : "/image/laki-laki.png";
+              }
+
+              return (
+                <Image
+                  src={photoSrc}
+                  alt={member.nama}
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  unoptimized
+                />
+              );
+            })()}
           </div>
         </div>
       </div>

@@ -27,36 +27,48 @@ export function TimSection({ staff }: TimSectionProps) {
         subtitle="Pimpinan dan seluruh staf pengurus bidang"
       />
 
-      {/* Baris 1: Kepala & Wakil (2 kolom, gap longgar) */}
-      <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
-        {leaders.map((member, i) => (
-          <div key={i} className="w-full sm:w-[320px] flex justify-center">
+      {/* Layout Mobile: Horizontal Carousel / Layout Desktop: Grid Hierarki */}
+      <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
+        {staff.map((member, i) => (
+          <div key={i} className="shrink-0 w-[290px] snap-center flex justify-center">
             <MemberCard member={member} />
           </div>
         ))}
       </div>
 
-      {/* Baris berikutnya: Staff (4 kolom dengan gap longgar lg:gap-12) */}
-      {mainStaff.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center">
-          {mainStaff.map((member, i) => (
-            <div key={i} className="w-full sm:w-[320px] flex justify-center">
-              <MemberCard member={member} />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Baris sisa: Centered pada desktop */}
-      {leftoverStaff.length > 0 && (
+      {/* Desktop Layout (sm:flex/grid) */}
+      <div className="hidden sm:flex flex-col gap-10">
+        {/* Baris 1: Kepala & Wakil (2 kolom, gap longgar) */}
         <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
-          {leftoverStaff.map((member, i) => (
-            <div key={i} className="w-full sm:w-[320px] flex justify-center">
+          {leaders.map((member, i) => (
+            <div key={i} className="w-[320px] flex justify-center">
               <MemberCard member={member} />
             </div>
           ))}
         </div>
-      )}
+
+        {/* Baris berikutnya: Staff (4 kolom dengan gap longgar lg:gap-12) */}
+        {mainStaff.length > 0 && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center">
+            {mainStaff.map((member, i) => (
+              <div key={i} className="w-full max-w-[320px] flex justify-center">
+                <MemberCard member={member} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Baris sisa: Centered pada desktop */}
+        {leftoverStaff.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
+            {leftoverStaff.map((member, i) => (
+              <div key={i} className="w-[320px] flex justify-center">
+                <MemberCard member={member} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

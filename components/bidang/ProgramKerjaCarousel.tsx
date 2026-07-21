@@ -12,42 +12,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
 
-  // If loaded program_kerja has less than 10 items, pad it with realistic dummy ones
-  let itemsToShow = [...(program_kerja || [])];
-  if (itemsToShow.length > 0 && itemsToShow.length < 10) {
-    const dummyTitles = [
-      "Kajian Intensif Kontemporer",
-      "Pemberdayaan Ekonomi Kreatif",
-      "Sosialisasi Dakwah Inklusif",
-      "Rihlah & Refreshing Pengurus",
-      "Pelatihan Jurnalistik Kampus",
-      "Bakti Sosial Masyarakat Desa",
-      "Pekan Olahraga & Seni Akhwat",
-      "Konsolidasi LDF se-UNS",
-      "Tebar Qur'an Pelosok Daerah",
-      "Talkshow Inspiratif Pemuda Muslim"
-    ];
-    const dummyDescs = [
-      "Mengadakan seminar dan diskusi interaktif mengenai tantangan moral dan pemikiran pemuda Muslim di era disrupsi digital saat ini.",
-      "Mengembangkan inkubator bisnis mandiri untuk membantu kemandirian finansial anggota dan pembiayaan dakwah kreatif.",
-      "Kampanye ramah keberagaman untuk menyebarkan nilai-nilai Islam rahmatan lil 'alamin secara santun di lingkungan fakultas.",
-      "Kegiatan rekreasi dan bonding luar ruangan untuk mempererat tali ukhuwah dan menjaga kebugaran spiritual para pengurus kabinet.",
-      "Workshop penulisan artikel, opini, dan teknik wawancara berita keislaman untuk mencetak kader penulis dakwah yang kritis.",
-      "Penyaluran bantuan logistik, pemeriksaan kesehatan gratis, dan mengajar anak-anak mengaji di daerah terpencil binaan JN UKMI.",
-      "Kompetisi olahraga panahan, bulutangkis, serta lomba kaligrafi seni dekorasi khusus akhwat untuk menyalurkan bakat minat positif.",
-      "Temu koordinasi triwulan seluruh pengurus Lembaga Dakwah Fakultas di lingkungan UNS guna menyelaraskan gerak syiar dakwah.",
-      "Program pengumpulan dan distribusi mushaf Al-Qur'an layak baca ke masjid-masjid dan TPQ yang membutuhkan di wilayah pelosok.",
-      "Diskusi panel menghadirkan tokoh muda nasional berprestasi untuk memotivasi mahasiswa Muslim agar berprestasi dan kontributif."
-    ];
-
-    const currentLen = itemsToShow.length;
-    for (let i = currentLen; i < 10; i++) {
-      itemsToShow.push({
-        title: dummyTitles[i % dummyTitles.length],
-        description: dummyDescs[i % dummyDescs.length]
-      });
-    }
-  }
+  const itemsToShow = program_kerja || [];
 
   // Handle responsive visible card counts
   useEffect(() => {

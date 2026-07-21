@@ -21,41 +21,53 @@ export function PengurusUtamaGrid({
   const leftoverStaff = staff.slice(fullRowsCount);
 
   return (
-    <section className="mb-16 flex flex-col gap-10">
+    <section className="py-20 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
       <SectionHeader
         icon={<ShieldCheck className="w-6 h-6" />}
         title={title}
         subtitle="Struktur pimpinan utama Kabinet Iskandar Muda Periode 2026"
       />
 
-      {/* Baris 1: Ketua Umum & Koordinator Akhwat (2 kolom, gap lebar & seragam) */}
-      <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
-        {leaders.map((member) => (
-          <div key={member.nama} className="w-full sm:w-[320px] flex justify-center">
+      {/* Layout Mobile: Horizontal Carousel / Layout Desktop: Grid Hierarki */}
+      <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
+        {members.map((member) => (
+          <div key={member.nama} className="shrink-0 w-[290px] snap-center flex justify-center">
             <MemberCard member={member} />
           </div>
         ))}
       </div>
 
-      {/* Baris berikutnya: Kepala & Wakil Bidang (4 kolom dengan gap longgar lg:gap-12) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center">
-        {mainStaff.map((member) => (
-          <div key={member.nama} className="w-full sm:w-[320px] flex justify-center">
-            <MemberCard member={member} />
-          </div>
-        ))}
-      </div>
-
-      {/* Baris sisa (Kemuslimahan): Centered pada desktop */}
-      {leftoverStaff.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
-          {leftoverStaff.map((member) => (
-            <div key={member.nama} className="w-full sm:w-[320px] flex justify-center">
+      {/* Desktop Layout (sm:flex/grid) */}
+      <div className="hidden sm:flex flex-col gap-10">
+        {/* Baris 1: Pimpinan Utama (2 kolom) */}
+        <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
+          {leaders.map((member) => (
+            <div key={member.nama} className="w-[320px] flex justify-center">
               <MemberCard member={member} />
             </div>
           ))}
         </div>
-      )}
+
+        {/* Baris 2: Kepala & Wakil Bidang (4 kolom grid) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full justify-items-center">
+          {mainStaff.map((member) => (
+            <div key={member.nama} className="w-full max-w-[320px] flex justify-center">
+              <MemberCard member={member} />
+            </div>
+          ))}
+        </div>
+
+        {/* Baris 3: Sisa Staff */}
+        {leftoverStaff.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
+            {leftoverStaff.map((member) => (
+              <div key={member.nama} className="w-[320px] flex justify-center">
+                <MemberCard member={member} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

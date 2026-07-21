@@ -1,48 +1,40 @@
 {
   "name": "Eksternal",
   "slug": "eksternal",
-  "deskripsi": "Bidang Eksternal (Humas) bertugas menghubungkan JN UKMI dengan birokrasi kampus UNS, menjalin benchmarking silaturahmi dengan LDK kampus lain, melakukan aksi sosial kemanusiaan, and mensinergikan dakwah bersama Lembaga Dakwah Fakultas (LDF).",
-  "instagram_url": "#",
+  "deskripsi": "Bidang Eksternal berfokus pada jembatan ukhuwah dan jejaring hubungan luar melalui Forum Alumni, Silaturahmi LDK (SIDAK), koordinasi 13 Lembaga Dakwah Fakultas se-UNS (Formas LDF), pengabdian Dusun Binaan (DusBin), Qurban Bersama (Qurma), serta kegiatan sosial kemasyarakatan SOSMA Berbagi.",
+  "instagram_url": "https://www.instagram.com/sosma.jnukmi/",
   "program_kerja": [
     {
-      "title": "Silaturahmi Birokrasi Kampus",
-      "description": "Melakukan audiensi berkala dengan rektorat, dekanat, and pembina UKM guna menyelaraskan kebijakan and program kerja."
+      "title": "Forum Alumni",
+      "description": "Wadah silaturahmi alumni dan pengurus aktif JN UKMI melalui sharing time, FGD, dan games untuk memperkuat ikatan ukhuwah serta arah dakwah."
     },
     {
-      "title": "Benchmarking LDK Nasional",
-      "description": "Kunjungan kerja ke Lembaga Dakwah Kampus universitas lain untuk berbagi wawasan manajemen organisasi & program syiar."
+      "title": "Silaturahmi Lembaga Dakwah (SIDAK)",
+      "description": "Kunjungan dan penerimaan kunjungan Lembaga Dakwah Kampus skala Solo Raya dan Nasional untuk memperluas jaringan dan kolaborasi."
     },
     {
-      "title": "Sinergi Forum LDF UNS",
-      "description": "Menyelenggarakan rapat koordinasi berkala bersama perwakilan 12 LDF guna menyelaraskan gerakan dakwah kampus."
+      "title": "Grebeg Wisuda",
+      "description": "Apresiasi, ucapan selamat, dan doa secara luring/daring kepada alumni JN UKMI yang telah lulus menempuh pendidikan."
     },
     {
-      "title": "Bakti Sosial Desa Binaan",
-      "description": "Pemberdayaan masyarakat desa mitra melalui penyuluhan kesehatan, pembagian sembako, and pembinaan mengaji anak-anak."
+      "title": "Forum Masyarakat (Formas) Lembaga Dakwah UNS",
+      "description": "Wadah silaturahmi, pertukaran informasi, dan koordinasi kolaborasi antar 13 Lembaga Dakwah Fakultas (LDF) se-UNS."
     },
     {
-      "title": "Hubungan Pers & Publikasi",
-      "description": "Menjalin jejaring dengan pers kampus and jurnalis eksternal untuk meliput agenda besar organisasi."
+      "title": "Dusun Binaan (DusBin)",
+      "description": "Pengabdian masyarakat dan pembinaan TPA interaktif, public speaking, serta pelatihan keterampilan anak-anak di dusun binaan."
     },
     {
-      "title": "Silaturahmi Alumni (Temu Alumni)",
-      "description": "Menyelenggarakan sarasehan bersama alumni JN UKMI untuk menghimpun masukan & dukungan materiil dakwah."
+      "title": "Qurban Bersama Masyarakat (Qurma)",
+      "description": "Penggalangan dana, penyembelihan, dan penyaluran daging qurban bagi masyarakat membutuhkan di daerah binaan."
     },
     {
-      "title": "Aksi Tanggap Kemanusiaan",
-      "description": "Penggalangan dana kilat and penyaluran bantuan logistik bagi daerah terdampak bencana alam di Indonesia."
+      "title": "SOSMA Berbagi",
+      "description": "Program kepedulian sosial berupa interaksi kebersamaan dan penyaluran bantuan ke lembaga sosial/panti secara berkala."
     },
     {
-      "title": "Kampanye Etika Kampus Islami",
-      "description": "Sosialisasi etika berpakaian sopan, sopan santun akademik, and kampanye anti-plagiarisme melalui poster."
-    },
-    {
-      "title": "Dialog Ormas & Kepemudaan",
-      "description": "Silaturahmi ke Majelis Ulama Indonesia setempat or ormas pemuda Islam untuk memperkuat ukhuwah islamiyah."
-    },
-    {
-      "title": "Kolaborasi Sosial Non-Profit",
-      "description": "Kerjasama program lingkungan, donor darah, or bersih-bersih masjid dengan komunitas kerelawanan umum."
+      "title": "MEDIA SOSMA",
+      "description": "Pengelolaan platform media digital khusus untuk publikasi dan dokumentasi seluruh kegiatan sosial kemasyarakatan SOSMA JN UKMI."
     }
   ],
   "staff": [

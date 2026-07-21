@@ -56,12 +56,12 @@ export async function ArtikelTerbaruSection() {
             <p className="text-gray-500 font-semibold text-sm">Belum ada artikel. Pantau terus untuk update terbaru.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none md:grid md:grid-cols-2 md:overflow-x-visible md:pb-0 md:mx-0 md:px-0 lg:grid-cols-3 md:gap-6">
             {articles.slice(0, 3).map((article) => (
               <Link
                 key={article.slug}
                 href={`/artikel/${article.slug}`}
-                className="group flex flex-col bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden"
+                className="group flex flex-col bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden shrink-0 w-[85vw] max-w-[340px] snap-center md:w-auto md:max-w-none md:shrink"
               >
                 {/* Thumbnail Image */}
                 <div className="relative w-full h-48 bg-gray-100 overflow-hidden">

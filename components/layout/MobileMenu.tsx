@@ -18,26 +18,28 @@ export function MobileMenu({
   onClose: () => void;
 }) {
   return (
-    <div className="md:hidden pb-4 border-t border-gray-200">
-      {items.map((item) =>
-        item.items ? (
-          <MobileSubMenu key={item.label} item={item} onClose={onClose} />
-        ) : (
-          <MobileLink
-            key={item.label}
-            href={item.href || "#"}
-            label={item.label}
-            onClick={onClose}
-          />
-        )
-      )}
+    <div className="md:hidden absolute top-full left-4 right-4 z-50 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200/90 overflow-hidden p-3 transition-all duration-300">
+      <div className="flex flex-col gap-1">
+        {items.map((item) =>
+          item.items ? (
+            <MobileSubMenu key={item.label} item={item} onClose={onClose} />
+          ) : (
+            <MobileLink
+              key={item.label}
+              href={item.href || "#"}
+              label={item.label}
+              onClick={onClose}
+            />
+          )
+        )}
+      </div>
 
       {/* Kontak button at bottom */}
-      <div className="px-4 pt-3 mt-3 border-t border-gray-100">
+      <div className="pt-3 mt-2 border-t border-gray-100 px-1">
         <Link
-          href="/ldf"
+          href="/kontak"
           onClick={onClose}
-          className="flex items-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+          className="flex items-center justify-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95"
         >
           <Phone className="w-4 h-4" />
           Kontak
@@ -57,32 +59,34 @@ function MobileSubMenu({
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className="rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-medium"
+        className="w-full flex items-center justify-between px-3.5 py-2.5 text-sm text-gray-800 hover:bg-forest-50 hover:text-forest-700 font-bold transition-all rounded-xl"
       >
         {item.label}
         <ChevronDown
-          className={`w-4 h-4 transition ${open ? "rotate-180" : ""}`}
+          className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${open ? "rotate-180 text-forest-600" : ""}`}
         />
       </button>
       {open && (
-        <div className="bg-gray-50">
+        <div className="bg-gray-50/80 rounded-xl p-2 my-1 space-y-1 border border-gray-100">
           {item.items?.map((sub) =>
             sub.items ? (
-              <div key={sub.label}>
-                <span className="block px-6 py-1 text-xs font-semibold uppercase text-forest-600">
+              <div key={sub.label} className="pt-1 first:pt-0">
+                <span className="block px-3 py-1 text-[11px] font-black uppercase tracking-wider text-forest-600">
                   {sub.label}
                 </span>
-                {sub.items.map((leaf) => (
-                  <MobileLink
-                    key={leaf.label}
-                    href={leaf.href || "#"}
-                    label={leaf.label}
-                    onClick={onClose}
-                  />
-                ))}
+                <div className="pl-2 space-y-0.5 border-l-2 border-forest-200/60 ml-3 my-1">
+                  {sub.items.map((leaf) => (
+                    <MobileLink
+                      key={leaf.label}
+                      href={leaf.href || "#"}
+                      label={leaf.label}
+                      onClick={onClose}
+                    />
+                  ))}
+                </div>
               </div>
             ) : (
               <MobileLink
@@ -111,7 +115,7 @@ function MobileLink({
   return (
     <Link
       href={href}
-      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+      className="block px-3.5 py-2 text-sm font-semibold text-gray-700 hover:bg-forest-50 hover:text-forest-700 transition-all rounded-xl"
       onClick={onClick}
     >
       {label}

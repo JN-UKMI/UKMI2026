@@ -64,8 +64,8 @@ export default function TentangPage() {
         </div>
 
         {/* Tab Switcher - Styled like a premium control bar */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-2xl p-1.5 shadow-sm border border-gray-200/60 flex flex-wrap gap-1 max-w-full sm:w-auto">
+        <div className="flex justify-center mb-12 max-w-full">
+          <div className="bg-white rounded-2xl p-1.5 shadow-sm border border-gray-200/60 flex flex-nowrap md:flex-wrap gap-1 max-w-full overflow-x-auto scrollbar-none">
             {tabItems.map((tab) => {
               const isActive = activeTab === tab.id;
               const TabIcon = tab.icon;
@@ -73,7 +73,7 @@ export default function TentangPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition-all duration-300 ${
+                  className={`flex items-center justify-center gap-2 px-3.5 md:px-5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap shrink-0 ${
                     isActive
                       ? "bg-forest-600 text-white shadow-md shadow-forest-600/10"
                       : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
@@ -206,9 +206,9 @@ export default function TentangPage() {
                 </div>
 
                 {/* Right Side: Timeline Visual Card */}
-                <div className="lg:col-span-6 flex gap-6 relative pl-6 w-full">
-                  {/* Vertical Line aligned perfectly at the center (pl-6 = 24px, icon width = 48px, center = 24 + 24 = 48px) */}
-                  <div className="absolute left-[48px] top-6 bottom-6 w-0.5 bg-gray-200 overflow-hidden">
+                <div className="lg:col-span-6 flex gap-4 md:gap-6 relative pl-2 md:pl-6 w-full">
+                  {/* Vertical Line aligned perfectly at the center (pl-2 = 8px + icon center) */}
+                  <div className="absolute left-[32px] md:left-[48px] top-6 bottom-6 w-0.5 bg-gray-200 overflow-hidden">
                     {/* Glowing flow dot passing along the line */}
                     <div 
                       className="absolute w-full h-24 bg-gradient-to-b from-transparent via-forest-650 to-transparent" 

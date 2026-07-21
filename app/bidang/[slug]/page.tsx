@@ -40,7 +40,7 @@ export default async function BidangPage({
   const formattedData = {
     ...data,
     deskripsi: data.deskripsi || data.description || "",
-    instagram_url: data.instagram || "https://instagram.com/jnukmiuns",
+    instagram_url: data.instagram_url || data.instagram || "https://www.instagram.com/jnukmiuns/",
   };
 
   return <BidangTemplate {...formattedData} />;

@@ -19,6 +19,7 @@ export interface Bidang {
   description: string;
   deskripsi?: string;
   instagram: string;
+  instagram_url?: string;
   program_kerja: BidangProgram[];
   staff: MemberCard[];
 }
@@ -31,11 +32,14 @@ export interface HomeContent {
 
 export interface LDF {
   nama: string;
-  singkatan: string;
-  fakultas: string;
+  singkatan?: string;
+  fakultas?: string;
   deskripsi: string;
-  instagram: string;
+  instagram?: string;
+  instagram_url?: string;
   gambar: string;
+  contact_person?: string;
+  whatsapp?: string;
 }
 
 export interface ContactInfo {

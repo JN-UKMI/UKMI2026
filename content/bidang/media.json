@@ -1,48 +1,40 @@
 {
   "name": "Media",
   "slug": "media",
-  "deskripsi": "Bidang Media bertanggung jawab atas desain grafis publikasi, dokumentasi lensa kamera kegiatan, pengelolaan website/portal berita resmi, and produksi konten kreatif di seluruh kanal sosial media JN UKMI.",
-  "instagram_url": "#",
+  "deskripsi": "Bidang Media bertanggung jawab atas pengelolaan media komunikasi syiar digital (Publish It!), pelatihan desain grafis & videografi, publikasi Wejangan Grafis, pengelolaan rubrik KINIUKMI & Website resmi, produksi video pendek KREASIIN, podcast Hearme, serta pembuatan Company Profile JN UKMI.",
+  "instagram_url": "https://www.instagram.com/jnukmiuns/",
   "program_kerja": [
     {
-      "title": "Konten Kreatif Harian",
-      "description": "Memproduksi reels, infografis dakwah, and feed edukatif berkala untuk dipublikasikan di Instagram & TikTok."
+      "title": "Publish It!",
+      "description": "Pengelolaan dan publikasi media sosial digital (Instagram, TikTok, Telegram, YouTube) berbasis SOP Publikasi sebagai sarana dakwah."
     },
     {
-      "title": "Dokumentasi Kegiatan",
-      "description": "Mengambil foto, merekam video, and membuat aftermovie komprehensif pada setiap program kerja organisasi."
+      "title": "Pelatihan Desain",
+      "description": "Pembekalan dan pelatihan teknik desain grafis serta videografi bagi pengurus JN UKMI, perwakilan media LDF, dan umum."
     },
     {
-      "title": "Pengelolaan Website Resmi",
-      "description": "Melakukan pembaruan rutin artikel kajian, dokumentasi kegiatan, sitemap, and integrasi fitur islami pada website."
+      "title": "Wejangan Grafis",
+      "description": "Penyampaian pesan dakwah dan reminder keislaman tematik berupa poster/infografis edukatif secara rutin di media sosial."
     },
     {
-      "title": "Branding Visual Organisasi",
-      "description": "Menyusun panduan identitas merek (brand guidelines), logo kabinet, and palet warna standar rujukan desain."
+      "title": "KINIUKMI (Kini Informasi UKMI)",
+      "description": "Penyediaan rubrik tulisan kajian Islam kontemporer dan buletin dakwah digital yang dipublikasikan berkala di website resmi."
     },
     {
-      "title": "Media Partner Dakwah",
-      "description": "Menjalin kolaborasi publikasi dengan lembaga dakwah, organisasi kepemudaan, and pers kampus UNS."
+      "title": "Website JN UKMI",
+      "description": "Pengelolaan, pengembangan, dan perbaikan berkesinambungan situs web resmi sebagai pusat portal informasi dan branding organisasi."
     },
     {
-      "title": "Kelas Desain & Videografi",
-      "description": "Pelatihan internal berkala mengenai penggunaan software desain grafis and teknik editing video bagi kader."
+      "title": "KREASIIN (Kreativitas Inspiratif)",
+      "description": "Produksi video dakwah singkat kreatif (reels/short content) di media sosial untuk menyebarkan pesan positif keislaman."
     },
     {
-      "title": "Podcast Nurul Huda",
-      "description": "Memproduksi rekaman talkshow audio interaktif yang membahas gaya hidup dan pemikiran mahasiswa Muslim kekinian."
+      "title": "Hearme (Hear UKMI)",
+      "description": "Produksi talkshow podcast audio & videografi bersama narasumber inspiratif membahas topik keislaman dan isu hangat."
     },
     {
-      "title": "Rilis Berita Pers",
-      "description": "Menulis and mendistribusikan press release kegiatan organisasi ke media massa lokal and nasional."
-    },
-    {
-      "title": "Kampanye Isu Strategis",
-      "description": "Merancang infografis khusus untuk merespon isu keumatan, kemanusiaan, and lingkungan terkini."
-    },
-    {
-      "title": "Desain Ucapan Hari Besar",
-      "description": "Membuat visual ucapan hari raya keagamaan, hari nasional, serta ucapan selamat atas pencapaian anggota."
+      "title": "Company Profile",
+      "description": "Pembuatan video profil resmi organisasi guna mengenalkan visi, misi, dan program unggulan JN UKMI kepada civitas akademika."
     }
   ],
   "staff": [

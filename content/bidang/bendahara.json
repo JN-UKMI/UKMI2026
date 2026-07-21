@@ -1,48 +1,36 @@
 {
   "name": "Bendahara",
   "slug": "bendahara",
-  "deskripsi": "Bidang Bendahara bertanggung jawab atas perputaran arus kas keuangan, pembukuan bulanan yang transparan, audit dana operasional dakwah, serta inisiasi fundraising kreatif guna menjaga kemandirian finansial JN UKMI.",
-  "instagram_url": "#",
+  "deskripsi": "Bidang Bendahara Umum bertanggung jawab atas tata kelola dan administrasi keuangan kas besar JN UKMI yang akuntabel, penggalian dana operasional rektorat dan iuran pengurus, pelatihan keadministrasian PELAPIS, serta pengembangan usaha mandiri kreatif melalui UKMI Cloth, UKMI Store, dan Kantin Kejujuran.",
+  "instagram_url": "https://www.instagram.com/jnukmiuns/",
   "program_kerja": [
     {
-      "title": "Pengelolaan Iuran Rutin",
-      "description": "Mengumpulkan, mencatat, dan mengelola uang kas bulanan dari seluruh pengurus aktif kabinet."
+      "title": "Tertib Administrasi",
+      "description": "Pembuatan laporan keuangan kas besar JN UKMI (pemasukan dan pengeluaran) secara berkala dan transparansi kas pengurus secara akuntabel."
     },
     {
-      "title": "Laporan Transparansi Keuangan",
-      "description": "Menyusun dan memublikasikan rekapitulasi kas bulanan secara terbuka sebagai wujud akuntabilitas publik."
+      "title": "Penggalian Dana",
+      "description": "Pengajuan proposal pendanaan, RAB, dan pertanggungjawaban SPJ ke Rektorat/Mawa serta penarikan kas pengurus rutin tiap bulan."
     },
     {
-      "title": "Penyusunan RAPB",
-      "description": "Merumuskan Rencana Anggaran Pendapatan dan Belanja organisasi bersama pimpinan harian tetap di awal periode."
+      "title": "PELAPIS (Pelatihan Administrasi & Pimpinan Sidang)",
+      "description": "Pelatihan dan simulasi pembuatan TOR, proposal kegiatan, proposal dana, SIK, RAB, dan alur SPJ bagi pengurus JN UKMI."
     },
     {
-      "title": "Audit Keuangan Tengah Tahun",
-      "description": "Melakukan pemeriksaan silang catatan kuitansi pengeluaran dan sisa saldo kas di pertengahan masa kepengurusan."
+      "title": "Pengajuan Dana ke Internal JN UKMI",
+      "description": "Manajemen dan pengarsipan memo pengajuan dana internal dari setiap bidang/kegiatan secara terstruktur dan sistematis."
     },
     {
-      "title": "Gerakan Infaq Jum'at",
-      "description": "Penggalangan kotak amal keliling di kalangan mahasiswa UNS saat shalat Jum'at untuk menyokong dana operasional dakwah."
+      "title": "UKMI Cloth",
+      "description": "Penggalangan dana mandiri melalui produksi dan penyediaan PDH/jaket resmi kepengurusan JN UKMI 2026."
     },
     {
-      "title": "Pelatihan Keuangan LDF",
-      "description": "Bimbingan SOP pelaporan keuangan dan pencatatan kuitansi standar bagi perwakilan bendahara LDF se-UNS."
+      "title": "UKMI Store",
+      "description": "Usaha ekonomi kreatif berupa produksi dan penjualan merchandise resmi serta paket gift untuk pengurus dan umum."
     },
     {
-      "title": "Fundraising & Dana Usaha",
-      "description": "Memproduksi dan menjual merchandise resmi JN UKMI seperti kaos, pin, dan gantungan kunci Islami."
-    },
-    {
-      "title": "Optimalisasi Rekening Donasi",
-      "description": "Mengampanyekan pembukaan rekening donatur tetap dari kalangan alumni dan simpatisan dakwah kampus."
-    },
-    {
-      "title": "Audit Keuangan Akhir Tahun",
-      "description": "Melakukan audit final pembukuan laporan kas pengeluaran sebelum diserahterimakan pada pertanggungjawaban akhir."
-    },
-    {
-      "title": "Kemitraan Sponsorship",
-      "description": "Membangun proposal kerjasama dengan lembaga keuangan syariah atau unit usaha sebagai sponsor program besar."
+      "title": "Kantin Kejujuran",
+      "description": "Penyediaan aneka makanan dan minuman ringan berbasis kejujuran di Sekretariat JN UKMI untuk menyokong operasional."
     }
   ],
   "staff": [

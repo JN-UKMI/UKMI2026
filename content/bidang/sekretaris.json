@@ -1,48 +1,48 @@
 {
   "name": "Sekretaris",
   "slug": "sekretaris",
-  "deskripsi": "Bidang Sekretaris bertanggung jawab atas pengelolaan administrasi surat-menyurat, pengarsipan dokumen digital, penjadwalan syura kepengurusan, dan standarisasi SOP kesekretariatan untuk mendukung kelancaran operasional JN UKMI.",
-  "instagram_url": "#",
+  "deskripsi": "Bidang Sekretaris Umum bertanggung jawab atas tata kelola administrasi dan persidangan organisasi (Rapat Kerja, Pleno Tengah, Pleno Akhir, Muktamar), pengarsipan inventaris & surat digital, sosialisasi BPO, pengelolaan perpustakaan BUMI, kebersihan sekretariat, serta koordinasi Kalender UKMI.",
+  "instagram_url": "https://www.instagram.com/jnukmiuns/",
   "program_kerja": [
     {
-      "title": "Administrasi Surat Menyurat",
-      "description": "Mengelola, mencatat, dan menerbitkan seluruh surat masuk dan keluar secara tertib dan sistematis."
+      "title": "Rapat Kerja",
+      "description": "Wadah sidang penetapan, sosialisasi, dan koordinasi seluruh rencana program kerja JN UKMI 2026."
     },
     {
-      "title": "Arsip Digital Terpadu",
-      "description": "Membangun dan mengelola penyimpanan cloud terpusat untuk mendokumentasikan seluruh proposal, LPJ, dan berkas penting."
+      "title": "Pleno Tengah",
+      "description": "Sidang komunikasi dan evaluasi pertengahan periode terhadap keberjalanan program kerja serta kinerja pengurus."
     },
     {
-      "title": "Rapat Koordinasi Rutin",
-      "description": "Menyusun jadwal, memfasilitasi, dan mendokumentasikan notulensi rapat koordinasi harian dan bulanan pengurus."
+      "title": "Pleno Akhir",
+      "description": "Sidang evaluasi menyeluruh terhadap pelaksanaan program kerja selama satu periode kepengurusan."
     },
     {
-      "title": "Pembuatan Database Pengurus",
-      "description": "Melakukan pendataan komprehensif data diri, keahlian, dan riwayat pelatihan seluruh kader pengurus aktif."
+      "title": "Muktamar",
+      "description": "Musyawarah besar pertanggungjawaban LPJ Ketua Umum dan reorganisasi pemulihan estafet kepemimpinan baru."
     },
     {
-      "title": "Penyusunan LPJ Tengah Tahun",
-      "description": "Mengoordinasi pengumpulan laporan pertanggungjawaban setengah periode dari seluruh bidang."
+      "title": "Inventarisasi, Pengelolaan Surat & Dokumen",
+      "description": "Pendataan barang inventaris sekretariat serta penomoran/pengarsipan surat masuk-keluar via Google Drive."
     },
     {
-      "title": "Standardisasi SOP Administrasi",
-      "description": "Merumuskan template proposal, lembar pengesahan, dan surat resmi untuk keseragaman administrasi."
+      "title": "Sosialisasi Buku Pedoman Organisasi (BPO)",
+      "description": "Penyediaan dan sosialisasi pedoman dasar tata kelola serta koridor aturan berorganisasi bagi pengurus."
     },
     {
-      "title": "Sekretaris Award",
-      "description": "Apresiasi berkala bagi sekretaris bidang dengan pengelolaan administrasi dan ketepatan waktu pengumpulan berkas terbaik."
+      "title": "Buku Ukmi (BUMI)",
+      "description": "Pengelolaan perpustakaan buku cetak di sekretariat dan rujukan e-book digital untuk meningkatkan literasi pengurus."
     },
     {
-      "title": "Inventarisasi Aset Kesekretariatan",
-      "description": "Melakukan audit, pelabelan, dan perawatan berkala terhadap seluruh inventaris fisik di kantor sekretariat."
+      "title": "Piket Sekre",
+      "description": "Penjagaan kebersihan, kerapian, dan penataan barang inventaris di Sekretariat JN UKMI secara bergilir."
     },
     {
-      "title": "Pelatihan Kesekretariatan LDF",
-      "description": "Bimbingan teknis administrasi bagi perwakilan sekretaris Lembaga Dakwah Fakultas se-UNS."
+      "title": "Rapat Harian Terbatas",
+      "description": "Rapat koordinasi dan evaluasi berkala Pimpinan Harian Tetap (PHT) dan Pimpinan untuk menyelaraskan proker."
     },
     {
-      "title": "Penyusunan LPJ Akhir Tahun",
-      "description": "Menyusun buku besar laporan pertanggungjawaban akhir periode kepengurusan sebagai arsip estafet kepemimpinan."
+      "title": "Kalender UKMI",
+      "description": "Penyusunan spreadsheet timeline dan publikasi pamflet kalender agenda bulanan untuk koordinasi pengurus."
     }
   ],
   "staff": [

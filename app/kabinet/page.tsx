@@ -18,9 +18,7 @@ export default function KabinetPage() {
       />
 
       {/* Pengurus Utama */}
-      <section className="py-16 px-4 max-w-7xl mx-auto">
-        <PengurusUtamaGrid members={kabinetData.pengurus} />
-      </section>
+      <PengurusUtamaGrid members={kabinetData.pengurus} />
     </div>
   );
 }

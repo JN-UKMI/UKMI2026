@@ -1,48 +1,32 @@
 {
   "name": "Syiar",
   "slug": "syiar",
-  "deskripsi": "Bidang Syiar bertanggung jawab atas nafas dakwah keislaman utama di kampus, menyelenggarakan tabligh akbar, memfasilitasi kajian intensif tajwid/tahsin Quran, and menyebarkan nilai moral Islami di lingkungan civitas akademika.",
-  "instagram_url": "#",
+  "deskripsi": "Bidang Syiar bertanggung jawab atas pelaksanaan majelis Kajian Rutin (KANTIN), perhelatan festival terbesar Sebelas Maret Islamic Festival (SIFT), penerbitan mikroblog Al Khobar, kajian Forum Isu Strategis (FOKUS), produksi video UKMI Reels, serta kuis interaktif QuizLam.",
+  "instagram_url": "https://www.instagram.com/sobat_kantin/",
   "program_kerja": [
     {
-      "title": "Kajian Umum Kampus",
-      "description": "Menyelenggarakan kajian akbar berkala bertema pemikiran Islam dengan mengundang ustadz kredibel nasional."
+      "title": "Kajian Rutin (KANTIN)",
+      "description": "Majelis kajian rutin dan diskusi interaktif di Masjid Nurul Huda UNS untuk meningkatkan keimanan dan wawasan keislaman."
     },
     {
-      "title": "Tebar Buletin Jum'at",
-      "description": "Membagikan pamflet cetak ringkas berisi kajian hadits and fiqih praktis kepada jamaah shalat Jum'at di UNS."
+      "title": "Sebelas Maret Islamic Festival (SIFT)",
+      "description": "Festival Islam terbesar di UNS berupa Talkshow/Kajian Akbar puncak, perlombaan islami, dan social campaign berskala besar."
     },
     {
-      "title": "Dakwah Mimbar Masjid",
-      "description": "Bekerja sama dengan takmir masjid universitas untuk menjadwalkan khatib and imam muda dari kader JN UKMI."
+      "title": "Al Khobar",
+      "description": "Media syiar mikroblog edukatif yang mengangkat isu kampus dan tantangan mahasiswa muslim dalam perspektif Islam."
     },
     {
-      "title": "Gema Ramadhan UNS",
-      "description": "Rangkaian acara syiar semarak bulan suci Ramadhan, mulai dari tarawih keliling, takjil gratis, hingga tarhib."
+      "title": "Forum Kajian Isu Strategis (FOKUS)",
+      "description": "Kajian mendalam, pencerdasan ilmiah, dan forum diskusi luring terhadap isu-isu strategis keumatan dan nasional."
     },
     {
-      "title": "Bimbingan Ibadah Praktis",
-      "description": "Workshop interaktif tata cara berwudhu, tayamum, shalat wajib, and pemulasaran jenazah sesuai tuntunan syariat."
+      "title": "UKMI Reels",
+      "description": "Produksi konten video reels dakwah singkat di Instagram untuk menyebarkan inspirasi, tips ibadah, dan hikmah harian."
     },
     {
-      "title": "Tahsin & Tahfidz Quran",
-      "description": "Program belajar membaca Al-Qur'an secara tartil and bimbingan menghafal Al-Qur'an gratis terbuka untuk umum."
-    },
-    {
-      "title": "Syiar On the Street",
-      "description": "Aksi simpatik turun ke jalan membagikan makanan sahur, takjil, and edukasi akhlak secara santun."
-    },
-    {
-      "title": "Konsultasi Syariah Online",
-      "description": "Fasilitasi layanan tanya jawab fikih dan syariah bersama dewan ustadz pembina via whatsapp."
-    },
-    {
-      "title": "Peringatan Hari Besar Islam",
-      "description": "Menyelenggarakan peringatan kreatif momentum PHBI seperti Isra Mi'raj, Nuzulul Quran, and Tahun Baru Hijriah."
-    },
-    {
-      "title": "Dakwah Video Pendek",
-      "description": "Memproduksi reels dakwah singkat berisi hikmah harian and ringkasan fikih praktis."
+      "title": "QuizLam",
+      "description": "Kuis teka-teki Islam interaktif via Instagram Story untuk meningkatkan engagement dan edukasi ringan keislaman."
     }
   ],
   "staff": [

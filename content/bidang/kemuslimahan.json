@@ -1,48 +1,28 @@
 {
   "name": "Kemuslimahan",
   "slug": "kemuslimahan",
-  "deskripsi": "Bidang Kemuslimahan bertanggung jawab atas pembinaan, pemberdayaan mahasiswi Muslim (akhwat), serta menyelenggarakan kajian-kajian keislaman dan isu kontemporer khusus kemuslimahan di lingkungan UNS.",
-  "instagram_url": "#",
+  "deskripsi": "Bidang Kemuslimahan berfokus pada wadah pembinaan, pemberdayaan potensi, serta syiar keislaman mahasiswi melalui ruang kajian dialogis & crafting MUSPACE, syiar media GALAKSI, kuis interaktif TTS, koordinasi Silat FORNIS se-UNS, serta perhelatan besar Gema Muslimah (GEMUS).",
+  "instagram_url": "https://www.instagram.com/mbaknurul_ukmi/",
   "program_kerja": [
     {
-      "title": "Kajian Annisa",
-      "description": "Menyelenggarakan kajian rutin dan forum diskusi membahas isu kewanitaan, fiqih wanita, and karir dalam perspektif Islam."
+      "title": "MUSPACE (Muslimah Space)",
+      "description": "Wadah pembinaan rutin, pelatihan crafting, serta kajian keislaman dialogis kolaboratif untuk memperdalam ilmu dan mengasah keterampilan muslimah."
     },
     {
-      "title": "Akhwat Creative Skill",
-      "description": "Pemberdayaan keterampilan praktis seperti merajut, memasak, and desain canva kreatif bagi mahasiswi."
+      "title": "GALAKSI (Gala Kabar dan Informasi Muslimah)",
+      "description": "Dakwah media sosial Instagram @mbaknurul_ukmi melalui konten edukatif kajian, isu, tips & trick, dan reminder kemuslimahan."
     },
     {
-      "title": "Kemuslimahan Care",
-      "description": "Program kepedulian sosial, kesehatan, serta penyediaan ruang konsultasi psikologis and curhat bagi mahasiswi."
+      "title": "TTS (Teka-Teki Sholihah)",
+      "description": "Sarana edukatif kreatif kuis interaktif berhadiah di Instagram Story untuk meningkatkan engagement dan literasi digital mahasiswi."
     },
     {
-      "title": "Gerakan Tebar Hijab",
-      "description": "Mengumpulkan, membagikan, and mengampanyekan pemakaian hijab syar'i layak pakai secara gratis bagi mahasiswi."
+      "title": "Silat FORNIS",
+      "description": "Wadah komunikasi, sharing session, FGD, dan penyelarasan dakwah kemuslimahan antara LDK dan LDF se-UNS."
     },
     {
-      "title": "Mentoring Fikih Wanita LDF",
-      "description": "Bimbingan materi fikih wanita komprehensif bagi para mentor akhwat di tingkat Lembaga Dakwah Fakultas."
-    },
-    {
-      "title": "Muslimah Entrepreneur Class",
-      "description": "Pelatihan dasar bisnis, pemasaran digital, and keuangan praktis untuk mendorong kemandirian ekonomi mahasiswi."
-    },
-    {
-      "title": "Konseling Sahabat Muslimah",
-      "description": "Layanan konsultasi pribadi online gratis mengenai problematika akademik, karir, and keluarga bersama psikolog muslim."
-    },
-    {
-      "title": "Buletin Annisa Digital",
-      "description": "Penerbitan majalah/buletin digital berkala berisi tips kesehatan, resep, and kajian fiqih khusus muslimah."
-    },
-    {
-      "title": "Olahraga Sunnah Akhwat",
-      "description": "Fasilitasi kelas memanah, berkuda, or olahraga renang khusus tertutup bagi akhwat guna menjaga kebugaran."
-    },
-    {
-      "title": "Festival Muslimah UNS",
-      "description": "Rangkaian kompetisi esai, poster dakwah muslimah, and talkshow inspiratif berskala universitas."
+      "title": "GEMUS (Gema Muslimah)",
+      "description": "Event besar kemuslimahan mencakup perlombaan, seminar, kajian akbar, dan bedah buku untuk melahirkan muslimah berdaya."
     }
   ],
   "staff": [
