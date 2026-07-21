@@ -96,7 +96,10 @@ export async function loadQuotes(): Promise<Quote[]> {
   return JSON.parse(file);
 }
 
-export async function loadEvents(): Promise<{ events: EventItem[] }> {
+export async function loadEvents(): Promise<{
+  events: EventItem[];
+  monthly_quotes?: Record<string, { text: string; source: string }>;
+}> {
   const file = await safeReadFile(
     path.join(contentDir, "beranda", "events.json"),
     path.join(contentDir, "events.json")

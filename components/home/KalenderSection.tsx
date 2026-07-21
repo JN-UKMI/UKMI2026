@@ -4,18 +4,18 @@ import { Calendar } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 
 export async function KalenderSection() {
-  const { events } = await loadEvents();
+  const { events, monthly_quotes } = await loadEvents();
 
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <SectionHeader
           icon={<Calendar className="w-6 h-6" />}
-          title="Kalender UKMI"
-          subtitle="Jadwal kegiatan dan agenda acara JN UKMI"
+          title="Kalender UKMI & Puasa Sunnah"
+          subtitle="Jadwal kegiatan kepengurusan JN UKMI dan kalender puasa sunnah bulanan"
         />
 
-        <KalenderInteractive events={events} />
+        <KalenderInteractive events={events} monthlyQuotes={monthly_quotes} />
       </div>
     </section>
   );

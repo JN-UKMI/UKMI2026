@@ -93,6 +93,7 @@ export interface EventItem {
   time: string;
   location: string;
   type: string;
+  isPuasa?: boolean;
 }
 
 export interface ArticleListItem {

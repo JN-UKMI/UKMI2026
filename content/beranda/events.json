@@ -1,32 +1,109 @@
 {
-  "events": [
-    {
-      "title": "Kajian Rutin JN UKMI: Memperkokoh Ukhuwah Islamiyah",
-      "date": "2026-07-25",
-      "time": "16:00 - 17:30 WIB",
-      "location": "Masjid Nurul Huda UNS",
-      "type": "Kajian"
+  "monthly_quotes": {
+    "2026-04": {
+      "text": "Barang siapa berpuasa Ramadhan kemudian mengikutkannya 6 hari dari bulan Syawal, maka seperti puasa satu tahun.",
+      "source": "HR. Muslim"
     },
-    {
-      "title": "Rapat Koordinasi Pengurus Harian Kabinet Iskandar Muda",
-      "date": "2026-07-28",
-      "time": "19:30 - 21:00 WIB",
-      "location": "Sekretariat JN UKMI UNS",
-      "type": "Rapat"
+    "2026-05": {
+      "text": "Tidak ada hari-hari yang lebih Allah sukai untuk beribadah selain sepuluh hari pertama bulan Dzulhijjah, satu hari berpuasa di dalamnya setara dengan satu tahun berpuasa...",
+      "source": "HR. At-Tirmidzi"
     },
-    {
-      "title": "Bakti Sosial & Tebar Sembako LDF se-UNS",
-      "date": "2026-08-05",
-      "time": "08:00 - 12:00 WIB",
-      "location": "Lingkungan Sekitar Kampus Kentingan",
-      "type": "Sosial"
+    "2026-06": {
+      "text": "Puasa yang paling utama setelah (puasa) Ramadhan puasa pada bulan Allah, yakni Muharram.",
+      "source": "HR. Muslim"
     },
-    {
-      "title": "Seminar Nasional: Menembus Batas Prestasi Bersama Al-Qur'an",
-      "date": "2026-08-15",
-      "time": "08:00 - 11:30 WIB",
-      "location": "Aula Gedung F Fatida UNS",
-      "type": "Seminar"
+    "2026-07": {
+      "text": "Berbagai amalan dihadapkan (pada Allah) pada hari Senin dan Kamis, maka aku suka jika amalanku dihadapkan sedangkan aku sedang berpuasa.",
+      "source": "HR. Tirmidzi no. 747"
     }
+  },
+  "events": [
+    { "title": "FOKASTRAT CONTENT", "date": "2026-04-03", "time": "Fleksibel", "location": "Online / Media JN UKMI", "type": "Eksternal" },
+    { "title": "FORMAS", "date": "2026-04-11", "time": "Sesuai Jadwal", "location": "Sekretariat Kemus", "type": "Kemus" },
+    { "title": "OPENING DUSBIN", "date": "2026-04-13", "time": "16:00 WIB", "location": "Masjid Nurul Huda UNS", "type": "Kemus" },
+    { "title": "GO MUSPACE", "date": "2026-04-17", "time": "16:00 WIB", "location": "Kantin Kampus / Hall", "type": "Kemus" },
+    { "title": "UPGRADE 1", "date": "2026-04-18", "time": "08:00 WIB", "location": "Aula / Ruang Pertemuan", "type": "Internal" },
+    { "title": "UPGRADE 1 (Hari ke-2)", "date": "2026-04-19", "time": "08:00 WIB", "location": "Aula / Ruang Pertemuan", "type": "Internal" },
+    { "title": "GO KANTIN", "date": "2026-04-20", "time": "16:00 WIB", "location": "Masjid Nurul Huda", "type": "Syiar" },
+    { "title": "SILAT FORNIS", "date": "2026-04-25", "time": "09:00 WIB", "location": "Hall UNS", "type": "Kemus" },
+
+    { "title": "KASTRAT CONTENT PLANNING", "date": "2026-05-01", "time": "Fleksibel", "location": "Online / Media JN UKMI", "type": "Eksternal" },
+    { "title": "KANTIN VOL. 3", "date": "2026-05-04", "time": "16:00 WIB", "location": "Masjid Nurul Huda UNS", "type": "Syiar" },
+    { "title": "SIDAK ONLINE", "date": "2026-05-08", "time": "19:30 WIB", "location": "Google Meet", "type": "Internal" },
+    { "title": "KANTIN VOL. 4", "date": "2026-05-11", "time": "16:00 WIB", "location": "Masjid Nurul Huda UNS", "type": "Syiar" },
+    { "title": "KANTIN VOL. 5", "date": "2026-05-18", "time": "16:00 WIB", "location": "Masjid Nurul Huda UNS", "type": "Syiar" },
+    { "title": "KANTIN VOL. 6", "date": "2026-05-25", "time": "16:00 WIB", "location": "Masjid Nurul Huda UNS", "type": "Syiar" },
+    { "title": "SAMARU SNBT", "date": "2026-05-25", "time": "08:00 WIB", "location": "Kampus Kentingan", "type": "Internal" },
+    { "title": "QURBAN BERSAMA", "date": "2026-05-27", "time": "07:00 WIB", "location": "Sekretariat / Masjid UNS", "type": "Syiar" },
+
+    { "title": "KASTRAT CONTENT PLANNING", "date": "2026-06-05", "time": "Fleksibel", "location": "Online / Media JN UKMI", "type": "Eksternal" },
+    { "title": "IMT (Hari ke-1)", "date": "2026-06-06", "time": "08:00 WIB", "location": "Gedung Student Center", "type": "Internal" },
+    { "title": "IMT (Hari ke-2)", "date": "2026-06-07", "time": "08:00 WIB", "location": "Gedung Student Center", "type": "Internal" },
+    { "title": "KANTIN VOL. 7", "date": "2026-06-08", "time": "16:00 WIB", "location": "Masjid Nurul Huda UNS", "type": "Syiar" },
+    { "title": "KANTIN VOL. 8", "date": "2026-06-15", "time": "16:00 WIB", "location": "Masjid Nurul Huda UNS", "type": "Syiar" },
+    { "title": "PELATIHAN PIMSID", "date": "2026-06-16", "time": "19:30 WIB", "location": "Sekretariat JN UKMI", "type": "Sekum" },
+    { "title": "KARIMAH X MUSPACE", "date": "2026-06-20", "time": "09:00 WIB", "location": "Hall Kemuslimahan", "type": "Kemus" },
+    { "title": "PLENO TENGAH (Hari ke-1)", "date": "2026-06-20", "time": "08:00 WIB", "location": "Aula Sekum / Bendum", "type": "Sekum" },
+    { "title": "PLENO TENGAH (Hari ke-2)", "date": "2026-06-21", "time": "08:00 WIB", "location": "Aula Sekum / Bendum", "type": "Sekum" },
+    { "title": "PELAPIS", "date": "2026-06-28", "time": "16:00 WIB", "location": "Sekretariat Bendum", "type": "Bendum" },
+
+    { "title": "OPREC PANITIA GEMUS", "date": "2026-07-16", "time": "Online", "location": "Form Pendaftaran Kemus", "type": "Kemus" },
+    { "title": "MUSPACE 4", "date": "2026-07-26", "time": "09:00 WIB", "location": "Hall Kemuslimahan", "type": "Kemus" },
+
+    { "title": "Puasa Ayyamul Bidh / Sunnah Syawal", "date": "2026-04-02", "time": "Subuh - Maghrib", "location": "13 Syawal 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh / Sunnah Syawal", "date": "2026-04-03", "time": "Subuh - Maghrib", "location": "14 Syawal 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh / Sunnah Syawal", "date": "2026-04-04", "time": "Subuh - Maghrib", "location": "15 Syawal 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-06", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-09", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-13", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-16", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-20", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-23", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-27", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-04-30", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-05-01", "time": "Subuh - Maghrib", "location": "13 Dzulqa'dah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-05-02", "time": "Subuh - Maghrib", "location": "14 Dzulqa'dah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-05-03", "time": "Subuh - Maghrib", "location": "15 Dzulqa'dah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-05-04", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-05-07", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-05-11", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-05-14", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "10 Hari Pertama Dzulhijjah", "date": "2026-05-18", "time": "Subuh - Maghrib", "location": "1 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "10 Hari Pertama Dzulhijjah", "date": "2026-05-19", "time": "Subuh - Maghrib", "location": "2 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "10 Hari Pertama Dzulhijjah", "date": "2026-05-20", "time": "Subuh - Maghrib", "location": "3 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "10 Hari Pertama Dzulhijjah", "date": "2026-05-21", "time": "Subuh - Maghrib", "location": "4 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "10 Hari Pertama Dzulhijjah", "date": "2026-05-22", "time": "Subuh - Maghrib", "location": "5 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "10 Hari Pertama Dzulhijjah", "date": "2026-05-23", "time": "Subuh - Maghrib", "location": "6 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "10 Hari Pertama Dzulhijjah", "date": "2026-05-24", "time": "Subuh - Maghrib", "location": "7 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Tarwiyah & Senin-Kamis", "date": "2026-05-25", "time": "Subuh - Maghrib", "location": "8 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Arafah (Keutamaan Penghapus Dosa 2 Tahun)", "date": "2026-05-26", "time": "Subuh - Maghrib", "location": "9 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-05-28", "time": "Subuh - Maghrib", "location": "11 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Sunnah", "date": "2026-05-31", "time": "Subuh - Maghrib", "location": "14 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-06-01", "time": "Subuh - Maghrib", "location": "15 Dzulhijjah 1447 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-06-04", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-06-08", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-06-11", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-06-15", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-06-18", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-06-22", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Tasua", "date": "2026-06-24", "time": "Subuh - Maghrib", "location": "9 Muharram 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Asyura & Senin-Kamis", "date": "2026-06-25", "time": "Subuh - Maghrib", "location": "10 Muharram 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-06-28", "time": "Subuh - Maghrib", "location": "13 Muharram 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh & Senin-Kamis", "date": "2026-06-29", "time": "Subuh - Maghrib", "location": "14 Muharram 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-06-30", "time": "Subuh - Maghrib", "location": "15 Muharram 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-02", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-06", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-09", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-13", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-16", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-20", "time": "Subuh - Maghrib", "location": "Senin", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-23", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh & Senin-Kamis", "date": "2026-07-27", "time": "Subuh - Maghrib", "location": "13 Safar 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-07-28", "time": "Subuh - Maghrib", "location": "14 Safar 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Ayyamul Bidh", "date": "2026-07-29", "time": "Subuh - Maghrib", "location": "15 Safar 1448 H", "type": "Puasa Sunnah", "isPuasa": true },
+    { "title": "Puasa Senin-Kamis", "date": "2026-07-30", "time": "Subuh - Maghrib", "location": "Kamis", "type": "Puasa Sunnah", "isPuasa": true }
   ]
 }
