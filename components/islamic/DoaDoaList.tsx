@@ -91,11 +91,8 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             return (
               <div
                 key={itemId}
-                className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600/40 transition-all duration-300 flex flex-col gap-5 relative overflow-hidden group"
+                className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 border-l-forest-600 border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-300 flex flex-col gap-4 relative"
               >
-                {/* Accent Top Bar */}
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-forest-600 via-lime to-forest-600 opacity-90" />
-
                 {/* Card Header: Category & Title & Copy Button */}
                 <div className="flex items-start justify-between gap-4 border-b border-gray-100 pb-4">
                   <div className="flex flex-col gap-1.5">
