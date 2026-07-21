@@ -1,4 +1,10 @@
 {
+  "hijri_months": {
+    "2026-04": "12 Syawal – 12 Dzulqa'dah 1447 H",
+    "2026-05": "13 Dzulqa'dah – 14 Dzulhijjah 1447 H",
+    "2026-06": "15 Dzulhijjah 1447 H – 15 Muharram 1448 H",
+    "2026-07": "16 Muharram – 17 Safar 1448 H"
+  },
   "monthly_quotes": {
     "2026-04": {
       "text": "Barang siapa berpuasa Ramadhan kemudian mengikutkannya 6 hari dari bulan Syawal, maka seperti puasa satu tahun.",

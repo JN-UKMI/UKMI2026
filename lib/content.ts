@@ -99,6 +99,7 @@ export async function loadQuotes(): Promise<Quote[]> {
 export async function loadEvents(): Promise<{
   events: EventItem[];
   monthly_quotes?: Record<string, { text: string; source: string }>;
+  hijri_months?: Record<string, string>;
 }> {
   const file = await safeReadFile(
     path.join(contentDir, "beranda", "events.json"),
