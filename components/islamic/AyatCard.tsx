@@ -26,9 +26,6 @@ export function AyatCard({
           <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-100 text-gray-500 font-mono">
             {String(nomorAyat).padStart(2, "0")}
           </span>
-          <h4 className="font-bold text-gray-800 text-xs md:text-sm tracking-tight">
-            Ayat {nomorAyat}
-          </h4>
         </div>
       </div>
 

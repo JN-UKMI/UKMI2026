@@ -11,15 +11,14 @@ export interface ArticleCardProps {
 export function ArticleCard({ article }: ArticleCardProps) {
   // Safe helper to resolve cover image URL
   const getCoverImageUrl = () => {
-    if (!article.coverImage) return "/placeholder.png";
+    const img: any = article.coverImage;
+    if (!img) return "/placeholder.png";
     try {
-      // In case coverImage is a Sanity asset reference
-      if (typeof article.coverImage === "object" && article.coverImage.asset) {
-        return urlFor(article.coverImage).url();
+      if (typeof img === "object" && img.asset) {
+        return urlFor(img).url();
       }
-      // If it is already a string path (e.g. dummy local fallback image)
-      if (typeof article.coverImage === "string") {
-        return article.coverImage;
+      if (typeof img === "string") {
+        return img;
       }
     } catch {
       return "/placeholder.png";

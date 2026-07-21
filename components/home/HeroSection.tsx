@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import homeData from "@/content/beranda/main.json";
 
 export function HeroSection() {
   return (
@@ -16,18 +17,18 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-[80px] text-center text-white -mt-16">
         <p className="text-4xl font-bold leading-tight md:text-6xl lg:text-7xl">
-          Jamaah Nurul Huda
+          {homeData.titleLine1 || "Jamaah Nurul Huda"}
         </p>
         <p className="text-4xl font-bold leading-tight md:text-6xl lg:text-7xl mt-2">
-          Unit Kegiatan Mahasiswa Islam
+          {homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"}
         </p>
         <Link
-          href="https://uns.ac.id"
+          href={homeData.universityUrl || "https://uns.ac.id"}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-10 inline-block rounded-full bg-white/10 backdrop-blur-sm border border-white/30 px-8 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/20 hover:border-white/50"
         >
-          Universitas Sebelas Maret
+          {homeData.university || "Universitas Sebelas Maret"}
         </Link>
         <Image
           src="/image/logo-jnukmi.svg"

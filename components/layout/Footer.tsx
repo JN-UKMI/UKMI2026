@@ -1,5 +1,5 @@
 import Image from "next/image";
-import contactData from "@/content/contact.json";
+import contactData from "@/content/kontak/main.json";
 import { MapEmbed } from "./MapEmbed";
 
 export function Footer() {

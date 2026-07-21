@@ -1,38 +1,134 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Send, User, FileText, Tag, Image as ImageIcon, CheckCircle } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, BookOpen, Send, User, FileText, Tag, Upload, CheckCircle, Lock, Calendar, X, ShieldCheck } from "lucide-react";
 
 export default function TulisArtikelPage() {
+  const [passcode, setPasscode] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+  const [verifyLoading, setVerifyLoading] = useState(false);
+  const [verifyError, setVerifyError] = useState("");
+
+  // Form Fields
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [publishedAt, setPublishedAt] = useState(new Date().toISOString().split("T")[0]);
   const [category, setCategory] = useState("Kajian");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
-  const [coverUrl, setCoverUrl] = useState(""); // Accept image URL for simplified integration
-  
+
+  // Image File & Preview state
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Restore verification state from session storage
+  useEffect(() => {
+    const savedPasscode = sessionStorage.getItem("pengurus_passcode");
+    if (savedPasscode) {
+      setPasscode(savedPasscode);
+      setIsVerified(true);
+    }
+  }, []);
+
+  const handleVerifyGate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
+    setVerifyLoading(true);
+    setVerifyError("");
 
     try {
+      const res = await fetch("/api/artikel/verify-passcode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ passcode }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Kode Akses salah.");
+      }
+
+      setIsVerified(true);
+      sessionStorage.setItem("pengurus_passcode", passcode);
+    } catch (err: any) {
+      setVerifyError(err.message || "Gagal memverifikasi kode akses.");
+      setIsVerified(false);
+      sessionStorage.removeItem("pengurus_passcode");
+    } finally {
+      setVerifyLoading(false);
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        setError("Silakan pilih file gambar yang valid (JPG, PNG, WEBP).");
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        setError("Ukuran gambar maksimal adalah 5MB.");
+        return;
+      }
+      setError("");
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    // Strict Client Validation: ALL FIELDS ARE MANDATORY INCLUDING COVER IMAGE
+    if (
+      !title.trim() ||
+      !author.trim() ||
+      !publishedAt.trim() ||
+      !category.trim() ||
+      !excerpt.trim() ||
+      !content.trim() ||
+      !imageFile ||
+      !imagePreview
+    ) {
+      setError("Seluruh kolom form dan Gambar Sampul Wajib diisi/diunggah!");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const bodyPayload = {
+        title,
+        author,
+        publishedAt,
+        category,
+        passcode,
+        excerpt,
+        content,
+        imageName: imageFile.name,
+        imageBase64: imagePreview,
+      };
+
       const res = await fetch("/api/artikel/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title,
-          author,
-          category,
-          excerpt,
-          content,
-          coverUrl,
-        }),
+        body: JSON.stringify(bodyPayload),
       });
 
       const data = await res.json();
@@ -45,9 +141,12 @@ export default function TulisArtikelPage() {
       // Reset form fields
       setTitle("");
       setAuthor("");
+      setPublishedAt(new Date().toISOString().split("T")[0]);
+      setCategory("Kajian");
       setExcerpt("");
       setContent("");
-      setCoverUrl("");
+      setImageFile(null);
+      setImagePreview(null);
     } catch (err: any) {
       setError(err.message || "Terjadi kesalahan koneksi server");
     } finally {
@@ -55,17 +154,92 @@ export default function TulisArtikelPage() {
     }
   };
 
+  // GATEKEEPER SCREEN (If passcode is not verified yet)
+  if (!isVerified) {
+    return (
+      <div className="bg-gray-50 min-h-[85vh] flex items-center justify-center px-4">
+        <div className="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 max-w-md w-full text-center">
+          <div className="w-16 h-16 bg-forest-600/10 text-forest-600 rounded-3xl flex items-center justify-center mb-6 mx-auto shadow-inner">
+            <Lock className="w-8 h-8" />
+          </div>
+          <h1 className="text-2xl font-black text-forest-900 uppercase tracking-wider mb-2">
+            Akses Pengurus
+          </h1>
+          <p className="text-xs text-gray-400 font-semibold mb-8">
+            Silakan masukkan Kode Akses Pengurus terlebih dahulu sebelum membuka form tulis artikel.
+          </p>
+
+          {verifyError && (
+            <div className="mb-6 p-3.5 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs font-bold rounded-r-lg text-left">
+              ⚠️ {verifyError}
+            </div>
+          )}
+
+          <form onSubmit={handleVerifyGate} className="space-y-4">
+            <div className="flex flex-col gap-1.5 text-left">
+              <label htmlFor="passcodeGate" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <Lock className="w-3.5 h-3.5 text-forest-600" />
+                Kode Akses Pengurus
+              </label>
+              <input
+                id="passcodeGate"
+                type="password"
+                required
+                placeholder="Default: UKMI2026"
+                value={passcode}
+                onChange={(e) => setPasscode(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={verifyLoading}
+              className={`w-full py-3.5 px-6 rounded-full text-xs font-bold text-white transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98 ${
+                verifyLoading
+                  ? "bg-gray-400 cursor-not-allowed shadow-none"
+                  : "bg-forest-600 hover:bg-forest-800 hover:shadow-lg"
+              }`}
+            >
+              {verifyLoading ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                  Memverifikasi Kode Akses...
+                </>
+              ) : (
+                "Buka Form Tulis Artikel"
+              )}
+            </button>
+          </form>
+
+          <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 font-bold hover:text-forest-600 transition-colors mt-6">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Kembali ke Daftar Artikel
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // MAIN FORM SCREEN (Visible after verification)
   return (
     <div className="bg-gray-50 min-h-screen py-12 px-4 md:px-6">
-      <div className="max-w-3xl mx-auto">
-        {/* Back Button */}
-        <Link
-          href="/artikel"
-          className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-forest-600 transition-colors mb-6 cursor-pointer"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Kembali ke Artikel
-        </Link>
+      <div className="max-w-4xl mx-auto">
+        {/* Back Button & Auth Badge */}
+        <div className="flex items-center justify-between mb-6">
+          <Link
+            href="/artikel"
+            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-forest-600 transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Kembali ke Artikel
+          </Link>
+
+          <span className="px-3 py-1 bg-lime/10 border border-lime/30 text-forest-900 rounded-full text-xs font-bold flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
+            Akses Pengurus Terverifikasi
+          </span>
+        </div>
 
         {success ? (
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 text-center flex flex-col items-center justify-center animate-fade-in">
@@ -76,7 +250,7 @@ export default function TulisArtikelPage() {
               Artikel Berhasil Dikirim!
             </h2>
             <p className="text-gray-500 text-sm max-w-md leading-relaxed mb-8">
-              Terima kasih atas kontribusi Anda. Artikel telah masuk ke database antrean moderasi Sanity. Artikel akan langsung muncul di website setelah disetujui oleh Admin.
+              Terima kasih atas kontribusi Anda. Gambar dan artikel telah masuk ke database antrean moderasi Sanity. Artikel akan langsung muncul di website setelah disetujui oleh Admin.
             </p>
             <div className="flex gap-4">
               <button
@@ -101,92 +275,147 @@ export default function TulisArtikelPage() {
                 Tulis Artikel Baru
               </h1>
               <p className="text-xs text-gray-400 font-semibold mt-1">
-                Kirimkan tulisan dakwah, liputan kegiatan bidang, atau opini kajian Anda.
+                Seluruh kolom dan gambar sampul wajib diisi/diunggah sebelum dikirimkan.
               </p>
             </header>
 
             {error && (
               <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs font-bold rounded-r-lg">
-                ⚠️ Error: {error}
+                ⚠️ {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Grid 1: Title & Author */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="title" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                    <FileText className="w-3.5 h-3.5 text-forest-600" />
-                    Judul Artikel
-                  </label>
-                  <input
-                    id="title"
-                    type="text"
-                    required
-                    placeholder="Contoh: Manfaat Membaca Al-Kahfi di Hari Jumat"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
-                  />
+              {/* SECTION 1: Judul Artikel (1 Baris Utuh / Full Width) */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="title" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5 text-forest-600" />
+                  Judul Artikel <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="title"
+                  type="text"
+                  required
+                  placeholder="Contoh: Manfaat Membaca Al-Kahfi di Hari Jumat"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-900"
+                />
+              </div>
+
+              {/* SECTION 2: Tengah (Kiri: 3 Form Bertumpuk Kebawah, Kanan: Kotak Card Upload Gambar) */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                {/* Kolom Kiri: 3 Form Stacked (Penulis, Tanggal, Kategori) */}
+                <div className="md:col-span-6 space-y-4">
+                  {/* 1. Nama Penulis */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="author" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                      <User className="w-3.5 h-3.5 text-forest-600" />
+                      Nama Penulis / Redaksi <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      id="author"
+                      type="text"
+                      required
+                      placeholder="Contoh: Departemen Media & Syiar"
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+
+                  {/* 2. Tanggal Penulisan */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="publishedAt" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-forest-600" />
+                      Tanggal Penulisan <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      id="publishedAt"
+                      type="date"
+                      required
+                      value={publishedAt}
+                      onChange={(e) => setPublishedAt(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium bg-white"
+                    />
+                  </div>
+
+                  {/* 3. Pilihan Kategori */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="category" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                      <Tag className="w-3.5 h-3.5 text-forest-600" />
+                      Pilihan Kategori <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      id="category"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-700"
+                    >
+                      <option value="Kajian">Kajian (Artikel Keilmuan/Tafsir)</option>
+                      <option value="Kegiatan">Kegiatan (Laporan/Liputan Acara)</option>
+                      <option value="Isu">Isu (Analisis Kontemporer/Opini)</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="author" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-forest-600" />
-                    Nama Penulis / Redaksi
+                {/* Kolom Kanan: Kotak Card Besar Upload Gambar */}
+                <div className="md:col-span-6 h-full flex flex-col">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5 mb-1.5">
+                    <Upload className="w-3.5 h-3.5 text-forest-600" />
+                    Upload Gambar Sampul <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    id="author"
-                    type="text"
-                    required
-                    placeholder="Contoh: Departemen Media & Syiar"
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
-                  />
+
+                  <div className={`relative flex-1 min-h-[220px] border-2 border-dashed rounded-2xl bg-gray-50/50 hover:bg-forest-50/10 transition-all flex flex-col items-center justify-center p-4 text-center group overflow-hidden ${
+                    !imageFile ? "border-amber-300 hover:border-forest-600" : "border-forest-600"
+                  }`}>
+                    {imagePreview ? (
+                      <div className="relative w-full h-full min-h-[200px] rounded-xl overflow-hidden group">
+                        <Image
+                          src={imagePreview}
+                          alt="Preview Sampul"
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                        <button
+                          type="button"
+                          onClick={removeImage}
+                          className="absolute top-3 right-3 p-1.5 bg-black/60 hover:bg-red-600 text-white rounded-full transition-colors z-10 cursor-pointer"
+                          title="Hapus Gambar"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ) : (
+                      <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer p-6">
+                        <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-gray-200 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                          <Upload className="w-6 h-6 text-forest-600" />
+                        </div>
+                        <span className="text-sm font-bold text-gray-800 mb-1">
+                          Klik untuk Unggah Gambar <span className="text-red-500">*</span>
+                        </span>
+                        <span className="text-xs text-gray-400 font-medium max-w-xs">
+                          Format JPG, PNG, atau WEBP (Maksimal 5MB)
+                        </span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          required
+                          onChange={handleImageChange}
+                          className="hidden"
+                        />
+                      </label>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Grid 2: Category & Cover Image URL */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="category" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                    <Tag className="w-3.5 h-3.5 text-forest-600" />
-                    Kategori
-                  </label>
-                  <select
-                    id="category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-700"
-                  >
-                    <option value="Kajian">Kajian (Artikel Keilmuan/Tafsir)</option>
-                    <option value="Kegiatan">Kegiatan (Laporan/Liputan Acara)</option>
-                    <option value="Isu">Isu (Analisis Kontemporer/Opini)</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="coverUrl" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                    <ImageIcon className="w-3.5 h-3.5 text-forest-600" />
-                    URL Gambar Sampul (Opsional)
-                  </label>
-                  <input
-                    id="coverUrl"
-                    type="url"
-                    placeholder="https://example.com/gambar-artikel.jpg"
-                    value={coverUrl}
-                    onChange={(e) => setCoverUrl(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
-                  />
-                </div>
-              </div>
-
-              {/* Textarea 1: Excerpt */}
+              {/* SECTION 3: Ringkasan Singkat (Full Width) */}
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="excerpt" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
-                  Ringkasan Singkat (Excerpt)
+                  Ringkasan Singkat (Excerpt) <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="excerpt"
@@ -200,11 +429,11 @@ export default function TulisArtikelPage() {
                 />
               </div>
 
-              {/* Textarea 2: Content */}
+              {/* SECTION 4: Isi Lengkap Artikel (Full Width) */}
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="content" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
-                  Isi Lengkap Artikel
+                  Isi Lengkap Artikel <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="content"
@@ -230,7 +459,7 @@ export default function TulisArtikelPage() {
                 {loading ? (
                   <>
                     <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                    Mengirimkan Artikel...
+                    Mengirimkan Artikel & Mengunggah Gambar...
                   </>
                 ) : (
                   <>

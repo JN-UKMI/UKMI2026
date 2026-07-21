@@ -55,6 +55,7 @@ export default async function AlKahfiPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <PageHero
+        badge="Layanan Al-Qur'an"
         title={surah.namaLatin}
         subtitle={`Surah ke-${surah.nomor} · ${surah.tempatTurun} · ${surah.jumlahAyat} Ayat · (${surah.arti})`}
       />

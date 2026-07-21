@@ -1,4 +1,4 @@
-import contactData from "@/content/contact.json";
+import contactData from "@/content/kontak/main.json";
 
 export function ContactBlock() {
   return (

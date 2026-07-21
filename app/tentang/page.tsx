@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { PageHero } from "@/components/layout/PageHero";
-import aboutData from "@/content/about.json";
+import aboutData from "@/content/tentang/main.json";
 import { 
   ShieldCheck, 
   Compass, 
@@ -41,8 +41,11 @@ export default function TentangPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      {/* Page Hero matching the home page style */}
-      <PageHero title="Tentang Kami" subtitle="Visi, Misi, Tujuan, dan Sejarah Perjalanan Dakwah JN UKMI" />
+      <PageHero 
+        badge="Jamaah Nurul Huda UNS"
+        title="Tentang Kami" 
+        subtitle="Visi, Misi, Tujuan, dan Sejarah Perjalanan Dakwah JN UKMI" 
+      />
 
       {/* Main Container */}
       <div className="max-w-6xl mx-auto px-4 py-16">

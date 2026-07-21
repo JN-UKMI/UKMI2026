@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageHeader } from "@/components/layout/PageHeader";
 
 export const metadata: Metadata = {
   title: "Database Doa | JN UKMI",
@@ -8,25 +9,25 @@ export const metadata: Metadata = {
 
 export default function DoaDoaPage() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="text-center max-w-lg">
-        <div className="text-6xl mb-6">🕌</div>
-        <h1 className="text-3xl font-bold text-forest-900 mb-4">
-          Database Doa
-        </h1>
-        <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-          Fitur ini sedang dalam pengembangan
-        </p>
-        <div className="w-16 h-1 bg-forest-600 mx-auto rounded-full mb-8" />
-        <p className="text-sm text-gray-400">
-          Kumpulan doa-doa dari Al-Quran dan Hadist akan tersedia di sini.
-        </p>
-        <Link
-          href="/"
-          className="inline-block mt-8 px-6 py-2.5 bg-forest-600 text-white rounded-lg hover:bg-forest-800 transition text-sm font-medium"
-        >
-          Kembali ke Beranda
-        </Link>
+    <div className="min-h-screen bg-gray-50">
+      <PageHeader
+        badge="Kumpulan Doa"
+        title="Database Doa"
+        subtitle="Kumpulan doa-doa pilihan dari Al-Qur'an dan Hadits shahih."
+      />
+
+      <div className="max-w-lg mx-auto py-16 px-4 text-center">
+        <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col items-center">
+          <p className="text-sm text-gray-500 font-medium leading-relaxed mb-6">
+            Fitur database doa interaktif ini sedang dalam tahap pengembangan akhir. Nantikan kumpulan doa harian, doa perlindungan, dan adab berdoa di halaman ini.
+          </p>
+          <Link
+            href="/"
+            className="inline-block px-6 py-2.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full transition-all text-xs font-bold shadow-md cursor-pointer active:scale-95"
+          >
+            Kembali ke Beranda
+          </Link>
+        </div>
       </div>
     </div>
   );

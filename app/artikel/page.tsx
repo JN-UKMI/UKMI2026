@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { getArticles } from "@/lib/sanity";
 import { ArticleGrid } from "@/components/article/ArticleGrid";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Pencil } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pencil, Search, ShieldCheck } from "lucide-react";
+import { PageHeader } from "@/components/layout/PageHeader";
 
 export const metadata: Metadata = {
   title: "Artikel - JN UKMI",
@@ -15,7 +16,7 @@ const allCategories = ["Kegiatan", "Kajian", "Isu"] as const;
 type Category = typeof allCategories[number];
 
 interface PageProps {
-  searchParams: Promise<{ category?: string; page?: string }>;
+  searchParams: Promise<{ category?: string; page?: string; q?: string }>;
 }
 
 const dummyArticles = [
@@ -67,7 +68,6 @@ const dummyArticles = [
     category: "Isu" as const,
     author: "Media",
   },
-  // Extra dummy articles to make pagination testing functional (total 8 articles)
   {
     title: "[Kajian] Pentingnya Menjaga Ukhuwah Islamiyah di Lingkungan Kampus",
     slug: "menjaga-ukhuwah-islamiyah-kampus",
@@ -86,7 +86,7 @@ const dummyArticles = [
   }
 ];
 
-async function getFilteredArticles(category?: Category) {
+async function getFilteredArticles(category?: Category, searchQuery?: string) {
   if (category && category !== "Kegiatan" && category !== "Kajian" && category !== "Isu") {
     return [];
   }
@@ -100,12 +100,24 @@ async function getFilteredArticles(category?: Category) {
     articles = dummyArticles;
   }
 
-  return category ? articles.filter((a) => a.category === category) : articles;
+  let result = category ? articles.filter((a) => a.category === category) : articles;
+
+  if (searchQuery && searchQuery.trim() !== "") {
+    const q = searchQuery.toLowerCase().trim();
+    result = result.filter(
+      (a) =>
+        a.title.toLowerCase().includes(q) ||
+        a.excerpt.toLowerCase().includes(q) ||
+        (a.author && a.author.toLowerCase().includes(q))
+    );
+  }
+
+  return result;
 }
 
 export default async function ArtikelPage({ searchParams }: PageProps) {
-  const { category, page } = await searchParams;
-  const filteredArticles = await getFilteredArticles(category as Category);
+  const { category, page, q } = await searchParams;
+  const filteredArticles = await getFilteredArticles(category as Category, q);
 
   // Pagination Configuration
   const itemsPerPage = 6;
@@ -119,6 +131,7 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
   const getPageUrl = (pageNum: number) => {
     const params = new URLSearchParams();
     if (category) params.set("category", category);
+    if (q) params.set("q", q);
     params.set("page", String(pageNum));
     return `/artikel?${params.toString()}`;
   };
@@ -127,79 +140,110 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
   const getCategoryUrl = (catName?: string) => {
     const params = new URLSearchParams();
     if (catName) params.set("category", catName);
-    // resets to page 1 implicitly
+    if (q) params.set("q", q);
     return `/artikel?${params.toString()}`;
   };
 
   return (
-    <div className="bg-white py-16 px-4">
-      <div className="max-w-7xl mx-auto">
-        <header className="mb-12 text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 uppercase tracking-wider">
-            Artikel
-          </h1>
-          <p className="text-base text-gray-500 max-w-2xl mx-auto font-medium">
-            Temukan kumpulan kajian islami, liputan kegiatan, and analisis isu kontemporer terhangat dari JN UKMI.
-          </p>
-          <div className="mt-6 flex justify-center">
+    <div className="bg-white pb-16">
+      <PageHeader
+        badge="Publikasi & Media"
+        title="Artikel & Kajian"
+        subtitle="Temukan kumpulan kajian islami, liputan kegiatan, dan analisis isu kontemporer terhangat dari JN UKMI."
+      >
+        <Link
+          href="/artikel/tulis"
+          className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95"
+        >
+          <Pencil className="w-3.5 h-3.5" />
+          Tulis Artikel Baru
+        </Link>
+      </PageHeader>
+
+      <div className="max-w-7xl mx-auto px-4 pt-10">
+
+        {/* Search Bar & Category Filter Toolbar */}
+        <div className="max-w-2xl mx-auto mb-10 space-y-5">
+          {/* Search Form */}
+          <form method="GET" action="/artikel" className="relative w-full">
+            {category && <input type="hidden" name="category" value={category} />}
+            <div className="relative flex items-center">
+              <input
+                type="text"
+                name="q"
+                defaultValue={q || ""}
+                placeholder="Cari artikel berdasarkan kata kunci atau judul..."
+                className="w-full pl-11 pr-24 py-3 bg-gray-50 border border-gray-200 rounded-full text-xs md:text-sm font-medium focus:outline-none focus:border-forest-600 focus:bg-white transition-all shadow-inner"
+              />
+              <Search className="w-4 h-4 text-gray-400 absolute left-4 pointer-events-none" />
+              <button
+                type="submit"
+                className="absolute right-1.5 px-4 py-1.5 bg-forest-600 hover:bg-forest-800 text-white text-xs font-bold rounded-full transition-all cursor-pointer"
+              >
+                Cari
+              </button>
+            </div>
+          </form>
+
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-2.5">
             <Link
-              href="/artikel/tulis"
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95"
+              href={getCategoryUrl()}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+                !category
+                  ? "bg-forest-600 text-white border-forest-600"
+                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+              }`}
             >
-              <Pencil className="w-3.5 h-3.5" />
-              Tulis Artikel Baru
+              Semua
+            </Link>
+            <Link
+              href={getCategoryUrl("Kegiatan")}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+                category === "Kegiatan"
+                  ? "bg-forest-600 text-white border-forest-600"
+                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+              }`}
+            >
+              Kegiatan
+            </Link>
+            <Link
+              href={getCategoryUrl("Kajian")}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+                category === "Kajian"
+                  ? "bg-forest-600 text-white border-forest-600"
+                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+              }`}
+            >
+              Kajian
+            </Link>
+            <Link
+              href={getCategoryUrl("Isu")}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+                category === "Isu"
+                  ? "bg-forest-600 text-white border-forest-600"
+                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+              }`}
+            >
+              Isu
             </Link>
           </div>
-        </header>
-
-        {/* Category Filter Toolbar */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          <Link
-            href={getCategoryUrl()}
-            className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm border ${
-              !category
-                ? "bg-forest-600 text-white border-forest-600"
-                : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
-            }`}
-          >
-            Semua
-          </Link>
-          <Link
-            href={getCategoryUrl("Kegiatan")}
-            className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm border ${
-              category === "Kegiatan"
-                ? "bg-forest-600 text-white border-forest-600"
-                : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
-            }`}
-          >
-            Kegiatan
-          </Link>
-          <Link
-            href={getCategoryUrl("Kajian")}
-            className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm border ${
-              category === "Kajian"
-                ? "bg-forest-600 text-white border-forest-600"
-                : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
-            }`}
-          >
-            Kajian
-          </Link>
-          <Link
-            href={getCategoryUrl("Isu")}
-            className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm border ${
-              category === "Isu"
-                ? "bg-forest-600 text-white border-forest-600"
-                : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
-            }`}
-          >
-            Isu
-          </Link>
         </div>
+
+        {/* Search Query Info Indicator */}
+        {q && (
+          <div className="text-center mb-6 text-xs text-gray-500">
+            Menampilkan hasil pencarian untuk kata kunci: <span className="font-bold text-forest-600">"{q}"</span>
+            <Link href="/artikel" className="ml-2 text-xs underline text-gray-400 hover:text-gray-600">
+              Reset Pencarian
+            </Link>
+          </div>
+        )}
 
         {/* Articles Content Grid */}
         {paginatedArticles.length === 0 ? (
           <div className="text-center py-20 bg-gray-50 border border-gray-200/50 rounded-2xl max-w-xl mx-auto">
-            <p className="text-gray-500 font-semibold text-sm">Belum ada artikel dalam kategori ini.</p>
+            <p className="text-gray-500 font-semibold text-sm">Tidak ditemukan artikel yang sesuai.</p>
           </div>
         ) : (
           <div className="space-y-12">

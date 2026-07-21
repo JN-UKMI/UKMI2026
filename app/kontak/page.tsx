@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
-import contactData from "@/content/contact.json";
+import contactData from "@/content/kontak/main.json";
 import { Mail, MessageSquare, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -16,6 +16,7 @@ export default function KontakPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       <PageHero 
+        badge="Hubungi Pengurus"
         title="Hubungi Kami" 
         subtitle="Kami siap melayani pertanyaan, saran, dan koordinasi syiar dakwah" 
       />
