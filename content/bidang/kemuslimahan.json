@@ -48,84 +48,84 @@
   "staff": [
     {
       "nama": "[Kepala Kemuslimahan]",
-      "fakultas": "Fakultas Ilmu Sosial",
+      "fakultas": "FISIP",
       "angkatan": "2023",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Kemuslimahan"
     },
     {
       "nama": "[Wakil Kemuslimahan]",
-      "fakultas": "Fakultas Agama",
+      "fakultas": "FAKULTAS AGAMA",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Wakil Kepala Bidang Kemuslimahan"
     },
     {
       "nama": "Fatimah Azzahra",
-      "fakultas": "Fakultas Kedokteran",
+      "fakultas": "FK",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Khadijah Al-Kubra",
-      "fakultas": "Fakultas Ilmu Budaya",
+      "fakultas": "FIB",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Aisyah Radhiah",
-      "fakultas": "Fakultas Pertanian",
+      "fakultas": "FP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Maryam Jamilah",
-      "fakultas": "Fakultas Psikologi",
+      "fakultas": "FAKULTAS PSIKOLOGI",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Safiyyah Nabila",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Zainab Aqilah",
-      "fakultas": "Fakultas FKIP",
+      "fakultas": "FKIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Ruqayyah Humaira",
-      "fakultas": "Fakultas MIPA",
+      "fakultas": "FMIPA",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Ummu Kulsum",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Asma Wafiyah",
-      "fakultas": "Fakultas Ilmu Sosial",
+      "fakultas": "FISIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"
     },
     {
       "nama": "Hafsah Kamilah",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Kemuslimahan"

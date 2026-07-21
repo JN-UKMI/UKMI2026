@@ -48,84 +48,84 @@
   "staff": [
     {
       "nama": "[Kepala Eksternal]",
-      "fakultas": "Fakultas Teknologi Informasi",
+      "fakultas": "FATISDA",
       "angkatan": "2023",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Eksternal"
     },
     {
       "nama": "[Wakil Eksternal]",
-      "fakultas": "Fakultas Komunikasi",
+      "fakultas": "FAKULTAS KOMUNIKASI",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Wakil Kepala Bidang Eksternal"
     },
     {
       "nama": "Atta Halilintar",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Aurel Hermansyah",
-      "fakultas": "Fakultas Ilmu Sosial",
+      "fakultas": "FISIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Verrell Bramasta",
-      "fakultas": "Fakultas Hubungan Internasional",
+      "fakultas": "FAKULTAS HUBUNGAN INTERNASIONAL",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Natasha Wilona",
-      "fakultas": "Fakultas Ilmu Budaya",
+      "fakultas": "FIB",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Aliando Syarief",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Prilly Latuconsina",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Rizky Nazar",
-      "fakultas": "Fakultas FKIP",
+      "fakultas": "FKIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Syifa Hadju",
-      "fakultas": "Fakultas Pertanian",
+      "fakultas": "FP",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Jefri Nichol",
-      "fakultas": "Fakultas Komunikasi",
+      "fakultas": "FAKULTAS KOMUNIKASI",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"
     },
     {
       "nama": "Amanda Manopo",
-      "fakultas": "Fakultas Kedokteran",
+      "fakultas": "FK",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Eksternal"

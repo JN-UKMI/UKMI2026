@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getArticles } from "@/lib/sanity";
-import { Calendar, ArrowRight, Pencil } from "lucide-react";
+import { Calendar, ArrowRight, Pencil, Newspaper } from "lucide-react";
+import { SectionHeader } from "@/components/layout/SectionHeader";
 
 const dummyArticles = [
   {
@@ -43,18 +44,11 @@ export async function ArtikelTerbaruSection() {
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 uppercase tracking-wider">Artikel Terbaru</h2>
-            <p className="text-gray-500 text-sm mt-1">Kajian, kegiatan, dan berita terbaru JN UKMI</p>
-          </div>
-          <Link
-            href="/artikel"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-bold text-forest-600 hover:text-forest-800 transition-colors"
-          >
-            Lihat Semua <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+        <SectionHeader
+          icon={<Newspaper className="w-6 h-6" />}
+          title="Artikel Terbaru"
+          subtitle="Kajian, kegiatan, dan berita terbaru dari JN UKMI"
+        />
 
         {articles.length === 0 ? (
           <div className="text-center py-12 bg-gray-50 border border-gray-200/50 rounded-2xl">
@@ -113,10 +107,10 @@ export async function ArtikelTerbaruSection() {
           </div>
         )}
 
-        <div className="mt-8 text-center sm:hidden">
+        <div className="mt-10 text-center">
           <Link
             href="/artikel"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-forest-600 hover:text-forest-800 transition-colors"
+            className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-forest-50 hover:bg-forest-100 text-forest-700 border border-forest-200 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95"
           >
             Lihat Semua Artikel <ArrowRight className="w-4 h-4" />
           </Link>
@@ -125,4 +119,3 @@ export async function ArtikelTerbaruSection() {
     </section>
   );
 }
-

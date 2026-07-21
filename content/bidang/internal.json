@@ -48,84 +48,84 @@
   "staff": [
     {
       "nama": "[Kepala Internal]",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2023",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Internal"
     },
     {
       "nama": "[Wakil Internal]",
-      "fakultas": "Fakultas Kesehatan",
+      "fakultas": "FAKULTAS KESEHATAN",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Wakil Kepala Bidang Internal"
     },
     {
       "nama": "Ilham Habibie",
-      "fakultas": "Fakultas Psikologi",
+      "fakultas": "FAKULTAS PSIKOLOGI",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Zahra Salsabila",
-      "fakultas": "Fakultas Ilmu Sosial",
+      "fakultas": "FISIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Rey Mbayang",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Dinda Hauw",
-      "fakultas": "Fakultas Kedokteran",
+      "fakultas": "FK",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Raffi Ahmad",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Nagita Slavina",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Baim Wong",
-      "fakultas": "Fakultas Pertanian",
+      "fakultas": "FP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Paula Verhoeven",
-      "fakultas": "Fakultas FKIP",
+      "fakultas": "FKIP",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Irwansyah",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Internal"
     },
     {
       "nama": "Zaskia Sungkar",
-      "fakultas": "Fakultas Seni Rupa",
+      "fakultas": "FSRD",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Internal"

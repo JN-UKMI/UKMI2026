@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const data = await loadBidang(slug);
-    return { title: `${data.name} | JN UKMI`, description: data.deskripsi };
+    return { title: `${data.name} | JN UKMI`, description: data.deskripsi || data.description };
   } catch {
     return { title: "Bidang Tidak Ditemukan | JN UKMI" };
   }
@@ -37,5 +37,11 @@ export default async function BidangPage({
   }
   if (!data) notFound();
 
-  return <BidangTemplate {...data} />;
+  const formattedData = {
+    ...data,
+    deskripsi: data.deskripsi || data.description || "",
+    instagram_url: data.instagram || "https://instagram.com/jnukmiuns",
+  };
+
+  return <BidangTemplate {...formattedData} />;
 }

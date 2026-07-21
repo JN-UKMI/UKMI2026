@@ -48,84 +48,84 @@
   "staff": [
     {
       "nama": "[Kepala Sekretaris]",
-      "fakultas": "Fakultas Teknologi Informasi",
+      "fakultas": "FATISDA",
       "angkatan": "2023",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Sekretaris"
     },
     {
       "nama": "[Wakil Sekretaris]",
-      "fakultas": "Fakultas Ilmu Sosial",
+      "fakultas": "FISIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Wakil Kepala Bidang Sekretaris"
     },
     {
       "nama": "Ahmad Dani",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Sarah Aulia",
-      "fakultas": "Fakultas Kedokteran",
+      "fakultas": "FK",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Fikri Haikal",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Rania Humaira",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Zidan Fadhil",
-      "fakultas": "Fakultas MIPA",
+      "fakultas": "FMIPA",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Nabila Putri",
-      "fakultas": "Fakultas Ilmu Budaya",
+      "fakultas": "FIB",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Farhan Majid",
-      "fakultas": "Fakultas Pertanian",
+      "fakultas": "FP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Alya Zahra",
-      "fakultas": "Fakultas Ilmu Sosial",
+      "fakultas": "FISIP",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Ihsan Kamil",
-      "fakultas": "Fakultas FKIP",
+      "fakultas": "FKIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"
     },
     {
       "nama": "Fitri Nuraini",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Sekretaris"

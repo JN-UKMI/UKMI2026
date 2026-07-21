@@ -1,5 +1,7 @@
 import { MemberCard } from "@/components/kabinet/MemberCard";
 import type { MemberCard as MemberCardType } from "@/lib/types";
+import { Users } from "lucide-react";
+import { SectionHeader } from "@/components/layout/SectionHeader";
 
 interface TimSectionProps {
   staff: MemberCardType[];
@@ -18,33 +20,38 @@ export function TimSection({ staff }: TimSectionProps) {
   const leftoverStaff = remainingStaff.slice(fullRowsCount);
 
   return (
-    <section className="py-20 px-4 max-w-6xl mx-auto flex flex-col gap-10">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-forest-900 mb-2 text-center relative inline-block left-1/2 -translate-x-1/2 uppercase tracking-wider">
-        Tim Kami
-        <span className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-16 h-[3px] bg-lime rounded-full" />
-      </h2>
+    <section className="py-20 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
+      <SectionHeader
+        icon={<Users className="w-6 h-6" />}
+        title="Tim Kami"
+        subtitle="Pimpinan dan seluruh staf pengurus bidang"
+      />
 
-      {/* Baris 1: Kepala & Wakil (2 kolom, max-w-[600px] agar pas 280px * 2 + gap) */}
-      <div className="grid grid-cols-2 gap-4 md:gap-10 max-w-[600px] mx-auto w-full px-2 sm:px-0 mt-6">
+      {/* Baris 1: Kepala & Wakil (2 kolom, gap longgar) */}
+      <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
         {leaders.map((member, i) => (
-          <MemberCard key={i} member={member} />
+          <div key={i} className="w-full sm:w-[320px] flex justify-center">
+            <MemberCard member={member} />
+          </div>
         ))}
       </div>
 
-      {/* Baris berikutnya: Staff (4 kolom, max-w-[1240px] agar pas 280px * 4 + gap) */}
+      {/* Baris berikutnya: Staff (4 kolom dengan gap longgar lg:gap-12) */}
       {mainStaff.length > 0 && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 max-w-[1240px] mx-auto w-full px-2 sm:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center">
           {mainStaff.map((member, i) => (
-            <MemberCard key={i} member={member} />
+            <div key={i} className="w-full sm:w-[320px] flex justify-center">
+              <MemberCard member={member} />
+            </div>
           ))}
         </div>
       )}
 
-      {/* Baris sisa: Centered pada desktop, 2 kolom pada mobile */}
+      {/* Baris sisa: Centered pada desktop */}
       {leftoverStaff.length > 0 && (
-        <div className="grid grid-cols-2 md:flex md:justify-center gap-4 md:gap-10 max-w-[600px] md:max-w-3xl mx-auto w-full px-2 sm:px-0">
+        <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
           {leftoverStaff.map((member, i) => (
-            <div key={i} className="md:w-[280px] shrink-0">
+            <div key={i} className="w-full sm:w-[320px] flex justify-center">
               <MemberCard member={member} />
             </div>
           ))}

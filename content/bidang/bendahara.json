@@ -48,84 +48,84 @@
   "staff": [
     {
       "nama": "[Kepala Bendahara]",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2023",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Bendahara"
     },
     {
       "nama": "[Wakil Bendahara]",
-      "fakultas": "Fakultas Bisnis",
+      "fakultas": "FEB",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Wakil Kepala Bidang Bendahara"
     },
     {
       "nama": "Dina Malika",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Yusuf Al-Fatih",
-      "fakultas": "Fakultas Pertanian",
+      "fakultas": "FP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Salma Salsabila",
-      "fakultas": "Fakultas Kedokteran",
+      "fakultas": "FK",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Reza Rahardian",
-      "fakultas": "Fakultas Ilmu Sosial",
+      "fakultas": "FISIP",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Anisa Rahma",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Dimas Seto",
-      "fakultas": "Fakultas MIPA",
+      "fakultas": "FMIPA",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Tiara Andini",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Aditya Putra",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Nabila Syakieb",
-      "fakultas": "Fakultas FKIP",
+      "fakultas": "FKIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"
     },
     {
       "nama": "Habibi Riza",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Bendahara"

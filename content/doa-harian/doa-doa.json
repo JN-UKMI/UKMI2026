@@ -1,0 +1,29 @@
+[
+  {
+    "id": "pembuka-majelis",
+    "judul": "Doa Pembuka Majelis (Khutbatul Haajah)",
+    "kategori": "Majelis & Kajian",
+    "fadhilah": "Dibaca saat membuka acara, kajian, rapat organisasi, atau majelis ilmu sesuai sunnah Rasulullah SAW.",
+    "arabic": "إِنَّ الْحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ وَنَعُوذُ بِاللَّهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللَّهُ فَلَا مُضِلَّ لَهُ وَمَنْ يُضْلِلْ فَلَا هَادِيَ لَهُ. أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+    "latin": "Innal hamda lillaah nahmaduhu wa nasta’iinuhu wa na’uudzu billahi min suruuri anfusinaa wa min sayyiaati a’maalinaa man yahdihillaahu falaa mudhilla lah, wa man yudhlilhu falaa haadiya lah. Asyhadu allaa ilaaha illallah, wa asyhadu anna muhammadan ‘abduhuu wa rosuuluh.",
+    "terjemahan": "Segala puji bagi Allah yang hanya kepada-Nya kami memohon pertolongan dan mohon ampunan. Kami berlindung kepada Allah dari kejahatan dan keburukan amalan kami. Barangsiapa yang diberi petunjuk oleh Allah maka tidak ada yang dapat menyesatkan, dan barang siapa yang tersesat dari jalan Allah maka tidak ada yang dapat memberinya petunjuk. Aku bersaksi bahwa tidak ada sesembahan yang berhak disembah kecuali Allah, tidak ada sekutu bagi-Nya, dan aku bersaksi bahwa Muhammad adalah hamba dan Rasul-Nya."
+  },
+  {
+    "id": "penutup-majelis",
+    "judul": "Doa Penutup Majelis (Kafaratul Majelis)",
+    "kategori": "Majelis & Kajian",
+    "fadhilah": "Melebur dosa-dosa kecil dan kekhilafan kata yang terjadi selama berada di dalam majelis ilmu/pertemuan.",
+    "arabic": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+    "latin": "Subhanakallahumma wa bihamdika, asyhadu alla ilaha illa anta, astaghfiruka wa atubu ilaik.",
+    "terjemahan": "Maha Suci Engkau ya Allah, dan dengan memuji-Mu, aku bersaksi bahwa tidak ada sesembahan yang berhak disembah selain Engkau, aku memohon ampunan kepada-Mu dan bertobat kepada-Mu."
+  },
+  {
+    "id": "sebelum-belajar",
+    "judul": "Doa Sebelum Belajar & Menuntut Ilmu",
+    "kategori": "Menuntut Ilmu",
+    "fadhilah": "Mohon dilapangkan pemikiran, dimudahkan dalam memahami ilmu yang bermanfaat, dan dikuatkan daya ingat.",
+    "arabic": "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا وَرَسُولًا. رَبِّ زِدْنِي عِلْمًا وَارْزُقْنِي فَهْمًا",
+    "latin": "Rodhiitu billahi robbaa, wa bil islaami diinaa, wa bi Muhammadin shollallahu 'alaihi wa sallama nabiyyaw wa rasuulaa. Robbi zidnii 'ilmaa warzuqnii fahmaa.",
+    "terjemahan": "Aku ridha Allah sebagai Tuhanku, Islam sebagai agamaku, dan Nabi Muhammad SAW sebagai Nabi dan Rasulku. Ya Tuhanku, tambahkanlah kepadaku ilmu dan berikanlah aku karunia untuk memahaminya."
+  }
+]

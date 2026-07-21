@@ -11,6 +11,7 @@ import type {
   DoaItem,
   Quote,
   EventItem,
+  BukuUkmiContent,
 } from "./types";
 
 const contentDir = path.join(process.cwd(), "content");
@@ -99,6 +100,14 @@ export async function loadEvents(): Promise<{ events: EventItem[] }> {
   const file = await safeReadFile(
     path.join(contentDir, "beranda", "events.json"),
     path.join(contentDir, "events.json")
+  );
+  return JSON.parse(file);
+}
+
+export async function loadBukuUkmi(): Promise<BukuUkmiContent> {
+  const file = await safeReadFile(
+    path.join(contentDir, "buku-ukmi", "main.json"),
+    path.join(contentDir, "buku-ukmi.json")
   );
   return JSON.parse(file);
 }

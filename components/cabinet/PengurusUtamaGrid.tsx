@@ -1,5 +1,7 @@
 import type { MemberCard as MemberCardType } from "@/lib/types";
 import { MemberCard } from "@/components/kabinet/MemberCard";
+import { ShieldCheck } from "lucide-react";
+import { SectionHeader } from "@/components/layout/SectionHeader";
 
 interface PengurusUtamaGridProps {
   members: MemberCardType[];
@@ -20,27 +22,35 @@ export function PengurusUtamaGrid({
 
   return (
     <section className="mb-16 flex flex-col gap-10">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-2 text-center uppercase tracking-wider">{title}</h2>
-      
-      {/* Baris 1: Ketua Umum & Koordinator Akhwat (2 kolom, max-w-[600px] agar pas 280px * 2 + gap) */}
-      <div className="grid grid-cols-2 gap-4 md:gap-10 max-w-[600px] mx-auto w-full px-2 sm:px-0">
+      <SectionHeader
+        icon={<ShieldCheck className="w-6 h-6" />}
+        title={title}
+        subtitle="Struktur pimpinan utama Kabinet Iskandar Muda Periode 2026"
+      />
+
+      {/* Baris 1: Ketua Umum & Koordinator Akhwat (2 kolom, gap lebar & seragam) */}
+      <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
         {leaders.map((member) => (
-          <MemberCard key={member.nama} member={member} />
+          <div key={member.nama} className="w-full sm:w-[320px] flex justify-center">
+            <MemberCard member={member} />
+          </div>
         ))}
       </div>
 
-      {/* Baris berikutnya: Kepala & Wakil Bidang (4 kolom, max-w-[1240px] agar pas 280px * 4 + gap) */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 max-w-[1240px] mx-auto w-full px-2 sm:px-0">
+      {/* Baris berikutnya: Kepala & Wakil Bidang (4 kolom dengan gap longgar lg:gap-12) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center">
         {mainStaff.map((member) => (
-          <MemberCard key={member.nama} member={member} />
+          <div key={member.nama} className="w-full sm:w-[320px] flex justify-center">
+            <MemberCard member={member} />
+          </div>
         ))}
       </div>
 
-      {/* Baris sisa (Kemuslimahan): Centered pada desktop, 2 kolom pada mobile */}
+      {/* Baris sisa (Kemuslimahan): Centered pada desktop */}
       {leftoverStaff.length > 0 && (
-        <div className="grid grid-cols-2 md:flex md:justify-center gap-4 md:gap-10 max-w-[600px] md:max-w-3xl mx-auto w-full px-2 sm:px-0">
+        <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
           {leftoverStaff.map((member) => (
-            <div key={member.nama} className="md:w-[280px] shrink-0">
+            <div key={member.nama} className="w-full sm:w-[320px] flex justify-center">
               <MemberCard member={member} />
             </div>
           ))}

@@ -48,84 +48,84 @@
   "staff": [
     {
       "nama": "[Kepala Syiar]",
-      "fakultas": "Fakultas Agama",
+      "fakultas": "FAKULTAS AGAMA",
       "angkatan": "2023",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Syiar"
     },
     {
       "nama": "[Wakil Syiar]",
-      "fakultas": "Fakultas Pendidikan",
+      "fakultas": "FAKULTAS PENDIDIKAN",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Wakil Kepala Bidang Syiar"
     },
     {
       "nama": "Luqman Hakim",
-      "fakultas": "Fakultas MIPA",
+      "fakultas": "FMIPA",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Aisyah Humaira",
-      "fakultas": "Fakultas Kedokteran",
+      "fakultas": "FK",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Hanan Attaki",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Muzammil Hasballah",
-      "fakultas": "Fakultas Agama",
+      "fakultas": "FAKULTAS AGAMA",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Zaskia Adya",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Teuku Wisnu",
-      "fakultas": "Fakultas Ekonomi",
+      "fakultas": "FEB",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Shireen Sungkar",
-      "fakultas": "Fakultas Pertanian",
+      "fakultas": "FP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Dude Harlino",
-      "fakultas": "Fakultas FKIP",
+      "fakultas": "FKIP",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Alyssa Soebandono",
-      "fakultas": "Fakultas Psikologi",
+      "fakultas": "FAKULTAS PSIKOLOGI",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"
     },
     {
       "nama": "Oki Setiana",
-      "fakultas": "Fakultas Agama",
+      "fakultas": "FAKULTAS AGAMA",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Syiar"

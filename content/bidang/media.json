@@ -48,84 +48,84 @@
   "staff": [
     {
       "nama": "[Kepala Media]",
-      "fakultas": "Fakultas Teknologi Informasi",
+      "fakultas": "FATISDA",
       "angkatan": "2023",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Media"
     },
     {
       "nama": "[Wakil Media]",
-      "fakultas": "Fakultas Seni",
+      "fakultas": "FSRD",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Wakil Kepala Bidang Media"
     },
     {
       "nama": "Gavin Risyad",
-      "fakultas": "Fakultas Seni Rupa",
+      "fakultas": "FSRD",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Nisa Sabyan",
-      "fakultas": "Fakultas Komunikasi",
+      "fakultas": "FAKULTAS KOMUNIKASI",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Ryan Hidayat",
-      "fakultas": "Fakultas Teknik",
+      "fakultas": "FT",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Clara Shinta",
-      "fakultas": "Fakultas Ilmu Budaya",
+      "fakultas": "FIB",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Fero Walandouw",
-      "fakultas": "Fakultas MIPA",
+      "fakultas": "FMIPA",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Citra Kirana",
-      "fakultas": "Fakultas Psikologi",
+      "fakultas": "FAKULTAS PSIKOLOGI",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Andi Arsyil",
-      "fakultas": "Fakultas FKIP",
+      "fakultas": "FKIP",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Irish Bella",
-      "fakultas": "Fakultas Pertanian",
+      "fakultas": "FP",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Reza Alatas",
-      "fakultas": "Fakultas Hukum",
+      "fakultas": "FH",
       "angkatan": "2024",
       "foto": "/placeholder.png",
       "role": "Staff Media"
     },
     {
       "nama": "Dinda Hauw",
-      "fakultas": "Fakultas Kedokteran",
+      "fakultas": "FK",
       "angkatan": "2025",
       "foto": "/placeholder.png",
       "role": "Staff Media"

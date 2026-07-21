@@ -1,0 +1,40 @@
+{
+  "program_name": "BUMI (Buku UKMI)",
+  "tagline": "Perpustakaan Mini JN UKMI & Program Jariyah Buku",
+  "description": "BUMI adalah perpustakaan mini JN-UKMI yang siap jadi teman belajar dan inspirasi kamu! Di sini kamu bisa meminjam buku untuk menambah wawasan, serta berbagi ilmu lewat Jariyah BUMI.",
+  "links": {
+    "daftar_buku": "https://uns.id/DaftarBukuUkmi2026",
+    "peminjaman": "https://uns.id/PeminjamanBumi2026",
+    "pengembalian": "https://uns.id/PengembalianBumi2026",
+    "jariyah_bumi": "https://uns.id/JariyahBumi2026",
+    "lokasi_maps": "https://maps.app.goo.gl/U9ivZwAja9NkgXf99"
+  },
+  "jariyah_options": [
+    {
+      "title": "Wakaf Buku",
+      "subtitle": "Milik JN UKMI Sepenuhnya",
+      "description": "Buku yang disumbangkan menjadi koleksi perpustakaan BUMI JN-UKMI secara permanen untuk memberikan manfaat keberlanjutan tanpa batas."
+    },
+    {
+      "title": "Peminjaman Sementara",
+      "subtitle": "Periode Kepengurusan",
+      "description": "Buku dipinjamkan ke perpustakaan BUMI selama 1 periode kepengurusan. Setelah masa kepengurusan selesai, buku dapat diambil kembali oleh pemiliknya."
+    }
+  ],
+  "narahubung": [
+    {
+      "nama": "Vina",
+      "whatsapp": "https://wa.me/6285713901564",
+      "number": "0857-1390-1564"
+    },
+    {
+      "nama": "Tiara",
+      "whatsapp": "https://wa.me/6283829454511",
+      "number": "0838-2945-4511"
+    }
+  ],
+  "quote": {
+    "text": "Buku adalah teman yang tidak pernah menipu, tidak pernah bosan, dan tidak pernah berkhianat.",
+    "author": "Ibnu Jauzi"
+  }
+}

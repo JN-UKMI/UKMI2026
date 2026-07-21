@@ -1,75 +1,63 @@
-// Type definitions for JN UKMI website
-
 export interface MemberCard {
   nama: string;
   fakultas: string;
-  angkatan: string;
+  angkatan?: string;
+  nim?: string;
   foto: string;
   role: string;
 }
 
-export interface Article {
+export interface BidangProgram {
   title: string;
-  slug: string;
-  category: "Kegiatan" | "Kajian" | "Isu";
-  coverImage: string;
-  excerpt: string;
-  content: any;
-  publishedAt: string;
-  author?: string;
-  tags?: string[];
-  featured?: boolean;
+  description: string;
 }
 
 export interface Bidang {
   name: string;
   slug: string;
-  deskripsi: string;
-  instagram_url: string;
-  program_kerja: Array<{
-    title: string;
-    description: string;
-  }>;
-  staff: MemberCard[];
-}
-
-export interface LDF {
-  nama: string;
-  deskripsi: string;
-  instagram_url: string;
-  gambar: string;
-  contact_person: string;
-  whatsapp: string;
-}
-
-export interface Timeline {
-  year: string;
-  badge?: string;
-  title?: string;
+  tagline: string;
   description: string;
-  iconType?: string;
-  narrative?: string;
-}
-
-export interface ContactInfo {
-  email: string;
-  phone: string;
-  address: string;
-  map_embed_url: string;
+  deskripsi?: string;
+  instagram: string;
+  program_kerja: BidangProgram[];
+  staff: MemberCard[];
 }
 
 export interface HomeContent {
   tagline: string;
+  visi: string;
+  misi: string;
+}
+
+export interface LDF {
+  nama: string;
+  singkatan: string;
+  fakultas: string;
+  deskripsi: string;
+  instagram: string;
+  gambar: string;
+}
+
+export interface ContactInfo {
+  alamat: string;
+  email: string;
+  instagram: string;
+  youtube: string;
+  whatsapp: string;
+}
+
+export interface Milestone {
+  tahun: string;
+  judul: string;
   deskripsi: string;
 }
 
 export interface AboutContent {
-  deskripsi: string;
-  sejarah_narasi?: string[];
+  tagline: string;
   visi: string;
   misi: string;
   tujuan: string[];
-  timeline: Timeline[];
+  timeline: Milestone[];
 }
 
 export interface KabinetContent {
@@ -78,6 +66,10 @@ export interface KabinetContent {
 }
 
 export interface DoaItem {
+  id?: string;
+  judul?: string;
+  kategori?: string;
+  fadhilah?: string;
   arabic: string;
   latin: string;
   terjemahan: string;
@@ -101,4 +93,47 @@ export interface EventItem {
   time: string;
   location: string;
   type: string;
+}
+
+export interface ArticleListItem {
+  title: string;
+  slug: string;
+  excerpt: string;
+  category: "Kegiatan" | "Kajian" | "Isu";
+  publishedAt: string;
+  coverImage?: any;
+  author?: string;
+}
+
+export interface Article extends ArticleListItem {
+  content?: any;
+  tags?: string[];
+  featured?: boolean;
+}
+
+export interface BukuUkmiContent {
+  program_name: string;
+  tagline: string;
+  description: string;
+  links: {
+    daftar_buku: string;
+    peminjaman: string;
+    pengembalian: string;
+    jariyah_bumi: string;
+    lokasi_maps: string;
+  };
+  jariyah_options: Array<{
+    title: string;
+    subtitle: string;
+    description: string;
+  }>;
+  narahubung: Array<{
+    nama: string;
+    whatsapp: string;
+    number: string;
+  }>;
+  quote: {
+    text: string;
+    author: string;
+  };
 }

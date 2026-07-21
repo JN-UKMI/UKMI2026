@@ -1,5 +1,7 @@
 import { loadEvents } from "@/lib/content";
 import { KalenderInteractive } from "./KalenderInteractive";
+import { Calendar } from "lucide-react";
+import { SectionHeader } from "@/components/layout/SectionHeader";
 
 export async function KalenderSection() {
   const { events } = await loadEvents();
@@ -7,14 +9,14 @@ export async function KalenderSection() {
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-forest-900">Kalender UKMI</h2>
-          <p className="text-gray-500 text-sm mt-1">Jadwal kegiatan dan acara JN UKMI</p>
-        </div>
+        <SectionHeader
+          icon={<Calendar className="w-6 h-6" />}
+          title="Kalender UKMI"
+          subtitle="Jadwal kegiatan dan agenda acara JN UKMI"
+        />
 
         <KalenderInteractive events={events} />
       </div>
     </section>
   );
 }
-

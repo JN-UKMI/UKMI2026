@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Calendar, Target, Shield } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar, Target, Shield, Sparkles } from "lucide-react";
+import { SectionHeader } from "@/components/layout/SectionHeader";
 
 interface ProgramKerjaCarouselProps {
   program_kerja: Array<{ title: string; description: string }>;
@@ -39,16 +40,16 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
       "Diskusi panel menghadirkan tokoh muda nasional berprestasi untuk memotivasi mahasiswa Muslim agar berprestasi dan kontributif."
     ];
 
-    const needed = 10 - itemsToShow.length;
-    for (let k = 0; k < needed; k++) {
+    const currentLen = itemsToShow.length;
+    for (let i = currentLen; i < 10; i++) {
       itemsToShow.push({
-        title: dummyTitles[k % dummyTitles.length],
-        description: dummyDescs[k % dummyDescs.length]
+        title: dummyTitles[i % dummyTitles.length],
+        description: dummyDescs[i % dummyDescs.length]
       });
     }
   }
 
-  // Update visible cards based on screen size safely after mounting
+  // Handle responsive visible card counts
   useEffect(() => {
     const updateVisibleCards = () => {
       if (window.innerWidth >= 1024) {
@@ -65,18 +66,15 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
     return () => window.removeEventListener("resize", updateVisibleCards);
   }, []);
 
-  if (itemsToShow.length === 0) return null;
-
   const maxIndex = Math.max(0, itemsToShow.length - visibleCards);
 
-  // Navigation handlers with boundary locking
-  const handlePrev = () => {
+  const prevSlide = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
 
-  const handleNext = () => {
+  const nextSlide = () => {
     if (currentIndex < maxIndex) {
       setCurrentIndex(currentIndex + 1);
     }
@@ -96,10 +94,11 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
   return (
     <section className="bg-gray-50 py-20 px-4">
       <div className="max-w-5xl mx-auto relative">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-forest-900 mb-12 text-center relative inline-block left-1/2 -translate-x-1/2 uppercase tracking-wider">
-          Program Kerja Unggulan
-          <span className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-16 h-[3px] bg-lime rounded-full" />
-        </h2>
+        <SectionHeader
+          icon={<Sparkles className="w-6 h-6" />}
+          title="Program Kerja Unggulan"
+          subtitle="Daftar agenda kegiatan dan program kerja utama bidang"
+        />
 
         {/* Carousel Container */}
         <div className="relative px-2 sm:px-12 w-full overflow-hidden">
@@ -118,40 +117,31 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                   >
                     <div>
                       {/* Top Bar: Number & Icon */}
-                      <div className="flex items-center justify-between mb-5">
-                        <div className="w-10 h-10 bg-forest-600/10 text-forest-600 rounded-xl flex items-center justify-center font-bold text-sm">
-                          {String(i + 1).padStart(2, "0")}
-                        </div>
-                        <span className="text-[10px] font-black text-forest-600/35 uppercase tracking-widest">
-                          Proker
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-forest-600/10 text-forest-700 font-mono text-xs font-bold">
+                          {(i + 1).toString().padStart(2, "0")}
                         </span>
+                        <Target className="w-5 h-5 text-lime" />
                       </div>
 
-                      <h3 className="font-extrabold text-gray-900 text-base md:text-lg mb-3 tracking-tight leading-snug">
+                      <h3 className="font-black text-xl text-forest-900 mb-3 leading-snug line-clamp-2">
                         {prog.title}
                       </h3>
-                      <p className="text-gray-500 text-xs md:text-sm leading-relaxed mb-6 font-medium line-clamp-4">
+                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-4">
                         {prog.description}
                       </p>
                     </div>
 
-                    {/* Rich Metadata Info Panel at Bottom */}
-                    <div className="space-y-2.5 pt-4 border-t border-gray-100/80 text-xs text-gray-500 font-medium">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-forest-600 shrink-0" />
-                        <span className="text-gray-400 font-bold uppercase text-[9px] tracking-wider shrink-0 w-20">Target:</span>
-                        <span className="text-gray-700">{info.target}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Target className="w-4 h-4 text-forest-600 shrink-0" />
-                        <span className="text-gray-400 font-bold uppercase text-[9px] tracking-wider shrink-0 w-20">Indikator:</span>
-                        <span className="text-gray-700">{info.indicator}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Shield className="w-4 h-4 text-forest-600 shrink-0" />
-                        <span className="text-gray-400 font-bold uppercase text-[9px] tracking-wider shrink-0 w-20">Status:</span>
-                        <span className="text-forest-600 font-bold">Terjadwal</span>
-                      </div>
+                    {/* Bottom Enriched Details Pill */}
+                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 font-medium">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5 text-forest-600" />
+                        {info.target}
+                      </span>
+                      <span className="flex items-center gap-1 text-forest-700 font-bold">
+                        <Shield className="w-3.5 h-3.5 text-lime" />
+                        {info.indicator}
+                      </span>
                     </div>
                   </div>
                 );
@@ -159,43 +149,38 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             </div>
           </div>
 
-          {/* Navigation Buttons (Vertically centered on the left and right sides) */}
+          {/* Navigation Buttons */}
           <button
-            onClick={handlePrev}
+            onClick={prevSlide}
             disabled={currentIndex === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-[0_4px_15px_rgba(0,0,0,0.08)] border border-gray-150 flex items-center justify-center transition-all duration-200 ${
-              currentIndex === 0
-                ? "opacity-40 cursor-not-allowed text-gray-300"
-                : "opacity-100 cursor-pointer text-gray-700 hover:scale-105 active:scale-95"
-            }`}
-            aria-label="Slide sebelumnya"
+            aria-label="Previous Slide"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-forest-900 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 hover:text-white hover:border-forest-600 transition-all z-10"
           >
-            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
+
           <button
-            onClick={handleNext}
+            onClick={nextSlide}
             disabled={currentIndex >= maxIndex}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-[0_4px_15px_rgba(0,0,0,0.08)] border border-gray-150 flex items-center justify-center transition-all duration-200 ${
-              currentIndex >= maxIndex
-                ? "opacity-40 cursor-not-allowed text-gray-300"
-                : "opacity-100 cursor-pointer text-gray-700 hover:scale-105 active:scale-95"
-            }`}
-            aria-label="Slide berikutnya"
+            aria-label="Next Slide"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-forest-900 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 hover:text-white hover:border-forest-600 transition-all z-10"
           >
-            <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Indicator dots */}
-        <div className="flex justify-center gap-1.5 mt-8">
-          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+        {/* Dots Indicator */}
+        <div className="flex justify-center items-center gap-2 mt-8">
+          {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
-              key={i}
-              onClick={() => setCurrentIndex(i)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentIndex === i ? "bg-forest-600 w-6" : "bg-gray-250"
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                currentIndex === index
+                  ? "w-8 bg-forest-600"
+                  : "w-2.5 bg-gray-300 hover:bg-gray-400"
               }`}
-              aria-label={`Slide ke-${i + 1}`}
             />
           ))}
         </div>

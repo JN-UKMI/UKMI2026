@@ -1,34 +1,27 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PageHero } from "@/components/layout/PageHero";
+import { loadDoaDoa } from "@/lib/content";
+import { DoaDoaList } from "@/components/islamic/DoaDoaList";
 
 export const metadata: Metadata = {
-  title: "Database Doa | JN UKMI",
-  description: "Kumpulan doa sehari-hari untuk diamalkan",
+  title: "Database Doa & Zikir | JN UKMI",
+  description: "Kumpulan doa-doa pilihan dan doa pembuka majelis untuk diamalkan dalam kehidupan sehari-hari.",
 };
 
-export default function DoaDoaPage() {
+export default async function DoaDoaPage() {
+  const doaList = await loadDoaDoa();
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PageHeader
-        badge="Kumpulan Doa"
-        title="Database Doa"
-        subtitle="Kumpulan doa-doa pilihan dari Al-Qur'an dan Hadits shahih."
+    <div className="min-h-screen bg-gray-50 pb-20">
+      <PageHero
+        badge="Khazanah Keislaman"
+        title="DATABASE DOA & ZIKIR"
+        subtitle="Kumpulan doa-doa pilihan dari Al-Qur'an dan Hadits shahih untuk amalan harian, majelis ilmu, dan penuntut ilmu."
       />
 
-      <div className="max-w-lg mx-auto py-16 px-4 text-center">
-        <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col items-center">
-          <p className="text-sm text-gray-500 font-medium leading-relaxed mb-6">
-            Fitur database doa interaktif ini sedang dalam tahap pengembangan akhir. Nantikan kumpulan doa harian, doa perlindungan, dan adab berdoa di halaman ini.
-          </p>
-          <Link
-            href="/"
-            className="inline-block px-6 py-2.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full transition-all text-xs font-bold shadow-md cursor-pointer active:scale-95"
-          >
-            Kembali ke Beranda
-          </Link>
-        </div>
-      </div>
+      <main className="max-w-4xl mx-auto px-4 pt-12">
+        <DoaDoaList initialList={doaList} />
+      </main>
     </div>
   );
 }
