@@ -73,9 +73,6 @@ export function MemberCard({ member }: MemberCardProps) {
   return (
     <div className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white rounded-3xl border border-gray-200/80 p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-forest-600/30 group select-none shrink-0">
       
-      {/* Subtle Top Accent Bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-forest-600 via-lime to-forest-600 opacity-90" />
-
       {/* 1. TOP HEADER: LOGO + KARTU TANDA PENGURUS & TOP-RIGHT ROLE */}
       <div className="relative z-10 w-full flex items-center justify-between pb-2 border-b border-gray-100">
         {/* Top Left: JN UKMI Logo & Title */}

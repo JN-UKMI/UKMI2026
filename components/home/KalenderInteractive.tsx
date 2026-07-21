@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -38,6 +38,19 @@ export function KalenderInteractive({
   const [currentDate, setCurrentDate] = useState<Date>(defaultDate);
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"all" | "kegiatan" | "puasa">("all");
+  const [calendarHeight, setCalendarHeight] = useState<number>(0);
+  const calendarCardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (calendarCardRef.current) {
+        setCalendarHeight(calendarCardRef.current.offsetHeight);
+      }
+    };
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   const today = new Date();
   const year = currentDate.getFullYear();
@@ -157,9 +170,10 @@ export function KalenderInteractive({
 
         {/* KIRI: GRID KALENDER — tinggi alami, tidak diubah */}
         <div className="lg:col-span-7">
-          <div className="bg-white rounded-3xl border border-gray-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col justify-between relative overflow-hidden">
-            {/* Top Decorative Line */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-forest-600 via-lime to-forest-600 opacity-90" />
+          <div
+            ref={calendarCardRef}
+            className="bg-white rounded-3xl border border-gray-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col justify-between relative overflow-hidden"
+          >
 
             <div>
               {/* Header Bulan & Navigasi Panah */}
@@ -305,9 +319,12 @@ export function KalenderInteractive({
           </div>
         </div>
 
-        {/* KANAN: AGENDA CARD */}
+        {/* KANAN: AGENDA CARD — tinggi disamakan dengan card kalender via ref */}
         <div className="lg:col-span-5">
-          <div className="bg-white rounded-3xl border border-gray-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col">
+          <div
+            className="bg-white rounded-3xl border border-gray-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col overflow-hidden"
+            style={{ height: calendarHeight > 0 ? `${calendarHeight}px` : "auto" }}
+          >
             
             {/* Header Right Pane */}
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-4 shrink-0">
@@ -330,8 +347,8 @@ export function KalenderInteractive({
               )}
             </div>
 
-            {/* Agenda Cards — tampil 5 card, sisanya scroll di dalam */}
-            <div className="overflow-y-auto space-y-3.5 pr-1" style={{ maxHeight: '580px' }}>
+            {/* Agenda Cards — scroll di dalam card sesuai sisa tinggi */}
+            <div className="flex-1 min-h-0 overflow-y-auto space-y-3.5 pr-1">
               {displayedEvents.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-16">
                   <CalendarDays className="w-12 h-12 text-gray-300 mb-3" />
