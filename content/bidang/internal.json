@@ -31,88 +31,188 @@
   ],
   "staff": [
     {
-      "nama": "[Kepala Internal]",
-      "fakultas": "FH",
-      "angkatan": "2023",
+      "nama": "Asyraf",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Wakil Internal]",
-      "fakultas": "FAKULTAS KESEHATAN",
-      "angkatan": "2024",
+      "nama": "Ihsan",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Ilham Habibie",
-      "fakultas": "FAKULTAS PSIKOLOGI",
-      "angkatan": "2024",
+      "nama": "Arga",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Zahra Salsabila",
-      "fakultas": "FISIP",
-      "angkatan": "2024",
+      "nama": "Zidan",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Rey Mbayang",
-      "fakultas": "FT",
-      "angkatan": "2024",
+      "nama": "Yazid",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Dinda Hauw",
-      "fakultas": "FK",
-      "angkatan": "2025",
+      "nama": "Fauzan",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Raffi Ahmad",
-      "fakultas": "FH",
-      "angkatan": "2025",
+      "nama": "Ghitrav",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Nagita Slavina",
-      "fakultas": "FEB",
-      "angkatan": "2024",
+      "nama": "Kamal",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Ikhwan Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Baim Wong",
-      "fakultas": "FP",
-      "angkatan": "2024",
+      "nama": "Aini",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Paula Verhoeven",
-      "fakultas": "FKIP",
-      "angkatan": "2025",
+      "nama": "Hasnaa’",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Irwansyah",
-      "fakultas": "FT",
-      "angkatan": "2024",
+      "nama": "Inas",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Zaskia Sungkar",
-      "fakultas": "FSRD",
-      "angkatan": "2025",
+      "nama": "Azka",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Internal"
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Abel",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Ama",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Fidy",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nisrina",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Aiza",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Aisha",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Ana",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Chika",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Fatim",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Zalfa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Zula",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Tim Akhwat Internal",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }

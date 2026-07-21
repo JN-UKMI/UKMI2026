@@ -39,88 +39,172 @@
   ],
   "staff": [
     {
-      "nama": "[Kepala Eksternal]",
-      "fakultas": "FATISDA",
-      "angkatan": "2023",
+      "nama": "Muhammad Ali Almahdi",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Eksternal"
+      "role": "Kepala Bidang Eksternal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Wakil Eksternal]",
-      "fakultas": "FAKULTAS KOMUNIKASI",
-      "angkatan": "2024",
+      "nama": "Zulul Fauzadya Nurhaliza",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Eksternal"
+      "role": "Sekretaris Bidang",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Atta Halilintar",
-      "fakultas": "FEB",
-      "angkatan": "2024",
+      "nama": "Ihsan Muhammad Rozaq",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Pimpinan Departemen Humas",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Aurel Hermansyah",
-      "fakultas": "FISIP",
-      "angkatan": "2024",
+      "nama": "Naila Sabila Rosyada",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Pimpinan Departemen Humas",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Verrell Bramasta",
-      "fakultas": "FAKULTAS HUBUNGAN INTERNASIONAL",
-      "angkatan": "2024",
+      "nama": "Galang Yanna Aulia Bangkit",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Natasha Wilona",
-      "fakultas": "FIB",
-      "angkatan": "2025",
+      "nama": "Muhammad Rasyad Mufarrid",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Aliando Syarief",
-      "fakultas": "FT",
-      "angkatan": "2025",
+      "nama": "Aisyah Nur Hidayah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Prilly Latuconsina",
-      "fakultas": "FH",
-      "angkatan": "2024",
+      "nama": "Aliswandani Nashifa Salsabila Putra",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Rizky Nazar",
-      "fakultas": "FKIP",
-      "angkatan": "2024",
+      "nama": "Aqila Muna Mafaza",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Syifa Hadju",
-      "fakultas": "FP",
-      "angkatan": "2025",
+      "nama": "Dwina Isnaini Fajrin",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Jefri Nichol",
-      "fakultas": "FAKULTAS KOMUNIKASI",
-      "angkatan": "2024",
+      "nama": "Keysya Dwi Arini",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Amanda Manopo",
-      "fakultas": "FK",
-      "angkatan": "2025",
+      "nama": "Mutia Cantika Dwi Putri",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Eksternal"
+      "role": "Staf Departemen Humas",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Muhammad Irwan Radianto",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Pimpinan Departemen Sosma",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Rofi'atul Marhamah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Pimpinan Departemen Sosma",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Rafi Romadoni",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Departemen Sosma",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Zulfa Ardian Anugrah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Departemen Sosma",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Anggit Karunia Fitri",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Departemen Sosma",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Hilma Aulia",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Departemen Sosma",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nadya Fauzya",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Departemen Sosma",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Safira Nur Aisyah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Departemen Sosma",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Tazkiya Fikra Ulinnuha",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Departemen Sosma",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }

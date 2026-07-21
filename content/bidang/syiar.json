@@ -31,88 +31,172 @@
   ],
   "staff": [
     {
-      "nama": "[Kepala Syiar]",
-      "fakultas": "FAKULTAS AGAMA",
-      "angkatan": "2023",
-      "foto": "/placeholder.png",
-      "role": "Kepala Bidang Syiar"
-    },
-    {
-      "nama": "[Wakil Syiar]",
-      "fakultas": "FAKULTAS PENDIDIKAN",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Syiar"
-    },
-    {
-      "nama": "Luqman Hakim",
+      "nama": "Ardhan",
       "fakultas": "FMIPA",
-      "angkatan": "2024",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Kepala Bidang Syiar",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Aisyah Humaira",
-      "fakultas": "FK",
-      "angkatan": "2024",
+      "nama": "Zahwa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Sekretaris Bidang",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Hanan Attaki",
-      "fakultas": "FT",
-      "angkatan": "2024",
+      "nama": "Muafa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Kadep Syiar Kampus",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Muzammil Hasballah",
-      "fakultas": "FAKULTAS AGAMA",
-      "angkatan": "2025",
+      "nama": "Luthfi",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Sekdep Syiar Kampus",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Zaskia Adya",
-      "fakultas": "FH",
-      "angkatan": "2025",
+      "nama": "Ilyas Fathurrohman",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Teuku Wisnu",
-      "fakultas": "FEB",
-      "angkatan": "2024",
+      "nama": "Muhamad Wildan",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Shireen Sungkar",
-      "fakultas": "FP",
-      "angkatan": "2024",
+      "nama": "Mus'ab Farhad Baraja",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Dude Harlino",
-      "fakultas": "FKIP",
-      "angkatan": "2025",
+      "nama": "Nafis Sadida",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Alyssa Soebandono",
-      "fakultas": "FAKULTAS PSIKOLOGI",
-      "angkatan": "2024",
+      "nama": "Syaikhasril Maulana Firdaus",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Oki Setiana",
-      "fakultas": "FAKULTAS AGAMA",
-      "angkatan": "2025",
+      "nama": "Hasna' Nabila Rofi'ah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Syiar"
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nayla Azka Latifa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Syifa Hafidzah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Tsaqifa Fatimatuz Zahra",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Zalfa Nailah Putri Irmawan",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Kampus",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Zuko",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Kadep Kajian Strategis",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Hanin",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Sekdep Kajian Strategis",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Abdul Fattah Nagata J N",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Kajian Strategis",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Azrun Adzzikrullah Anmifal",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Kajian Strategis",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Phyrurizqi Altiano F (Qiqi)",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Kajian Strategis",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Asma' Ayu Imani",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Kajian Strategis",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Tsamara Alfia Thasiru",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Kajian Strategis",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }

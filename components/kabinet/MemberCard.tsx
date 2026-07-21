@@ -51,23 +51,13 @@ export function MemberCard({ member }: MemberCardProps) {
     return fUpper;
   };
 
-  // Helper to format/generate 1-line NIM code matching sample card format: "FMIPA M0323059"
-  const getNimCode = (fakultas: string, angkatan?: string, nama?: string) => {
+  // Helper to format/get NIM code. If member.nim is provided, use it. Otherwise fallback to member.angkatan or default 'A0000000'.
+  const getNimCode = () => {
     if (member.nim) return member.nim;
-    const fUpper = (fakultas || "").toUpperCase();
-    let prefix = "M03";
-    if (fUpper.includes("FKIP") || fUpper.includes("KIP")) prefix = "K12";
-    else if (fUpper.includes("TEKNIK") || fUpper.includes("FT")) prefix = "I01";
-    else if (fUpper.includes("EKONOMI") || fUpper.includes("FEB")) prefix = "F02";
-    else if (fUpper.includes("HUKUM") || fUpper.includes("FH")) prefix = "E00";
-    else if (fUpper.includes("KEDOKTERAN") || fUpper.includes("FK")) prefix = "G00";
-    else if (fUpper.includes("FIB") || fUpper.includes("FSSR") || fUpper.includes("BUDAYA")) prefix = "C01";
-    else if (fUpper.includes("FISIP") || fUpper.includes("SOSIAL")) prefix = "D02";
-    else if (fUpper.includes("FP") || fUpper.includes("PERTANIAN")) prefix = "H01";
-    
-    const year = (angkatan || "23").slice(-2);
-    const hash = ((nama || "A").charCodeAt(0) * 17 + (nama || "A").length * 31) % 800 + 100;
-    return `${prefix}${year}${hash}`;
+    if (member.angkatan && member.angkatan !== "A0000000" && !member.angkatan.startsWith("20")) {
+      return member.angkatan;
+    }
+    return "A0000000";
   };
 
   return (
@@ -118,13 +108,23 @@ export function MemberCard({ member }: MemberCardProps) {
                 photoSrc === "/public/placeholder.png" ||
                 photoSrc === "#"
               ) {
-                const isFemale =
-                  member.role?.includes("Wakil") ||
-                  member.role?.includes("Akhwat") ||
-                  member.role?.includes("Kemuslimahan") ||
-                  member.role?.includes("Bendahara");
+                if (member.jenis_kelamin) {
+                  const jk = member.jenis_kelamin.toLowerCase();
+                  if (jk === "perempuan" || jk === "p" || jk === "akhwat") {
+                    photoSrc = "/image/perempuan.png";
+                  } else {
+                    photoSrc = "/image/laki-laki.png";
+                  }
+                } else {
+                  const isFemale =
+                    member.role?.includes("Wakil") ||
+                    member.role?.includes("Akhwat") ||
+                    member.role?.includes("Kemuslimahan") ||
+                    member.role?.includes("Bendahara") ||
+                    member.role?.includes("Sekbid");
 
-                photoSrc = isFemale ? "/image/perempuan.png" : "/image/laki-laki.png";
+                  photoSrc = isFemale ? "/image/perempuan.png" : "/image/laki-laki.png";
+                }
               }
 
               return (
@@ -157,7 +157,7 @@ export function MemberCard({ member }: MemberCardProps) {
             {getFacultyAbbreviation(member.fakultas)}
           </span>
           <span className="text-[11px] md:text-xs font-bold font-mono text-gray-600 tracking-widest uppercase">
-            {getNimCode(member.fakultas, member.angkatan, member.nama)}
+            {getNimCode()}
           </span>
         </div>
       </div>

@@ -2,116 +2,132 @@
   "filosofi_logo": "Logo kami mencerminkan nilai-nilai keislaman, persatuan, dan semangat dakwah yang bersinar terang di kalangan mahasiswa.",
   "pengurus": [
     {
-      "nama": "[Nama Ketua Umum]",
-      "fakultas": "FATISDA",
-      "angkatan": "2023",
-      "foto": "/placeholder.png",
-      "role": "Ketua Umum"
-    },
-    {
-      "nama": "[Nama Koordinator Akhwat]",
-      "fakultas": "FISIP",
-      "angkatan": "2023",
-      "foto": "/placeholder.png",
-      "role": "Koordinator Akhwat"
-    },
-    {
-      "nama": "[Nama Kepala Sekretaris]",
+      "nama": "Azzam",
       "fakultas": "FMIPA",
-      "angkatan": "2023",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Sekretaris"
+      "role": "Ketua Umum",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Nama Wakil Sekretaris]",
-      "fakultas": "FT",
-      "angkatan": "2024",
+      "nama": "Indah Eka",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Sekretaris"
+      "role": "Koordinator Akhwat",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "[Nama Kepala Bendahara]",
-      "fakultas": "FEB",
-      "angkatan": "2023",
+      "nama": "Cendra Triana Irawan",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Bendahara"
+      "role": "Kepala Bidang Sekretaris",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Nama Wakil Bendahara]",
-      "fakultas": "FEB",
-      "angkatan": "2024",
+      "nama": "Sabrina Fitri Nastiti",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Bendahara"
+      "role": "Wakil Kepala Bidang Sekretaris",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "[Nama Kepala Media]",
-      "fakultas": "FATISDA",
-      "angkatan": "2023",
+      "nama": "Arfian Syafa Hidayat",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Media"
+      "role": "Kepala Bidang Bendahara",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Nama Wakil Media]",
-      "fakultas": "FSRD",
-      "angkatan": "2024",
+      "nama": "Azzahra Mutiara Shafa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Media"
+      "role": "Wakil Kepala Bidang Bendahara",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "[Nama Kepala Syiar]",
-      "fakultas": "FAKULTAS AGAMA",
-      "angkatan": "2023",
+      "nama": "Imas Siti Masturoh",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Syiar"
+      "role": "Kepala Bidang Media",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "[Nama Wakil Syiar]",
-      "fakultas": "FAKULTAS PENDIDIKAN",
-      "angkatan": "2024",
+      "nama": "Almaura Ghina Ghefira",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Syiar"
+      "role": "Wakil Kepala Bidang Media",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "[Nama Kepala Internal]",
-      "fakultas": "FH",
-      "angkatan": "2023",
+      "nama": "Ardhan",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Internal"
+      "role": "Kepala Bidang Syiar",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Nama Wakil Internal]",
-      "fakultas": "FAKULTAS KESEHATAN",
-      "angkatan": "2024",
+      "nama": "Zahwa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Internal"
+      "role": "Wakil Kepala Bidang Syiar",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "[Nama Kepala Eksternal]",
-      "fakultas": "FATISDA",
-      "angkatan": "2023",
+      "nama": "Asyraf",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Eksternal"
+      "role": "Kepala Bidang Internal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Nama Wakil Eksternal]",
-      "fakultas": "FAKULTAS KOMUNIKASI",
-      "angkatan": "2024",
+      "nama": "Aini",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Eksternal"
+      "role": "Wakil Kepala Bidang Internal",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "[Nama Kepala Kemuslimahan]",
-      "fakultas": "FISIP",
-      "angkatan": "2023",
+      "nama": "Muhammad Ali Almahdi",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Kemuslimahan"
+      "role": "Kepala Bidang Eksternal",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "[Nama Wakil Kemuslimahan]",
-      "fakultas": "FAKULTAS AGAMA",
-      "angkatan": "2024",
+      "nama": "Zulul Fauzadya Nurhaliza",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Kemuslimahan"
+      "role": "Wakil Kepala Bidang Eksternal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Destian Ridho",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Kemuslimahan",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Hasna Adilah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Wakil Kepala Bidang Kemuslimahan",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }

@@ -39,88 +39,108 @@
   ],
   "staff": [
     {
-      "nama": "[Kepala Media]",
-      "fakultas": "FATISDA",
-      "angkatan": "2023",
-      "foto": "/placeholder.png",
-      "role": "Kepala Bidang Media"
-    },
-    {
-      "nama": "[Wakil Media]",
-      "fakultas": "FSRD",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Media"
-    },
-    {
-      "nama": "Gavin Risyad",
-      "fakultas": "FSRD",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Media"
-    },
-    {
-      "nama": "Nisa Sabyan",
-      "fakultas": "FAKULTAS KOMUNIKASI",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Media"
-    },
-    {
-      "nama": "Ryan Hidayat",
-      "fakultas": "FT",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Media"
-    },
-    {
-      "nama": "Clara Shinta",
-      "fakultas": "FIB",
-      "angkatan": "2025",
-      "foto": "/placeholder.png",
-      "role": "Staff Media"
-    },
-    {
-      "nama": "Fero Walandouw",
+      "nama": "Imas Siti Masturoh",
       "fakultas": "FMIPA",
-      "angkatan": "2025",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Media"
+      "role": "Pimpinan Media",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Citra Kirana",
-      "fakultas": "FAKULTAS PSIKOLOGI",
-      "angkatan": "2024",
+      "nama": "Almaura Ghina Ghefira",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Media"
+      "role": "Pimpinan Media",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Andi Arsyil",
-      "fakultas": "FKIP",
-      "angkatan": "2024",
+      "nama": "Azhar Fadhillah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Media"
+      "role": "Pimpinan Media Kreatif",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Irish Bella",
-      "fakultas": "FP",
-      "angkatan": "2025",
+      "nama": "Nectarinia Mahmuda",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Media"
+      "role": "Pimpinan Media Kreatif",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Reza Alatas",
-      "fakultas": "FH",
-      "angkatan": "2024",
+      "nama": "Afra' Nadiyah Assilmi",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Media"
+      "role": "Anggota Media Kreatif",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Dinda Hauw",
-      "fakultas": "FK",
-      "angkatan": "2025",
+      "nama": "Nadaa Raihani Adn",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Media"
+      "role": "Anggota Media Kreatif",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Najma Faizah Azzahra",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Media Kreatif",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Sabila Nur Azizah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Media Kreatif",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Luhaim Adis Rafata",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Pimpinan Media Komunikasi",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Griselda Andini Anggun Puspitasari",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Pimpinan Media Komunikasi",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Haidar Ihda Chusnayain",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Media Komunikasi",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Layla Amalia Syifa N",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Media Komunikasi",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nafiah Qurrota Aini",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Media Komunikasi",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }

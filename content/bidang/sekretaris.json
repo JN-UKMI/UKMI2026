@@ -47,88 +47,68 @@
   ],
   "staff": [
     {
-      "nama": "[Kepala Sekretaris]",
-      "fakultas": "FATISDA",
-      "angkatan": "2023",
-      "foto": "/placeholder.png",
-      "role": "Kepala Bidang Sekretaris"
-    },
-    {
-      "nama": "[Wakil Sekretaris]",
-      "fakultas": "FISIP",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Sekretaris"
-    },
-    {
-      "nama": "Ahmad Dani",
-      "fakultas": "FT",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
-    },
-    {
-      "nama": "Sarah Aulia",
-      "fakultas": "FK",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
-    },
-    {
-      "nama": "Fikri Haikal",
-      "fakultas": "FH",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
-    },
-    {
-      "nama": "Rania Humaira",
-      "fakultas": "FEB",
-      "angkatan": "2025",
-      "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
-    },
-    {
-      "nama": "Zidan Fadhil",
+      "nama": "Cendra Triana Irawan",
       "fakultas": "FMIPA",
-      "angkatan": "2025",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
+      "role": "Kepala Bidang Sekretaris",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Nabila Putri",
-      "fakultas": "FIB",
-      "angkatan": "2024",
+      "nama": "Sabrina Fitri Nastiti",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
+      "role": "Sekretaris Bidang",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Farhan Majid",
-      "fakultas": "FP",
-      "angkatan": "2024",
+      "nama": "Muhammad Fatih Farhat",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
+      "role": "Staf Sekretaris",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Alya Zahra",
-      "fakultas": "FISIP",
-      "angkatan": "2025",
+      "nama": "Hikmah Mutiara Fajar",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
+      "role": "Staf Sekretaris",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Ihsan Kamil",
-      "fakultas": "FKIP",
-      "angkatan": "2024",
+      "nama": "Vina Salsabilla Maziatul U.",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
+      "role": "Staf Sekretaris",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Fitri Nuraini",
-      "fakultas": "FT",
-      "angkatan": "2025",
+      "nama": "Kummalasari Naila Assahlah A.",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Sekretaris"
+      "role": "Staf Sekretaris",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Mei Anjarwati",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Sekretaris",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Anin Dya Qolby",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Sekretaris",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }

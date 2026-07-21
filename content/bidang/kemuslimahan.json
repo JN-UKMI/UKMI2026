@@ -27,88 +27,156 @@
   ],
   "staff": [
     {
-      "nama": "[Kepala Kemuslimahan]",
-      "fakultas": "FISIP",
-      "angkatan": "2023",
-      "foto": "/placeholder.png",
-      "role": "Kepala Bidang Kemuslimahan"
-    },
-    {
-      "nama": "[Wakil Kemuslimahan]",
-      "fakultas": "FAKULTAS AGAMA",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Kemuslimahan"
-    },
-    {
-      "nama": "Fatimah Azzahra",
-      "fakultas": "FK",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
-    },
-    {
-      "nama": "Khadijah Al-Kubra",
-      "fakultas": "FIB",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
-    },
-    {
-      "nama": "Aisyah Radhiah",
-      "fakultas": "FP",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
-    },
-    {
-      "nama": "Maryam Jamilah",
-      "fakultas": "FAKULTAS PSIKOLOGI",
-      "angkatan": "2025",
-      "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
-    },
-    {
-      "nama": "Safiyyah Nabila",
-      "fakultas": "FH",
-      "angkatan": "2025",
-      "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
-    },
-    {
-      "nama": "Zainab Aqilah",
-      "fakultas": "FKIP",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
-    },
-    {
-      "nama": "Ruqayyah Humaira",
+      "nama": "Destian Ridho",
       "fakultas": "FMIPA",
-      "angkatan": "2024",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
+      "role": "Kepala Bidang Kemuslimahan",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Ummu Kulsum",
-      "fakultas": "FT",
-      "angkatan": "2025",
+      "nama": "Hasna Adilah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
+      "role": "Sekretaris Bidang",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Asma Wafiyah",
-      "fakultas": "FISIP",
-      "angkatan": "2024",
+      "nama": "Faizah Aulia",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
+      "role": "Pimpinan Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Hafsah Kamilah",
-      "fakultas": "FEB",
-      "angkatan": "2025",
+      "nama": "Nadiya Arifah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Kemuslimahan"
+      "role": "Pimpinan Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Atikah Tazki Filisani",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Salsabila Qurrotua'yun",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nailatus Salsabila",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Alya Ulaiya",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Atina Nisa A.",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Dhiya Zuhra Fadhilah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Ziana Walida",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Lita Aningsih",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Pimpinan Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Salma Muflikhah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Pimpinan Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Puput Putri Karima",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Fauziah Dwi Puspita",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nabilah Syifa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Ardina Fanny Syafira",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Rahma Khansa Nabila",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Azizah Khoirunnisa Nurjannah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Anggota Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }

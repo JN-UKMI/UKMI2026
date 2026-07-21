@@ -35,88 +35,84 @@
   ],
   "staff": [
     {
-      "nama": "[Kepala Bendahara]",
-      "fakultas": "FEB",
-      "angkatan": "2023",
-      "foto": "/placeholder.png",
-      "role": "Kepala Bidang Bendahara"
-    },
-    {
-      "nama": "[Wakil Bendahara]",
-      "fakultas": "FEB",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Bendahara"
-    },
-    {
-      "nama": "Dina Malika",
-      "fakultas": "FEB",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
-    },
-    {
-      "nama": "Yusuf Al-Fatih",
-      "fakultas": "FP",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
-    },
-    {
-      "nama": "Salma Salsabila",
-      "fakultas": "FK",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
-    },
-    {
-      "nama": "Reza Rahardian",
-      "fakultas": "FISIP",
-      "angkatan": "2025",
-      "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
-    },
-    {
-      "nama": "Anisa Rahma",
-      "fakultas": "FT",
-      "angkatan": "2024",
-      "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
-    },
-    {
-      "nama": "Dimas Seto",
+      "nama": "Arfian Syafa Hidayat",
       "fakultas": "FMIPA",
-      "angkatan": "2025",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
+      "role": "Kepala Bidang Bendahara",
+      "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Tiara Andini",
-      "fakultas": "FH",
-      "angkatan": "2024",
+      "nama": "Azzahra Mutiara Shafa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
+      "role": "Sekretaris Bidang",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Aditya Putra",
-      "fakultas": "FEB",
-      "angkatan": "2025",
+      "nama": "Zunia Syifa Rahma Sari",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
+      "role": "Kadep Administrasi Keuangan",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Nabila Syakieb",
-      "fakultas": "FKIP",
-      "angkatan": "2024",
+      "nama": "Rahma Nadia",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
+      "role": "Staf Administrasi Keuangan",
+      "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Habibi Riza",
-      "fakultas": "FT",
-      "angkatan": "2025",
+      "nama": "Najwa Armedya Eriwibowo",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
       "foto": "/placeholder.png",
-      "role": "Staff Bendahara"
+      "role": "Staf Administrasi Keuangan",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Adiva Aisya Iswa",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Administrasi Keuangan",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Cynara Cleva Cesimira",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Kadep Ekonomi Kreatif",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Alifah Fitri Aini",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Ekonomi Kreatif",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Dewi Nur Hidayah",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Ekonomi Kreatif",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Silvia Ningrum Endarwati",
+      "fakultas": "FMIPA",
+      "angkatan": "A0000000",
+      "foto": "/placeholder.png",
+      "role": "Staf Ekonomi Kreatif",
+      "jenis_kelamin": "perempuan"
     }
   ]
 }
