@@ -108,22 +108,16 @@ export function MemberCard({ member }: MemberCardProps) {
                 photoSrc === "/public/placeholder.png" ||
                 photoSrc === "#"
               ) {
-                if (member.jenis_kelamin) {
-                  const jk = member.jenis_kelamin.toLowerCase();
-                  if (jk === "perempuan" || jk === "p" || jk === "akhwat") {
-                    photoSrc = "/image/perempuan.png";
-                  } else {
-                    photoSrc = "/image/laki-laki.png";
-                  }
+                if (member.jenis_kelamin === "perempuan") {
+                  photoSrc = "/image/perempuan.png";
+                } else if (member.jenis_kelamin === "laki-laki") {
+                  photoSrc = "/image/laki-laki.png";
                 } else {
-                  const isFemale =
-                    member.role?.includes("Wakil") ||
+                  const isFemaleRole =
                     member.role?.includes("Akhwat") ||
-                    member.role?.includes("Kemuslimahan") ||
-                    member.role?.includes("Bendahara") ||
-                    member.role?.includes("Sekbid");
+                    member.role?.includes("Kemuslimahan");
 
-                  photoSrc = isFemale ? "/image/perempuan.png" : "/image/laki-laki.png";
+                  photoSrc = isFemaleRole ? "/image/perempuan.png" : "/image/laki-laki.png";
                 }
               }
 

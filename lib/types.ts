@@ -5,7 +5,7 @@ export interface MemberCard {
   nim?: string;
   foto: string;
   role: string;
-  jenis_kelamin?: "laki-laki" | "perempuan" | string;
+  jenis_kelamin?: "laki-laki" | "perempuan" | (string & {});
 }
 
 export interface BidangProgram {
