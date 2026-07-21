@@ -25,7 +25,7 @@ const INDONESIAN_MONTHS = [
   "Juli", "Agustus", "September", "Oktober", "November", "Desember"
 ];
 
-const DAYS_OF_WEEK = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
+const DAYS_OF_WEEK = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 
 export function KalenderInteractive({
   events,
@@ -58,9 +58,9 @@ export function KalenderInteractive({
   const yearMonthKey = `${year}-${String(month + 1).padStart(2, "0")}`;
   const hijriSubtext = hijriMonths?.[yearMonthKey] || "1447 Hijriah";
 
-  // First day index (0 = Sunday, 1 = Monday)
+  // First day index (0 = Sunday, 1 = Monday) — week starts on Sunday
   const firstDayIndex = new Date(year, month, 1).getDay();
-  const startOffset = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
+  const startOffset = firstDayIndex; // 0=Min, 1=Sen, dst
 
   // Days in month
   const totalDays = new Date(year, month + 1, 0).getDate();
