@@ -44,8 +44,14 @@ export function ArticleBody({ content }: ArticleBodyProps) {
   if (typeof content === "string") {
     return (
       <div 
-        className="prose max-w-none text-gray-700 leading-relaxed space-y-4"
-        dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, "<br />") }} 
+        className="prose max-w-none text-gray-700 leading-relaxed space-y-4 
+                   prose-headings:text-gray-950 prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight 
+                   prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base 
+                   prose-blockquote:border-l-4 prose-blockquote:border-forest-600 prose-blockquote:bg-forest-50/20 prose-blockquote:px-4 prose-blockquote:py-2 prose-blockquote:italic prose-blockquote:rounded-r-lg
+                   prose-ul:list-disc prose-ul:pl-6
+                   prose-ol:list-decimal prose-ol:pl-6
+                   prose-a:text-forest-600 prose-a:underline hover:prose-a:text-forest-800"
+        dangerouslySetInnerHTML={{ __html: content }} 
       />
     );
   }

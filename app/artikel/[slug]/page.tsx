@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getArticles, getArticleBySlug, urlFor } from "@/lib/sanity";
+import { createClient } from "next-sanity";
 import { ArticleBody } from "@/components/article/ArticleBody";
 import Link from "next/link";
 import Image from "next/image";
@@ -233,16 +234,75 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function ArtikelDetailPage({ params }: PageProps) {
+export default async function ArtikelDetailPage({ params, searchParams }: PageProps & { searchParams: Promise<{ preview?: string; draft?: string; draftId?: string }> }) {
   const { slug } = await params;
+  const { preview, draft, draftId } = await searchParams;
+  
   let article: any = null;
-  try {
-    article = await getArticleBySlug(slug);
-  } catch {}
 
-  // Fallback to local dummy article if not found in Sanity database
-  if (!article) {
-    article = dummyArticlesDetail.find((a) => a.slug === slug);
+  // If preview and draft are set, we fetch from the draft collection
+  if (preview === "true" && draft === "true" && draftId) {
+    try {
+      const token = process.env.SANITY_WRITE_TOKEN;
+      if (token) {
+        const previewClient = createClient({
+          projectId: "ksc63oa8",
+          dataset: "production",
+          apiVersion: "2024-01-01",
+          token: token,
+          useCdn: false,
+        });
+        article = await previewClient.fetch(
+          `*[_type == "article" && _id == $draftId][0] {
+            title,
+            "slug": slug.current,
+            category,
+            coverImage,
+            excerpt,
+            content,
+            publishedAt,
+            author
+          }`,
+          { draftId }
+        );
+      }
+    } catch {}
+
+    // Mock drafts fallback if sanity token is missing
+    if (!article) {
+      const mockDrafts = [
+        {
+          _id: "drafts.kajian-aqidah-remaja-1234",
+          title: "[Kajian] Pentingnya Aqidah Kokoh bagi Remaja Masjid",
+          slug: "kajian-aqidah-remaja",
+          excerpt: "Draf kajian mengenai tantangan pemikiran modern and cara membentengi akidah para remaja di lingkungan pengurus masjid.",
+          content: "Aqidah merupakan pondasi dasar yang menopang seluruh keislaman seseorang. Di era modern, tantangan pemikiran baik dari materialisme, sekularisme, hingga tren digital yang instan membutuhkan benteng iman yang tangguh bagi para pemuda Muslim khususnya remaja masjid. Pembinaan berkala melalui kajian-kajian terstruktur menjadi salah satu solusi kunci.",
+          category: "Kajian",
+          author: "Kaderisasi",
+          publishedAt: new Date().toISOString(),
+        },
+        {
+          _id: "drafts.bantuan-kemanusiaan-bencana-5678",
+          title: "[Kegiatan] Aksi Cepat Tanggap JN UKMI Peduli Bencana Banjir",
+          slug: "aksi-peduli-bencana-banjir",
+          excerpt: "Laporan penyaluran logistik makanan dan bantuan pakaian layak pakai bagi korban banjir bandang di Solo Raya.",
+          content: "Musibah banjir bandang melanda sebagian besar wilayah Solo Raya menyisakan duka mendalam. Merespon kondisi tersebut, bidang Eksternal JN UKMI menyelenggarakan penggalangan bantuan logistik makanan, pakaian layak, dan obat-obatan. Tim relawan terjun langsung ke posko pengungsian untuk mendistribusikan bantuan secara tertib dan adil.",
+          category: "Kegiatan",
+          author: "Eksternal",
+          publishedAt: new Date().toISOString(),
+        }
+      ];
+      article = mockDrafts.find((d) => d._id === draftId || d.slug === slug);
+    }
+  } else {
+    try {
+      article = await getArticleBySlug(slug);
+    } catch {}
+
+    // Fallback to local dummy article if not found in Sanity database
+    if (!article) {
+      article = dummyArticlesDetail.find((a) => a.slug === slug);
+    }
   }
 
   if (!article) {

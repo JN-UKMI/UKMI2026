@@ -578,6 +578,7 @@ export default function TulisArtikelPage() {
                   <div
                     id="content-editor"
                     contentEditable
+                    spellCheck={false}
                     suppressContentEditableWarning
                     onBlur={(e) => setContent(e.currentTarget.innerHTML)}
                     onInput={(e) => setContent(e.currentTarget.innerHTML)}

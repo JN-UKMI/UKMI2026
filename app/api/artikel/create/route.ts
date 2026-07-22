@@ -166,19 +166,7 @@ export async function POST(request: Request) {
       featured: false,
       tags: [category.toLowerCase()],
       ...(imageAssetRef ? { coverImage: imageAssetRef } : {}),
-      content: [
-        {
-          _type: "block",
-          style: "normal",
-          children: [
-            {
-              _type: "span",
-              text: content,
-            },
-          ],
-          markDefs: [],
-        },
-      ],
+      content: content,
     };
 
     const createdDoc = await writeClient.createOrReplace(document);
