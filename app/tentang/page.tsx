@@ -22,10 +22,12 @@ import {
   Info,
   History,
   Award,
-  ChevronRight
+  ChevronRight,
+  Scroll,
+  Shield
 } from "lucide-react";
 
-type TabType = "perkenalan" | "sejarah" | "visi" | "misi" | "tujuan";
+type TabType = "perkenalan" | "sejarah" | "visi" | "misi" | "nilai";
 
 export default function TentangPage() {
   const [activeTab, setActiveTab] = useState<TabType>("perkenalan");
@@ -36,7 +38,7 @@ export default function TentangPage() {
     { id: "sejarah" as TabType, label: "Sejarah", icon: History },
     { id: "visi" as TabType, label: "Visi", icon: Compass },
     { id: "misi" as TabType, label: "Misi", icon: Target },
-    { id: "tujuan" as TabType, label: "Tujuan", icon: Award },
+    { id: "nilai" as TabType, label: "Nilai", icon: Award },
   ];
 
   return (
@@ -106,7 +108,7 @@ export default function TentangPage() {
                   </span>
                   <div className="absolute -bottom-4 -right-3 bg-white border border-gray-200 rounded-2xl shadow-sm px-4 py-2 flex flex-col items-center">
                     <span className="text-[8px] font-bold text-gray-400 uppercase leading-none tracking-wider">Sejak</span>
-                    <span className="text-sm font-bold text-forest-800 leading-none mt-1 font-mono">2020</span>
+                    <span className="text-sm font-bold text-forest-800 leading-none mt-1 font-mono">1991</span>
                   </div>
 
                   <Image
@@ -138,10 +140,37 @@ export default function TentangPage() {
                     </div>
                   </div>
 
-                  {/* Description Paragraph */}
-                  <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-[65ch]">
-                    {aboutData.deskripsi}
-                  </p>
+                  {/* Description List */}
+                  <div className="space-y-4 text-gray-600 text-sm md:text-base leading-relaxed">
+                    <p className="font-semibold text-gray-800">
+                      {aboutData.deskripsi_perkenalan[0]}
+                    </p>
+                    <div className="space-y-3.5 pl-1.5">
+                      {aboutData.deskripsi_perkenalan.slice(1).map((item, idx) => {
+                        const hasSubPoints = item.includes("\n");
+                        const [mainText, ...subLines] = hasSubPoints ? item.split("\n") : [item];
+                        return (
+                          <div key={idx} className="flex gap-3 items-start">
+                            <span className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-full bg-forest-100 text-forest-700 font-mono text-[11px] font-black shrink-0 mt-0.5">
+                              {idx + 1}
+                            </span>
+                            <div className="flex flex-col gap-2">
+                              <p className="font-semibold text-gray-700 leading-relaxed">
+                                {mainText}
+                              </p>
+                              {hasSubPoints && subLines.length > 0 && (
+                                <div className="pl-4 border-l-2 border-lime/40 space-y-1.5 text-xs text-gray-500 font-bold tracking-wide mt-1">
+                                  {subLines.filter(line => line.trim() !== "").map((line, lIdx) => (
+                                    <p key={lIdx}>{line}</p>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
 
                   {/* Highlights Grid with custom borders (anti-card overuse) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-6 border-t border-gray-100">
@@ -233,16 +262,18 @@ export default function TentangPage() {
 
                       // Map iconType to Lucide icons
                       let IconComponent = <Sparkles className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
-                      if (milestone.iconType === "cake") {
-                        IconComponent = <Sparkles className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                      if (milestone.iconType === "landmark") {
+                        IconComponent = <Landmark className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                      } else if (milestone.iconType === "scroll") {
+                        IconComponent = <Scroll className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
                       } else if (milestone.iconType === "users") {
                         IconComponent = <Users className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
                       } else if (milestone.iconType === "star") {
                         IconComponent = <Star className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                      } else if (milestone.iconType === "shield") {
+                        IconComponent = <Shield className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
                       } else if (milestone.iconType === "globe") {
                         IconComponent = <Globe className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
-                      } else if (milestone.iconType === "heart") {
-                        IconComponent = <Heart className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
                       }
 
                       return (
@@ -268,10 +299,6 @@ export default function TentangPage() {
                                 : "bg-white border-gray-150 hover:border-gray-200 opacity-75 hover:opacity-100"
                             }`}
                           >
-                            {/* Arrow Pointer to the left icon axis when active */}
-                            {isSelected && (
-                              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-y-[8px] border-y-transparent border-r-[8px] border-r-forest-300 hidden lg:block" />
-                            )}
                             <div className="flex items-center justify-between gap-2">
                               {milestone.badge && (
                                 <span className={`self-start inline-block px-2.5 py-0.5 text-[9px] font-extrabold tracking-wider uppercase rounded-md shadow-xs ${
@@ -322,32 +349,46 @@ export default function TentangPage() {
                 </div>
                 <h3 className="font-extrabold text-gray-900 text-lg">Misi Kami</h3>
               </div>
-              <p className="text-gray-600 leading-relaxed text-center text-sm md:text-base max-w-xl mx-auto font-medium">
-                {aboutData.misi}
-              </p>
+              <div className="space-y-4">
+                {aboutData.misi.map((misiItem, idx) => (
+                  <div key={idx} className="flex gap-4 items-start p-4 rounded-2xl bg-gray-50 border border-gray-150/60 shadow-xs hover:border-forest-300 transition-all">
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-forest-600/10 text-forest-700 font-mono text-xs font-black shrink-0 mt-0.5">
+                      {(idx + 1).toString().padStart(2, "0")}
+                    </span>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed font-semibold">
+                      {misiItem}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
-          {/* TAB 5: TUJUAN */}
-          {activeTab === "tujuan" && (
+          {/* TAB 5: NILAI */}
+          {activeTab === "nilai" && (
             <div className="max-w-3xl mx-auto bg-white rounded-3xl border border-gray-200/60 shadow-md p-6 md:p-8 animate-[fadeIn_0.5s_ease-out]">
               <div className="flex items-center gap-3.5 pb-4 border-b border-gray-150/60 mb-8">
                 <div className="w-10 h-10 rounded-xl bg-forest-600 text-white flex items-center justify-center shadow-sm">
                   <Award className="w-5 h-5" />
                 </div>
-                <h3 className="font-extrabold text-gray-900 text-lg">Tujuan Organisasi</h3>
+                <h3 className="font-extrabold text-gray-900 text-lg">Nilai-Nilai Luhur Organisasi</h3>
               </div>
 
-              {/* Numbered Tujuan list with accent rules */}
+              {/* Numbered Nilai list with accent rules */}
               <div className="space-y-6">
-                {aboutData.tujuan.map((point, idx) => (
+                {aboutData.nilai.map((point, idx) => (
                   <div key={idx} className="flex gap-5 items-start border-b border-gray-50 pb-5 last:border-0 last:pb-0">
                     <span className="text-xl md:text-2xl font-extrabold text-forest-600/30 font-mono shrink-0">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <p className="text-sm md:text-base text-gray-600 font-semibold leading-relaxed pt-1">
-                      {point}
-                    </p>
+                    <div className="flex flex-col gap-1 pt-1">
+                      <h4 className="text-base font-extrabold text-forest-900">
+                        {point.title}
+                      </h4>
+                      <p className="text-sm text-gray-600 font-semibold leading-relaxed">
+                        {point.description}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>

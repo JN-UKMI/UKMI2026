@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, BookOpen, Send, User, FileText, Tag, Upload, CheckCircle, Lock, Calendar, X, ShieldCheck } from "lucide-react";
+import { ArrowLeft, BookOpen, Send, User, FileText, Tag, Upload, CheckCircle, Lock, Calendar, X, ShieldCheck, Eye, EyeOff, Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, AlignJustify, List, ListOrdered, Quote, Link2 } from "lucide-react";
 
 export default function TulisArtikelPage() {
   const [passcode, setPasscode] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [verifyLoading, setVerifyLoading] = useState(false);
   const [verifyError, setVerifyError] = useState("");
+  const [showPasscode, setShowPasscode] = useState(false);
 
   // Form Fields
   const [title, setTitle] = useState("");
@@ -181,15 +182,24 @@ export default function TulisArtikelPage() {
                 <Lock className="w-3.5 h-3.5 text-forest-600" />
                 Kode Akses Pengurus
               </label>
-              <input
-                id="passcodeGate"
-                type="password"
-                required
-                placeholder="Default: UKMI2026"
-                value={passcode}
-                onChange={(e) => setPasscode(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
-              />
+              <div className="relative w-full">
+                <input
+                  id="passcodeGate"
+                  type={showPasscode ? "text" : "password"}
+                  required
+                  placeholder="Tanya Admin"
+                  value={passcode}
+                  onChange={(e) => setPasscode(e.target.value)}
+                  className="w-full pl-4 pr-11 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPasscode(!showPasscode)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                >
+                  {showPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <button
@@ -355,6 +365,7 @@ export default function TulisArtikelPage() {
                       <option value="Kajian">Kajian (Artikel Keilmuan/Tafsir)</option>
                       <option value="Kegiatan">Kegiatan (Laporan/Liputan Acara)</option>
                       <option value="Isu">Isu (Analisis Kontemporer/Opini)</option>
+                      <option value="Lainnya">Lainnya (Pengumuman/Rilis/Lain-lain)</option>
                     </select>
                   </div>
                 </div>
@@ -435,15 +446,148 @@ export default function TulisArtikelPage() {
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
                   Isi Lengkap Artikel <span className="text-red-500">*</span>
                 </label>
-                <textarea
-                  id="content"
-                  required
-                  rows={8}
-                  placeholder="Ketikkan seluruh isi materi kajian atau berita kegiatan Anda di sini..."
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium resize-y"
-                />
+                {/* WYSIWYG Rich Text Editor (Word/GDocs-style) */}
+                <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm flex flex-col focus-within:border-forest-600 transition-colors">
+                  {/* Toolbar */}
+                  <div className="flex flex-wrap gap-1 p-2 bg-gray-50 border-b border-gray-200 items-center select-none">
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("bold", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Tebal (Bold)"
+                    >
+                      <Bold className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("italic", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Miring (Italic)"
+                    >
+                      <Italic className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("underline", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Garis Bawah (Underline)"
+                    >
+                      <Underline className="w-4 h-4" />
+                    </button>
+
+                    <div className="w-[1px] h-6 bg-gray-200 mx-1" />
+
+                    <select
+                      onChange={(e) => {
+                        if (e.target.value !== "") {
+                          document.execCommand("formatBlock", false, e.target.value);
+                          e.target.value = "";
+                        }
+                      }}
+                      className="h-8 px-2 bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-xs font-bold text-gray-700 rounded-lg transition-all cursor-pointer outline-none"
+                      title="Sub-judul (Heading)"
+                    >
+                      <option value="">Format teks...</option>
+                      <option value="H1">Judul Utama (H1)</option>
+                      <option value="H2">Sub-judul Besar (H2)</option>
+                      <option value="H3">Sub-judul Sedang (H3)</option>
+                      <option value="H4">Sub-judul Kecil (H4)</option>
+                      <option value="P">Paragraf Normal</option>
+                    </select>
+
+                    <div className="w-[1px] h-6 bg-gray-200 mx-1" />
+
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("justifyLeft", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Rata Kiri"
+                    >
+                      <AlignLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("justifyCenter", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Rata Tengah"
+                    >
+                      <AlignCenter className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("justifyRight", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Rata Kanan"
+                    >
+                      <AlignRight className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("justifyFull", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Rata Kiri Kanan"
+                    >
+                      <AlignJustify className="w-4 h-4" />
+                    </button>
+
+                    <div className="w-[1px] h-6 bg-gray-200 mx-1" />
+
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("insertUnorderedList", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Daftar Poin (Bullet List)"
+                    >
+                      <List className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("insertOrderedList", false)}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Daftar Angka (Ordered List)"
+                    >
+                      <ListOrdered className="w-4 h-4" />
+                    </button>
+
+                    <div className="w-[1px] h-6 bg-gray-200 mx-1" />
+
+                    <button
+                      type="button"
+                      onClick={() => document.execCommand("formatBlock", false, "BLOCKQUOTE")}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Kutipan Ayat / Hadits (Blockquote)"
+                    >
+                      <Quote className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const url = prompt("Masukkan URL Tautan (Contoh: https://example.com) :");
+                        if (url) {
+                          document.execCommand("createLink", false, url);
+                        }
+                      }}
+                      className="w-8 h-8 flex items-center justify-center bg-white hover:bg-forest-50 border border-gray-200 hover:border-forest-300 text-gray-700 hover:text-forest-600 rounded-lg transition-all cursor-pointer"
+                      title="Sisipkan Link Tautan"
+                    >
+                      <Link2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div
+                    id="content-editor"
+                    contentEditable
+                    suppressContentEditableWarning
+                    onBlur={(e) => setContent(e.currentTarget.innerHTML)}
+                    onInput={(e) => setContent(e.currentTarget.innerHTML)}
+                    className="w-full px-4 py-4 min-h-[320px] focus:outline-none text-sm text-gray-800 prose prose-sm max-w-none"
+                  />
+                </div>
+
+                <p className="text-[11px] text-gray-400 font-medium">
+                  💡 <b>Tips:</b> Anda bisa langsung memblok teks untuk menebalkan (B), memiringkan (I), atau membuat daftar poin/angka seperti di Word.
+                </p>
               </div>
 
               {/* Submit Button */}

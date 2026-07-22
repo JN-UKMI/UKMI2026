@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getArticles } from "@/lib/sanity";
+import { getArticles, urlFor } from "@/lib/sanity";
 import { Calendar, ArrowRight, Pencil, Newspaper } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 
@@ -65,12 +65,29 @@ export async function ArtikelTerbaruSection() {
               >
                 {/* Thumbnail Image */}
                 <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
-                  <Image
-                    src={article.coverImage ? article.coverImage : "/placeholder.png"}
-                    alt={article.title}
-                    fill
-                    className="object-cover transition-transform duration-300"
-                  />
+                  {(() => {
+                    let imageSrc = "/placeholder.png";
+                    if (article.coverImage) {
+                      if (typeof article.coverImage === "string" && article.coverImage.trim() !== "") {
+                        imageSrc = article.coverImage;
+                      } else if (typeof article.coverImage === "object" && article.coverImage.asset) {
+                        try {
+                          imageSrc = urlFor(article.coverImage).url() || "/placeholder.png";
+                        } catch {
+                          imageSrc = "/placeholder.png";
+                        }
+                      }
+                    }
+                    return (
+                      <Image
+                        src={imageSrc}
+                        alt={article.title}
+                        fill
+                        className="object-cover transition-transform duration-300"
+                        unoptimized
+                      />
+                    );
+                  })()}
                   {/* Category Badge on top of image */}
                   <span className="absolute top-3 left-3 z-10 inline-block px-2.5 py-1 bg-forest-600 text-white text-xs font-bold rounded-md shadow">
                     {article.category}

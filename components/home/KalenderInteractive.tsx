@@ -32,8 +32,8 @@ export function KalenderInteractive({
   monthlyQuotes,
   hijriMonths,
 }: KalenderInteractiveProps) {
-  // Set initial date to April 2026 if available in events, otherwise current date
-  const defaultDate = events.length > 0 ? new Date(events[0].date) : new Date();
+  // Set initial date to current date
+  const defaultDate = new Date();
   
   const [currentDate, setCurrentDate] = useState<Date>(defaultDate);
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);

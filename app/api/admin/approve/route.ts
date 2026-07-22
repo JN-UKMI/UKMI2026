@@ -9,7 +9,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "ID Artikel draft diperlukan." }, { status: 400 });
     }
 
-    const expectedPasscode = process.env.KODE_AKSES_PENGURUS || "UKMI2026";
+    const expectedPasscode = process.env.KODE_AKSES_ADMIN || process.env.KODE_AKSES_PENGURUS || "UKMI2026";
     if (passcode !== expectedPasscode) {
       return NextResponse.json(
         { message: "Kode Akses Admin tidak valid." },
@@ -71,7 +71,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ message: "ID Artikel draft diperlukan." }, { status: 400 });
     }
 
-    const expectedPasscode = process.env.KODE_AKSES_PENGURUS || "UKMI2026";
+    const expectedPasscode = process.env.KODE_AKSES_ADMIN || process.env.KODE_AKSES_PENGURUS || "UKMI2026";
     if (passcode !== expectedPasscode) {
       return NextResponse.json(
         { message: "Kode Akses Admin tidak valid." },

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const allCategories = ["Kegiatan", "Kajian", "Isu"] as const;
+const allCategories = ["Kegiatan", "Kajian", "Isu", "Lainnya"] as const;
 type Category = typeof allCategories[number];
 
 interface PageProps {
@@ -87,7 +87,7 @@ const dummyArticles = [
 ];
 
 async function getFilteredArticles(category?: Category, searchQuery?: string) {
-  if (category && category !== "Kegiatan" && category !== "Kajian" && category !== "Isu") {
+  if (category && category !== "Kegiatan" && category !== "Kajian" && category !== "Isu" && category !== "Lainnya") {
     return [];
   }
 

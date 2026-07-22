@@ -18,6 +18,7 @@ const mockDrafts = [
     title: "[Kajian] Pentingnya Aqidah Kokoh bagi Remaja Masjid",
     slug: "kajian-aqidah-remaja",
     excerpt: "Draf kajian mengenai tantangan pemikiran modern and cara membentengi akidah para remaja di lingkungan pengurus masjid.",
+    content: "Aqidah merupakan pondasi dasar yang menopang seluruh keislaman seseorang. Di era modern, tantangan pemikiran baik dari materialisme, sekularisme, hingga tren digital yang instan membutuhkan benteng iman yang tangguh bagi para pemuda Muslim khususnya remaja masjid. Pembinaan berkala melalui kajian-kajian terstruktur menjadi salah satu solusi kunci.",
     category: "Kajian",
     author: "Kaderisasi",
     publishedAt: new Date().toISOString(),
@@ -27,6 +28,7 @@ const mockDrafts = [
     title: "[Kegiatan] Aksi Cepat Tanggap JN UKMI Peduli Bencana Banjir",
     slug: "aksi-peduli-bencana-banjir",
     excerpt: "Laporan penyaluran logistik makanan dan bantuan pakaian layak pakai bagi korban banjir bandang di Solo Raya.",
+    content: "Musibah banjir bandang melanda sebagian besar wilayah Solo Raya menyisakan duka mendalam. Merespon kondisi tersebut, bidang Eksternal JN UKMI menyelenggarakan penggalangan bantuan logistik makanan, pakaian layak, dan obat-obatan. Tim relawan terjun langsung ke posko pengungsian untuk mendistribusikan bantuan secara tertib dan adil.",
     category: "Kegiatan",
     author: "Eksternal",
     publishedAt: new Date().toISOString(),
@@ -50,7 +52,7 @@ export async function POST(request: Request) {
   try {
     const { passcode } = await request.json();
 
-    const expectedPasscode = process.env.KODE_AKSES_PENGURUS || "UKMI2026";
+    const expectedPasscode = process.env.KODE_AKSES_ADMIN || process.env.KODE_AKSES_PENGURUS || "UKMI2026";
     if (passcode !== expectedPasscode) {
       const newAttempts = (record?.count || 0) + 1;
       if (newAttempts >= 5) {
@@ -93,6 +95,7 @@ export async function POST(request: Request) {
         "slug": slug.current,
         category,
         excerpt,
+        content,
         publishedAt,
         author
       }`

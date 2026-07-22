@@ -15,9 +15,9 @@ export function ArticleCard({ article }: ArticleCardProps) {
     if (!img) return "/placeholder.png";
     try {
       if (typeof img === "object" && img.asset) {
-        return urlFor(img).url();
+        return urlFor(img).url() || "/placeholder.png";
       }
-      if (typeof img === "string") {
+      if (typeof img === "string" && img.trim() !== "") {
         return img;
       }
     } catch {

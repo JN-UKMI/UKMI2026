@@ -40,5 +40,15 @@ export function ArticleBody({ content }: ArticleBodyProps) {
     return null;
   }
 
+  // If content is a plain string (possibly with HTML tags like Blogspot)
+  if (typeof content === "string") {
+    return (
+      <div 
+        className="prose max-w-none text-gray-700 leading-relaxed space-y-4"
+        dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, "<br />") }} 
+      />
+    );
+  }
+
   return <PortableText value={content} components={components} />;
 }

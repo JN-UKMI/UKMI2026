@@ -1,54 +1,90 @@
 {
   "deskripsi": "Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) merupakan organisasi kemahasiswaan Islam tingkat universitas di Universitas Sebelas Maret (UNS), Surakarta. Kami berfokus pada pembinaan karakter generasi muda Muslim, syiar dakwah yang santun, kepemimpinan Islam, serta kegiatan sosial kemasyarakatan yang berdampak luas bagi civitas akademika UNS dan masyarakat umum.",
-  "visi": "Menjadi Lembaga Dakwah Kampus yang profesional, bersahabat, dan kolaboratif dalam mewujudkan Universitas Sebelas Maret yang madani.",
-  "misi": "Membentuk kader dakwah yang berkarakter islami, menyebarluaskan syiar Islam secara kreatif dan inklusif, serta membangun sinergi strategis baik internal maupun eksternal kampus.",
-  "tujuan": [
-    "Membina dan membimbing generasi muda Islam agar bertakwa dan berakhlak mulia",
-    "Menyelenggarakan syiar Islam yang inklusif, kreatif, dan inspiratif di lingkungan UNS",
-    "Melakukan kaderisasi kepemimpinan Islam yang tangguh, berwawasan luas, dan profesional",
-    "Mempererat ukhuwah islamiyah dan kolaborasi lintas organisasi dakwah di kampus UNS",
-    "Memberikan kontribusi sosial nyata bagi masyarakat sekitar kampus UNS"
+  "deskripsi_perkenalan": [
+    "Unit JN UKMI adalah unit dalam naungan Ormawa Kerohanian Islam UNS yang bergerak di bidang syiar keislaman dan berkedudukan di Universitas Sebelas Maret. Lambang Unit JN UKMI UNS memiliki makna:",
+    "Berbentuk segi empat yang mempunyai makna Unit JN UKMI UNS sebagai wadah lembaga dakwah di Universitas Sebelas Maret.",
+    "Berbentuk dua huruf hijaiyah menunjukkan bahwa Unit JN UKMI UNS adalah lembaga yang bergerak di bidang keislaman. Huruf nun dan ha ialah singkatan dari Nurul Huda dalam penulisan Bahasa Arab.",
+    "Tulisan JN UKMI UNS menunjukkan nama lembaga.",
+    "Lambang Unit JN UKMI UNS mempunyai kombinasi warna yang terdiri atas:\n\na. Hijau melambangkan keislaman, kesesuaian, dan persahabatan.\n\nb. Hitam melambangkan kesetiaan terhadap dakwah Islam."
+  ],
+  "visi": "Menjadikan JN UKMI sebagai wadah mahasiswa muslim UNS untuk berkarya secara inklusif, kolaboratif, dan berintegritas guna merealisasikan karya nyata untuk UNS, Nasional, dan Asia Tenggara.",
+  "misi": [
+    "Mengoptimalkan tata kelola lembaga (good governance) yang efisien, inovatif, dan transformatif dengan melakukan harmonisasi program kerja secara sinergis.",
+    "Mewujudkan kemandirian lembaga dengan mengoptimalkan fungsi kewirausahaan dan kemitraan secara inovatif, efisien, dan berkelanjutan.",
+    "Mengoptimalkan fungsi pembinaan dan kaderisasi untuk mengembangkan potensi kader dakwah serta mempersiapkan mereka untuk berkompetisi dalam kehidupan pasca kampus secara inovatif.",
+    "Mengembangkan koneksi sosial dengan mitra strategis untuk mewujudkan lembaga yang kolaboratif, efisien, dan inklusif guna mendukung terwujudnya khoiru ummah.",
+    "Mewujudkan produk dan gagasan syi’ar secara inovatif, inklusif, dan efisien dengan media yang sesuai dengan isu terkini."
+  ],
+  "nilai": [
+    {
+      "title": "Inklusif",
+      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus mewadahi dan mengakomodir berbagai macam perbedaan lapisan, golongan, pandangan, dan kepentingan seluruh golongan Islam UNS dalam mendukung terwujudnya rumusan besar umat Islam. JN UKMI juga harus bergaul dan membuka diri dengan lingkungan luar untuk mengakomodir beragam perspektif dan pandangan yang masih selaras dengan konsep hidup umat Islam."
+    },
+    {
+      "title": "Transformatif",
+      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus mencanangkan dan menciptakan produk-produk dakwah yang transformatif, tidak terikat dengan budaya masa lalu, dan mampu menyesuaikan dengan arah gerak umat Islam di masa sekarang."
+    },
+    {
+      "title": "Kolaboratif",
+      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus membuka diri seluas-luasnya dengan relasi dan jalinan kemitraan yang produktif dan mampu membawa JN UKMI pada perubahan yang lebih baik."
+    },
+    {
+      "title": "Harmonis",
+      "description": "JN UKMI sebagai wadah pengembangan dan pembinaan kader dakwah harus bisa mengharmonisasi ide serta gagasan yang muncul agar mampu diterima semua lapisan masyarakat yang ada serta membantu JN UKMI untuk bertumbuh menuju perubahan yang lebih positif."
+    },
+    {
+      "title": "Inisiatif",
+      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus menjadi pelopor kebaikan dan tampil di garda terdepan dalam upaya untuk melaksanakan amar ma’ruf nahi munkar dengan tujuan untuk mencerdaskan kehidupan umat."
+    }
   ],
   "timeline": [
     {
-      "year": "1986",
+      "year": "1982-1985",
       "badge": "Perintisan",
-      "title": "Awal Mula Gerakan Dakwah",
-      "description": "Perintisan kelompok kajian keislaman kecil (halaqah) di kalangan mahasiswa Muslim di UNS.",
-      "iconType": "cake",
-      "narrative": "Pada tahun 1986, bibit-bibit dakwah kampus di Universitas Sebelas Maret mulai bertunas melalui kelompok-kelompok halaqah kecil yang digerakkan oleh para mahasiswa Muslim perintis. Berfokus di masjid-masjid fakultas, gerakan ini bertujuan untuk membina akhlak dan memberikan pemahaman keagamaan mendalam di kalangan mahasiswa akademisi. Kegiatan ini melandasi pentingnya wadah syiar dakwah yang lebih luas dan terorganisir di lingkungan universitas."
+      "title": "Pendirian Masjid & Remaja Mesjid",
+      "description": "Masjid Nurul Huda UNS resmi berdiri tahun 1982 dengan dukungan Rektor dr. Prakoso. Pengurus Harian Masjid & Remaja Mesjid mulai dibentuk.",
+      "iconType": "landmark",
+      "narrative": "Masjid Nurul Huda UNS secara resmi berdiri tahun 1982. Dengan dukungan penuh dari Rektor Universitas Sebelas Maret Bapak dr. Prakoso dan mendapatkan bantuan biaya pendirian dari pemerintah Saudi Arabia. Kemudian sebagai pengelola dibentuklah Pengurus Harian Masjid yang terdiri dari mahasiswa. Sampai dengan tahun 1984, kegiatan yang dilaksanakan cenderung tidak tertata rapih, karena hanya mengandalkan Pengurus Harian Masjid. Untuk itu maka sekitar tahun tersebut, Remaja Mesjid mulai dibentuk, sebagai perpanjangan tangan Pengurus Harian Masjid."
     },
     {
-      "year": "1996",
-      "badge": "Penyatuan",
-      "title": "Deklarasi Lembaga JN UKMI",
-      "description": "Penyatuan berbagai kelompok kajian fakultas menjadi satu wadah unit kegiatan mahasiswa Islam di tingkat universitas.",
-      "iconType": "globe",
-      "narrative": "Tepat sepuluh tahun kemudian pada tahun 1996, berbagai simpul gerakan dakwah dari seluruh fakultas di UNS sepakat untuk menyatukan visi dan langkah. Dideklarasikanlah Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) sebagai Unit Kegiatan Mahasiswa resmi di tingkat universitas. Penyatuan ini menandai era baru dakwah kampus yang lebih solid, formal, serta memiliki daya jangkau yang luas ke seluruh civitas akademika."
+      "year": "1985-1987",
+      "badge": "Strukturisasi",
+      "title": "Pembentukan SKI & Kegiatan Akbar",
+      "description": "Universitas membentuk Seksi Kerohanian Islam (SKI) di bawah PR III. Kegiatan Isra' Mi'raj menghadirkan Menteri Agama Munawir Sadzali.",
+      "iconType": "scroll",
+      "narrative": "Pada tahun 1985 Universitas membentuk Seksi Kerohanian Islam (SKI) yang secara struktural berada dibawah koordinasi Pembantu Rektor III Bidang Kemahasiswaan. Dengan adanya SKI ini maka Masjid Nurul Huda UNS makin marak dengan berbagai lembaga dakwah kampus, yaitu Pengurus Harian Masjid (mahasiswa yang tinggal di Masjid), remaja Masjid Nurul Huda (Organisasi perpanjangan tangan Pengurus Harian Masjid) dan SKI sebagai penanggung jawab kegiatan ke-Islaman tingkat Universitas. Pada perkembangannya, SKI kemudian berganti menjadi Unit Kegiatan Kerohanian Islam (UKKI). Setelah terbentuknya lembaga-lembaga tersebut, selanjutnya untuk lebih mengintensifkan pembinaan kepada mahasiswa baru, maka dibentuklah Ikatan Keluarga Dosen (IKADAI), sebagai pelaksana kegiatan Asistensi Agama Islam yang bernaung di bawah koordinasi Seksi Pendidikan Pengurus Harian Masjid. Pada masa 1985 - 1987 ini tercatat kegiatan akbar adalah Pekan Isra' Mi'raj 1408 Hijirah yang mendatangkan Menteri Agama Munawir Sadzali, yang dilaksanakan oleh SKI."
     },
     {
-      "year": "2006",
-      "badge": "Kaderisasi",
-      "title": "Sistem Pembinaan Terpadu",
-      "description": "Perumusan kurikulum kaderisasi kepemimpinan Islam yang sistematis dan terstandarisasi di tingkat universitas.",
+      "year": "1987-1991",
+      "badge": "Perkembangan",
+      "title": "Lahirnya JMM NH & Rintisan Integrasi",
+      "description": "Remaja Masjid Nurul Huda berubah menjadi JMM NH. FSLDK Se-Jawa diselenggarakan tahun 1988 dan rintisan penggabungan dimulai.",
       "iconType": "users",
-      "narrative": "Memasuki tahun 2006, JN UKMI melakukan standarisasi sistem pembinaan dan kurikulum kaderisasi. Langkah ini bertujuan melahirkan generasi aktivis dakwah kampus yang tidak hanya kokoh secara spiritual, tetapi juga unggul secara akademis dan profesional. Sistem kaderisasi terpadu ini menyinergikan gerak langkah pembinaan kepemimpinan di seluruh Lembaga Dakwah Fakultas (LDF) se-UNS."
+      "narrative": "Setelah tahun 1987, kegiatan ke-Islaman di Universitas Sebelas Maret (UNS) Surakarta mengalami perkembangan yang amat pesat, didukung dengan adanya beberapa lembaga dakwah kampus yang walaupun belum tertata rapih tapi cukup mewarnai kampus. Tahun 1989, sesuai dengan petunjuk Pembantu Rektor III, Remaja Masjid Nurul Huda mengalami perubahan nama menjadi Jamaah Mahasiswa Masjid Nurul Huda (JMM NH). Pada tahun itu pula terdapat perubahan struktur Pengurus Harian Masjid dangan dilepasnya Ikatan Keluarga Asisten Agama Islam (IKADAI), tidak menjadi bagian dari Seksi Pendidikan Pengurus Harian Masjid, namun menjadi di bawah koordinasi Mata Kuliah Dasar Umum (MKDU) Agama Islam. Pada Unit Kegiatan Kerohanian Islam (UKKI) tidak terdapat perubahan yang berarti kecuali adanya event penting yaitu dengan menyelenggarakan Forum Silaturahmi Lembaga Dakwah Kampus (FSLDK) se- wilayah Jawa, pada tahun 1988. Adapun periode berikutnya tercatat event penting yaitu Forum Silaturahmi Lembaga Dakwah Kampus se Wilayah Tengah (Jawa Tengah, DIY, Kalimantan Selatan). Pada masa ini, tampak bahwa volume kegiatan amat banyak, namun minus koordinasi, sehingga tampak kacau di antara lembaga-lembaga dakwah yang ada. Untuk menghindari hal tersebut, maka mulai tahun 1990, telah dirintis usaha untuk menggabungkan seluruh lembaga tersebut."
     },
     {
-      "year": "2016",
-      "badge": "Digitalisasi",
-      "title": "Inovasi Syiar & Media Digital",
-      "description": "Transformasi syiar dakwah memanfaatkan perkembangan teknologi informasi, media sosial, dan platform kreatif.",
+      "year": "1991-1992",
+      "badge": "Penyatuan",
+      "title": "Deklarasi JN UKMI UNS",
+      "description": "Selasa, 12 Maret 1991 seluruh lembaga dakwah (UKKI, IKADAI, JMM NH, Takmir) resmi bergabung menjadi JN UKMI UNS.",
       "iconType": "star",
-      "narrative": "Pada tahun 2016, JN UKMI menyambut era digital dengan melakukan transformasi besar pada metode syiar. Mengintegrasikan teknologi informasi dan platform media sosial, JN UKMI meluncurkan berbagai konten visual dakwah kreatif yang santun, edukatif, dan inklusif. Pendekatan ini berhasil menjangkau ribuan mahasiswa Muslim milenial dan memperluas resonansi pesan dakwah melampaui batas fisik kampus."
+      "narrative": "Melalui pembahasan yang panjang, maka pada tahun 1991 tepatnya Selasa, 12 Maret 1991, para pengurus Unit Kegiatan Kerohanian Islam (UKKI), Ikatan Keluarga Asisten Agama Islam (IKADAI), Jamaah Mahasiswa Masjid Nurul Huda (JMM NH), dan takmir Masjid Nurul Huda menyepakati penggabungan seluruh lembaga dakwah yang ada tersebut menjadi organisasi yang integral, yang bernama Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret (JN UKMI UNS). Pada tahap ini, praktis perhatian lebih tercurahkan pada konsolidasi internal, dan penataan awal kelembagaan."
     },
     {
-      "year": "2026",
-      "badge": "Kolaborasi",
-      "title": "Sinergi Kabinet Iskandar Muda",
-      "description": "Pemberdayaan dakwah berbasis kolaborasi lintas sektoral, pengabdian masyarakat masif, dan desa binaan berkelanjutan.",
-      "iconType": "heart",
-      "narrative": "Kini di tahun 2026, di bawah naungan Kabinet Iskandar Muda, JN UKMI memantapkan perannya sebagai motor dakwah kolaboratif. Kami berfokus pada pengabdian masyarakat secara nyata melalui program desa binaan berkelanjutan, sinergi erat lintas Organisasi Kemahasiswaan Islam, serta kampanye kepedulian sosial yang konkret untuk mewujudkan Universitas Sebelas Maret yang madani dan berdampak luas."
+      "year": "1992-1993",
+      "badge": "Konsolidasi",
+      "title": "Peletakan Pondasi Dasar",
+      "description": "Peletakan dasar aktifitas dakwah integratif yang mencakup seluruh bidang garap eks-lembaga sebelumnya.",
+      "iconType": "shield",
+      "narrative": "Periode ini boleh dikatakan merupakan periode peletakan dasar, yang diharapkan menjadi pijakan bagi kepengurusan dimasa yang akan datang. Pada saat itu Pengurus JN UKMI UNS melaksanakan berbagai aktifitas dakwah Islam di kampus UNS, dengan bidang garap yang meliputi seluruh bidang yang dulu ditangani oleh UKKI, JMM NH maupun IKADAI."
+    },
+    {
+      "year": "1993-sekarang",
+      "badge": "Ekspansi",
+      "title": "Transformasi & Dakwah Kontemporer",
+      "description": "JN UKMI UNS terus berkembang mengibarkan syiar dakwah islami yang diridhai Allah SWT.",
+      "iconType": "globe",
+      "narrative": "Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret Surakarta (JN UKMI UNS) terus berkembang, membentangkan sayap dan mengembangkan ekspansi dakwahnya dalam ruang lingkup yang lebih luas, menyeru pada kebenaran dan mencegah kemungkaran, berusaha menciptakan iklim universitas yang islami, serta mengembangkan moralitas, intelektualitas, dan profesionalitas yang diridhai Allah SWT."
     }
   ]
 }

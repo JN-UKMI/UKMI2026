@@ -60,8 +60,10 @@ export interface Milestone {
 export interface AboutContent {
   tagline: string;
   visi: string;
-  misi: string;
-  tujuan: string[];
+  misi: string[];
+  deskripsi: string;
+  deskripsi_perkenalan: string[];
+  nilai: Array<{ title: string; description: string }>;
   timeline: Milestone[];
 }
 
