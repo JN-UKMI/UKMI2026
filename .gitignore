@@ -42,3 +42,36 @@ next-env.d.ts
 
 .agents/
 .omo/
+
+# AI Agent logs, caches, and runtimes
+.gemini/
+.claudecode/
+.anthropic/
+claude.json
+*transcript*.jsonl
+*.prompt.md
+/scratch/
+/brain/
+
+# Local Environment Overrides
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS Metadata Garbage
+.DS_Store
+Thumbs.db
+.directory
+.Spotlight-V100
+.Trashes
+
+# Editor settings and diagnostics
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

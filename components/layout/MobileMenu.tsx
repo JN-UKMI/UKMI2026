@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Phone } from "lucide-react";
 
+import { TransitionLink } from "@/components/ui/TransitionLink";
+
 type NavItem = {
   label: string;
   href?: string;
@@ -36,14 +38,14 @@ export function MobileMenu({
 
       {/* Kontak button at bottom */}
       <div className="pt-3 mt-2 border-t border-gray-100 px-1">
-        <Link
+        <TransitionLink
           href="/kontak"
           onClick={onClose}
-          className="flex items-center justify-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95"
+          className="flex items-center justify-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer"
         >
           <Phone className="w-4 h-4" />
           Kontak
-        </Link>
+        </TransitionLink>
       </div>
     </div>
   );
@@ -113,12 +115,12 @@ function MobileLink({
   onClick?: () => void;
 }) {
   return (
-    <Link
+    <TransitionLink
       href={href}
-      className="block px-3.5 py-2 text-sm font-semibold text-gray-700 hover:bg-forest-50 hover:text-forest-700 transition-all rounded-xl"
+      className="block px-3.5 py-2 text-sm font-semibold text-gray-700 hover:bg-forest-50 hover:text-forest-700 transition-all rounded-xl cursor-pointer"
       onClick={onClick}
     >
       {label}
-    </Link>
+    </TransitionLink>
   );
 }

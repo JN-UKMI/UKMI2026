@@ -27,6 +27,8 @@ const INDONESIAN_MONTHS = [
 
 const DAYS_OF_WEEK = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 
+import { motion, AnimatePresence } from "framer-motion";
+
 export function KalenderInteractive({
   events,
   monthlyQuotes,
@@ -36,6 +38,7 @@ export function KalenderInteractive({
   const defaultDate = new Date();
   
   const [currentDate, setCurrentDate] = useState<Date>(defaultDate);
+  const [[monthPage, direction], setMonthPage] = useState<[number, number]>([0, 0]);
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"all" | "kegiatan" | "puasa">("all");
   const [calendarHeight, setCalendarHeight] = useState<number>(0);
@@ -67,17 +70,23 @@ export function KalenderInteractive({
   const prevMonthTotalDays = new Date(year, month, 0).getDate();
 
   const handlePrevMonth = () => {
+    setMonthPage([monthPage - 1, -1]);
     setCurrentDate(new Date(year, month - 1, 1));
     setSelectedDateStr(null);
   };
 
   const handleNextMonth = () => {
+    setMonthPage([monthPage + 1, 1]);
     setCurrentDate(new Date(year, month + 1, 1));
     setSelectedDateStr(null);
   };
 
   const jumpToToday = () => {
     const now = new Date();
+    const currentAbsoluteMonth = now.getFullYear() * 12 + now.getMonth();
+    const stateAbsoluteMonth = year * 12 + month;
+    const newDir = currentAbsoluteMonth > stateAbsoluteMonth ? 1 : -1;
+    setMonthPage([monthPage + (currentAbsoluteMonth - stateAbsoluteMonth), newDir]);
     setCurrentDate(now);
     setSelectedDateStr(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`);
   };
@@ -116,7 +125,13 @@ export function KalenderInteractive({
   const currentQuote = monthlyQuotes?.[yearMonthKey];
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-6xl mx-auto">
+    <motion.div 
+      initial={{ scale: 0.9, y: 40, opacity: 1 }}
+      whileInView={{ scale: 1, y: 0, opacity: 1 }}
+      viewport={{ once: false, margin: "-100px" }}
+      transition={{ type: "spring", stiffness: 60, damping: 15 }}
+      className="flex flex-col gap-8 w-full max-w-6xl mx-auto"
+    >
       
       {/* 1. TOP HEADER CONTROLLER: SEGMENTED PILL FILTER & TODAY BUTTON */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-3 sm:p-4 rounded-3xl border border-gray-200/80 shadow-[0_4px_20px_rgb(0,0,0,0.03)]">
@@ -221,82 +236,111 @@ export function KalenderInteractive({
                 </span>
               </div>
 
-              {/* Days of week header */}
-              <div className="grid grid-cols-7 gap-1 text-center font-black text-xs text-forest-900 mb-3 uppercase tracking-wider">
-                {DAYS_OF_WEEK.map((d) => (
-                  <div key={d} className="py-1">
-                    {d}
-                  </div>
-                ))}
-              </div>
-
-              {/* Calendar Days Grid */}
-              <div className="grid grid-cols-7 gap-2">
-                {/* Previous month padding */}
-                {Array.from({ length: startOffset }).map((_, i) => {
-                  const dayNum = prevMonthTotalDays - startOffset + i + 1;
-                  return (
-                    <div
-                      key={`prev-${i}`}
-                      className="aspect-square flex items-center justify-center text-xs text-gray-300 pointer-events-none bg-gray-50/40 rounded-2xl min-w-[38px] min-h-[38px]"
-                    >
-                      {dayNum}
-                    </div>
-                  );
-                })}
-
-                {/* Current month days */}
-                {Array.from({ length: totalDays }).map((_, i) => {
-                  const dayNum = i + 1;
-                  const dateString = `${year}-${String(month + 1).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`;
-                  const dayEvents = getEventsForDate(dayNum);
-                  const hasEvents = dayEvents.length > 0;
-                  const hasPuasa = dayEvents.some((e) => e.type === "Puasa Sunnah" || e.isPuasa);
-                  const hasUkmiEvent = dayEvents.some((e) => e.type !== "Puasa Sunnah" && !e.isPuasa);
-                  const isSelected = selectedDateStr === dateString;
-                  const isToday = checkIsToday(dayNum);
-
-                  return (
-                    <button
-                      key={`curr-${dayNum}`}
-                      onClick={() => setSelectedDateStr(isSelected ? null : dateString)}
-                      className={`relative aspect-square flex flex-col items-center justify-center text-xs sm:text-sm font-bold rounded-2xl transition-all border cursor-pointer active:scale-95 min-w-[38px] min-h-[38px] ${
-                        isSelected
-                          ? "bg-forest-900 text-white border-forest-900 shadow-md ring-2 ring-forest-600/30"
-                          : isToday
-                          ? "bg-forest-900 text-white border-forest-900 font-black shadow-md ring-2 ring-lime ring-offset-2"
-                          : hasPuasa && hasUkmiEvent
-                          ? "bg-emerald-50/90 text-emerald-950 border-emerald-300 font-black hover:bg-emerald-100"
-                          : hasPuasa
-                          ? "bg-emerald-50/70 text-emerald-900 border-emerald-200 font-bold hover:bg-emerald-100/80"
-                          : hasUkmiEvent
-                          ? "bg-forest-50/80 text-forest-900 border-forest-200 font-bold hover:bg-forest-100"
-                          : "bg-white text-gray-700 border-gray-100 hover:bg-gray-50"
-                      }`}
-                    >
-                      <span className="leading-none">{dayNum}</span>
-
-                      {/* Today Badge Pill */}
-                      {isToday && !isSelected && (
-                        <span className="absolute -top-1 px-1 py-[1px] bg-lime text-forest-950 font-black text-[6.5px] rounded-md uppercase tracking-tighter shadow-sm">
-                          HARI INI
-                        </span>
-                      )}
-
-                      {/* Multi-Pill Micro Badges */}
-                      {hasEvents && !isToday && (
-                        <div className="absolute bottom-1.5 flex items-center justify-center gap-1">
-                          {hasUkmiEvent && (
-                            <span className={`w-2 h-1 rounded-full ${isSelected ? "bg-lime" : "bg-forest-600"}`} />
-                          )}
-                          {hasPuasa && (
-                            <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-emerald-600"}`} />
-                          )}
+              <div className="relative overflow-hidden w-full">
+                <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+                  <motion.div
+                    key={monthPage}
+                    custom={direction}
+                    variants={{
+                      enter: (dir: number) => ({
+                        x: dir > 0 ? "100%" : "-100%",
+                        opacity: 1,
+                      }),
+                      center: {
+                        x: 0,
+                        opacity: 1,
+                      },
+                      exit: (dir: number) => ({
+                        x: dir < 0 ? "100%" : "-100%",
+                        opacity: 1,
+                      }),
+                    }}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 32 },
+                    }}
+                  >
+                    {/* Days of week header */}
+                    <div className="grid grid-cols-7 gap-1 text-center font-black text-xs text-forest-900 mb-3 uppercase tracking-wider">
+                      {DAYS_OF_WEEK.map((d) => (
+                        <div key={d} className="py-1">
+                          {d}
                         </div>
-                      )}
-                    </button>
-                  );
-                })}
+                      ))}
+                    </div>
+
+                    {/* Calendar Days Grid */}
+                    <div className="grid grid-cols-7 gap-2">
+                      {/* Previous month padding */}
+                      {Array.from({ length: startOffset }).map((_, i) => {
+                        const dayNum = prevMonthTotalDays - startOffset + i + 1;
+                        return (
+                          <div
+                            key={`prev-${i}`}
+                            className="aspect-square flex items-center justify-center text-xs text-gray-300 pointer-events-none bg-gray-50/40 rounded-2xl min-w-[38px] min-h-[38px]"
+                          >
+                            {dayNum}
+                          </div>
+                        );
+                      })}
+
+                      {/* Current month days */}
+                      {Array.from({ length: totalDays }).map((_, i) => {
+                        const dayNum = i + 1;
+                        const dateString = `${year}-${String(month + 1).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`;
+                        const dayEvents = getEventsForDate(dayNum);
+                        const hasEvents = dayEvents.length > 0;
+                        const hasPuasa = dayEvents.some((e) => e.type === "Puasa Sunnah" || e.isPuasa);
+                        const hasUkmiEvent = dayEvents.some((e) => e.type !== "Puasa Sunnah" && !e.isPuasa);
+                        const isSelected = selectedDateStr === dateString;
+                        const isToday = checkIsToday(dayNum);
+
+                        return (
+                          <button
+                            key={`curr-${dayNum}`}
+                            onClick={() => setSelectedDateStr(isSelected ? null : dateString)}
+                            className={`relative aspect-square flex flex-col items-center justify-center text-xs sm:text-sm font-bold rounded-2xl transition-all border cursor-pointer active:scale-95 min-w-[38px] min-h-[38px] ${
+                              isSelected
+                                ? "bg-forest-900 text-white border-forest-900 shadow-md ring-2 ring-forest-600/30"
+                                : isToday
+                                ? "bg-forest-900 text-white border-forest-900 font-black shadow-md ring-2 ring-lime ring-offset-2"
+                                : hasPuasa && hasUkmiEvent
+                                ? "bg-emerald-50/90 text-emerald-950 border-emerald-300 font-black hover:bg-emerald-100"
+                                : hasPuasa
+                                ? "bg-emerald-50/70 text-emerald-900 border-emerald-200 font-bold hover:bg-emerald-100/80"
+                                : hasUkmiEvent
+                                ? "bg-forest-50/80 text-forest-900 border-forest-200 font-bold hover:bg-forest-100"
+                                : "bg-white text-gray-700 border-gray-100 hover:bg-gray-50"
+                            }`}
+                          >
+                            <span className="leading-none">{dayNum}</span>
+
+                            {/* Today Badge Pill */}
+                            {isToday && !isSelected && (
+                              <span className="absolute -top-1 px-1 py-[1px] bg-lime text-forest-950 font-black text-[6.5px] rounded-md uppercase tracking-tighter shadow-sm">
+                                HARI INI
+                              </span>
+                            )}
+
+                            {/* Multi-Pill Micro Badges */}
+                            {hasEvents && !isToday && (
+                              <div className="absolute bottom-1.5 flex items-center justify-center gap-1">
+                                {hasUkmiEvent && (
+                                  <span className={`w-2 h-1 rounded-full ${isSelected ? "bg-lime" : "bg-forest-600"}`} />
+                                )}
+                                {hasPuasa && (
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-emerald-600"}`} />
+                                )}
+                              </div>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
 
@@ -348,7 +392,7 @@ export function KalenderInteractive({
             </div>
 
             {/* Agenda Cards — scroll di dalam card sesuai sisa tinggi */}
-            <div className="flex-1 min-h-0 overflow-y-auto space-y-3.5 pr-1">
+            <div className="flex-1 min-h-0 overflow-y-auto space-y-3.5 pr-1 relative">
               {displayedEvents.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-16">
                   <CalendarDays className="w-12 h-12 text-gray-300 mb-3" />
@@ -359,17 +403,22 @@ export function KalenderInteractive({
                   </p>
                 </div>
               ) : (
-                displayedEvents.map((event, index) => {
-                  const isPuasa = event.type === "Puasa Sunnah" || event.isPuasa;
-                  return (
-                    <div
-                      key={index}
-                      className={`rounded-2xl p-4 border transition-all ${
-                        isPuasa
-                          ? "bg-emerald-50/70 border-emerald-200/80 hover:bg-emerald-50 shadow-xs"
-                          : "bg-gray-50/80 border-gray-100 hover:bg-gray-100/70 shadow-xs"
-                      }`}
-                    >
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {displayedEvents.map((event, index) => {
+                    const isPuasa = event.type === "Puasa Sunnah" || event.isPuasa;
+                    return (
+                      <motion.div
+                        initial={{ opacity: 1, x: "-100%" }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 1, x: "100%" }}
+                        transition={{ type: "spring", stiffness: 300, damping: 32 }}
+                        key={event.title + index}
+                        className={`p-4 rounded-2xl border ${
+                          isPuasa
+                            ? "bg-emerald-50/40 border-emerald-100/80 hover:bg-emerald-50/70"
+                            : "bg-forest-50/40 border-forest-100/85 hover:bg-forest-50/70"
+                        }`}
+                      >
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span
                           className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-black rounded-md uppercase tracking-wider ${
@@ -405,16 +454,17 @@ export function KalenderInteractive({
                           <span>{event.location}</span>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   );
-                })
-              )}
+                })}
+              </AnimatePresence>
+            )}
             </div>
 
           </div>
         </div>
 
       </div>
-    </div>
+    </motion.div>
   );
 }

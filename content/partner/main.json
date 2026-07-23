@@ -1,0 +1,34 @@
+[
+  {
+    "nama": "UPZ UNS",
+    "deskripsi": "Unit Pengumpul Zakat Universitas Sebelas Maret yang bertugas mengelola dan menyalurkan dana zakat, infak, dan sedekah civitas akademika UNS.",
+    "instagram_url": "https://www.instagram.com/upzuns/",
+    "gambar": "/placeholder.png",
+    "contact_person": "CP UPZ UNS",
+    "whatsapp": "+62 812-3456-7890"
+  },
+  {
+    "nama": "FSLDK",
+    "deskripsi": "Forum Silaturahmi Lembaga Dakwah Kampus tingkat nasional wadah kolaborasi dakwah kampus seluruh Indonesia.",
+    "instagram_url": "https://www.instagram.com/fsldkindonesia/",
+    "gambar": "/placeholder.png",
+    "contact_person": "CP FSLDK",
+    "whatsapp": "+62 898-7654-3210"
+  },
+  {
+    "nama": "UNSSJP",
+    "deskripsi": "UNS Students for Justice in Palestine, komunitas mahasiswa Universitas Sebelas Maret yang bergerak dalam aksi kemanusiaan dan menyuarakan solidaritas keadilan untuk Palestina.",
+    "instagram_url": "https://www.instagram.com/unssjp/",
+    "gambar": "/placeholder.png",
+    "contact_person": "CP UNSSJP",
+    "whatsapp": "+62 811-2233-4455"
+  },
+  {
+    "nama": "Takmir Masjid NH",
+    "deskripsi": "Takmir Masjid Nurul Huda UNS yang mengelola kegiatan kerohanian, pelayanan jamaah, dan kemakmuran masjid kampus pusat UNS.",
+    "instagram_url": "https://www.instagram.com/nurulhuda_uns/",
+    "gambar": "/placeholder.png",
+    "contact_person": "CP Takmir Masjid NH",
+    "whatsapp": "+62 822-3344-5566"
+  }
+]

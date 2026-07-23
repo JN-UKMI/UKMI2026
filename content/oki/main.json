@@ -1,0 +1,18 @@
+[
+  {
+    "nama": "Ilmu Quran UNS",
+    "deskripsi": "Ormawa Kerohanian Islam (OKI) yang berfokus pada kajian, penghafalan, pemahaman, dan pengembangan keilmuan Al-Qur'an di lingkungan Universitas Sebelas Maret.",
+    "instagram_url": "https://www.instagram.com/iquns/",
+    "gambar": "/placeholder.png",
+    "contact_person": "CP Ilmu Quran",
+    "whatsapp": "+62 812-3456-7890"
+  },
+  {
+    "nama": "Seni Religi UNS",
+    "deskripsi": "Ormawa Kerohanian Islam (OKI) wadah pengembangan minat dan bakat mahasiswa UNS dalam bidang kesenian bernuansa religi islami seperti hadrah, nasyid, tilawah, dan kaligrafi.",
+    "instagram_url": "https://www.instagram.com/senireligiuns/",
+    "gambar": "/placeholder.png",
+    "contact_person": "CP Seni Religi",
+    "whatsapp": "+62 898-7654-3210"
+  }
+]

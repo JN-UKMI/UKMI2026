@@ -9,6 +9,9 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 
+import { usePathname } from "next/navigation";
+import { TransitionLink } from "@/components/ui/TransitionLink";
+
 type NavItem = {
   label: string;
   href?: string;
@@ -17,13 +20,30 @@ type NavItem = {
 
 export function NavDropdown({ item }: { item: NavItem }) {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  const pathname = usePathname();
 
   const toggle = (label: string) =>
     setOpenSections((prev) => ({ ...prev, [label]: !prev[label] }));
 
+  // Check if any sub-item of this dropdown is currently active
+  const isAnyChildActive = item.items?.some((sub) => {
+    if (sub.items) {
+      return sub.items.some((leaf) => leaf.href && pathname.startsWith(leaf.href));
+    }
+    return sub.href && pathname.startsWith(sub.href);
+  });
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-forest-600 cursor-default outline-none transition-colors">
+      <DropdownMenuTrigger
+        className={`flex items-center gap-1 px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-default outline-none
+          ${
+            isAnyChildActive
+              ? "bg-forest-100/90 text-forest-900 font-bold border-forest-600/70 shadow-md"
+              : "text-gray-700 font-semibold border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 active:bg-forest-200/50 active:border-forest-700/60"
+          }
+        `}
+      >
         {item.label}
         <ChevronDown className="w-4 h-4" />
       </DropdownMenuTrigger>
@@ -37,9 +57,9 @@ export function NavDropdown({ item }: { item: NavItem }) {
             <div key={sub.label}>
               <button
                 onClick={() => toggle(sub.label)}
-                className="w-full flex items-center justify-between pl-[18px] pr-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider hover:text-gray-600 transition-colors"
+                className="w-full flex items-center justify-between pl-3 pr-3 py-1.5 text-sm font-medium text-gray-700 hover:text-forest-600 transition-colors"
               >
-                {sub.label}
+                &nbsp;&nbsp;{sub.label}
                 <ChevronRight
                   className={`w-3.5 h-3.5 transition-transform duration-200 ${openSections[sub.label] ? "rotate-90" : ""}`}
                 />
@@ -52,12 +72,12 @@ export function NavDropdown({ item }: { item: NavItem }) {
                 <div className="pt-0.5">
                   {sub.items.map((leaf) => (
                     <DropdownMenuItem key={leaf.label}>
-                      <a
+                      <TransitionLink
                         href={leaf.href || "#"}
-                        className="block w-full text-sm rounded-md px-5 py-1.5 hover:bg-gray-100 transition-colors"
+                        className="block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
                       >
                         {leaf.label}
-                      </a>
+                      </TransitionLink>
                     </DropdownMenuItem>
                   ))}
                 </div>
@@ -65,12 +85,12 @@ export function NavDropdown({ item }: { item: NavItem }) {
             </div>
           ) : (
             <DropdownMenuItem key={sub.label}>
-              <a
+              <TransitionLink
                 href={sub.href || "#"}
-                className="block w-full text-sm rounded-md px-3 py-1.5 hover:bg-gray-100 transition-colors"
+                className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
               >
                 {sub.label}
-              </a>
+              </TransitionLink>
             </DropdownMenuItem>
           )
         )}

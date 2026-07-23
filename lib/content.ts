@@ -64,6 +64,22 @@ export async function loadLDF(): Promise<LDF[]> {
   return JSON.parse(file);
 }
 
+export async function loadOKI(): Promise<LDF[]> {
+  const file = await safeReadFile(
+    path.join(contentDir, "oki", "main.json"),
+    path.join(contentDir, "ldf.json") // Fallback
+  );
+  return JSON.parse(file);
+}
+
+export async function loadPartner(): Promise<LDF[]> {
+  const file = await safeReadFile(
+    path.join(contentDir, "partner", "main.json"),
+    path.join(contentDir, "ldf.json") // Fallback
+  );
+  return JSON.parse(file);
+}
+
 export async function loadContact(): Promise<ContactInfo> {
   const file = await safeReadFile(
     path.join(contentDir, "kontak", "main.json"),

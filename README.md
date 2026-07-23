@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Website JN UKMI UNS 2026 - Kabinet Iskandar Muda
 
-## Getting Started
+Website resmi Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) Universitas Sebelas Maret (UNS). Platform ini berfungsi sebagai pusat informasi dakwah kampus, profil bidang kabinet, direktori lembaga mitra, artikel kajian, serta layanan islami mahasiswa.
 
-First, run the development server:
+---
 
+## 🛠️ Tech Stack & Fitur
+
+- **Framework**: Next.js 16 (App Router), React 19, TypeScript strict.
+- **Styling**: Tailwind CSS v4 (Desain modern, bertema Light Mode dengan warna Forest Green, Sage, dan Lime).
+- **CMS**: Sanity CMS (Untuk publikasi artikel, kajian, dan rilis kegiatan).
+- **Animasi Transisi**: Framer Motion (Transisi slide 100% bebas blink menggunakan teknik *interceptor TransitionLink*).
+- **Fitur Utama**:
+  - Hero Interaktif & Carousel Quotes Islami (rotasi otomatis 30 detik + progress bar).
+  - Direktori **Kabinet**, **LDF (Lembaga Dakwah Fakultas)**, **OKI (Ormawa Kerohanian Islam)**, dan **Partner**.
+  - Layanan Islami (Al-Kahfi API, Al-Masurat digital, Doa Harian, Buku panduan UKMI).
+
+---
+
+## 🚀 Getting Started (Cara Memulai)
+
+### 1. Klon Repositori
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Syaasr/UKMI2026.git
+cd website
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Pasang Dependensi
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Konfigurasi Environment Variables
+Salin file `.env.example` menjadi `.env.local` dan lengkapi nilainya:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Isi `.env.local` dengan konfigurasi berikut:
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=ksc63oa8
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_WRITE_TOKEN=masukkan_write_token_sanity_disini
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+KODE_AKSES_ADMIN=UKMI2026
+KODE_AKSES_PENGURUS=UKMI2026
+```
 
-## Learn More
+### 4. Jalankan Development Server
+```bash
+npm run dev
+```
+Buka [http://localhost:3000](http://localhost:3000) di browser untuk melihat hasilnya secara lokal.
 
-To learn more about Next.js, take a look at the following resources:
+### 5. Kompilasi Build Produksi
+Untuk memastikan tidak ada kesalahan TypeScript atau layout sebelum di-deploy:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📂 Struktur Rute Halaman
+- `/` - Beranda (Hero, Kegiatan Terkini, Kalender, quotes)
+- `/tentang` - Visi, Misi, Sejarah, & Milestones
+- `/kabinet` - Pengurus Kabinet Iskandar Muda
+- `/bidang/[slug]` - Detail program & staf 6 Bidang + Bendahara & Sekretaris
+- `/artikel` - Daftar artikel/kajian dari Sanity CMS
+- `/partner` - Direktori Partner Dakwah UNS
+- `/oki` - Direktori Ormawa Kerohanian Islam (Ilmu Quran, Seni Religi)
+- `/ldf` - Direktori Lembaga Dakwah Fakultas UNS
+- `/al-kahfi` - Baca Al-Kahfi lengkap terjemahan
+- `/al-masurat` - Bacaan Al-Masurat pagi dan sore
+- `/kontak` - Hubungi JN UKMI
