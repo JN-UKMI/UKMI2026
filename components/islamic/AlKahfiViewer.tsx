@@ -70,8 +70,8 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
           onClick={() => setShowGlobalLatin(!showGlobalLatin)}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border cursor-pointer active:scale-95 ${
             showGlobalLatin
-              ? "bg-forest-600 hover:bg-forest-750 text-white border-forest-600"
-              : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+              ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-750 text-white border-forest-600 dark:border-forest-700"
+              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
           }`}
         >
           {showGlobalLatin ? (
@@ -92,8 +92,8 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
           onClick={() => setShowGlobalTranslation(!showGlobalTranslation)}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border cursor-pointer active:scale-95 ${
             showGlobalTranslation
-              ? "bg-forest-600 hover:bg-forest-750 text-white border-forest-600"
-              : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+              ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-750 text-white border-forest-600 dark:border-forest-700"
+              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
           }`}
         >
           {showGlobalTranslation ? (

@@ -329,12 +329,12 @@ export default function TentangPage() {
 
           {/* TAB 3: VISI */}
           {activeTab === "visi" && (
-            <div className="max-w-3xl mx-auto bg-white rounded-3xl border border-gray-200/60 shadow-md p-8 text-center flex flex-col items-center gap-6 animate-[fadeIn_0.5s_ease-out]">
-              <div className="w-14 h-14 rounded-2xl bg-forest-600/10 text-forest-600 flex items-center justify-center shadow-inner">
+            <div className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-8 text-center flex flex-col items-center gap-6 animate-[fadeIn_0.5s_ease-out] transition-colors">
+              <div className="w-14 h-14 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shadow-inner">
                 <Compass className="w-7 h-7" />
               </div>
-              <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 tracking-tight">Visi Kami</h3>
-              <blockquote className="text-base md:text-lg font-medium text-gray-700 leading-relaxed max-w-2xl border-l-4 border-lime px-5 py-3 bg-gray-50/50 rounded-r-2xl">
+              <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-lime tracking-tight">Visi Kami</h3>
+              <blockquote className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-200 leading-relaxed max-w-2xl border-l-4 border-lime px-5 py-3 bg-gray-50/50 dark:bg-gray-800/60 rounded-r-2xl">
                 &ldquo;{aboutData.visi}&rdquo;
               </blockquote>
             </div>

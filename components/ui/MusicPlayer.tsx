@@ -156,8 +156,8 @@ export function MusicPlayer() {
         onClick={handleFabClick}
         className={`flex h-12 w-12 items-center justify-center rounded-full shadow-[0_10px_25px_-5px_rgba(24,35,15,0.3)] border-2 transition-all cursor-pointer ${
           isPlaying && !isMuted
-            ? "bg-forest-600 text-white border-lime animate-pulse ring-4 ring-forest-100"
-            : "bg-forest-900 text-white border-lime/80 hover:bg-forest-950"
+            ? "bg-forest-600 text-white border-lime animate-pulse ring-4 ring-forest-100 dark:ring-forest-900/50"
+            : "bg-forest-900 dark:bg-gray-800 text-white dark:text-lime border-lime/80 hover:bg-forest-950 dark:hover:bg-gray-700"
         }`}
         aria-label={isMuted ? "Bunyikan Musik" : "Bisu Musik"}
       >
@@ -176,24 +176,24 @@ export function MusicPlayer() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="hidden md:flex items-center gap-3 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-full shadow-xl border border-gray-200/80 text-gray-800"
+            className="hidden md:flex items-center gap-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md px-4 py-2.5 rounded-full shadow-xl border border-gray-200/80 dark:border-lime dark:ring-1 dark:ring-lime/30 text-gray-800 dark:text-gray-100 transition-colors"
           >
             {/* Song Info */}
             <div className="flex flex-col max-w-[140px] sm:max-w-[180px]">
-              <span className="text-xs font-bold truncate text-forest-900 leading-tight">
+              <span className="text-xs font-bold truncate text-forest-900 dark:text-lime leading-tight">
                 {currentTrack.title}
               </span>
-              <span className="text-[10px] font-medium text-gray-400 truncate">
+              <span className="text-[10px] font-medium text-gray-400 dark:text-gray-400 truncate">
                 {currentTrack.artist}
               </span>
             </div>
 
             {/* Controls */}
-            <div className="flex items-center gap-1.5 pl-2 border-l border-gray-200">
+            <div className="flex items-center gap-1.5 pl-2 border-l border-gray-200 dark:border-gray-800">
               {/* Play / Pause */}
               <button
                 onClick={togglePlay}
-                className="w-8 h-8 rounded-full bg-forest-600 hover:bg-forest-800 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
+                className="w-8 h-8 rounded-full bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 dark:hover:bg-forest-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
                 aria-label={isPlaying ? "Pause" : "Play"}
               >
                 {isPlaying ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-white ml-0.5" />}
@@ -202,7 +202,7 @@ export function MusicPlayer() {
               {/* Next Track */}
               <button
                 onClick={nextTrack}
-                className="p-1.5 rounded-full text-gray-500 hover:text-forest-600 hover:bg-gray-100 transition-all cursor-pointer"
+                className="p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime hover:bg-gray-100 dark:hover:bg-gray-800 transition-all cursor-pointer"
                 aria-label="Lagu berikutnya"
               >
                 <SkipForward className="w-4 h-4" />
@@ -213,19 +213,19 @@ export function MusicPlayer() {
                 onClick={() => setIsSingleLoop(!isSingleLoop)}
                 className={`p-1.5 rounded-full transition-all cursor-pointer ${
                   isSingleLoop
-                    ? "text-forest-600 bg-forest-100 font-bold"
-                    : "text-gray-400 hover:text-gray-700 hover:bg-gray-100"
+                    ? "text-forest-600 dark:text-lime bg-forest-100 dark:bg-forest-900/60 font-bold"
+                    : "text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 }`}
                 title={isSingleLoop ? "Ulang 1 Lagu Aktif" : "Ulang Seluruh Playlist"}
                 aria-label={isSingleLoop ? "Ulang 1 Lagu Aktif" : "Ulang Seluruh Playlist"}
               >
-                {isSingleLoop ? <Repeat1 className="w-4 h-4 text-forest-600" /> : <Repeat className="w-4 h-4" />}
+                {isSingleLoop ? <Repeat1 className="w-4 h-4 text-forest-600 dark:text-lime" /> : <Repeat className="w-4 h-4" />}
               </button>
 
               {/* Mute / Unmute */}
               <button
                 onClick={toggleMute}
-                className="p-1.5 rounded-full text-gray-500 hover:text-forest-600 hover:bg-gray-100 transition-all cursor-pointer"
+                className="p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime hover:bg-gray-100 dark:hover:bg-gray-800 transition-all cursor-pointer"
                 aria-label={isMuted ? "Unmute" : "Mute"}
               >
                 {isMuted ? <VolumeX className="w-4 h-4 text-red-500" /> : <Volume2 className="w-4 h-4" />}

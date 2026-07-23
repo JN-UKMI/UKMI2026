@@ -13,13 +13,13 @@ export default async function LdfPage() {
   const ldfList = await loadLDF();
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50 dark:bg-gray-950 transition-colors duration-300">
       <PageHero badge="Jaringan Dakwah Kampus" title="Lembaga Dakwah Fakultas" subtitle="Direktori 12 Lembaga Dakwah Fakultas di lingkungan kampus Universitas Sebelas Maret" />
       <div className="mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
 
         {ldfList.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-lg text-slate-600">
+            <p className="text-lg text-slate-600 dark:text-gray-400">
               Belum ada data LDF yang tersedia
             </p>
           </div>

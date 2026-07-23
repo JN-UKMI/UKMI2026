@@ -4,7 +4,7 @@ import { MapEmbed } from "./MapEmbed";
 
 export function Footer() {
   return (
-    <footer className="bg-forest-900 text-white pt-16 pb-8">
+    <footer className="bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t dark:border-forest-900/60 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Column 1: Logo + Brand */}
@@ -17,7 +17,7 @@ export function Footer() {
                 height={44}
                 className="h-11 w-auto"
               />
-              <h3 className="text-lg font-bold">JN UKMI</h3>
+              <h3 className="text-lg font-bold text-white">JN UKMI</h3>
             </div>
             <p className="text-sm text-white/60 leading-relaxed max-w-xs">
               Jamaah Nurul Huda &mdash; Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret. Wadah pengembangan nilai-nilai keislaman.
@@ -75,19 +75,19 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-white/80 uppercase tracking-wider">Kontak</h4>
             <div className="space-y-3 text-sm">
               <div>
-                <p className="text-forest-400 text-xs font-medium">Email</p>
+                <p className="text-forest-400 dark:text-lime text-xs font-medium">Email</p>
                 <a href={`mailto:${contactData.email}`} className="text-white/60 hover:text-white transition-colors mt-0.5 block">
                   {contactData.email}
                 </a>
               </div>
               <div>
-                <p className="text-forest-400 text-xs font-medium">Telepon</p>
+                <p className="text-forest-400 dark:text-lime text-xs font-medium">Telepon</p>
                 <a href={`tel:${contactData.phone}`} className="text-white/60 hover:text-white transition-colors mt-0.5 block">
                   {contactData.phone}
                 </a>
               </div>
               <div>
-                <p className="text-forest-400 text-xs font-medium">Alamat</p>
+                <p className="text-forest-400 dark:text-lime text-xs font-medium">Alamat</p>
                 <p className="text-white/60 leading-relaxed mt-0.5">{contactData.address}</p>
               </div>
             </div>
@@ -102,7 +102,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-forest-600 pt-6 text-center text-xs text-forest-400">
+        <div className="border-t border-forest-600 dark:border-forest-800 pt-6 text-center text-xs text-forest-400 dark:text-lime/70">
           &copy; {new Date().getFullYear()} JN UKMI &mdash; Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret
         </div>
       </div>

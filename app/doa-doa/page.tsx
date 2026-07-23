@@ -12,7 +12,7 @@ export default async function DoaDoaPage() {
   const doaList = await loadDoaDoa();
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 transition-colors duration-300">
       <PageHero
         badge="Khazanah Keislaman"
         title="DATABASE DOA & ZIKIR"

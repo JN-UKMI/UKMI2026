@@ -20,7 +20,7 @@ export function MobileMenu({
   onClose: () => void;
 }) {
   return (
-    <div className="md:hidden absolute top-full left-4 right-4 z-50 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200/90 overflow-hidden p-3 transition-all duration-300">
+    <div className="md:hidden absolute top-full left-4 right-4 z-50 mt-2 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200/90 dark:border-gray-800 overflow-hidden p-3 transition-all duration-300">
       <div className="flex flex-col gap-1">
         {items.map((item) =>
           item.items ? (

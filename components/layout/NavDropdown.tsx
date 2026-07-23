@@ -39,8 +39,8 @@ export function NavDropdown({ item }: { item: NavItem }) {
         className={`flex items-center gap-1 px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-default outline-none
           ${
             isAnyChildActive
-              ? "bg-forest-100/90 text-forest-900 font-bold border-forest-600/70 shadow-md"
-              : "text-gray-700 font-semibold border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 active:bg-forest-200/50 active:border-forest-700/60"
+              ? "bg-forest-100/90 dark:bg-forest-900/80 text-forest-900 dark:text-lime font-bold border-forest-600/70 shadow-md"
+              : "text-gray-700 dark:text-gray-200 font-semibold border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:border-forest-700/60"
           }
         `}
       >
@@ -50,7 +50,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
       <DropdownMenuContent
         align="center"
         sideOffset={8}
-        className="w-auto min-w-0 bg-white rounded-xl shadow-lg border border-gray-100 p-1.5 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-open:slide-in-from-top-2 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:slide-out-to-top-2 duration-200"
+        className="w-auto min-w-0 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-lime dark:ring-1 dark:ring-lime/30 p-1.5 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-open:slide-in-from-top-2 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:slide-out-to-top-2 duration-200"
       >
         {item.items?.map((sub) =>
           sub.items ? (

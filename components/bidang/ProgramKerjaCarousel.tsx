@@ -57,7 +57,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
   };
 
   return (
-    <section className="bg-gray-50 py-20 px-4">
+    <section className="bg-gray-50 dark:bg-gray-950 py-20 px-4 transition-colors duration-300">
       <div className="max-w-5xl mx-auto relative">
         <SectionHeader
           icon={<Sparkles className="w-6 h-6" />}
@@ -78,32 +78,32 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                 return (
                   <div
                     key={i}
-                    className="w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white rounded-3xl p-6 md:p-8 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] border border-gray-200/50 flex flex-col justify-between h-[360px]"
+                    className="w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-colors"
                   >
                     <div>
                       {/* Top Bar: Number & Icon */}
                       <div className="flex items-center justify-between mb-4">
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-forest-600/10 text-forest-700 font-mono text-xs font-bold">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono text-xs font-bold border border-forest-600/20 dark:border-forest-800">
                           {(i + 1).toString().padStart(2, "0")}
                         </span>
                         <Target className="w-5 h-5 text-lime" />
                       </div>
 
-                      <h3 className="font-black text-xl text-forest-900 mb-3 leading-snug line-clamp-2">
+                      <h3 className="font-black text-xl text-forest-900 dark:text-lime mb-3 leading-snug line-clamp-2">
                         {prog.title}
                       </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-4">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-4">
                         {prog.description}
                       </p>
                     </div>
 
                     {/* Bottom Enriched Details Pill */}
-                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 font-medium">
+                    <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-medium">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-forest-600" />
+                        <Calendar className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
                         {info.target}
                       </span>
-                      <span className="flex items-center gap-1 text-forest-700 font-bold">
+                      <span className="flex items-center gap-1 text-forest-700 dark:text-lime font-bold">
                         <Shield className="w-3.5 h-3.5 text-lime" />
                         {info.indicator}
                       </span>
@@ -119,7 +119,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             onClick={prevSlide}
             disabled={currentIndex === 0}
             aria-label="Previous Slide"
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-forest-900 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 hover:text-white hover:border-forest-600 transition-all z-10"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 transition-all z-10"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -128,7 +128,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             onClick={nextSlide}
             disabled={currentIndex >= maxIndex}
             aria-label="Next Slide"
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-forest-900 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 hover:text-white hover:border-forest-600 transition-all z-10"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 transition-all z-10"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -143,8 +143,8 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
               aria-label={`Go to slide ${index + 1}`}
               className={`h-2.5 rounded-full transition-all duration-300 ${
                 currentIndex === index
-                  ? "w-8 bg-forest-600"
-                  : "w-2.5 bg-gray-300 hover:bg-gray-400"
+                  ? "w-8 bg-forest-600 dark:bg-lime"
+                  : "w-2.5 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
               }`}
             />
           ))}

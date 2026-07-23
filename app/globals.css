@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ── Tailwind v4 Dark Mode Selector Variant ── */
+@variant dark (&:where(.dark, .dark *));
+
 /* ── Custom Arabic Quran Font (KFGQPC Uthmanic Script HAFS) ── */
 @font-face {
   font-family: "KFGQPCUthmanicScriptHAFS";
@@ -29,9 +32,53 @@
 
 body {
   font-family: var(--font-geist-sans), Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Global Dark Mode Surface & Text Overrides ── */
+.dark body {
+  background-color: #0B130B;
+  color: #E2E8F0;
+}
+
+.dark .bg-white {
+  background-color: #121D12 !important;
+  color: #F1F5F9;
+}
+
+.dark .bg-gray-50, 
+.dark .bg-\[\#F8FAFC\] {
+  background-color: #0D170D !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: #1A281A !important;
+}
+
+.dark .text-gray-900 {
+  color: #F8FAFC !important;
+}
+
+.dark .text-gray-800,
+.dark .text-gray-700 {
+  color: #E2E8F0 !important;
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: #94A3B8 !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-200\/50,
+.dark .border-gray-200\/60,
+.dark .border-gray-200\/80 {
+  border-color: #223522 !important;
 }
 
 /* ── Uthmanic Arabic Font Utility ── */
 .font-uthmanic {
   font-family: "KFGQPCUthmanicScriptHAFS", serif;
 }
+

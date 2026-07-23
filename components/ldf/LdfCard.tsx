@@ -6,10 +6,10 @@ export interface LdfCardProps {
 
 export function LdfCard({ ldf }: LdfCardProps) {
   return (
-    <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-row sm:flex-col justify-between hover:-translate-y-1">
+    <div className="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-row sm:flex-col justify-between hover:-translate-y-1">
       <div className="flex flex-row sm:flex-col flex-1 items-stretch">
         {/* 1. Gambar */}
-        <div className="relative w-28 h-auto shrink-0 sm:w-full sm:aspect-[16/10] overflow-hidden bg-gray-100">
+        <div className="relative w-28 h-auto shrink-0 sm:w-full sm:aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-800">
           <img
             src={ldf.gambar || "/placeholder.png"}
             alt={ldf.nama}
@@ -22,12 +22,12 @@ export function LdfCard({ ldf }: LdfCardProps) {
         <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 gap-3 sm:gap-0">
           <div>
             {/* 2. Nama LDF */}
-            <h3 className="text-sm sm:text-lg font-bold text-forest-900 leading-snug group-hover:text-forest-600 transition-colors">
+            <h3 className="text-sm sm:text-lg font-bold text-forest-900 dark:text-lime leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
               {ldf.nama}
             </h3>
 
             {/* 3. Deskripsi Singkat */}
-            <p className="mt-1 sm:mt-2 text-[11px] sm:text-xs text-gray-500 leading-relaxed line-clamp-2 sm:line-clamp-3 font-medium">
+            <p className="mt-1 sm:mt-2 text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 sm:line-clamp-3 font-medium">
               {ldf.deskripsi}
             </p>
           </div>

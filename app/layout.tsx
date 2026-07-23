@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -76,14 +77,16 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">
-        <LoadingProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <MusicPlayer />
-          <BackToTop />
-        </LoadingProvider>
+      <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+        <ThemeProvider>
+          <LoadingProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <MusicPlayer />
+            <BackToTop />
+          </LoadingProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
