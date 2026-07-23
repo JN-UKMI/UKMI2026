@@ -1,6 +1,22 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 
+const SANITY_CONFIG = {
+  projectId: "ksc63oa8",
+  dataset: "production",
+  apiVersion: "2024-01-01",
+  useCdn: false,
+} as const;
+
+// Cache the write client — avoid creating a new HTTP pool on every request
+let cachedWriteClient: ReturnType<typeof createClient> | null = null;
+function getWriteClient(token: string) {
+  if (!cachedWriteClient) {
+    cachedWriteClient = createClient({ ...SANITY_CONFIG, token });
+  }
+  return cachedWriteClient;
+}
+
 export async function POST(request: Request) {
   try {
     const { passcode } = await request.json();
@@ -18,13 +34,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ articles: [], fallback: true });
     }
 
-    const writeClient = createClient({
-      projectId: "ksc63oa8",
-      dataset: "production",
-      apiVersion: "2024-01-01",
-      token: token,
-      useCdn: false,
-    });
+    const writeClient = getWriteClient(token);
 
     const articles = await writeClient.fetch(
       `*[_type == "article" && !(_id in path("drafts.**"))] | order(publishedAt desc) {

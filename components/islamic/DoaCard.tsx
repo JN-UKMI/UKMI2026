@@ -55,8 +55,17 @@ export function DoaCard({
       {/* Top Header: Index, Title & Counter Action */}
       <div className="flex items-center justify-between pb-3 border-b border-gray-100/60">
         <div className="flex items-center gap-3">
-          <span className={`text-xs font-bold px-2 py-0.5 rounded bg-gray-100 text-gray-500 font-mono`}>
-            {String(index).padStart(2, "0")}
+          {/* Circle Badge Nomor Ayat */}
+          <span
+            className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shadow-sm ${
+              isCompleted
+                ? "bg-lime text-white"
+                : count > 0
+                ? "bg-forest-400 text-white"
+                : "bg-forest-600 text-white"
+            }`}
+          >
+            {index}
           </span>
           {title && (
             <h4 className="font-bold text-gray-800 text-xs md:text-sm tracking-tight line-clamp-1">
@@ -106,8 +115,9 @@ export function DoaCard({
 
       {/* Arabic Text Block */}
       <p
-        className="text-2xl md:text-3xl leading-[2.2] text-right text-forest-900 font-arabic select-text font-medium pt-2"
+        className="text-2xl md:text-3xl leading-[2.6] text-right text-forest-900 font-uthmanic select-text pt-2"
         dir="rtl"
+        lang="ar"
       >
         {arabic}
       </p>

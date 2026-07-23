@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,69 +26,85 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [phase, setPhase] = useState<"idle" | "exiting" | "entering">("idle");
-  const [displayChildren, setDisplayChildren] = useState<React.ReactNode>(children);
-  const isFirstRender = useState(true);
 
-  // Handle Initial Load
+  // Track whether we're in the middle of a programmatic navigation
+  const isNavigating = useRef(false);
+  const isFirstRender = useRef(true);
+
+  // ── Handle Initial Page Load ──────────────────────────────────
   useEffect(() => {
-    isFirstRender[1](false);
+    isFirstRender.current = false;
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
     return () => clearTimeout(timeout);
   }, []);
 
-  // Sync children changes and delay loading screen dismissal until they are mounted
+  // ── KEY FIX: Watch pathname changes as the "page is ready" signal ──
+  // Next.js App Router only updates usePathname() AFTER the new route's
+  // React tree has been fully committed to the DOM. This means the
+  // destination page is actually rendered before we dismiss the loader.
   useEffect(() => {
-    if (isTransitioning && phase === "entering") {
-      setDisplayChildren(children);
-      
-      const slideOutTimeout = setTimeout(() => {
+    // Skip the very first render (initial page load)
+    if (isFirstRender.current) return;
+
+    // Only act if we initiated this navigation ourselves
+    if (!isNavigating.current) return;
+
+    // Pathname changed = new page is ready. Start dismissal with a short
+    // visual buffer (300ms) so the user sees the page "land" smoothly.
+    isNavigating.current = false;
+
+    const dismissTimeout = setTimeout(() => {
+      setPhase("entering"); // slide loading screen out to the right
+      // Wait for the slide-out animation to finish, then clean up
+      const cleanupTimeout = setTimeout(() => {
         setIsTransitioning(false);
         setPhase("idle");
-      }, 1000); // 1000ms paint buffer
+      }, 700); // matches the motion transition duration (0.6s + buffer)
+      return () => clearTimeout(cleanupTimeout);
+    }, 300); // small buffer so the new page paints before loader leaves
 
-      return () => clearTimeout(slideOutTimeout);
-    } else if (!isTransitioning) {
-      setDisplayChildren(children);
-    }
-  }, [children, isTransitioning, phase]);
+    return () => clearTimeout(dismissTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]); // ← pathname changing = page is ready
 
-  // Handle programmatic routing with transition delays
+  // ── Initiate a route transition ────────────────────────────────
   const navigateWithTransition = (href: string) => {
     if (pathname === href) return;
 
-    // STEP 1: Slide in the loading screen from left to center
+    // STEP 1: Mark navigation as in-progress and slide loading screen in
+    isNavigating.current = true;
     setPhase("exiting");
     setIsTransitioning(true);
 
-    // STEP 2: When screen is fully covered, trigger route push and hold for 1s
+    // STEP 2: After loading screen fully covers the viewport (~600ms animation),
+    // trigger the actual route change. The loading screen will then stay
+    // visible until usePathname() reports the new route is ready (above effect).
     const swapTimeout = setTimeout(() => {
       router.push(href);
-      setPhase("entering");
-    }, 1000);
+      // Note: we do NOT set phase="entering" here anymore.
+      // The pathname useEffect handles dismissal once the page is truly ready.
+    }, 700); // wait for exiting slide animation to complete
 
-    return () => {
-      clearTimeout(swapTimeout);
-    };
+    return () => clearTimeout(swapTimeout);
   };
 
   const showLoader = isLoading || (isTransitioning && phase !== "idle");
 
-  // Determine horizontal X positions based on current loading states
-  // This guarantees a single persistent overlay element that does not trigger unmount flashes
+  // Determine horizontal X position of the loading overlay
   let animateX: string | number = 0;
   if (showLoader) {
     if (isLoading) animateX = 0;
-    else if (phase === "exiting") animateX = 0;
-    else if (phase === "entering") animateX = "100%";
+    else if (phase === "exiting") animateX = 0;      // fully visible, covering page
+    else if (phase === "entering") animateX = "100%"; // sliding out to the right
   }
 
   return (
     <TransitionContext.Provider value={{ navigateWithTransition }}>
-      {/* 
-        Single continuous motion container:
-        Eliminates the blank flash frames caused by AnimatePresence component swaps.
+      {/*
+        Single persistent overlay — no AnimatePresence unmount flash.
+        Slides in from left, stays until page is ready, slides out to right.
       */}
       <AnimatePresence>
         {showLoader && (
@@ -99,7 +115,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
             exit={{ x: "100%" }}
             transition={{
               duration: 0.6,
-              ease: [0.76, 0, 0.24, 1], // Cubic-bezier slide ease
+              ease: [0.76, 0, 0.24, 1],
             }}
             className="fixed inset-0 z-[9999] pointer-events-auto"
           >
@@ -107,9 +123,9 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
           </motion.div>
         )}
       </AnimatePresence>
-      
+
       <div className="w-full min-h-screen">
-        {displayChildren}
+        {children}
       </div>
     </TransitionContext.Provider>
   );

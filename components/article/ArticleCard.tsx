@@ -29,7 +29,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Link
       href={`/artikel/${article.slug}`}
-      className="group flex flex-col bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden"
+      className="group flex flex-col h-full flex-1 bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden"
     >
       {/* Thumbnail Image with Category Badge overlay */}
       <div className="relative w-full h-48 bg-gray-100 overflow-hidden">

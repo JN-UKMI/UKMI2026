@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* ── Custom Arabic Quran Font (KFGQPC Uthmanic Script HAFS) ── */
+@font-face {
+  font-family: "KFGQPCUthmanicScriptHAFS";
+  src: url("/fonts/KFGQPCUthmanicScriptHAFSRegular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
   --color-forest-900: #18230F;
   --color-forest-800: #27391C;
@@ -15,8 +24,14 @@
   --color-grass: #276F27;
   --color-purple-600: #5E2D86;
   --font-arabic: var(--font-amiri), serif;
+  --font-uthmanic: "KFGQPCUthmanicScriptHAFS", serif;
 }
 
 body {
   font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+/* ── Uthmanic Arabic Font Utility ── */
+.font-uthmanic {
+  font-family: "KFGQPCUthmanicScriptHAFS", serif;
 }

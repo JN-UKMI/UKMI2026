@@ -128,7 +128,7 @@ export function KalenderInteractive({
     <motion.div 
       initial={{ scale: 0.9, y: 40, opacity: 1 }}
       whileInView={{ scale: 1, y: 0, opacity: 1 }}
-      viewport={{ once: false, margin: "-100px" }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ type: "spring", stiffness: 60, damping: 15 }}
       className="flex flex-col gap-8 w-full max-w-6xl mx-auto"
     >

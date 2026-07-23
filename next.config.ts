@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Disable source maps in development to reduce memory usage significantly
+  // Source maps for a project this size can consume 2-4GB of memory on their own
+  experimental: {
+    // Turbopack is already the default in Next.js 16 dev, but be explicit
+  },
 };
 
 export default nextConfig;

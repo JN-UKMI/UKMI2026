@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Amiri } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import "./globals.css";
 
@@ -80,6 +81,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <MusicPlayer />
           <BackToTop />
         </LoadingProvider>
       </body>

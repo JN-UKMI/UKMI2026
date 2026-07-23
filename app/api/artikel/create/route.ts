@@ -4,6 +4,16 @@ import { createClient } from "next-sanity";
 // In-memory store for rate limiting brute force attempts
 const failedAttempts = new Map<string, { count: number; blockedUntil: number }>();
 
+// Prune expired entries periodically to prevent unbounded Map growth
+function pruneExpiredAttempts() {
+  const now = Date.now();
+  for (const [ip, record] of failedAttempts.entries()) {
+    if (record.blockedUntil > 0 && record.blockedUntil < now) {
+      failedAttempts.delete(ip);
+    }
+  }
+}
+
 const ALLOWED_IMAGE_MIME_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -33,6 +43,7 @@ function slugify(text: string) {
 }
 
 export async function POST(request: Request) {
+  pruneExpiredAttempts(); // Clean expired rate-limit entries
   const ip = getClientIp(request);
   const now = Date.now();
 

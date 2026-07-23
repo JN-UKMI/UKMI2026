@@ -24,9 +24,11 @@ export default async function PartnerPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="flex flex-wrap justify-center gap-6">
             {partnerList.map((partner) => (
-              <LdfCard key={partner.nama} ldf={partner} />
+              <div key={partner.nama} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-72">
+                <LdfCard ldf={partner} />
+              </div>
             ))}
           </div>
         )}
