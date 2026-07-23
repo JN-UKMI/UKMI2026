@@ -131,3 +131,11 @@ export async function loadBukuUkmi(): Promise<BukuUkmiContent> {
   );
   return JSON.parse(file);
 }
+
+export async function loadTestimoni(): Promise<import("./types").TestimonialItem[]> {
+  const file = await safeReadFile(
+    path.join(contentDir, "beranda", "testimoni.json"),
+    path.join(contentDir, "testimoni.json")
+  );
+  return JSON.parse(file);
+}

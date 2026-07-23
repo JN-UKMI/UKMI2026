@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { LDF } from "@/lib/types";
 
 export interface LdfCardProps {
@@ -10,10 +11,13 @@ export function LdfCard({ ldf }: LdfCardProps) {
       <div className="flex flex-row sm:flex-col flex-1 items-stretch">
         {/* 1. Gambar */}
         <div className="relative w-28 h-auto shrink-0 sm:w-full sm:aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-800">
-          <img
+          <Image
             src={ldf.gambar || "/placeholder.png"}
             alt={ldf.nama}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 112px, (max-width: 1024px) 33vw, 288px"
+            loading="lazy"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>

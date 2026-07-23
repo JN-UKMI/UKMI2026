@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, RotateCcw } from "lucide-react";
+import { Check, RotateCcw, Copy } from "lucide-react";
 
 type DoaCardProps = {
   index: number;
@@ -25,6 +25,7 @@ export function DoaCard({
   showTranslation,
 }: DoaCardProps) {
   const [count, setCount] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   const increment = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -100,12 +101,28 @@ export function DoaCard({
             )}
           </button>
 
-          {/* Reset Button */}
+          {/* Reset & Copy Buttons */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              let copyText = `${title || "Doa"}\n\n${arabic}`;
+              if (showLatin) copyText += `\n\nLatin:\n${latin}`;
+              if (showTranslation) copyText += `\n\nArtinya:\n"${terjemahan}"`;
+              navigator.clipboard.writeText(copyText);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+            title="Salin Doa"
+            className="p-1.5 rounded-full text-gray-400 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+          >
+            {copied ? <Check className="w-3.5 h-3.5 text-forest-600 dark:text-lime" /> : <Copy className="w-3.5 h-3.5" />}
+          </button>
+
           {count > 0 && (
             <button
               onClick={reset}
               title="Reset hitungan"
-              className="p-1 rounded-full text-gray-400 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+              className="p-1.5 rounded-full text-gray-400 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>

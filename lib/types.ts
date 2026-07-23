@@ -145,3 +145,13 @@ export interface BukuUkmiContent {
     author: string;
   };
 }
+
+export interface TestimonialItem {
+  id: string;
+  nama: string;
+  periode: string;
+  kabinet?: string;
+  foto?: string;
+  testimoni: string;
+}
+

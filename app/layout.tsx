@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { MusicPlayer } from "@/components/ui/MusicPlayer";
+import { MusicProvider } from "@/components/ui/MusicContext";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import "./globals.css";
@@ -80,11 +81,13 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <ThemeProvider>
           <LoadingProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <MusicPlayer />
-            <BackToTop />
+            <MusicProvider>
+              <Navbar />
+              <main id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</main>
+              <Footer />
+              <MusicPlayer />
+              <BackToTop />
+            </MusicProvider>
           </LoadingProvider>
         </ThemeProvider>
       </body>

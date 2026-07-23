@@ -85,6 +85,13 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 py-3 px-4">
+      {/* Skip to Main Content Link for Keyboard Accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-forest-600 focus:text-white focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-lime"
+      >
+        Langsung ke Konten Utama
+      </a>
       <div className="max-w-6xl mx-auto relative">
         <div className="relative flex items-center justify-between bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20 px-5 py-2 transition-colors duration-300">
           {/* KIRI: Logo + Nama */}

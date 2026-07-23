@@ -3,6 +3,8 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { QuoteSection } from "@/components/home/QuoteSection";
 import { ArtikelTerbaruSection } from "@/components/home/ArtikelTerbaruSection";
 import { KalenderSection } from "@/components/home/KalenderSection";
+import { TestimonialSection } from "@/components/home/TestimonialSection";
+import { loadTestimoni } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Beranda | JN UKMI",
@@ -17,13 +19,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const testimonials = await loadTestimoni();
+
   return (
     <>
       <HeroSection />
       <QuoteSection />
       <ArtikelTerbaruSection />
       <KalenderSection />
+      <TestimonialSection testimonials={testimonials} />
     </>
   );
 }

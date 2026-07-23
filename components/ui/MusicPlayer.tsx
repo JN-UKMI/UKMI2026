@@ -1,148 +1,23 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 import { Play, Pause, Volume2, VolumeX, SkipForward, Music, Repeat, Repeat1 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-interface Song {
-  title: string;
-  artist: string;
-  src: string;
-}
-
-const PLAYLIST: Song[] = [
-  {
-    title: "Mars Pemuda Islam",
-    artist: "Azzam Haroki",
-    src: "/music/lagu-1.mp3",
-  },
-  {
-    title: "Teruslah Bergerak",
-    artist: "Azzam Haroki",
-    src: "/music/lagu-2.mp3",
-  },
-];
+import { useMusic } from "./MusicContext";
 
 export function MusicPlayer() {
-  const pathname = usePathname();
-
-  // Only render on Home (/) and Tentang (/tentang)
-  const isAllowedPage = pathname === "/" || pathname === "/tentang";
-
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [isSingleLoop, setIsSingleLoop] = useState(false);
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const currentTrack = PLAYLIST[currentTrackIndex];
-
-  // Initialize and handle playback loop
-  useEffect(() => {
-    if (!isAllowedPage) {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      }
-      return;
-    }
-
-    const audio = new Audio(currentTrack.src);
-    audioRef.current = audio;
-    audio.muted = isMuted;
-    audio.loop = isSingleLoop;
-
-    // Handle song end: repeat single song if isSingleLoop is true, else skip to next in playlist
-    const handleEnded = () => {
-      if (audioRef.current && audioRef.current.loop) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(() => {});
-      } else {
-        setCurrentTrackIndex((prev) => (prev + 1) % PLAYLIST.length);
-      }
-    };
-
-    audio.addEventListener("ended", handleEnded);
-
-    // Auto Play automatically upon page load / route enter
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch(() => {
-          // Browser autoplay restriction: start muted fallback if unmuted autoplay is blocked by browser policy
-          audio.muted = true;
-          setIsMuted(true);
-          audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-        });
-    }
-
-    return () => {
-      audio.pause();
-      audio.removeEventListener("ended", handleEnded);
-      audioRef.current = null;
-    };
-  }, [currentTrackIndex, isAllowedPage]);
-
-  // Sync loop attribute on native Audio element whenever isSingleLoop state changes
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.loop = isSingleLoop;
-    }
-  }, [isSingleLoop]);
-
-  // Sync mute state
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.muted = isMuted;
-    }
-  }, [isMuted]);
-
-  // Handle manual play / pause toggle
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false));
-    }
-  };
-
-  // Handle mute toggle
-  const toggleMute = () => {
-    if (!audioRef.current) return;
-    const nextMuteState = !isMuted;
-    audioRef.current.muted = nextMuteState;
-    setIsMuted(nextMuteState);
-  };
-
-  // Skip to next track
-  const nextTrack = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
-    setIsPlaying(false);
-    setCurrentTrackIndex((prev) => (prev + 1) % PLAYLIST.length);
-  };
-
-  // Handle FAB Click: direct mute toggle on mobile (<768px), expand menu on desktop (>=768px)
-  const handleFabClick = () => {
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      toggleMute();
-    } else {
-      setIsExpanded(!isExpanded);
-    }
-  };
+  const {
+    isPlaying,
+    isMuted,
+    isSingleLoop,
+    currentTrack,
+    isExpanded,
+    isAllowedPage,
+    togglePlay,
+    toggleMute,
+    toggleSingleLoop,
+    nextTrack,
+    handleFabClick,
+  } = useMusic();
 
   if (!isAllowedPage) return null;
 
@@ -168,7 +43,7 @@ export function MusicPlayer() {
         )}
       </motion.button>
 
-      {/* Expanded Player Control Bar (Desktop only: hidden on mobile) */}
+      {/* Expanded Player Control Bar (Desktop only) */}
       <AnimatePresence>
         {isExpanded && (
           <motion.div
@@ -210,7 +85,7 @@ export function MusicPlayer() {
 
               {/* Single Track Loop Toggle */}
               <button
-                onClick={() => setIsSingleLoop(!isSingleLoop)}
+                onClick={toggleSingleLoop}
                 className={`p-1.5 rounded-full transition-all cursor-pointer ${
                   isSingleLoop
                     ? "text-forest-600 dark:text-lime bg-forest-100 dark:bg-forest-900/60 font-bold"

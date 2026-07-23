@@ -20,7 +20,36 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [showGlobalLatin, setShowGlobalLatin] = useState(true);
   const [showGlobalTranslation, setShowGlobalTranslation] = useState(true);
+  const [bookmarkedAyat, setBookmarkedAyat] = useState<number | null>(null);
   const observerRef = useRef<HTMLDivElement | null>(null);
+
+  // Read saved bookmark on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedBookmark = localStorage.getItem("ukmi_alkahfi_bookmark");
+      if (savedBookmark) {
+        const ayatNum = parseInt(savedBookmark, 10);
+        if (!isNaN(ayatNum)) {
+          setBookmarkedAyat(ayatNum);
+          setDisplayedCount((prev) => Math.max(prev, Math.min(ayatNum + 5, ayatList.length)));
+        }
+      }
+    }
+  }, [ayatList.length]);
+
+  const toggleBookmark = (nomorAyat: number) => {
+    if (bookmarkedAyat === nomorAyat) {
+      setBookmarkedAyat(null);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("ukmi_alkahfi_bookmark");
+      }
+    } else {
+      setBookmarkedAyat(nomorAyat);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("ukmi_alkahfi_bookmark", String(nomorAyat));
+      }
+    }
+  };
 
   // Load more verses when scrolled near bottom
   useEffect(() => {
@@ -121,6 +150,8 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
             teksIndonesia={ayat.teksIndonesia}
             showLatin={showGlobalLatin}
             showTranslation={showGlobalTranslation}
+            isBookmarked={bookmarkedAyat === ayat.nomorAyat}
+            onToggleBookmark={() => toggleBookmark(ayat.nomorAyat)}
           />
         ))}
       </div>

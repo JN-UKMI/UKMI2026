@@ -36,6 +36,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
+        aria-label={`Menu dropdown ${item.label}`}
         className={`flex items-center gap-1 px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-default outline-none
           ${
             isAnyChildActive
@@ -57,6 +58,8 @@ export function NavDropdown({ item }: { item: NavItem }) {
             <div key={sub.label}>
               <button
                 onClick={() => toggle(sub.label)}
+                aria-expanded={!!openSections[sub.label]}
+                aria-controls={`sub-menu-${sub.label}`}
                 className="w-full flex items-center justify-between pl-3 pr-3 py-1.5 text-sm font-medium text-gray-700 hover:text-forest-600 transition-colors"
               >
                 &nbsp;&nbsp;{sub.label}
@@ -65,6 +68,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
                 />
               </button>
               <div
+                id={`sub-menu-${sub.label}`}
                 className={`overflow-hidden transition-all duration-200 ease-in-out ${
                   openSections[sub.label] ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}
