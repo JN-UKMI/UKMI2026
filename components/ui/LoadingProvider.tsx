@@ -92,32 +92,28 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
 
   const showLoader = isLoading || (isTransitioning && phase !== "idle");
 
-  // Determine horizontal X position of the loading overlay
-  let animateX: string | number = 0;
-  if (showLoader) {
-    if (isLoading) animateX = 0;
-    else if (phase === "exiting") animateX = 0;      // fully visible, covering page
-    else if (phase === "entering") animateX = "100%"; // sliding out to the right
-  }
-
   return (
     <TransitionContext.Provider value={{ navigateWithTransition }}>
       {/*
-        Single persistent overlay — no AnimatePresence unmount flash.
-        Slides in from left, stays until page is ready, slides out to right.
+        Persistent Loading Screen Transition Overlay:
+        - When phase === "exiting": overlay slides in from left (-100% -> 0%) covering the viewport.
+        - When phase === "entering": overlay slides out to right (0% -> 100%).
       */}
       <AnimatePresence>
         {showLoader && (
           <motion.div
             key="persistent-global-loader"
-            initial={{ x: isLoading ? 0 : "-100%" }}
-            animate={{ x: animateX }}
+            initial={{ x: isLoading ? "0%" : "-100%" }}
+            animate={{
+              x: phase === "entering" ? "100%" : "0%",
+            }}
             exit={{ x: "100%" }}
             transition={{
-              duration: 0.6,
+              duration: 0.5,
               ease: [0.76, 0, 0.24, 1],
             }}
-            className="fixed inset-0 z-[9999] pointer-events-auto"
+            style={{ willChange: "transform" }}
+            className="fixed inset-0 top-0 left-0 w-screen h-screen z-[99999] pointer-events-auto overflow-hidden touch-none"
           >
             <LoadingScreen />
           </motion.div>

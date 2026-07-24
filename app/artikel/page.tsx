@@ -147,7 +147,6 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
   return (
     <div className="bg-white pb-16">
       <PageHeader
-        badge="Publikasi & Media"
         title="Artikel & Kajian"
         subtitle="Temukan kumpulan kajian islami, liputan kegiatan, dan analisis isu kontemporer terhangat dari JN UKMI."
       >

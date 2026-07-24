@@ -49,7 +49,7 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
               >
                 {/* Arabic Text */}
                 <p
-                  className="text-xl md:text-2xl leading-relaxed text-white/90 font-serif"
+                  className="font-uthmanic text-2xl md:text-3xl leading-[2.6] text-white/90"
                   dir="rtl"
                   lang="ar"
                 >

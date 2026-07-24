@@ -134,9 +134,9 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                 )}
 
                 {/* Arabic Text (RTL Large) */}
-                <div className="py-5 px-4 sm:px-6 bg-gray-50/80 dark:bg-gray-800/60 rounded-2xl border border-gray-100 dark:border-gray-700/60 text-right">
+                <div className="py-5 px-4 sm:px-6 bg-gray-50/80 dark:bg-gray-800/60 rounded-2xl border border-gray-100 dark:border-gray-700/60 text-right overflow-x-auto">
                   <p
-                    className="font-arabic text-2xl sm:text-3xl leading-[2.2] text-gray-900 dark:text-white select-all"
+                    className="font-arabic text-2xl sm:text-3xl leading-[2.6] text-gray-900 dark:text-white select-all"
                     dir="rtl"
                   >
                     {item.arabic}

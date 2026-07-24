@@ -1,8 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
 import { getArticles, urlFor } from "@/lib/sanity";
 import { Calendar, ArrowRight, Pencil, Newspaper } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 const dummyArticles = [
   {
@@ -58,7 +58,7 @@ export async function ArtikelTerbaruSection() {
         ) : (
           <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none md:grid md:grid-cols-2 md:overflow-x-visible md:pb-0 md:mx-0 md:px-0 lg:grid-cols-3 md:gap-6">
             {articles.slice(0, 3).map((article) => (
-              <Link
+              <TransitionLink
                 key={article.slug}
                 href={`/artikel/${article.slug}`}
                 className="group flex flex-col bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden shrink-0 w-[85vw] max-w-[340px] snap-center md:w-auto md:max-w-none md:shrink"
@@ -119,18 +119,18 @@ export async function ArtikelTerbaruSection() {
                     Baca Selengkapnya
                   </div>
                 </div>
-              </Link>
+              </TransitionLink>
             ))}
           </div>
         )}
 
         <div className="mt-10 text-center">
-          <Link
+          <TransitionLink
             href="/artikel"
             className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-forest-50 hover:bg-forest-100 text-forest-700 border border-forest-200 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95"
           >
             Lihat Semua Artikel <ArrowRight className="w-4 h-4" />
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </section>

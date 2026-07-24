@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Calendar, Pencil } from "lucide-react";
 import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 export interface ArticleCardProps {
   article: ArticleListItem;
@@ -27,7 +27,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   };
 
   return (
-    <Link
+    <TransitionLink
       href={`/artikel/${article.slug}`}
       className="group flex flex-col h-full flex-1 bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden"
     >
@@ -73,6 +73,6 @@ export function ArticleCard({ article }: ArticleCardProps) {
           Baca Selengkapnya
         </div>
       </div>
-    </Link>
+    </TransitionLink>
   );
 }

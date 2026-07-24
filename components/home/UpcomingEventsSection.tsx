@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Calendar } from "lucide-react";
 import { EmptyState } from "./EmptyState";
 import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 import { SectionHeader } from "@/components/layout/SectionHeader";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 interface UpcomingEventsSectionProps {
   articles: ArticleListItem[];
@@ -40,7 +40,7 @@ export function UpcomingEventsSection({
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {displayedArticles.map((article) => (
-          <Link
+          <TransitionLink
             key={article.slug}
             href={`/artikel/${article.slug}`}
             className="group overflow-hidden rounded-xl border border-gray-200 hover:shadow-lg hover:border-forest-600 transition-all duration-300 bg-white"
@@ -75,7 +75,7 @@ export function UpcomingEventsSection({
                 {article.excerpt}
               </p>
             </div>
-          </Link>
+          </TransitionLink>
         ))}
       </div>
     </section>

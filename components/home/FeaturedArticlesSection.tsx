@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Calendar, Tag, Sparkles } from "lucide-react";
 import { EmptyState } from "./EmptyState";
 import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 import { SectionHeader } from "@/components/layout/SectionHeader";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 interface FeaturedArticlesSectionProps {
   articles: ArticleListItem[];
@@ -47,7 +47,7 @@ export function FeaturedArticlesSection({
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article) => (
-            <Link
+            <TransitionLink
               key={article.slug}
               href={`/artikel/${article.slug}`}
               className="group flex flex-col h-full bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-forest-600 hover:shadow-lg transition-all duration-300"
@@ -88,7 +88,7 @@ export function FeaturedArticlesSection({
                   {article.excerpt}
                 </p>
               </div>
-            </Link>
+            </TransitionLink>
           ))}
         </div>
       </div>

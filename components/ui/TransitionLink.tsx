@@ -21,15 +21,17 @@ export function TransitionLink({ href, children, ...props }: TransitionLinkProps
       e.metaKey ||
       e.ctrlKey
     ) {
+      if (props.onClick) props.onClick(e);
       return;
     }
 
     e.preventDefault();
+    if (props.onClick) props.onClick(e);
     navigateWithTransition(href);
   };
 
   return (
-    <a href={href} onClick={handleClick} {...props}>
+    <a href={href} {...props} onClick={handleClick}>
       {children}
     </a>
   );

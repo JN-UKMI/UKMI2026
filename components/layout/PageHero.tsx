@@ -20,12 +20,6 @@ export function PageHero({ title, subtitle, badge }: PageHeroProps) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center text-white max-w-4xl mx-auto pt-[60px]">
-        {badge && (
-          <span className="inline-block px-3.5 py-1 mb-3 bg-lime/20 border border-lime/40 text-lime rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-md">
-            {badge}
-          </span>
-        )}
-
         <h1 className="text-3xl md:text-5xl font-black leading-tight tracking-wider uppercase drop-shadow-sm">
           {title}
         </h1>

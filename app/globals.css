@@ -77,8 +77,14 @@ body {
   border-color: #223522 !important;
 }
 
-/* ── Uthmanic Arabic Font Utility ── */
+/* ── Arabic Font Utilities & Harakat Overlap Prevention ── */
+.font-arabic,
 .font-uthmanic {
-  font-family: "KFGQPCUthmanicScriptHAFS", serif;
+  font-family: "KFGQPCUthmanicScriptHAFS", var(--font-amiri), "Scheherazade New", "Traditional Arabic", serif;
+  line-height: 2.6 !important;
+  word-spacing: 0.12em;
+  letter-spacing: 0;
+  font-variant-ligatures: normal;
+  text-rendering: optimizeLegibility;
 }
 
