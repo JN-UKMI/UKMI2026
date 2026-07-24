@@ -10,14 +10,34 @@ interface TimSectionProps {
 export function TimSection({ staff }: TimSectionProps) {
   if (!staff || staff.length === 0) return null;
 
-  // Split into leaders (first 2, e.g. Kepala & Wakil) and the rest of the staff
+  // Split into Bidang Leaders (first 2, e.g. Kabid & Sekbid) and the rest
   const leaders = staff.slice(0, 2);
-  const remainingStaff = staff.slice(2);
+  const remaining = staff.slice(2);
+
+  // Separate Dept Leaders (Kadep & Kasekdep) and Staf
+  const deptLeaders = remaining.filter((m) =>
+    m.role.includes("Kepala Departemen") || m.role.includes("Sekretaris Departemen")
+  );
+
+  // Regular staff, sorted alphabetically by name
+  const regularStaff = remaining
+    .filter(
+      (m) =>
+        !m.role.includes("Kepala Departemen") &&
+        !m.role.includes("Sekretaris Departemen")
+    )
+    .sort((a, b) => a.nama.localeCompare(b.nama, "id"));
+
+  // Combined ordered staff starting after Kabid/Sekbid
+  const orderedStaff = [...deptLeaders, ...regularStaff];
+
+  // Also build mobile full ordered list
+  const mobileOrderedList = [...leaders, ...orderedStaff];
 
   // Split staff into full rows of 4 on desktop, and leftovers at the bottom
-  const fullRowsCount = Math.floor(remainingStaff.length / 4) * 4;
-  const mainStaff = remainingStaff.slice(0, fullRowsCount);
-  const leftoverStaff = remainingStaff.slice(fullRowsCount);
+  const fullRowsCount = Math.floor(orderedStaff.length / 4) * 4;
+  const mainStaff = orderedStaff.slice(0, fullRowsCount);
+  const leftoverStaff = orderedStaff.slice(fullRowsCount);
 
   return (
     <section className="py-20 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
@@ -29,7 +49,7 @@ export function TimSection({ staff }: TimSectionProps) {
 
       {/* Layout Mobile: Horizontal Carousel / Layout Desktop: Grid Hierarki */}
       <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
-        {staff.map((member, i) => (
+        {mobileOrderedList.map((member, i) => (
           <div key={i} className="shrink-0 w-[290px] snap-center flex justify-center">
             <MemberCard member={member} />
           </div>

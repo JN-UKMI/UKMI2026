@@ -47,67 +47,67 @@
   ],
   "staff": [
     {
-      "nama": "Cendra Triana Irawan",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Cendratriana Irawan",
+      "fakultas": "FKIP",
+      "angkatan": "K5124030",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Sekretaris",
-      "jenis_kelamin": "laki-laki"
+      "role": "Kepala Bidang Sekretaris Umum",
+      "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Sabrina Fitri Nastiti",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K1224035",
       "foto": "/placeholder.png",
-      "role": "Sekretaris Bidang",
+      "role": "Sekretaris Bidang Sekretaris Umum",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Muhammad Fatih Farhat",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V8325071",
       "foto": "/placeholder.png",
-      "role": "Staf Sekretaris",
+      "role": "Staf Sekretaris Umum",
       "jenis_kelamin": "laki-laki"
     },
     {
+      "nama": "Anindya Qolby",
+      "fakultas": "FMIPA",
+      "angkatan": "M0425070",
+      "foto": "/placeholder.png",
+      "role": "Staf Sekretaris Umum",
+      "jenis_kelamin": "perempuan"
+    },
+    {
       "nama": "Hikmah Mutiara Fajar",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V0725023",
       "foto": "/placeholder.png",
-      "role": "Staf Sekretaris",
+      "role": "Staf Sekretaris Umum",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Vina Salsabilla Maziatul U.",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Kummalasari Nailassahlah Arrahmani",
+      "fakultas": "FKIP",
+      "angkatan": "K5125038",
       "foto": "/placeholder.png",
-      "role": "Staf Sekretaris",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Kummalasari Naila Assahlah A.",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Staf Sekretaris",
+      "role": "Staf Sekretaris Umum",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Mei Anjarwati",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FEB",
+      "angkatan": "F0324148",
       "foto": "/placeholder.png",
-      "role": "Staf Sekretaris",
+      "role": "Staf Sekretaris Umum",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Anin Dya Qolby",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Vina Salsabilla Maziatul Ummah",
+      "fakultas": "FKIP",
+      "angkatan": "K4224038",
       "foto": "/placeholder.png",
-      "role": "Staf Sekretaris",
+      "role": "Staf Sekretaris Umum",
       "jenis_kelamin": "perempuan"
     }
   ]

@@ -40,170 +40,170 @@
   "staff": [
     {
       "nama": "Muhammad Ali Almahdi",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FEB",
+      "angkatan": "F0423041",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Eksternal",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Zulul Fauzadya Nurhaliza",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K5123097",
       "foto": "/placeholder.png",
-      "role": "Sekretaris Bidang",
+      "role": "Sekretaris Bidang Eksternal",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Ihsan Muhammad Rozaq",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FEB",
+      "angkatan": "F0424051",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Departemen Humas",
+      "role": "Kepala Departemen Hubungan Masyarakat",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Naila Sabila Rosyada",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K1224028",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Departemen Humas",
+      "role": "Sekretaris Departemen Hubungan Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Galang Yanna Aulia Bangkit",
       "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "angkatan": "M0225012",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Muhammad Rasyad Mufarrid",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FT",
+      "angkatan": "I0424059",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Aisyah Nur Hidayah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V1425035",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Aliswandani Nashifa Salsabila Putra",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K3524022",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Aqila Muna Mafaza",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FH",
+      "angkatan": "E0025486",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Dwina Isnaini Fajrin",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FIB",
+      "angkatan": "B0524028",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Keysya Dwi Arini",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V1425043",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Mutia Cantika Dwi Putri",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FIB",
+      "angkatan": "B0525054",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Humas",
+      "role": "Staf Hubungan Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Muhammad Irwan Radianto",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FIB",
+      "angkatan": "B0524037",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Departemen Sosma",
+      "role": "Kepala Departemen Sosial Masyarakat",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Rofi'atul Marhamah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K7524076",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Departemen Sosma",
+      "role": "Sekretaris Departemen Sosial Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Rafi Romadoni",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FIB",
+      "angkatan": "B0425055",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Sosma",
+      "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Zulfa Ardian Anugrah",
       "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "angkatan": "M0225027",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Sosma",
+      "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Anggit Karunia Fitri",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V8425024",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Sosma",
+      "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Hilma Aulia",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V3425031",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Sosma",
+      "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Nadya Fauzya",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V3725007",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Sosma",
+      "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Safira Nur Aisyah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V8425042",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Sosma",
+      "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Tazkiya Fikra Ulinnuha",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FSRD",
+      "angkatan": "C0723135",
       "foto": "/placeholder.png",
-      "role": "Staf Departemen Sosma",
+      "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "perempuan"
     }
   ]

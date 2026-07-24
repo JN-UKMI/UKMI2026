@@ -2,131 +2,131 @@
   "filosofi_logo": "Logo kami mencerminkan nilai-nilai keislaman, persatuan, dan semangat dakwah yang bersinar terang di kalangan mahasiswa.",
   "pengurus": [
     {
-      "nama": "Azzam",
+      "nama": "M. Fadhlan Azzam Hasya",
       "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "angkatan": "M0323059",
       "foto": "/placeholder.png",
       "role": "Ketua Umum",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Indah Eka",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Indah Eka Nurdiana",
+      "fakultas": "FKIP",
+      "angkatan": "K4423034",
       "foto": "/placeholder.png",
       "role": "Koordinator Akhwat",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Cendra Triana Irawan",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Cendratriana Irawan",
+      "fakultas": "FKIP",
+      "angkatan": "K5124030",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Sekretaris",
-      "jenis_kelamin": "laki-laki"
+      "role": "Kepala Bidang Sekretaris Umum",
+      "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Sabrina Fitri Nastiti",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K1224035",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Sekretaris",
+      "role": "Sekretaris Bidang Sekretaris Umum",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Arfian Syafa Hidayat",
       "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "angkatan": "M0423014",
       "foto": "/placeholder.png",
-      "role": "Kepala Bidang Bendahara",
+      "role": "Kepala Bidang Bendahara Umum",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Azzahra Mutiara Shafa",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K2323013",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Bendahara",
+      "role": "Sekretaris Bidang Bendahara Umum",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Imas Siti Masturoh",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Kepala Bidang Media",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Almaura Ghina Ghefira",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Media",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Ardhan",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Kepala Bidang Syiar",
-      "jenis_kelamin": "laki-laki"
-    },
-    {
-      "nama": "Zahwa",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Syiar",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Asyraf",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Asyraf E Rijal Musthofa",
+      "fakultas": "FP",
+      "angkatan": "Z0123025",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Internal",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Aini",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Nur Aini",
+      "fakultas": "FISIP",
+      "angkatan": "D0323098",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Internal",
+      "role": "Sekretaris Bidang Internal",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Muhammad Ali Almahdi",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FEB",
+      "angkatan": "F0423041",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Eksternal",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Zulul Fauzadya Nurhaliza",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K5123097",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Eksternal",
+      "role": "Sekretaris Bidang Eksternal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Moh Ardhana Nur Arifin",
+      "fakultas": "FT",
+      "angkatan": "I0524086",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Syiar",
+      "jenis_kelamin": "laki-laki"
+    },
+    {
+      "nama": "Az-Zahwa Andriend Mubarak",
+      "fakultas": "FKIP",
+      "angkatan": "K5123023",
+      "foto": "/placeholder.png",
+      "role": "Sekretaris Bidang Syiar",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Imas Siti Masturoh",
+      "fakultas": "FISIP",
+      "angkatan": "D0223061",
+      "foto": "/placeholder.png",
+      "role": "Kepala Bidang Media",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Almaura Ghina Ghefira",
+      "fakultas": "FP",
+      "angkatan": "H0923006",
+      "foto": "/placeholder.png",
+      "role": "Sekretaris Bidang Media",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Destian Ridho",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K5124031",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Kemuslimahan",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Hasna Adilah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FIB",
+      "angkatan": "B0523031",
       "foto": "/placeholder.png",
-      "role": "Wakil Kepala Bidang Kemuslimahan",
+      "role": "Sekretaris Bidang Kemuslimahan",
       "jenis_kelamin": "perempuan"
     }
   ]

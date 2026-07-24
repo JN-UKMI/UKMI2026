@@ -88,3 +88,39 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* ── Custom Scrollbar (Light & Dark Mode) ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #255F38;
+}
+
+/* Dark Mode Scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #0B130B;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1F381F;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #499A13;
+}
+
+

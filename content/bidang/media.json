@@ -40,106 +40,106 @@
   "staff": [
     {
       "nama": "Imas Siti Masturoh",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FISIP",
+      "angkatan": "D0223061",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Media",
+      "role": "Kepala Bidang Media",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Almaura Ghina Ghefira",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FP",
+      "angkatan": "H0923006",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Media",
+      "role": "Sekretaris Bidang Media",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Azhar Fadhillah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V8424005",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Media Kreatif",
+      "role": "Kepala Departemen Media Kreatif",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Nectarinia Mahmuda",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FEB",
+      "angkatan": "F0223112",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Media Kreatif",
+      "role": "Sekretaris Departemen Media Kreatif",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Afra' Nadiyah Assilmi",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K1325001",
       "foto": "/placeholder.png",
-      "role": "Anggota Media Kreatif",
+      "role": "Staf Media Kreatif",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Nadaa Raihani Adn",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V4325025",
       "foto": "/placeholder.png",
-      "role": "Anggota Media Kreatif",
+      "role": "Staf Media Kreatif",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Najma Faizah Azzahra",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FSRD",
+      "angkatan": "C0724111",
       "foto": "/placeholder.png",
-      "role": "Anggota Media Kreatif",
+      "role": "Staf Media Kreatif",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Sabila Nur Azizah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FISIP",
+      "angkatan": "D0425089",
       "foto": "/placeholder.png",
-      "role": "Anggota Media Kreatif",
+      "role": "Staf Media Kreatif",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Luhaim Adis Rafata",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FSRD",
+      "angkatan": "C0724108",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Media Komunikasi",
+      "role": "Kepala Departemen Media Komunikasi",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Griselda Andini Anggun Puspitasari",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K4224054",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Media Komunikasi",
+      "role": "Sekretaris Departemen Media Komunikasi",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Haidar Ihda Chusnayain",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FATISDA",
+      "angkatan": "L0125082",
       "foto": "/placeholder.png",
-      "role": "Anggota Media Komunikasi",
+      "role": "Staf Media Komunikasi",
       "jenis_kelamin": "laki-laki"
     },
     {
       "nama": "Layla Amalia Syifa N",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FT",
+      "angkatan": "I0125021",
       "foto": "/placeholder.png",
-      "role": "Anggota Media Komunikasi",
+      "role": "Staf Media Komunikasi",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Nafiah Qurrota Aini",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K4325012",
       "foto": "/placeholder.png",
-      "role": "Anggota Media Komunikasi",
+      "role": "Staf Media Komunikasi",
       "jenis_kelamin": "perempuan"
     }
   ]

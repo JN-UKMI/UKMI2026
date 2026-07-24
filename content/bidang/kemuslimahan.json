@@ -28,154 +28,154 @@
   "staff": [
     {
       "nama": "Destian Ridho",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K5124031",
       "foto": "/placeholder.png",
       "role": "Kepala Bidang Kemuslimahan",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Hasna Adilah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FIB",
+      "angkatan": "B0523031",
       "foto": "/placeholder.png",
-      "role": "Sekretaris Bidang",
+      "role": "Sekretaris Bidang Kemuslimahan",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Faizah Aulia",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FPSi",
+      "angkatan": "P0123266",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Pembinaan Muslimah",
+      "role": "Kepala Departemen Pembinaan Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Nadiya Arifah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K7124035",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Pembinaan Muslimah",
+      "role": "Sekretaris Departemen Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Alya Ulaiya Nirmala",
+      "fakultas": "FT",
+      "angkatan": "I0325088",
+      "foto": "/placeholder.png",
+      "role": "Staf Pembinaan Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Atikah Tazki Filisani",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FP",
+      "angkatan": "H0924074",
       "foto": "/placeholder.png",
-      "role": "Anggota Pembinaan Muslimah",
+      "role": "Staf Pembinaan Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Salsabila Qurrotua'yun",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Atina Nisa Al Mukhtar",
+      "fakultas": "FISIP",
+      "angkatan": "D0325035",
       "foto": "/placeholder.png",
-      "role": "Anggota Pembinaan Muslimah",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Nailatus Salsabila",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Anggota Pembinaan Muslimah",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Alya Ulaiya",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Anggota Pembinaan Muslimah",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Atina Nisa A.",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Anggota Pembinaan Muslimah",
+      "role": "Staf Pembinaan Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Dhiya Zuhra Fadhilah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K2224083",
       "foto": "/placeholder.png",
-      "role": "Anggota Pembinaan Muslimah",
+      "role": "Staf Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nailatus Salsabila",
+      "fakultas": "FKIP",
+      "angkatan": "K5125041",
+      "foto": "/placeholder.png",
+      "role": "Staf Pembinaan Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Salsabila Qurrotua'yun",
+      "fakultas": "FKIP",
+      "angkatan": "K7725020",
+      "foto": "/placeholder.png",
+      "role": "Staf Pembinaan Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Ziana Walida",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K5124021",
       "foto": "/placeholder.png",
-      "role": "Anggota Pembinaan Muslimah",
+      "role": "Staf Pembinaan Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Lita Aningsih",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K5124041",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Syiar Muslimah",
+      "role": "Kepala Departemen Syiar Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Salma Muflikhah",
       "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "angkatan": "M0824074",
       "foto": "/placeholder.png",
-      "role": "Pimpinan Syiar Muslimah",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Puput Putri Karima",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Anggota Syiar Muslimah",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Fauziah Dwi Puspita",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Anggota Syiar Muslimah",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Nabilah Syifa",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Anggota Syiar Muslimah",
+      "role": "Sekretaris Departemen Syiar Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Ardina Fanny Syafira",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "FKIP",
+      "angkatan": "K1324046",
       "foto": "/placeholder.png",
-      "role": "Anggota Syiar Muslimah",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Rahma Khansa Nabila",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Anggota Syiar Muslimah",
+      "role": "Staf Syiar Muslimah",
       "jenis_kelamin": "perempuan"
     },
     {
       "nama": "Azizah Khoirunnisa Nurjannah",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "fakultas": "SV",
+      "angkatan": "V1824019",
       "foto": "/placeholder.png",
-      "role": "Anggota Syiar Muslimah",
+      "role": "Staf Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Fauziah Dwi Puspita",
+      "fakultas": "FKIP",
+      "angkatan": "K4223032",
+      "foto": "/placeholder.png",
+      "role": "Staf Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nabilah Syifa Saksono",
+      "fakultas": "FIB",
+      "angkatan": "B0525033",
+      "foto": "/placeholder.png",
+      "role": "Staf Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Puput Putri Karima",
+      "fakultas": "FKIP",
+      "angkatan": "K5123075",
+      "foto": "/placeholder.png",
+      "role": "Staf Syiar Muslimah",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Rahma Khansa Nabila",
+      "fakultas": "FKIP",
+      "angkatan": "K4324082",
+      "foto": "/placeholder.png",
+      "role": "Staf Syiar Muslimah",
       "jenis_kelamin": "perempuan"
     }
   ]

@@ -12,13 +12,18 @@ export interface Song {
 export const PLAYLIST: Song[] = [
   {
     title: "Mars Pemuda Islam",
-    artist: "Azzam Haroki",
-    src: "/music/lagu-1.mp3",
+    artist: "JN UKMI UNS",
+    src: "/music/all-1.mp3",
   },
   {
-    title: "Teruslah Bergerak",
-    artist: "Azzam Haroki",
-    src: "/music/lagu-2.mp3",
+    title: "Harmoni Ukhuwah",
+    artist: "JN UKMI UNS",
+    src: "/music/all-2.mp3",
+  },
+  {
+    title: "Kabinet Iskandar Muda",
+    artist: "JN UKMI UNS",
+    src: "/music/kabinet.mp3",
   },
 ];
 
@@ -42,8 +47,8 @@ const MusicContext = createContext<MusicContextType | undefined>(undefined);
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Music plays on Home (/) and Tentang (/tentang)
-  const isAllowedPage = pathname === "/" || pathname === "/tentang";
+  // Music plays on Home (/), Tentang (/tentang), and Kabinet (/kabinet)
+  const isAllowedPage = pathname === "/" || pathname === "/tentang" || pathname === "/kabinet";
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -91,6 +96,17 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       audio.removeEventListener("ended", handleEnded);
     };
   }, []);
+
+  // Switch track automatically based on active page route
+  useEffect(() => {
+    if (pathname === "/") {
+      setCurrentTrackIndex(0);
+    } else if (pathname === "/tentang") {
+      setCurrentTrackIndex(1);
+    } else if (pathname === "/kabinet") {
+      setCurrentTrackIndex(2);
+    }
+  }, [pathname]);
 
   // Update track src when index changes
   useEffect(() => {

@@ -18,8 +18,11 @@ export function MemberCard({ member }: MemberCardProps) {
   // Extract role short title for top-right header
   const getShortRole = (role: string) => {
     if (role.includes("Ketua Umum")) return "KETUA";
-    if (role.includes("Koordinator")) return "KORAH";
+    if (role.includes("Koordinator")) return "KORWAT";
+    if (role.includes("Sekretaris Bidang")) return "KASEKBID";
     if (role.includes("Kepala Bidang")) return "KABID";
+    if (role.includes("Sekretaris Departemen")) return "KASEKDEP";
+    if (role.includes("Kepala Departemen")) return "KADEP";
     if (role.includes("Wakil")) return "WAKABID";
     if (role.includes("Sekretaris")) return "SEKRETARIS";
     if (role.includes("Bendahara")) return "BENDAHARA";

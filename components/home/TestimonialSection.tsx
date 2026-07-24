@@ -43,7 +43,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
               <div className="relative z-10 pt-4 border-t border-gray-100 dark:border-gray-800/80 flex items-center gap-4">
                 <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border-2 border-forest-600/30 dark:border-lime/50 bg-gray-100 dark:bg-gray-800">
                   <Image
-                    src={item.foto || "/image/members/default-ikhwan.svg"}
+                    src={item.foto || "/image/laki-laki.png"}
                     alt={item.nama}
                     fill
                     sizes="48px"

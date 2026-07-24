@@ -31,187 +31,187 @@
   ],
   "staff": [
     {
-      "nama": "Asyraf",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Asyraf E Rijal Musthofa",
+      "fakultas": "FP",
+      "angkatan": "Z0123025",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Kepala Bidang Internal",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Ihsan",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Nur Aini",
+      "fakultas": "FISIP",
+      "angkatan": "D0323098",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Sekretaris Bidang Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Muhammad Ihsan Zafarani",
+      "fakultas": "FEB",
+      "angkatan": "F0224082",
+      "foto": "/placeholder.png",
+      "role": "Kepala Departemen Pengembangan Internal",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Arga",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Hasnaa' Nuur Luthfi Rofii'ah",
+      "fakultas": "FKIP",
+      "angkatan": "K2324009",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Sekretaris Departemen Pengembangan Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Arga Sultan Saif Budi Anggoro",
+      "fakultas": "FP",
+      "angkatan": "H0825004",
+      "foto": "/placeholder.png",
+      "role": "Staf Pengembangan Internal",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Zidan",
+      "nama": "Zidan Ivander Ar-Rafif",
       "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "angkatan": "M0424047",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Staf Pengembangan Internal",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Yazid",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Akifa Irba Inas Karima",
+      "fakultas": "FKIP",
+      "angkatan": "K1225019",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Staf Pengembangan Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Azka Dhiyaulhaq Arindra",
+      "fakultas": "FP",
+      "angkatan": "H0925005",
+      "foto": "/placeholder.png",
+      "role": "Staf Pengembangan Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Hanifah Abel Septiana",
+      "fakultas": "FKIP",
+      "angkatan": "K7124048",
+      "foto": "/placeholder.png",
+      "role": "Staf Pengembangan Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Istiqaamah Hamiidah",
+      "fakultas": "FATISDA",
+      "angkatan": "L0225024",
+      "foto": "/placeholder.png",
+      "role": "Staf Pengembangan Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Khansa Fidiyatur Ruwaidah",
+      "fakultas": "FKIP",
+      "angkatan": "K1325010",
+      "foto": "/placeholder.png",
+      "role": "Staf Pengembangan Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Nisrina Hanifa Munadina",
+      "fakultas": "FMIPA",
+      "angkatan": "M0225020",
+      "foto": "/placeholder.png",
+      "role": "Staf Pengembangan Internal",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Yazid Luthfi Haroky",
+      "fakultas": "FT",
+      "angkatan": "I0123169",
+      "foto": "/placeholder.png",
+      "role": "Kepala Departemen Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Fauzan",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Azizah Nur Faizah",
+      "fakultas": "FP",
+      "angkatan": "H0923026",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Sekretaris Departemen Pengembangan Sumber Daya Manusia",
+      "jenis_kelamin": "perempuan"
+    },
+    {
+      "nama": "Fauzan Abdul Latif",
+      "fakultas": "FPSi",
+      "angkatan": "P0125162",
+      "foto": "/placeholder.png",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Ghitrav",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Ghithrav Aureliant Nugroho",
+      "fakultas": "FT",
+      "angkatan": "I0323134",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Kamal",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Kamal Nashrulhakim",
+      "fakultas": "FEB",
+      "angkatan": "F0425012",
       "foto": "/placeholder.png",
-      "role": "Tim Ikhwan Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "laki-laki"
     },
     {
-      "nama": "Aini",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Aisha Rahmarinda Trianov",
+      "fakultas": "FKIP",
+      "angkatan": "K4325002",
       "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Hasnaa’",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Ana Nur Aisyah",
+      "fakultas": "FKIP",
+      "angkatan": "K4325003",
       "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Inas",
+      "nama": "Chika Putri Ramadani",
       "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "angkatan": "M0225077",
       "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Azka",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Fatimah Yasmin Sahira",
+      "fakultas": "FKIP",
+      "angkatan": "K5425092",
       "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Abel",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Zalfa Zein Cholishotul Munawaroh",
+      "fakultas": "FEB",
+      "angkatan": "F0425098",
       "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "perempuan"
     },
     {
-      "nama": "Ama",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
+      "nama": "Zulaikah Mahmudah",
+      "fakultas": "FIB",
+      "angkatan": "B0525038",
       "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Fidy",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Nisrina",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Aiza",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Aisha",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Ana",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Chika",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Fatim",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Zalfa",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
-      "jenis_kelamin": "perempuan"
-    },
-    {
-      "nama": "Zula",
-      "fakultas": "FMIPA",
-      "angkatan": "A0000000",
-      "foto": "/placeholder.png",
-      "role": "Tim Akhwat Internal",
+      "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "perempuan"
     }
   ]

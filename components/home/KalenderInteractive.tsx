@@ -391,74 +391,84 @@ export function KalenderInteractive({
               )}
             </div>
 
-            {/* Agenda Cards — scroll di dalam card sesuai sisa tinggi */}
-            <div className="flex-1 min-h-0 overflow-y-auto space-y-3.5 pr-1 relative">
-              {displayedEvents.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center py-16">
-                  <CalendarDays className="w-12 h-12 text-gray-300 dark:text-gray-600 mb-3" />
-                  <p className="text-gray-500 dark:text-gray-400 text-xs font-bold">
-                    {selectedDateStr
-                      ? "Tidak ada agenda yang terjadwal pada tanggal ini."
-                      : "Tidak ada agenda terjadwal di bulan ini."}
-                  </p>
-                </div>
-              ) : (
-                <AnimatePresence mode="popLayout" initial={false}>
-                  {displayedEvents.map((event, index) => {
-                    const isPuasa = event.type === "Puasa Sunnah" || event.isPuasa;
-                    return (
-                      <motion.div
-                        initial={{ opacity: 1, x: "-100%" }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 1, x: "100%" }}
-                        transition={{ type: "spring", stiffness: 300, damping: 32 }}
-                        key={event.title + index}
-                        className={`p-4 rounded-2xl border ${
-                          isPuasa
-                            ? "bg-emerald-50/40 dark:bg-emerald-950/30 border-emerald-100/80 dark:border-emerald-800/60 hover:bg-emerald-50/70 dark:hover:bg-emerald-900/40"
-                            : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:bg-forest-50/70 dark:hover:bg-forest-900/40"
-                        }`}
-                      >
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-black rounded-md uppercase tracking-wider ${
+            {/* Agenda Cards — Animated Container Slide with Staggered Items */}
+            <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pr-1 relative">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={(selectedDateStr || "month") + monthPage + activeCategory}
+                  initial={{ opacity: 0, x: direction >= 0 ? 30 : -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: direction >= 0 ? -30 : 30 }}
+                  transition={{
+                    x: { type: "spring", stiffness: 350, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  className="space-y-3.5"
+                >
+                  {displayedEvents.length === 0 ? (
+                    <div className="h-full flex flex-col items-center justify-center text-center py-16">
+                      <CalendarDays className="w-12 h-12 text-gray-300 dark:text-gray-600 mb-3" />
+                      <p className="text-gray-500 dark:text-gray-400 text-xs font-bold">
+                        {selectedDateStr
+                          ? "Tidak ada agenda yang terjadwal pada tanggal ini."
+                          : "Tidak ada agenda terjadwal di bulan ini."}
+                      </p>
+                    </div>
+                  ) : (
+                    displayedEvents.map((event, index) => {
+                      const isPuasa = event.type === "Puasa Sunnah" || event.isPuasa;
+                      return (
+                        <motion.div
+                          whileHover={{ y: -2 }}
+                          transition={{ duration: 0.2 }}
+                          key={event.date + event.title + index}
+                          className={`p-4 rounded-2xl border transition-all duration-300 ${
                             isPuasa
-                              ? "bg-emerald-600 dark:bg-emerald-700 text-white"
-                              : "bg-forest-900 dark:bg-forest-700 text-white dark:text-lime"
+                              ? "bg-emerald-50/40 dark:bg-emerald-950/30 border-emerald-100/80 dark:border-emerald-800/60 hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] dark:hover:shadow-[0_0_18px_rgba(52,211,153,0.3)]"
+                              : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:border-forest-600 dark:hover:border-lime hover:shadow-[0_0_15px_rgba(37,95,56,0.25)] dark:hover:shadow-[0_0_18px_rgba(73,154,19,0.35)]"
                           }`}
                         >
-                          {isPuasa ? <Moon className="w-3 h-3" /> : <Sparkles className="w-3 h-3" />}
-                          {event.type}
-                        </span>
+                          <div className="flex items-center justify-between gap-2 mb-2">
+                            <span
+                              className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-black rounded-md uppercase tracking-wider ${
+                                isPuasa
+                                  ? "bg-emerald-600 dark:bg-emerald-700 text-white"
+                                  : "bg-forest-900 dark:bg-forest-700 text-white dark:text-lime"
+                              }`}
+                            >
+                              {isPuasa ? <Moon className="w-3 h-3" /> : <Sparkles className="w-3 h-3" />}
+                              {event.type}
+                            </span>
 
-                        <span className="text-[10px] font-black text-gray-500 dark:text-gray-400 font-mono">
-                          {new Date(event.date).toLocaleDateString("id-ID", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric"
-                          })}
-                        </span>
-                      </div>
-                      
-                      <h4 className="font-black text-forest-900 dark:text-lime text-sm md:text-base mb-2.5 leading-snug">
-                        {event.title}
-                      </h4>
-                      
-                      <div className="flex flex-wrap gap-2 text-xs text-gray-600 dark:text-gray-300 font-medium">
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white dark:bg-gray-800 rounded-lg border border-gray-200/60 dark:border-gray-700 shadow-xs">
-                          <Clock className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
-                          <span>{event.time}</span>
-                        </div>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white dark:bg-gray-800 rounded-lg border border-gray-200/60 dark:border-gray-700 shadow-xs">
-                          <MapPin className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
-                          <span>{event.location}</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                            <span className="text-[10px] font-black text-gray-500 dark:text-gray-400 font-mono">
+                              {new Date(event.date).toLocaleDateString("id-ID", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })}
+                            </span>
+                          </div>
+
+                          <h4 className="font-black text-forest-900 dark:text-lime text-sm md:text-base mb-2.5 leading-snug">
+                            {event.title}
+                          </h4>
+
+                          <div className="flex flex-wrap gap-2 text-xs text-gray-600 dark:text-gray-300 font-medium">
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white dark:bg-gray-800 rounded-lg border border-gray-200/60 dark:border-gray-700 shadow-xs">
+                              <Clock className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
+                              <span>{event.time}</span>
+                            </div>
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white dark:bg-gray-800 rounded-lg border border-gray-200/60 dark:border-gray-700 shadow-xs">
+                              <MapPin className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
+                              <span>{event.location}</span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })
+                  )}
+                </motion.div>
               </AnimatePresence>
-            )}
             </div>
 
           </div>
