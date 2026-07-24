@@ -40,12 +40,12 @@ export function HeroSection() {
       {/* Diagonal green-black overlay 80% */}
       <div className="absolute inset-0 bg-gradient-to-br from-green-950/80 via-forest-900/80 to-black/80" />
 
-      {/* Content */}
+      {/* Main Hero Content */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-[80px] text-center text-white -mt-16"
+        className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-[80px] text-center text-white -mt-16 z-10"
       >
         <motion.div 
           variants={itemVariants}
@@ -90,6 +90,51 @@ export function HeroSection() {
             {homeData.university || "Universitas Sebelas Maret"}
           </Link>
         </motion.div>
+      </motion.div>
+
+      {/* Corner Decorations: Kiri Bawah & Kanan Bawah */}
+      <motion.div
+        initial={{ opacity: 0, x: "-100vw" }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 25,
+          damping: 18,
+          duration: 1.8,
+          delay: 0.8,
+        }}
+        className="absolute bottom-0 left-0 z-20 pointer-events-none w-32 sm:w-48 md:w-64 lg:w-80 max-w-[35vw]"
+      >
+        <Image
+          src="/image/kiri.webp"
+          alt="Dekorasi Kiri Bawah"
+          width={400}
+          height={400}
+          className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
+          priority
+        />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: "100vw" }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 25,
+          damping: 18,
+          duration: 1.8,
+          delay: 0.8,
+        }}
+        className="absolute bottom-0 right-0 z-20 pointer-events-none w-32 sm:w-48 md:w-64 lg:w-80 max-w-[35vw]"
+      >
+        <Image
+          src="/image/kanan.webp"
+          alt="Dekorasi Kanan Bawah"
+          width={400}
+          height={400}
+          className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
+          priority
+        />
       </motion.div>
     </section>
   );
