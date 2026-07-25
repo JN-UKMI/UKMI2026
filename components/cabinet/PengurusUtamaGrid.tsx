@@ -1,7 +1,10 @@
+"use client";
+
 import type { MemberCard as MemberCardType } from "@/lib/types";
 import { MemberCard } from "@/components/kabinet/MemberCard";
 import { ShieldCheck } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
+import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 interface PengurusUtamaGridProps {
   members: MemberCardType[];
@@ -28,7 +31,7 @@ export function PengurusUtamaGrid({
         subtitle="Struktur pimpinan utama Kabinet Iskandar Muda Periode 2026"
       />
 
-      {/* Layout Mobile: Horizontal Carousel / Layout Desktop: Grid Hierarki */}
+      {/* Layout Mobile: Horizontal Carousel */}
       <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
         {members.map((member) => (
           <div key={member.nama} className="shrink-0 w-[290px] snap-center flex justify-center">
@@ -40,32 +43,32 @@ export function PengurusUtamaGrid({
       {/* Desktop Layout (sm:flex/grid) */}
       <div className="hidden sm:flex flex-col gap-10">
         {/* Baris 1: Pimpinan Utama (2 kolom) */}
-        <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
+        <StaggerContainer className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
           {leaders.map((member) => (
-            <div key={member.nama} className="w-[320px] flex justify-center">
+            <StaggerItem key={member.nama} className="w-[320px] flex justify-center">
               <MemberCard member={member} />
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Baris 2: Kepala & Wakil Bidang (4 kolom grid) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full justify-items-center">
+        <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full justify-items-center">
           {mainStaff.map((member) => (
-            <div key={member.nama} className="w-full max-w-[320px] flex justify-center">
+            <StaggerItem key={member.nama} className="w-full max-w-[320px] flex justify-center">
               <MemberCard member={member} />
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Baris 3: Sisa Staff */}
         {leftoverStaff.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
+          <StaggerContainer className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
             {leftoverStaff.map((member) => (
-              <div key={member.nama} className="w-[320px] flex justify-center">
+              <StaggerItem key={member.nama} className="w-[320px] flex justify-center">
                 <MemberCard member={member} />
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         )}
       </div>
     </section>

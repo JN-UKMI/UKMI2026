@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { Menu } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { NavDropdown } from "./NavDropdown";
 import { MobileMenu } from "./MobileMenu";
 import { usePathname } from "next/navigation";
@@ -60,31 +60,46 @@ const navItems: NavItem[] = [
 
 function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
-  // Check if current route matches this link's destination
   const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
 
   return (
     <TransitionLink
       href={href}
-      className={`px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-pointer
+      className={`relative px-3.5 py-1.5 text-sm transition-colors duration-200 rounded-lg cursor-pointer flex items-center justify-center font-semibold
         ${
           isActive
-            ? "bg-forest-100/90 dark:bg-forest-900/80 text-forest-900 dark:text-lime font-bold border-forest-600/70 shadow-md"
-            : "text-gray-700 dark:text-gray-200 font-semibold border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:border-forest-700/60"
+            ? "text-forest-900 dark:text-lime font-bold"
+            : "text-gray-700 dark:text-gray-200 hover:text-forest-700 dark:hover:text-lime"
         }
       `}
     >
-      {label}
+      {isActive && (
+        <motion.span
+          layoutId="activeNavBackground"
+          className="absolute inset-0 bg-forest-100/90 dark:bg-forest-900/80 border border-forest-600/50 dark:border-lime/40 rounded-lg shadow-sm -z-10"
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        />
+      )}
+      <span>{label}</span>
     </TransitionLink>
   );
 }
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const close = () => setMobileOpen(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="sticky top-0 z-50 py-3 px-4">
+    <nav className="sticky top-0 z-50 py-3 px-4 transition-all duration-300">
       {/* Skip to Main Content Link for Keyboard Accessibility */}
       <a
         href="#main-content"
@@ -92,19 +107,33 @@ export function Navbar() {
       >
         Langsung ke Konten Utama
       </a>
+
       <div className="max-w-6xl mx-auto relative">
-        <div className="relative flex items-center justify-between bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20 px-5 py-2 transition-colors duration-300">
+        <motion.div
+          animate={{
+            y: 0,
+            scale: scrolled ? 0.99 : 1,
+          }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className={`relative flex items-center justify-between rounded-2xl px-5 py-2.5 transition-all duration-300 ${
+            scrolled
+              ? "bg-white/85 dark:bg-gray-900/85 backdrop-blur-md shadow-xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20"
+              : "bg-white dark:bg-gray-900 shadow-md border border-gray-200/60 dark:border-gray-800"
+          }`}
+        >
           {/* KIRI: Logo + Nama */}
-          <TransitionLink href="/" className="flex items-center gap-2.5 cursor-pointer">
-            <Image src="/image/logo-jnukmi.svg" alt="JN UKMI Logo" width={36} height={36} className="h-9 w-auto shrink-0" />
+          <TransitionLink href="/" className="flex items-center gap-2.5 cursor-pointer group">
+            <motion.div whileHover={{ rotate: 5, scale: 1.05 }} transition={{ type: "spring", stiffness: 300 }}>
+              <Image src="/image/logo-jnukmi.svg" alt="JN UKMI Logo" width={36} height={36} className="h-9 w-auto shrink-0" />
+            </motion.div>
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-base text-forest-900 dark:text-lime whitespace-nowrap">JN UKMI</span>
+              <span className="font-bold text-base text-forest-900 dark:text-lime whitespace-nowrap group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">JN UKMI</span>
               <span className="text-[8px] font-semibold text-forest-600 dark:text-gray-300 tracking-wider whitespace-nowrap">Universitas Sebelas Maret</span>
             </div>
           </TransitionLink>
 
           {/* TENGAH: Nav links (Absolute Centered) */}
-          <div className="hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2 items-center gap-0.5">
+          <div className="hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2 items-center gap-1">
             {navItems.map((item) =>
               item.items ? (
                 <NavDropdown key={item.label} item={item} />
@@ -117,22 +146,29 @@ export function Navbar() {
           {/* KANAN: Theme Toggle & Contact */}
           <div className="flex items-center gap-2 sm:gap-3">
             <ThemeToggle />
-            <TransitionLink
-              href="/kontak"
-              className="hidden md:inline-flex items-center gap-1.5 bg-forest-600 hover:bg-forest-800 text-white text-sm font-medium px-4 py-1.5 rounded-full transition-colors cursor-pointer"
-            >
-              Kontak
-            </TransitionLink>
-            <button
+            <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.96 }}>
+              <TransitionLink
+                href="/kontak"
+                className="hidden md:inline-flex items-center gap-1.5 bg-forest-600 hover:bg-forest-800 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all shadow-sm hover:shadow-md cursor-pointer"
+              >
+                Kontak
+              </TransitionLink>
+            </motion.div>
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
               className="md:hidden p-1.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle Menu Mobile"
             >
-              <Menu className="w-5 h-5" />
-            </button>
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
 
-        {mobileOpen && <MobileMenu items={navItems} onClose={close} />}
+        <AnimatePresence>
+          {mobileOpen && <MobileMenu items={navItems} onClose={close} />}
+        </AnimatePresence>
       </div>
     </nav>
   );
