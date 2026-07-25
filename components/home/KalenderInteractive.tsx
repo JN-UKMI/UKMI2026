@@ -346,16 +346,19 @@ export function KalenderInteractive({
 
             {/* Monthly Hadith Quote Highlight Box */}
             {currentQuote && (
-              <div className="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 bg-forest-50/70 dark:bg-gray-800/60 p-4 sm:p-5 rounded-2xl border border-forest-100 dark:border-gray-700 relative overflow-hidden">
-                <div className="flex items-start gap-3">
-                  <Quote className="w-5 h-5 text-forest-600 dark:text-lime shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs sm:text-sm text-forest-950 dark:text-gray-200 italic leading-relaxed font-medium">
-                      “{currentQuote.text}”
-                    </p>
-                    <span className="text-[11px] font-bold text-forest-700 dark:text-lime block mt-1.5">
-                      — {currentQuote.source}
-                    </span>
+              <div className="mt-6 border-t border-gray-100 dark:border-gray-800 pt-5">
+                <div className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white p-5 rounded-2xl border border-white/10 relative overflow-hidden shadow-lg">
+                  <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-lime/10 blur-xl pointer-events-none" />
+                  <div className="flex items-start gap-3.5 relative z-10">
+                    <Quote className="w-5 h-5 text-lime shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs sm:text-sm text-gray-100 italic leading-relaxed font-medium">
+                        “{currentQuote.text}”
+                      </p>
+                      <span className="text-[11px] font-bold text-lime block mt-2 tracking-wide">
+                        — {currentQuote.source}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

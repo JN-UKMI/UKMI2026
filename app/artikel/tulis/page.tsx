@@ -233,22 +233,174 @@ export default function TulisArtikelPage() {
 
   // MAIN FORM SCREEN (Visible after verification)
   return (
-    <div className="bg-gray-50 min-h-screen py-12 px-4 md:px-6">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen py-12 px-4 md:px-6 transition-colors">
       <div className="max-w-4xl mx-auto">
         {/* Back Button & Auth Badge */}
         <div className="flex items-center justify-between mb-6">
           <Link
             href="/artikel"
-            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-forest-600 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Artikel
           </Link>
 
-          <span className="px-3 py-1 bg-lime/10 border border-lime/30 text-forest-900 rounded-full text-xs font-bold flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
+          <span className="px-3 py-1 bg-lime/10 border border-lime/30 text-forest-900 dark:text-lime rounded-full text-xs font-bold flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
             Akses Pengurus Terverifikasi
           </span>
+        </div>
+
+        {/* Hero Guidance Banner */}
+        <div className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white rounded-3xl p-6 sm:p-10 mb-8 shadow-xl relative overflow-hidden">
+          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-lime/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-lime/20 border border-lime/40 rounded-full text-lime text-xs font-bold uppercase tracking-wider">
+              <BookOpen className="w-3.5 h-3.5" />
+              Kirim Karya & Artikel Dakwah
+            </div>
+
+            <h1 className="text-2xl sm:text-4xl font-black leading-tight tracking-tight">
+              KIRIM ARTIKEL KARYA JN UKMI UNS
+            </h1>
+
+            <p className="text-sm sm:text-base text-gray-200 leading-relaxed max-w-3xl">
+              Punya gagasan kreatif dan opini kritis yang ingin dibagikan? Ada inspirasi dakwah atau kisah pengabdian kampus yang sayang jika hanya menjadi kenangan? Atau punya keresahan Islami yang ingin dituangkan menjadi tulisan bermakna?
+            </p>
+
+            <div className="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 flex items-start gap-3.5 mt-4">
+              <Image
+                src="/image/logo-jnukmi.svg"
+                alt="JN UKMI UNS Logo"
+                width={48}
+                height={48}
+                className="w-12 h-auto shrink-0 mt-0.5"
+              />
+              <div className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                <strong className="text-white font-bold block mb-1">JN UKMI (Jamaah Nurul Huda UKMI UNS)</strong>
+                Hadir sebagai wadah inklusif dan solutif untuk menyalurkan gagasan, inspirasi dakwah, cerita perjuangan, dan opini kritis mahasiswa Muslim UNS. Melalui tulisan ini, Anda dapat menyebarkan kebaikan, menginspirasi ribuan civitas akademika, dan mencetak karya abadi.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Ketentuan Penulisan Artikel JN UKMI UNS */}
+        <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 shadow-md border border-gray-100 dark:border-gray-800 mb-8 space-y-6 transition-colors">
+          <div className="border-b border-gray-100 dark:border-gray-800 pb-4">
+            <h2 className="text-xl font-black text-forest-900 dark:text-lime flex items-center gap-2.5">
+              <FileText className="w-5 h-5 text-forest-600 dark:text-lime" />
+              Ketentuan & Syarat Penulisan Artikel JN UKMI UNS
+            </h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Setiap naskah yang dikirimkan wajib mematuhi 8 panduan penulisan berikut agar lolos kurasi Tim Media & Syiar JN UKMI.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            {/* Ketentuan 1 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">1</span>
+                Kaidah Penulisan & Bahasa
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Naskah menggunakan Bahasa Indonesia yang baik dan benar sesuai standar Ejaan yang Disempurnakan (EYD V). Struktur paragraf dibuat rapi, komunikatif, dan tidak bertele-tele.
+              </p>
+            </div>
+
+            {/* Ketentuan 2 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">2</span>
+                Panjang Pembahasan Artikel
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Panjang artikel berada di rentang <strong className="text-forest-700 dark:text-lime">400 hingga 1.000 kata</strong>. Isi tulisan mengusung ide yang padat, argumen yang jelas, dan poin-poin yang mudah dipahami pembaca.
+              </p>
+            </div>
+
+            {/* Ketentuan 3 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">3</span>
+                Kategori & Relevansi Isu
+              </div>
+              <ul className="text-gray-600 dark:text-gray-300 leading-relaxed list-disc list-inside space-y-0.5">
+                <li><strong className="text-gray-800 dark:text-gray-200">Kajian:</strong> Pemikiran Islam, fiqih, tafsir, & nilai spiritualitas.</li>
+                <li><strong className="text-gray-800 dark:text-gray-200">Kegiatan:</strong> Liputan pergerakan dakwah & agenda JN UKMI.</li>
+                <li><strong className="text-gray-800 dark:text-gray-200">Isu:</strong> Opini kebangsaan, isu keumatan, & kehidupan mahasiswa.</li>
+              </ul>
+            </div>
+
+            {/* Ketentuan 4 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">4</span>
+                Gaya Bahasa & Keadaban
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Gaya penulisan santai, kreatif, dan inspiratif. Dilarang keras memuat konten yang mengandung unsur SARA, hoaks, ujaran kebencian, tuduhan tanpa dasar, atau pelecehan personal.
+              </p>
+            </div>
+
+            {/* Ketentuan 5 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">5</span>
+                Gambar Sampul & Lisensi Media
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Setiap tulisan wajib melampirkan 1 gambar sampul berasio 16:9 (Maksimal 5MB, format JPG/PNG/WEBP) yang bebas hak cipta atau milik sendiri dan relevan dengan topik.
+              </p>
+            </div>
+
+            {/* Ketentuan 6 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">6</span>
+                Dua Opsi Metode Pengiriman
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                <strong>Opsi A (Rekomendasi Utama):</strong> Mengisi formulir web langsung di bawah.<br />
+                <strong>Opsi B (Email):</strong> Kirim file Word/Docs ke <span className="font-bold text-forest-700 dark:text-lime">media.jnukmi.uns@gmail.com</span> subjek: <code className="font-mono text-[10px] bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded">[ARTIKEL UKMI] Nama - Judul</code>.
+              </p>
+            </div>
+
+            {/* Ketentuan 7 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">7</span>
+                Orisinalitas & Etika Karya
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Tulisan harus murni karya pribadi asli (bukan jiplakan/plagiasi). Tanggung jawab ilmiah dan hukum atas isi tulisan sepenuhnya berada pada penulis.
+              </p>
+            </div>
+
+            {/* Ketentuan 8 */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 space-y-1.5">
+              <div className="flex items-center gap-2 font-black text-forest-900 dark:text-lime text-sm">
+                <span className="w-6 h-6 rounded-lg bg-forest-600 dark:bg-forest-700 text-white flex items-center justify-center text-xs shrink-0">8</span>
+                Proses Moderasi & Editing
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Tim Media & Syiar JN UKMI melakukan peninjauan dalam kurun waktu 1 s/d 7 hari kerja. Tim berhak menyunting judul & tata bahasa tanpa mengubah makna utama tulisan.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Form Container Title */}
+        <div className="mb-4">
+          <h2 className="text-lg font-black text-forest-900 dark:text-lime uppercase tracking-wider flex items-center gap-2">
+            <Send className="w-5 h-5 text-forest-600 dark:text-lime" />
+            Formulir Pengiriman Artikel Instan
+          </h2>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Isi seluruh field di bawah ini secara lengkap untuk masuk ke antrean moderasi Admin JN UKMI.
+          </p>
         </div>
 
         {success ? (
