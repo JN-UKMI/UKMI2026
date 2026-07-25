@@ -2,7 +2,7 @@ import contactData from "@/content/kontak/main.json";
 
 export function MapEmbed() {
   return (
-    <div className="relative w-full h-60 md:h-72 rounded-lg overflow-hidden">
+    <div className="relative w-full h-36 md:h-44 rounded-lg overflow-hidden">
       <iframe
         src={contactData.map_embed_url}
         width="100%"

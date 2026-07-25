@@ -9,6 +9,9 @@ export interface LdfCardProps {
 }
 
 export function LdfCard({ ldf }: LdfCardProps) {
+  const rawUrl = ldf.instagram_url || ldf.instagram || "#";
+  const igUrl = rawUrl.startsWith("http") ? rawUrl : rawUrl !== "#" ? `https://www.instagram.com/${rawUrl.replace(/^@/, "")}/` : "#";
+
   return (
     <motion.div
       whileHover={{ y: -6, scale: 1.01 }}
@@ -49,7 +52,7 @@ export function LdfCard({ ldf }: LdfCardProps) {
             <motion.a
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.95 }}
-              href={ldf.instagram_url || ldf.instagram || "#"}
+              href={igUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Kunjungi Instagram ${ldf.nama}`}
