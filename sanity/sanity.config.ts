@@ -1,5 +1,6 @@
 import { defineConfig } from "sanity"
 import { article } from "./schemas/article"
+import { kegiatan } from "./schemas/kegiatan"
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 
@@ -16,5 +17,5 @@ export default defineConfig({
   projectId,
   dataset: "production",
   basePath: "/studio",
-  schema: { types: [article] },
+  schema: { types: [article, kegiatan] },
 })
