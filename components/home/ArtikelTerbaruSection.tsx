@@ -3,6 +3,7 @@ import { getArticles, urlFor } from "@/lib/sanity";
 import { Calendar, ArrowRight, Pencil, Newspaper } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { TransitionLink } from "@/components/ui/TransitionLink";
+import { AmbientBackground } from "@/components/ui/motion";
 
 const dummyArticles = [
   {
@@ -42,10 +43,12 @@ export async function ArtikelTerbaruSection() {
   }
 
   return (
-    <section className="py-16 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative overflow-hidden py-20 px-4 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+      <AmbientBackground />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
         <SectionHeader
-          icon={<Newspaper className="w-6 h-6" />}
+          icon={<Newspaper className="w-6 h-6 text-forest-600 dark:text-lime" />}
           title="Artikel Terbaru"
           subtitle="Kajian, kegiatan, dan berita terbaru dari JN UKMI"
         />

@@ -34,10 +34,14 @@ export function KalenderInteractive({
   monthlyQuotes,
   hijriMonths,
 }: KalenderInteractiveProps) {
-  // Set initial date to current date
-  const defaultDate = new Date();
-  
-  const [currentDate, setCurrentDate] = useState<Date>(defaultDate);
+  // Clamp default date to 2026 (January 2026 if current year is not 2026)
+  const getInitial2026Date = () => {
+    const now = new Date();
+    if (now.getFullYear() === 2026) return now;
+    return new Date(2026, 0, 1);
+  };
+
+  const [currentDate, setCurrentDate] = useState<Date>(getInitial2026Date());
   const [[monthPage, direction], setMonthPage] = useState<[number, number]>([0, 0]);
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"all" | "kegiatan" | "puasa">("all");
@@ -61,6 +65,10 @@ export function KalenderInteractive({
   const yearMonthKey = `${year}-${String(month + 1).padStart(2, "0")}`;
   const hijriSubtext = hijriMonths?.[yearMonthKey] || "1447 Hijriah";
 
+  // Check bounds: Strict limit January 2026 to December 2026
+  const isMinMonth = year === 2026 && month === 0;
+  const isMaxMonth = year === 2026 && month === 11;
+
   // First day index (0 = Sunday, 1 = Monday) — week starts on Sunday
   const firstDayIndex = new Date(year, month, 1).getDay();
   const startOffset = firstDayIndex; // 0=Min, 1=Sen, dst
@@ -70,12 +78,14 @@ export function KalenderInteractive({
   const prevMonthTotalDays = new Date(year, month, 0).getDate();
 
   const handlePrevMonth = () => {
+    if (isMinMonth) return;
     setMonthPage([monthPage - 1, -1]);
     setCurrentDate(new Date(year, month - 1, 1));
     setSelectedDateStr(null);
   };
 
   const handleNextMonth = () => {
+    if (isMaxMonth) return;
     setMonthPage([monthPage + 1, 1]);
     setCurrentDate(new Date(year, month + 1, 1));
     setSelectedDateStr(null);
@@ -83,12 +93,18 @@ export function KalenderInteractive({
 
   const jumpToToday = () => {
     const now = new Date();
-    const currentAbsoluteMonth = now.getFullYear() * 12 + now.getMonth();
+    const targetDate = now.getFullYear() === 2026 ? now : new Date(2026, 0, 1);
+    const targetMonth = targetDate.getMonth();
+    const targetYear = targetDate.getFullYear();
+
+    const currentAbsoluteMonth = targetYear * 12 + targetMonth;
     const stateAbsoluteMonth = year * 12 + month;
+    if (currentAbsoluteMonth === stateAbsoluteMonth) return;
+
     const newDir = currentAbsoluteMonth > stateAbsoluteMonth ? 1 : -1;
     setMonthPage([monthPage + (currentAbsoluteMonth - stateAbsoluteMonth), newDir]);
-    setCurrentDate(now);
-    setSelectedDateStr(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`);
+    setCurrentDate(targetDate);
+    setSelectedDateStr(`${targetYear}-${String(targetMonth + 1).padStart(2, "0")}-${String(targetDate.getDate()).padStart(2, "0")}`);
   };
 
   const checkIsToday = (dayNum: number) => {
@@ -205,14 +221,24 @@ export function KalenderInteractive({
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handlePrevMonth}
-                    className="p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime transition-all cursor-pointer active:scale-95"
+                    disabled={isMinMonth}
+                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all ${
+                      isMinMonth
+                        ? "opacity-30 cursor-not-allowed text-gray-400"
+                        : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
+                    }`}
                     aria-label="Bulan sebelumnya"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={handleNextMonth}
-                    className="p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime transition-all cursor-pointer active:scale-95"
+                    disabled={isMaxMonth}
+                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all ${
+                      isMaxMonth
+                        ? "opacity-30 cursor-not-allowed text-gray-400"
+                        : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
+                    }`}
                     aria-label="Bulan berikutnya"
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -220,19 +246,43 @@ export function KalenderInteractive({
                 </div>
               </div>
 
-              {/* Legenda Indikator */}
-              <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-5 pb-3 border-b border-gray-100/60 dark:border-gray-800">
+              {/* Legenda Indikator Warna Bidang */}
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[10px] sm:text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-5 pb-3 border-b border-gray-100/60 dark:border-gray-800">
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-forest-900 dark:bg-lime ring-2 ring-lime dark:ring-lime/50 ring-offset-1 dark:ring-offset-gray-900" />
                   Hari Ini
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-1 bg-lime rounded-full" />
-                  Agenda UKMI
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-gray-950 border border-gray-700" />
+                  Ketum
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-purple-600" />
+                  Sekum
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-forest-600 dark:bg-lime" />
+                  Syiar
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-red-700" />
+                  Internal
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-amber-800" />
+                  Eksternal
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-pink-500" />
+                  Kemus
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-rose-500" />
+                  Bendum
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
-                  Puasa Sunnah
+                  Puasa
                 </span>
               </div>
 
@@ -324,15 +374,36 @@ export function KalenderInteractive({
                               </span>
                             )}
 
-                            {/* Multi-Pill Micro Badges */}
+                            {/* Multi-Pill Micro Badges for Exact Bidang Colors */}
                             {hasEvents && !isToday && (
                               <div className="absolute bottom-1.5 flex items-center justify-center gap-1">
-                                {hasUkmiEvent && (
-                                  <span className={`w-2 h-1 rounded-full ${isSelected ? "bg-lime" : "bg-forest-600 dark:bg-lime"}`} />
-                                )}
-                                {hasPuasa && (
-                                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-emerald-600 dark:bg-emerald-400"}`} />
-                                )}
+                                {dayEvents.map((e, idx) => {
+                                  let dotColor = "bg-forest-600 dark:bg-lime";
+                                  if (e.type === "Puasa Sunnah" || e.isPuasa) {
+                                    dotColor = "bg-emerald-500 dark:bg-emerald-400";
+                                  } else if (e.type === "Ketum") {
+                                    dotColor = "bg-gray-950 dark:bg-white";
+                                  } else if (e.type === "Sekum") {
+                                    dotColor = "bg-purple-600 dark:bg-purple-400";
+                                  } else if (e.type === "Syiar") {
+                                    dotColor = "bg-forest-600 dark:bg-lime";
+                                  } else if (e.type === "Internal") {
+                                    dotColor = "bg-red-700 dark:bg-red-500";
+                                  } else if (e.type === "Eksternal") {
+                                    dotColor = "bg-amber-800 dark:bg-amber-500";
+                                  } else if (e.type === "Kemus") {
+                                    dotColor = "bg-pink-500 dark:bg-pink-400";
+                                  } else if (e.type === "Bendum") {
+                                    dotColor = "bg-rose-500 dark:bg-rose-400";
+                                  }
+
+                                  return (
+                                    <span
+                                      key={idx}
+                                      className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : dotColor}`}
+                                    />
+                                  );
+                                })}
                               </div>
                             )}
                           </button>
@@ -436,6 +507,20 @@ export function KalenderInteractive({
                               className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-black rounded-md uppercase tracking-wider ${
                                 isPuasa
                                   ? "bg-emerald-600 dark:bg-emerald-700 text-white"
+                                  : event.type === "Ketum"
+                                  ? "bg-gray-950 text-white border border-gray-700"
+                                  : event.type === "Sekum"
+                                  ? "bg-purple-700 text-white"
+                                  : event.type === "Syiar"
+                                  ? "bg-forest-600 dark:bg-lime dark:text-forest-950 text-white"
+                                  : event.type === "Internal"
+                                  ? "bg-red-800 text-white"
+                                  : event.type === "Eksternal"
+                                  ? "bg-amber-800 text-white"
+                                  : event.type === "Kemus"
+                                  ? "bg-pink-600 text-white"
+                                  : event.type === "Bendum"
+                                  ? "bg-rose-500 text-white"
                                   : "bg-forest-900 dark:bg-forest-700 text-white dark:text-lime"
                               }`}
                             >
