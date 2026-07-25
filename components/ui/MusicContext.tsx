@@ -122,33 +122,66 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     }
   }, [currentTrackIndex, isPlaying, isAllowedPage, currentTrack.src]);
 
-  // Pause when navigating away from allowed pages, resume when entering
+  // Attempt Autoplay on Mount & Handle Browser Autoplay Policy on First User Interaction
   useEffect(() => {
-    if (!audioRef.current) return;
-    const audio = audioRef.current;
+    if (typeof window === "undefined" || !isAllowedPage) return;
 
-    if (!isAllowedPage) {
-      if (!audio.paused) {
-        audio.pause();
-        setIsPlaying(false);
-      }
-    } else {
-      audio.muted = isMuted;
-      audio.loop = isSingleLoop;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => setIsPlaying(true))
-          .catch(() => {
-            audio.muted = true;
-            setIsMuted(true);
-            if (typeof window !== "undefined") {
-              localStorage.setItem("ukmi_music_muted", "true");
-            }
-            audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-          });
-      }
+    if (!audioRef.current) {
+      const audio = new Audio(PLAYLIST[0].src);
+      audioRef.current = audio;
     }
+
+    const audio = audioRef.current;
+    audio.muted = isMuted;
+    audio.loop = isSingleLoop;
+
+    const startAudio = () => {
+      if (!audioRef.current) return;
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          // If browser blocks un-muted autoplay, try muted play then unmute on interaction
+          if (audioRef.current) {
+            audioRef.current.muted = true;
+            audioRef.current
+              .play()
+              .then(() => setIsPlaying(true))
+              .catch(() => setIsPlaying(false));
+          }
+        });
+    };
+
+    // 1. Immediate Autoplay Attempt
+    startAudio();
+
+    // 2. Fallback: Listen for any user gesture (click, scroll, keypress, touch) to force play
+    const handleFirstUserInteraction = () => {
+      if (audioRef.current) {
+        audioRef.current.muted = false;
+        setIsMuted(false);
+        audioRef.current
+          .play()
+          .then(() => setIsPlaying(true))
+          .catch(() => {});
+      }
+      window.removeEventListener("click", handleFirstUserInteraction);
+      window.removeEventListener("keydown", handleFirstUserInteraction);
+      window.removeEventListener("touchstart", handleFirstUserInteraction);
+      window.removeEventListener("scroll", handleFirstUserInteraction);
+    };
+
+    window.addEventListener("click", handleFirstUserInteraction, { once: true });
+    window.addEventListener("keydown", handleFirstUserInteraction, { once: true });
+    window.addEventListener("touchstart", handleFirstUserInteraction, { once: true });
+    window.addEventListener("scroll", handleFirstUserInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener("click", handleFirstUserInteraction);
+      window.removeEventListener("keydown", handleFirstUserInteraction);
+      window.removeEventListener("touchstart", handleFirstUserInteraction);
+      window.removeEventListener("scroll", handleFirstUserInteraction);
+    };
   }, [isAllowedPage]);
 
   // Sync mute state

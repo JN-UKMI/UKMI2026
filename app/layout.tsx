@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Amiri } from "next/font/google";
+import { Geist, Geist_Mono, Amiri, Amiri_Quran, Noto_Naskh_Arabic } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
@@ -24,6 +24,18 @@ const amiri = Amiri({
   weight: ["400", "700"],
   subsets: ["arabic"],
   variable: "--font-amiri",
+});
+
+const amiriQuran = Amiri_Quran({
+  weight: "400",
+  subsets: ["arabic"],
+  variable: "--font-amiri-quran",
+});
+
+const notoNaskh = Noto_Naskh_Arabic({
+  weight: ["400", "700"],
+  subsets: ["arabic"],
+  variable: "--font-noto-naskh",
 });
 
 export const metadata: Metadata = {
@@ -59,7 +71,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} ${amiri.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${amiri.variable} ${amiriQuran.variable} ${notoNaskh.variable} h-full antialiased`}
     >
       <head>
         <script

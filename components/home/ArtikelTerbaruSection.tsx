@@ -1,9 +1,8 @@
-import Image from "next/image";
-import { getArticles, urlFor } from "@/lib/sanity";
-import { Calendar, ArrowRight, Pencil, Newspaper } from "lucide-react";
+import { ArticleCard } from "@/components/article/ArticleCard";
+import { getArticles } from "@/lib/sanity";
+import { Calendar, ArrowRight, Newspaper } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { TransitionLink } from "@/components/ui/TransitionLink";
-import { AmbientBackground } from "@/components/ui/motion";
 
 const dummyArticles = [
   {
@@ -59,68 +58,12 @@ export async function ArtikelTerbaruSection() {
         ) : (
           <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none md:grid md:grid-cols-2 md:overflow-x-visible md:pb-0 md:mx-0 md:px-0 lg:grid-cols-3 md:gap-6">
             {articles.slice(0, 3).map((article) => (
-              <TransitionLink
+              <div
                 key={article.slug}
-                href={`/artikel/${article.slug}`}
-                className="group flex flex-col bg-white rounded-xl border border-gray-200 hover:border-forest-600 hover:shadow-md transition-all duration-300 overflow-hidden shrink-0 w-[85vw] max-w-[340px] snap-center md:w-auto md:max-w-none md:shrink"
+                className="shrink-0 w-[85vw] max-w-[340px] snap-center md:w-auto md:max-w-none md:shrink"
               >
-                {/* Thumbnail Image */}
-                <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
-                  {(() => {
-                    let imageSrc = "/placeholder.png";
-                    if (article.coverImage) {
-                      if (typeof article.coverImage === "string" && article.coverImage.trim() !== "") {
-                        imageSrc = article.coverImage;
-                      } else if (typeof article.coverImage === "object" && article.coverImage.asset) {
-                        try {
-                          imageSrc = urlFor(article.coverImage).url() || "/placeholder.png";
-                        } catch {
-                          imageSrc = "/placeholder.png";
-                        }
-                      }
-                    }
-                    return (
-                      <Image
-                        src={imageSrc}
-                        alt={article.title}
-                        fill
-                        className="object-cover transition-transform duration-300"
-                        unoptimized
-                      />
-                    );
-                  })()}
-                  {/* Category Badge on top of image */}
-                  <span className="absolute top-3 left-3 z-10 inline-block px-2.5 py-1 bg-forest-600 text-white text-xs font-bold rounded-md shadow">
-                    {article.category}
-                  </span>
-                </div>
-
-                <div className="flex flex-col flex-1 p-6">
-                  <h3 className="font-semibold text-gray-900 group-hover:text-forest-600 transition-colors mb-2 line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 line-clamp-3 mb-4 flex-1">
-                    {article.excerpt}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100 mb-4">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-forest-600" />
-                      {new Date(article.publishedAt).toLocaleDateString("id-ID", {
-                        year: "numeric", month: "long", day: "numeric",
-                      })}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Pencil className="w-3.5 h-3.5 text-forest-600" />
-                      {article.author || "Anonim"}
-                    </span>
-                  </div>
-
-                  <div className="w-full text-center py-2 px-4 rounded-full bg-forest-600 group-hover:bg-forest-750 text-white text-xs font-bold transition-colors mt-4">
-                    Baca Selengkapnya
-                  </div>
-                </div>
-              </TransitionLink>
+                <ArticleCard article={article as any} />
+              </div>
             ))}
           </div>
         )}

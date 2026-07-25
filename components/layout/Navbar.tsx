@@ -117,8 +117,8 @@ export function Navbar() {
           transition={{ duration: 0.25, ease: "easeOut" }}
           className={`relative flex items-center justify-between rounded-2xl px-5 py-2.5 transition-all duration-300 ${
             scrolled
-              ? "bg-white/85 dark:bg-gray-900/85 backdrop-blur-md shadow-xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20"
-              : "bg-white dark:bg-gray-900 shadow-md border border-gray-200/60 dark:border-gray-800"
+              ? "bg-white/90 dark:bg-gray-900/95 backdrop-blur-md shadow-xl border border-gray-200/90 dark:border-lime/50 dark:ring-1 dark:ring-lime/30"
+              : "bg-white/95 dark:bg-gray-900/90 backdrop-blur-sm shadow-md border border-gray-200/60 dark:border-lime/30"
           }`}
         >
           {/* KIRI: Logo + Nama */}

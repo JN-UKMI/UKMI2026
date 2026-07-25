@@ -307,79 +307,67 @@ export function CardMotion({
   );
 }
 
-// ── 7. AmbientBackground (Global Fixed Ambient Mesh & Floating Bubbles) ──────────
+// ── 7. AmbientBackground (Global Static Ambient Mesh, Stars & Clean Orbs) ──────────
 export function AmbientBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {/* 1. Top Left Glowing Ambient Orb */}
-      <motion.div
-        animate={{
-          x: [0, 40, -30, 0],
-          y: [0, -30, 30, 0],
-          scale: [1, 1.15, 0.9, 1],
-        }}
-        transition={{
-          duration: 16,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-        className="absolute top-10 -left-32 w-[32rem] h-[32rem] rounded-full bg-forest-600/20 dark:bg-lime/20 blur-3xl"
-      />
+      <div className="absolute top-10 -left-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-forest-600/15 dark:bg-lime/15 blur-3xl" />
 
       {/* 2. Center Glowing Ambient Orb */}
-      <motion.div
-        animate={{
-          x: [0, 30, -30, 0],
-          y: [0, -30, 30, 0],
-          scale: [1, 1.15, 0.92, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-emerald-500/15 dark:bg-fresh-lime/20 blur-3xl"
-      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem] md:w-[36rem] h-[30rem] md:h-[36rem] rounded-full bg-emerald-500/10 dark:bg-fresh-lime/15 blur-3xl" />
 
       {/* 3. Bottom Right Glowing Ambient Orb */}
-      <motion.div
-        animate={{
-          x: [0, -40, 30, 0],
-          y: [0, 30, -30, 0],
-          scale: [1, 0.9, 1.1, 1],
-        }}
-        transition={{
-          duration: 18,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-        className="absolute -bottom-20 -right-32 w-[32rem] h-[32rem] rounded-full bg-teal/20 dark:bg-lime/20 blur-3xl"
-      />
+      <div className="absolute -bottom-20 -right-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-teal/15 dark:bg-lime/15 blur-3xl" />
 
-      {/* 4. Fixed Floating Multi-Tone Green Bubbles */}
-      <motion.div
-        animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-24 left-16 w-40 h-40 rounded-full border-2 border-forest-600/25 dark:border-lime/35 bg-gradient-to-tr from-forest-600/15 via-sage/10 to-transparent"
-      />
-      <motion.div
-        animate={{ y: [0, 25, 0], rotate: [0, -10, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute top-1/3 right-16 w-52 h-52 rounded-full border-2 border-fresh-lime/30 dark:border-lime/40 bg-gradient-to-br from-fresh-lime/20 via-yellow-green/10 to-transparent"
-      />
-      <motion.div
-        animate={{ y: [0, -25, 0], x: [0, 15, 0] }}
-        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute top-2/3 left-20 w-36 h-36 rounded-full border-2 border-teal/30 dark:border-lime/35 bg-gradient-to-bl from-teal/20 via-forest-400/15 to-transparent"
-      />
-      <motion.div
-        animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-        className="absolute bottom-28 right-1/4 w-44 h-44 rounded-full border-2 border-grass/30 dark:border-lime/35 bg-gradient-to-tr from-grass/20 via-sage/15 to-transparent"
-      />
+      {/* 4. Subtle Clean Decorative Bubbles (Desktop only) */}
+      <div className="hidden lg:block absolute top-24 left-16 w-40 h-40 rounded-full border-2 border-forest-600/20 dark:border-lime/30 bg-gradient-to-tr from-forest-600/10 via-sage/5 to-transparent" />
+      <div className="hidden lg:block absolute top-1/3 right-16 w-52 h-52 rounded-full border-2 border-fresh-lime/20 dark:border-lime/30 bg-gradient-to-br from-fresh-lime/15 via-yellow-green/5 to-transparent" />
+      <div className="hidden lg:block absolute top-2/3 left-20 w-36 h-36 rounded-full border-2 border-teal/20 dark:border-lime/30 bg-gradient-to-bl from-teal/15 via-forest-400/10 to-transparent" />
+      <div className="hidden lg:block absolute bottom-28 right-1/4 w-44 h-44 rounded-full border-2 border-grass/20 dark:border-lime/30 bg-gradient-to-tr from-grass/15 via-sage/10 to-transparent" />
+
+      {/* 5. Decorative Plain Stars (Bintang Polos 4-Point & 8-Point Minimalis) */}
+      {/* Star Top Right */}
+      <div className="absolute top-16 right-[12%] text-forest-600/25 dark:text-lime/35">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+      </div>
+
+      {/* Star Top Left */}
+      <div className="absolute top-36 left-[8%] text-forest-600/20 dark:text-lime/30">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+      </div>
+
+      {/* Star Mid Right */}
+      <div className="absolute top-1/2 right-[6%] -translate-y-12 text-forest-600/20 dark:text-lime/30">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+      </div>
+
+      {/* Star Mid Left */}
+      <div className="absolute top-2/3 left-[12%] text-forest-600/25 dark:text-lime/35">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+      </div>
+
+      {/* Star Bottom Right */}
+      <div className="absolute bottom-20 right-[15%] text-forest-600/20 dark:text-lime/30">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+      </div>
+
+      {/* Star Bottom Left */}
+      <div className="absolute bottom-36 left-[5%] text-forest-600/25 dark:text-lime/35">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+      </div>
     </div>
   );
 }

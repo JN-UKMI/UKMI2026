@@ -5,12 +5,12 @@ export type TimelineItemProps = {
 
 function TimelineItem({ year, description }: TimelineItemProps) {
   return (
-    <div className="relative mb-10 pl-8">
-      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-forest-400" />
-      <span className="text-xl font-bold text-forest-800 block mb-2">
+    <div className="relative mb-10 pl-8 border-l-2 border-forest-400 dark:border-lime">
+      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-forest-400 dark:bg-lime" />
+      <span className="text-xl font-bold text-forest-800 dark:text-lime block mb-2">
         {year}
       </span>
-      <p className="text-base text-muted leading-relaxed">
+      <p className="text-base text-muted dark:text-gray-300 leading-relaxed">
         {description}
       </p>
     </div>

@@ -3,7 +3,9 @@
 /* ── Tailwind v4 Dark Mode Selector Variant ── */
 @variant dark (&:where(.dark, .dark *));
 
-/* ── Custom Arabic Quran Font (KFGQPC Uthmanic Script HAFS) ── */
+/* ── Custom Arabic Fonts Definitions ── */
+
+/* ── Custom Arabic Font (KFGQPC Uthmanic Script HAFS) ── */
 @font-face {
   font-family: "KFGQPCUthmanicScriptHAFS";
   src: url("/fonts/KFGQPCUthmanicScriptHAFSRegular.otf") format("opentype");
@@ -26,8 +28,13 @@
   --color-fresh-lime: #8ECA3C;
   --color-grass: #276F27;
   --color-purple-600: #5E2D86;
-  --font-arabic: var(--font-amiri), serif;
-  --font-uthmanic: "KFGQPCUthmanicScriptHAFS", serif;
+  
+  /* 📖 Teks Ayat Al-Qur'an (Surat Al-Kahfi): Amiri */
+  --font-arabic: var(--font-amiri), "KFGQPCUthmanicScriptHAFS", serif;
+
+  /* 📿 Database Doa-Doa & Al-Ma'surat: KFGQPC Uthmanic Script HAFS */
+  --font-uthmanic: "KFGQPCUthmanicScriptHAFS", var(--font-amiri), serif;
+  --font-masurat: "KFGQPCUthmanicScriptHAFS", var(--font-amiri), serif;
 }
 
 body {

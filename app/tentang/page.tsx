@@ -237,10 +237,10 @@ export default function TentangPage() {
                 {/* Right Side: Timeline Visual Card */}
                 <div className="lg:col-span-6 flex gap-4 md:gap-6 relative pl-2 md:pl-6 w-full">
                   {/* Vertical Line aligned perfectly at the center (pl-2 = 8px + icon center) */}
-                  <div className="absolute left-[32px] md:left-[48px] top-6 bottom-6 w-0.5 bg-gray-200 overflow-hidden">
+                  <div className="absolute left-[32px] md:left-[48px] top-6 bottom-6 w-0.5 bg-gray-200 dark:bg-lime overflow-hidden">
                     {/* Glowing flow dot passing along the line */}
                     <div 
-                      className="absolute w-full h-24 bg-gradient-to-b from-transparent via-forest-650 to-transparent" 
+                      className="absolute w-full h-24 bg-gradient-to-b from-transparent via-forest-650 dark:via-lime to-transparent" 
                       style={{ 
                         animation: "flowDot 4s linear infinite",
                         willChange: "transform"
@@ -261,19 +261,19 @@ export default function TentangPage() {
                       const isSelected = activeTimelineIdx === idx;
 
                       // Map iconType to Lucide icons
-                      let IconComponent = <Sparkles className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                      let IconComponent = <Sparkles className={`w-5 h-5 ${isSelected ? "text-white dark:text-forest-950" : "text-forest-600 dark:text-lime"}`} />;
                       if (milestone.iconType === "landmark") {
-                        IconComponent = <Landmark className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                        IconComponent = <Landmark className={`w-5 h-5 ${isSelected ? "text-white dark:text-forest-950" : "text-forest-600 dark:text-lime"}`} />;
                       } else if (milestone.iconType === "scroll") {
-                        IconComponent = <Scroll className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                        IconComponent = <Scroll className={`w-5 h-5 ${isSelected ? "text-white dark:text-forest-950" : "text-forest-600 dark:text-lime"}`} />;
                       } else if (milestone.iconType === "users") {
-                        IconComponent = <Users className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                        IconComponent = <Users className={`w-5 h-5 ${isSelected ? "text-white dark:text-forest-950" : "text-forest-600 dark:text-lime"}`} />;
                       } else if (milestone.iconType === "star") {
-                        IconComponent = <Star className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                        IconComponent = <Star className={`w-5 h-5 ${isSelected ? "text-white dark:text-forest-950" : "text-forest-600 dark:text-lime"}`} />;
                       } else if (milestone.iconType === "shield") {
-                        IconComponent = <Shield className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                        IconComponent = <Shield className={`w-5 h-5 ${isSelected ? "text-white dark:text-forest-950" : "text-forest-600 dark:text-lime"}`} />;
                       } else if (milestone.iconType === "globe") {
-                        IconComponent = <Globe className={`w-5 h-5 ${isSelected ? "text-white" : "text-forest-600"}`} />;
+                        IconComponent = <Globe className={`w-5 h-5 ${isSelected ? "text-white dark:text-forest-950" : "text-forest-600 dark:text-lime"}`} />;
                       }
 
                       return (
@@ -283,8 +283,8 @@ export default function TentangPage() {
                             onClick={() => setActiveTimelineIdx(idx)}
                             className={`relative z-10 w-12 h-12 rounded-full border-2 shadow-sm flex items-center justify-center shrink-0 transition-all duration-300 cursor-pointer ${
                               isSelected
-                                ? "border-forest-600 bg-forest-600 text-white scale-110 ring-4 ring-forest-100"
-                                : "border-forest-600 bg-white text-forest-600 hover:bg-forest-50"
+                                ? "border-forest-600 dark:border-lime bg-forest-600 dark:bg-lime text-white dark:text-forest-950 scale-110 ring-4 ring-forest-100 dark:ring-lime/30"
+                                : "border-forest-600 dark:border-lime/80 bg-white dark:bg-gray-900 text-forest-600 dark:text-lime hover:bg-forest-50 dark:hover:bg-gray-800"
                             }`}
                           >
                             {IconComponent}
@@ -295,26 +295,26 @@ export default function TentangPage() {
                             onClick={() => setActiveTimelineIdx(idx)}
                             className={`flex-1 rounded-2xl p-4 flex flex-col gap-2 cursor-pointer border transition-all duration-300 relative ${
                               isSelected
-                                ? "bg-forest-50/70 border-forest-300 shadow-sm"
-                                : "bg-white border-gray-150 hover:border-gray-200 opacity-75 hover:opacity-100"
+                                ? "bg-forest-50/70 dark:bg-gray-900 border-forest-300 dark:border-lime shadow-sm"
+                                : "bg-white dark:bg-gray-900/60 border-gray-150 dark:border-gray-800 hover:border-gray-200 dark:hover:border-lime/40 opacity-75 hover:opacity-100"
                             }`}
                           >
                             <div className="flex items-center justify-between gap-2">
                               {milestone.badge && (
                                 <span className={`self-start inline-block px-2.5 py-0.5 text-[9px] font-extrabold tracking-wider uppercase rounded-md shadow-xs ${
-                                  isSelected ? "bg-forest-600 text-white" : "bg-forest-100 text-forest-700"
+                                  isSelected ? "bg-forest-600 dark:bg-lime text-white dark:text-forest-950" : "bg-forest-100 dark:bg-forest-950 text-forest-700 dark:text-lime"
                                 }`}>
                                   {milestone.badge}
                                 </span>
                               )}
-                              <span className="text-xs font-bold text-forest-600 font-mono">
+                              <span className="text-xs font-bold text-forest-600 dark:text-lime font-mono">
                                 {milestone.year}
                               </span>
                             </div>
-                            <h4 className="font-bold text-gray-900 text-sm">
+                            <h4 className="font-bold text-gray-900 dark:text-white text-sm">
                               {milestone.title || milestone.year}
                             </h4>
-                            <p className="text-xs text-gray-500 leading-relaxed font-semibold">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-semibold">
                               {milestone.description}
                             </p>
                           </div>

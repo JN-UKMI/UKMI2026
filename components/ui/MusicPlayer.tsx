@@ -53,18 +53,8 @@ export function MusicPlayer() {
             transition={{ duration: 0.3 }}
             className="hidden md:flex items-center gap-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md px-4 py-2.5 rounded-full shadow-xl border border-gray-200/80 dark:border-lime dark:ring-1 dark:ring-lime/30 text-gray-800 dark:text-gray-100 transition-colors"
           >
-            {/* Song Info */}
-            <div className="flex flex-col max-w-[140px] sm:max-w-[180px]">
-              <span className="text-xs font-bold truncate text-forest-900 dark:text-lime leading-tight">
-                {currentTrack.title}
-              </span>
-              <span className="text-[10px] font-medium text-gray-400 dark:text-gray-400 truncate">
-                {currentTrack.artist}
-              </span>
-            </div>
-
-            {/* Controls */}
-            <div className="flex items-center gap-1.5 pl-2 border-l border-gray-200 dark:border-gray-800">
+            {/* Controls Only */}
+            <div className="flex items-center gap-1.5">
               {/* Play / Pause */}
               <button
                 onClick={togglePlay}
