@@ -55,7 +55,7 @@ export default function AdminPage() {
   const [selectedArticle, setSelectedArticle] = useState<DraftArticle | null>(null);
   const [editArticle, setEditArticle] = useState<DraftArticle | null>(null);
   const [editTitle, setEditTitle] = useState("");
-  const [editCategory, setEditCategory] = useState("Kajian");
+  const [editCategory, setEditCategory] = useState("Artikel Islami");
   const [editExcerpt, setEditExcerpt] = useState("");
   const [editContentText, setEditContentText] = useState("");
 
@@ -1048,9 +1048,8 @@ export default function AdminPage() {
                       onChange={(e) => setEditCategory(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold bg-white"
                     >
-                      <option value="Kajian">Kajian</option>
-                      <option value="Kegiatan">Kegiatan</option>
-                      <option value="Isu">Isu</option>
+                      <option value="Artikel Islami">Artikel Islami</option>
+                      <option value="Kajian Islami">Kajian Islami</option>
                       <option value="Lainnya">Lainnya</option>
                     </select>
                   </div>

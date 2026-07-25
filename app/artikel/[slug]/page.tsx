@@ -10,9 +10,9 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 const categoryColors: Record<string, string> = {
-  Kegiatan: "bg-lime/10 text-lime",
-  Kajian: "bg-teal/10 text-teal",
-  Isu: "bg-sage/10 text-sage",
+  "Artikel Islami": "bg-lime/10 text-lime",
+  "Kajian Islami": "bg-teal/10 text-teal",
+  Lainnya: "bg-sage/10 text-sage",
 };
 
 interface PageProps {

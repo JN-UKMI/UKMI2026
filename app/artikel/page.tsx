@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const allCategories = ["Kegiatan", "Kajian", "Isu", "Lainnya"] as const;
+const allCategories = ["Artikel Islami", "Kajian Islami", "Lainnya"] as const;
 type Category = typeof allCategories[number];
 
 interface PageProps {
@@ -21,73 +21,73 @@ interface PageProps {
 
 const dummyArticles = [
   {
-    title: "[Kajian] Membangun Karakter Pemuda Muslim di Era Milenial",
+    title: "[Kajian Islami] Membangun Karakter Pemuda Muslim di Era Milenial",
     slug: "membangun-karakter-pemuda-muslim",
     excerpt: "Rangkuman kajian pekanan mengenai pilar-pilar karakter yang harus dimiliki pemuda Muslim untuk menghadapi tantangan zaman agar tetap istiqomah di tengah arus modernisasi global.",
     publishedAt: new Date().toISOString(),
-    category: "Kajian" as const,
+    category: "Kajian Islami" as const,
     author: "Humas JN UKMI",
   },
   {
-    title: "[Kegiatan] Dokumentasi Rapat Kerja Kabinet Iskandar Muda",
+    title: "[Artikel Islami] Dokumentasi Rapat Kerja Kabinet Iskandar Muda",
     slug: "dokumentasi-raker-iskandar-muda",
     excerpt: "Laporan pelaksanaan rapat kerja kepengurusan JN UKMI untuk merumuskan program dakwah strategis selama satu periode ke depan, menyelaraskan visi misi bersama seluruh pengurus.",
     publishedAt: new Date().toISOString(),
-    category: "Kegiatan" as const,
+    category: "Artikel Islami" as const,
     author: "Sekretariat",
   },
   {
-    title: "[Isu] Peran Strategis Aktivis Dakwah Kampus di Universitas Sebelas Maret",
+    title: "[Lainnya] Peran Strategis Aktivis Dakwah Kampus di Universitas Sebelas Maret",
     slug: "peran-strategis-dakwah-kampus",
     excerpt: "Opini mengenai kontribusi nyata yang dapat diberikan mahasiswa Muslim terhadap dinamika sosial-kemasyarakatan di kampus serta pentingnya dakwah yang santun dan inklusif.",
     publishedAt: new Date().toISOString(),
-    category: "Isu" as const,
+    category: "Lainnya" as const,
     author: "Kastrat JN UKMI",
   },
   {
-    title: "[Kajian] Tafsir Al-Quran Aktual: Surah Al-Kahfi di Tengah Fitnah Akhir Zaman",
+    title: "[Kajian Islami] Tafsir Al-Quran Aktual: Surah Al-Kahfi di Tengah Fitnah Akhir Zaman",
     slug: "tafsir-al-kahfi-akhir-zaman",
     excerpt: "Ulasan mendalam mengenai pelajaran berharga dari kisah-kisah Surah Al-Kahfi serta tips praktis membentengi diri dari pengaruh negatif moral di masa sekarang.",
     publishedAt: new Date().toISOString(),
-    category: "Kajian" as const,
+    category: "Kajian Islami" as const,
     author: "Kaderisasi",
   },
   {
-    title: "[Kegiatan] Semarak Ramadhan Kampus: Tebar Takjil & Ifthar Jam'i",
+    title: "[Artikel Islami] Semarak Ramadhan Kampus: Tebar Takjil & Ifthar Jam'i",
     slug: "semarak-ramadhan-ifthar-jami",
     excerpt: "Dokumentasi kebersamaan pengurus JN UKMI dalam berbagi keberkahan Ramadhan dengan pembagian makanan berbuka puasa gratis bagi civitas akademika UNS.",
     publishedAt: new Date().toISOString(),
-    category: "Kegiatan" as const,
+    category: "Artikel Islami" as const,
     author: "Syiar",
   },
   {
-    title: "[Isu] Menatap Masa Depan Dakwah Kampus Melalui Media Kreatif",
+    title: "[Lainnya] Menatap Masa Depan Dakwah Kampus Melalui Media Kreatif",
     slug: "masa-depan-dakwah-media-kreatif",
     excerpt: "Analisis peluang dan tantangan penyampaian pesan-pesan moral keislaman melalui infografis, video pendek, dan konten audio di kalangan mahasiswa saat ini.",
     publishedAt: new Date().toISOString(),
-    category: "Isu" as const,
+    category: "Lainnya" as const,
     author: "Media",
   },
   {
-    title: "[Kajian] Pentingnya Menjaga Ukhuwah Islamiyah di Lingkungan Kampus",
+    title: "[Kajian Islami] Pentingnya Menjaga Ukhuwah Islamiyah di Lingkungan Kampus",
     slug: "menjaga-ukhuwah-islamiyah-kampus",
     excerpt: "Pembahasan mendalam tentang esensi persaudaraan sesama Muslim serta langkah konkret meminimalkan gesekan pendapat di era informasi digital.",
     publishedAt: new Date().toISOString(),
-    category: "Kajian" as const,
+    category: "Kajian Islami" as const,
     author: "Internal",
   },
   {
-    title: "[Kegiatan] Bakti Sosial Akbar JN UKMI di Desa Mitra Karanganyar",
+    title: "[Artikel Islami] Bakti Sosial Akbar JN UKMI di Desa Mitra Karanganyar",
     slug: "bakti-sosial-karanganyar",
     excerpt: "Catatan pengabdian masyarakat berupa pemeriksaan kesehatan gratis dan pembagian sembako yang diinisiasi oleh Bidang Eksternal JN UKMI.",
     publishedAt: new Date().toISOString(),
-    category: "Kegiatan" as const,
+    category: "Artikel Islami" as const,
     author: "Eksternal",
   }
 ];
 
 async function getFilteredArticles(category?: Category, searchQuery?: string) {
-  if (category && category !== "Kegiatan" && category !== "Kajian" && category !== "Isu" && category !== "Lainnya") {
+  if (category && category !== "Artikel Islami" && category !== "Kajian Islami" && category !== "Lainnya") {
     return [];
   }
 
@@ -198,34 +198,34 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
               Semua
             </Link>
             <Link
-              href={getCategoryUrl("Kegiatan")}
+              href={getCategoryUrl("Artikel Islami")}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
-                category === "Kegiatan"
+                category === "Artikel Islami"
                   ? "bg-forest-600 text-white border-forest-600"
                   : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
               }`}
             >
-              Kegiatan
+              Artikel Islami
             </Link>
             <Link
-              href={getCategoryUrl("Kajian")}
+              href={getCategoryUrl("Kajian Islami")}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
-                category === "Kajian"
+                category === "Kajian Islami"
                   ? "bg-forest-600 text-white border-forest-600"
                   : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
               }`}
             >
-              Kajian
+              Kajian Islami
             </Link>
             <Link
-              href={getCategoryUrl("Isu")}
+              href={getCategoryUrl("Lainnya")}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
-                category === "Isu"
+                category === "Lainnya"
                   ? "bg-forest-600 text-white border-forest-600"
                   : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
               }`}
             >
-              Isu
+              Lainnya
             </Link>
           </div>
         </div>

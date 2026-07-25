@@ -120,7 +120,7 @@ export interface ArticleListItem {
   title: string;
   slug: string;
   excerpt: string;
-  category: "Kegiatan" | "Kajian" | "Isu";
+  category: "Artikel Islami" | "Kajian Islami" | "Lainnya";
   publishedAt: string;
   coverImage?: any;
   author?: string;

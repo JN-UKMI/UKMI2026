@@ -27,9 +27,9 @@ export const article = defineType({
       description: "Kategori artikel",
       options: {
         list: [
-          { title: "Kegiatan", value: "Kegiatan" },
-          { title: "Kajian", value: "Kajian" },
-          { title: "Isu", value: "Isu" },
+          { title: "Artikel Islami", value: "Artikel Islami" },
+          { title: "Kajian Islami", value: "Kajian Islami" },
+          { title: "Lainnya", value: "Lainnya" },
         ],
         layout: "radio",
       },

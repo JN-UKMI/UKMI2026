@@ -6,27 +6,27 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 
 const dummyArticles = [
   {
-    title: "[Kajian] Meneladani Karakter Pemuda Shalih di Era Modern",
+    title: "[Kajian Islami] Meneladani Karakter Pemuda Shalih di Era Modern",
     slug: "meneladani-karakter-pemuda-shalih",
     excerpt: "Rangkuman kajian pekanan mengenai pilar-pilar karakter yang harus dimiliki pemuda Muslim untuk menghadapi tantangan zaman agar tetap istiqomah di tengah arus modernisasi global.",
     publishedAt: new Date().toISOString(),
-    category: "Kajian",
+    category: "Kajian Islami",
     author: "Humas JN UKMI",
   },
   {
-    title: "[Kegiatan] Dokumentasi Rapat Kerja Kabinet Iskandar Muda",
+    title: "[Artikel Islami] Dokumentasi Rapat Kerja Kabinet Iskandar Muda",
     slug: "dokumentasi-raker-iskandar-muda",
     excerpt: "Laporan pelaksanaan rapat kerja kepengurusan JN UKMI untuk merumuskan program dakwah strategis selama satu periode ke depan, menyelaraskan visi misi bersama seluruh pengurus.",
     publishedAt: new Date().toISOString(),
-    category: "Kegiatan",
+    category: "Artikel Islami",
     author: "Sekretariat",
   },
   {
-    title: "[Isu] Peran Strategis Aktivis Dakwah Kampus di Universitas Sebelas Maret",
+    title: "[Lainnya] Peran Strategis Aktivis Dakwah Kampus di Universitas Sebelas Maret",
     slug: "peran-strategis-dakwah-kampus",
     excerpt: "Opini mengenai kontribusi nyata yang dapat diberikan mahasiswa Muslim terhadap dinamika sosial-kemasyarakatan di kampus serta pentingnya dakwah yang santun dan inklusif.",
     publishedAt: new Date().toISOString(),
-    category: "Isu",
+    category: "Lainnya",
     author: "Kastrat JN UKMI",
   },
 ];

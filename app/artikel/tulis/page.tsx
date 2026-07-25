@@ -16,7 +16,7 @@ export default function TulisArtikelPage() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publishedAt, setPublishedAt] = useState(new Date().toISOString().split("T")[0]);
-  const [category, setCategory] = useState("Kajian");
+  const [category, setCategory] = useState("Artikel Islami");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
 
@@ -143,7 +143,7 @@ export default function TulisArtikelPage() {
       setTitle("");
       setAuthor("");
       setPublishedAt(new Date().toISOString().split("T")[0]);
-      setCategory("Kajian");
+      setCategory("Artikel Islami");
       setExcerpt("");
       setContent("");
       setImageFile(null);
@@ -514,10 +514,9 @@ export default function TulisArtikelPage() {
                       onChange={(e) => setCategory(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-700"
                     >
-                      <option value="Kajian">Kajian (Artikel Keilmuan/Tafsir)</option>
-                      <option value="Kegiatan">Kegiatan (Laporan/Liputan Acara)</option>
-                      <option value="Isu">Isu (Analisis Kontemporer/Opini)</option>
-                      <option value="Lainnya">Lainnya (Pengumuman/Rilis/Lain-lain)</option>
+                      <option value="Artikel Islami">Artikel Islami (Liputan/Kegiatan/Laporan)</option>
+                      <option value="Kajian Islami">Kajian Islami (Keilmuan/Tafsir/Hadis)</option>
+                      <option value="Lainnya">Lainnya (Pengumuman/Opini/Rilis)</option>
                     </select>
                   </div>
                 </div>
