@@ -142,6 +142,14 @@ export async function loadTestimoni(): Promise<import("./types").TestimonialItem
 
 export async function loadKegiatanSeru(): Promise<import("./types").KegiatanSeruItem[]> {
   try {
+    const { getKegiatanSeruFromSanity } = await import("./sanity");
+    const sanityEvents = await getKegiatanSeruFromSanity();
+    if (sanityEvents && sanityEvents.length > 0) {
+      return sanityEvents;
+    }
+  } catch {}
+
+  try {
     const filePath = path.join(contentDir, "kegiatan-seru", "events.json");
     const raw = await fs.readFile(filePath, "utf-8");
     return JSON.parse(raw);

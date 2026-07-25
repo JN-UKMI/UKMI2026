@@ -113,3 +113,27 @@ export async function getArticlesByCategory(
 ): Promise<ArticlesListResult> {
   return client.fetch(ARTICLES_BY_CATEGORY_QUERY, { category })
 }
+
+// ── Kegiatan Seru (Event Terdekat) Queries ──────────────────────
+
+export const KEGIATAN_LIST_QUERY = /* groq */ `*[_type == "kegiatan"] | order(createdAt desc) {
+  "id": _id,
+  title,
+  date,
+  dayBadge,
+  monthBadge,
+  location,
+  description,
+  "posterUrl": poster.asset->url,
+  instagramUrl,
+  createdAt
+}`
+
+export async function getKegiatanSeruFromSanity(): Promise<import("./types").KegiatanSeruItem[]> {
+  try {
+    return await client.fetch(KEGIATAN_LIST_QUERY);
+  } catch {
+    return [];
+  }
+}
+

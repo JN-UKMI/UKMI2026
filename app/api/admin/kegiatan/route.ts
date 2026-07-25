@@ -1,11 +1,24 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
+import { createClient } from "next-sanity";
 import { KegiatanSeruItem } from "@/lib/types";
 
 const eventsFilePath = path.join(process.cwd(), "content", "kegiatan-seru", "events.json");
 
-// Helper read events
+function getSanityWriteClient() {
+  const token = process.env.SANITY_WRITE_TOKEN;
+  if (!token) return null;
+  return createClient({
+    projectId: "ksc63oa8",
+    dataset: "production",
+    apiVersion: "2024-01-01",
+    token: token,
+    useCdn: false,
+  });
+}
+
+// Helper read local events
 async function readEvents(): Promise<KegiatanSeruItem[]> {
   try {
     const raw = await fs.readFile(eventsFilePath, "utf-8");
@@ -15,19 +28,38 @@ async function readEvents(): Promise<KegiatanSeruItem[]> {
   }
 }
 
-// Helper write events
+// Helper write local events
 async function writeEvents(events: KegiatanSeruItem[]) {
   await fs.mkdir(path.dirname(eventsFilePath), { recursive: true });
   await fs.writeFile(eventsFilePath, JSON.stringify(events, null, 2), "utf-8");
 }
 
-// GET: Fetch all active events
+// GET: Fetch all active events (from Sanity if available, else local)
 export async function GET() {
+  const sanityClient = getSanityWriteClient();
+  if (sanityClient) {
+    try {
+      const sanityEvents = await sanityClient.fetch(`*[_type == "kegiatan"] | order(createdAt desc) {
+        "id": _id,
+        title,
+        date,
+        dayBadge,
+        monthBadge,
+        location,
+        description,
+        "posterUrl": poster.asset->url,
+        instagramUrl,
+        createdAt
+      }`);
+      return NextResponse.json({ events: sanityEvents });
+    } catch {}
+  }
+
   const events = await readEvents();
   return NextResponse.json({ events });
 }
 
-// POST: Add new event (With multipart file upload support)
+// POST: Add new event (With Sanity upload support & local fallback)
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
@@ -47,6 +79,46 @@ export async function POST(req: Request) {
       );
     }
 
+    const sanityClient = getSanityWriteClient();
+
+    // Sanity cloud storage flow
+    if (sanityClient) {
+      let imageAsset = null;
+      if (posterFile && posterFile.size > 0) {
+        const buffer = Buffer.from(await posterFile.arrayBuffer());
+        imageAsset = await sanityClient.assets.upload("image", buffer, {
+          filename: posterFile.name || "poster.jpg",
+        });
+      }
+
+      const doc = {
+        _type: "kegiatan",
+        title,
+        date,
+        dayBadge: dayBadge.trim(),
+        monthBadge: monthBadge.trim().toUpperCase(),
+        location: location || "Universitas Sebelas Maret",
+        description,
+        instagramUrl: instagramUrl || "https://www.instagram.com/jnukmiuns/",
+        createdAt: new Date().toISOString(),
+        ...(imageAsset
+          ? {
+              poster: {
+                _type: "image",
+                asset: { _type: "reference", _ref: imageAsset._id },
+              },
+            }
+          : {}),
+      };
+
+      const createdDoc = await sanityClient.create(doc);
+      return NextResponse.json({
+        message: "Kegiatan seru berhasil ditambahkan ke Sanity CMS Cloud!",
+        event: createdDoc,
+      });
+    }
+
+    // Local JSON fallback flow
     let posterUrl = "/placeholder.png";
 
     if (posterFile && posterFile.size > 0) {
@@ -73,7 +145,7 @@ export async function POST(req: Request) {
     };
 
     const events = await readEvents();
-    events.unshift(newEvent); // Add to beginning
+    events.unshift(newEvent);
     await writeEvents(events);
 
     return NextResponse.json({
@@ -109,6 +181,43 @@ export async function PUT(req: Request) {
       );
     }
 
+    const sanityClient = getSanityWriteClient();
+
+    // Sanity cloud edit flow
+    if (sanityClient && !id.startsWith("event-")) {
+      let imageAsset = null;
+      if (posterFile && posterFile.size > 0) {
+        const buffer = Buffer.from(await posterFile.arrayBuffer());
+        imageAsset = await sanityClient.assets.upload("image", buffer, {
+          filename: posterFile.name || "poster.jpg",
+        });
+      }
+
+      const patchData: any = {
+        title,
+        date,
+        dayBadge: dayBadge.trim(),
+        monthBadge: monthBadge.trim().toUpperCase(),
+        location: location || "Universitas Sebelas Maret",
+        description,
+        instagramUrl: instagramUrl || "https://www.instagram.com/jnukmiuns/",
+      };
+
+      if (imageAsset) {
+        patchData.poster = {
+          _type: "image",
+          asset: { _type: "reference", _ref: imageAsset._id },
+        };
+      }
+
+      const updated = await sanityClient.patch(id).set(patchData).commit();
+      return NextResponse.json({
+        message: "Kegiatan seru berhasil diperbarui di Sanity CMS Cloud!",
+        event: updated,
+      });
+    }
+
+    // Local JSON edit flow
     let events = await readEvents();
     const existingIndex = events.findIndex((e) => e.id === id);
 
@@ -157,7 +266,7 @@ export async function PUT(req: Request) {
   }
 }
 
-// DELETE: Remove event by id
+// DELETE: Remove event by id (Sanity + Local fallback)
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -170,12 +279,19 @@ export async function DELETE(req: Request) {
       );
     }
 
+    const sanityClient = getSanityWriteClient();
+
+    if (sanityClient && !id.startsWith("event-")) {
+      await sanityClient.delete(id);
+      return NextResponse.json({ message: "Kegiatan berhasil dihapus dari Sanity CMS Cloud." });
+    }
+
     let events = await readEvents();
     const eventToDelete = events.find((e) => e.id === id);
 
-    if (eventToDelete && eventToDelete.posterUrl.startsWith("/events/event-")) {
+    if (eventToDelete && eventToDelete.posterUrl.startsWith("/events/")) {
       try {
-        const fileToDelete = path.join(process.cwd(), "process.cwd()", eventToDelete.posterUrl);
+        const fileToDelete = path.join(process.cwd(), "public", eventToDelete.posterUrl);
         await fs.unlink(fileToDelete);
       } catch {}
     }
