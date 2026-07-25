@@ -8,9 +8,7 @@ export async function KalenderSection() {
   const { events, monthly_quotes, hijri_months } = await loadEvents();
 
   return (
-    <section className="relative overflow-hidden py-20 px-4 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
-      <AmbientBackground />
-
+    <section className="relative overflow-hidden py-20 px-4 bg-transparent transition-colors duration-300">
       <div className="relative z-10 max-w-6xl mx-auto">
         <SectionHeader
           icon={<Calendar className="w-6 h-6" />}

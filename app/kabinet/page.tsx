@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function KabinetPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-transparent">
       <PageHero
         badge="Kabinet Iskandar Muda"
         title="Struktur Kepengurusan"

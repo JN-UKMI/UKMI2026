@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { getArticles } from "@/lib/sanity";
 import { ArticleGrid } from "@/components/article/ArticleGrid";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Pencil, Search, ShieldCheck } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { ChevronLeft, ChevronRight, Pencil, Search } from "lucide-react";
+import { PageHero } from "@/components/layout/PageHero";
 
 export const metadata: Metadata = {
   title: "Artikel - JN UKMI",
@@ -145,19 +145,20 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
   };
 
   return (
-    <div className="bg-white pb-16">
-      <PageHeader
+    <div className="bg-transparent pb-16">
+      <PageHero
+        badge="Media & Syiar Islam"
         title="Artikel & Kajian"
         subtitle="Temukan kumpulan kajian islami, liputan kegiatan, dan analisis isu kontemporer terhangat dari JN UKMI."
       >
         <Link
           href="/artikel/tulis"
-          className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-forest-600 hover:bg-forest-700 dark:bg-lime dark:hover:bg-lime/90 text-white dark:text-forest-950 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95 border border-white/20 dark:border-lime/30"
         >
           <Pencil className="w-3.5 h-3.5" />
           Tulis Artikel Baru
         </Link>
-      </PageHeader>
+      </PageHero>
 
       <div className="max-w-7xl mx-auto px-4 pt-10">
 

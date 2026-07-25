@@ -158,7 +158,7 @@ export default function TulisArtikelPage() {
   // GATEKEEPER SCREEN (If passcode is not verified yet)
   if (!isVerified) {
     return (
-      <div className="bg-gray-50 min-h-[85vh] flex items-center justify-center px-4">
+      <div className="bg-transparent min-h-[85vh] flex items-center justify-center px-4">
         <div className="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 max-w-md w-full text-center">
           <div className="w-16 h-16 bg-forest-600/10 text-forest-600 rounded-3xl flex items-center justify-center mb-6 mx-auto shadow-inner">
             <Lock className="w-8 h-8" />
@@ -233,7 +233,7 @@ export default function TulisArtikelPage() {
 
   // MAIN FORM SCREEN (Visible after verification)
   return (
-    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen py-12 px-4 md:px-6 transition-colors">
+    <div className="bg-transparent min-h-screen py-12 px-4 md:px-6 transition-colors">
       <div className="max-w-4xl mx-auto">
         {/* Back Button & Auth Badge */}
         <div className="flex items-center justify-between mb-6">

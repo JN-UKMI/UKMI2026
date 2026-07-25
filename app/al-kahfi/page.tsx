@@ -53,7 +53,7 @@ export default async function AlKahfiPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent transition-colors duration-300">
       <PageHero
         badge="Layanan Al-Qur'an"
         title={surah.namaLatin}

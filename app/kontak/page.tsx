@@ -42,7 +42,7 @@ export default function KontakPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent transition-colors duration-300">
       <PageHero
         badge="Hubungi Pengurus"
         title="Hubungi Kami"

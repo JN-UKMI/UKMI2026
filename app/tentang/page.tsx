@@ -42,7 +42,7 @@ export default function TentangPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
+    <div className="min-h-screen bg-transparent">
       <PageHero 
         badge="Jamaah Nurul Huda UNS"
         title="Tentang Kami" 

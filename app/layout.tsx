@@ -7,6 +7,7 @@ import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { MusicProvider } from "@/components/ui/MusicContext";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { AmbientBackground } from "@/components/ui/motion";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -80,13 +81,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
         <AuthProvider>
           <ThemeProvider>
             <LoadingProvider>
               <MusicProvider>
+                <AmbientBackground />
                 <Navbar />
-                <main id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</main>
+                <main id="main-content" tabIndex={-1} className="flex-1 outline-none relative z-10">{children}</main>
                 <Footer />
                 <MusicPlayer />
                 <BackToTop />

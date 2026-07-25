@@ -15,9 +15,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
-    <section className="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-950 border-t border-gray-200/60 dark:border-gray-800/80 transition-colors duration-300">
-      <AmbientBackground />
-
+    <section className="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 bg-transparent transition-colors duration-300">
       <div className="relative z-10 max-w-6xl mx-auto">
         <SectionHeader
           icon={<MessageSquareQuote className="w-6 h-6 text-forest-600 dark:text-lime" />}

@@ -27,7 +27,7 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
   if (!currentQuote) return null;
 
   return (
-    <section className="relative bg-white dark:bg-gray-950 transition-colors overflow-hidden">
+    <section className="relative bg-transparent transition-colors overflow-hidden">
       <div className="py-16 px-2 sm:px-4">
         <motion.div
           initial={{ scale: 0.95 }}

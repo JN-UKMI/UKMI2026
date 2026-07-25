@@ -4,7 +4,7 @@ import { MapEmbed } from "./MapEmbed";
 
 export function Footer() {
   return (
-    <footer className="bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t dark:border-forest-900/60 transition-colors duration-300">
+    <footer className="relative z-20 bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t dark:border-forest-900/60 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Column 1: Logo + Brand */}

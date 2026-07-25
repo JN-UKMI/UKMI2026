@@ -57,7 +57,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-950 py-20 px-4 transition-colors duration-300">
+    <section className="bg-transparent py-20 px-4 transition-colors duration-300">
       <div className="max-w-5xl mx-auto relative">
         <SectionHeader
           icon={<Sparkles className="w-6 h-6" />}

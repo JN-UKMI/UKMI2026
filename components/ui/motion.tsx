@@ -307,11 +307,11 @@ export function CardMotion({
   );
 }
 
-// ── 7. AmbientBackground (Clean Edge Safe-Zone Ambient Mesh & Inner Bubbles) ───
+// ── 7. AmbientBackground (Global Fixed Ambient Mesh & Floating Bubbles) ──────────
 export function AmbientBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {/* 1. Inner Left Glowing Ambient Orb */}
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* 1. Top Left Glowing Ambient Orb */}
       <motion.div
         animate={{
           x: [0, 40, -30, 0],
@@ -324,7 +324,7 @@ export function AmbientBackground() {
           repeatType: "reverse",
           ease: "easeInOut",
         }}
-        className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-forest-600/20 dark:bg-lime/20 blur-3xl"
+        className="absolute top-10 -left-32 w-[32rem] h-[32rem] rounded-full bg-forest-600/20 dark:bg-lime/20 blur-3xl"
       />
 
       {/* 2. Center Glowing Ambient Orb */}
@@ -340,34 +340,45 @@ export function AmbientBackground() {
           repeatType: "reverse",
           ease: "easeInOut",
         }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[32rem] h-[32rem] rounded-full bg-emerald-500/20 dark:bg-fresh-lime/20 blur-3xl"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-emerald-500/15 dark:bg-fresh-lime/20 blur-3xl"
       />
 
-      {/* 3. Safe-Zone Inner Floating Multi-Tone Green Bubbles (Strictly away from top & bottom edges) */}
+      {/* 3. Bottom Right Glowing Ambient Orb */}
+      <motion.div
+        animate={{
+          x: [0, -40, 30, 0],
+          y: [0, 30, -30, 0],
+          scale: [1, 0.9, 1.1, 1],
+        }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+        }}
+        className="absolute -bottom-20 -right-32 w-[32rem] h-[32rem] rounded-full bg-teal/20 dark:bg-lime/20 blur-3xl"
+      />
+
+      {/* 4. Fixed Floating Multi-Tone Green Bubbles */}
       <motion.div
         animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 left-12 w-40 h-40 rounded-full border-2 border-forest-600/25 dark:border-lime/35 bg-gradient-to-tr from-forest-600/15 via-sage/10 to-transparent"
+        className="absolute top-24 left-16 w-40 h-40 rounded-full border-2 border-forest-600/25 dark:border-lime/35 bg-gradient-to-tr from-forest-600/15 via-sage/10 to-transparent"
       />
       <motion.div
         animate={{ y: [0, 25, 0], rotate: [0, -10, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute top-1/3 right-14 w-52 h-52 rounded-full border-2 border-fresh-lime/30 dark:border-lime/40 bg-gradient-to-br from-fresh-lime/20 via-yellow-green/10 to-transparent"
+        className="absolute top-1/3 right-16 w-52 h-52 rounded-full border-2 border-fresh-lime/30 dark:border-lime/40 bg-gradient-to-br from-fresh-lime/20 via-yellow-green/10 to-transparent"
       />
       <motion.div
         animate={{ y: [0, -25, 0], x: [0, 15, 0] }}
         transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute top-1/2 left-16 w-36 h-36 rounded-full border-2 border-teal/30 dark:border-lime/35 bg-gradient-to-bl from-teal/20 via-forest-400/15 to-transparent"
+        className="absolute top-2/3 left-20 w-36 h-36 rounded-full border-2 border-teal/30 dark:border-lime/35 bg-gradient-to-bl from-teal/20 via-forest-400/15 to-transparent"
       />
       <motion.div
         animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-        className="absolute bottom-24 right-1/4 w-44 h-44 rounded-full border-2 border-grass/30 dark:border-lime/35 bg-gradient-to-tr from-grass/20 via-sage/15 to-transparent"
-      />
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-        className="absolute bottom-20 left-1/3 w-36 h-36 rounded-full border-2 border-lime/35 dark:border-lime/45 bg-gradient-to-tl from-lime/25 via-forest-600/15 to-transparent"
+        className="absolute bottom-28 right-1/4 w-44 h-44 rounded-full border-2 border-grass/30 dark:border-lime/35 bg-gradient-to-tr from-grass/20 via-sage/15 to-transparent"
       />
     </div>
   );

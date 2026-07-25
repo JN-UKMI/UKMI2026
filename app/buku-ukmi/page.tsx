@@ -25,7 +25,7 @@ export default async function BukuUkmiPage() {
   const data = await loadBukuUkmi();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent pb-20 transition-colors duration-300">
       {/* Hero Banner Header */}
       <PageHero
         badge="Sekretaris Umum"

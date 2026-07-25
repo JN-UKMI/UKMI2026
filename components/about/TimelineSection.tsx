@@ -23,7 +23,7 @@ type TimelineSectionProps = {
 
 export function TimelineSection({ timeline }: TimelineSectionProps) {
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-16 px-4 bg-transparent">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold text-forest-900 mb-12 text-center">
           Sejarah

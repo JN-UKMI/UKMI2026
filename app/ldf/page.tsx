@@ -13,7 +13,7 @@ export default async function LdfPage() {
   const ldfList = await loadLDF();
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-gray-950 transition-colors duration-300">
+    <main className="min-h-screen bg-transparent transition-colors duration-300">
       <PageHero
         badge="Jaringan Dakwah Kampus"
         title="Lembaga Dakwah Fakultas"

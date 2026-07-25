@@ -24,7 +24,7 @@ export default async function AlMasuratPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent transition-colors duration-300">
       <PageHero badge="Layanan Islam" title="Al-Ma'surat" subtitle="Dzikir pagi & petang sesuai sunnah (Sughra & Kubra)" />
 
       <DoaTabs sughra={sughraData} kubra={kubraData} />
