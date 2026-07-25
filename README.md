@@ -4,7 +4,7 @@ Website resmi Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) Universi
 
 ---
 
-## 🛠️ Tech Stack & Fitur
+## Tech Stack & Fitur
 
 - **Framework**: Next.js 16 (App Router), React 19, TypeScript strict.
 - **Styling**: Tailwind CSS v4 (Desain modern, bertema Light Mode dengan warna Forest Green, Sage, dan Lime).
@@ -17,7 +17,7 @@ Website resmi Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) Universi
 
 ---
 
-## 🚀 Getting Started (Cara Memulai)
+## Getting Started (Cara Memulai)
 
 ### 1. Klon Repositori
 ```bash
@@ -60,7 +60,7 @@ npm run build
 
 ---
 
-## 📂 Struktur Rute Halaman
+## Struktur Rute Halaman
 - `/` - Beranda (Hero, Kegiatan Terkini, Kalender, quotes)
 - `/tentang` - Visi, Misi, Sejarah, & Milestones
 - `/kabinet` - Pengurus Kabinet Iskandar Muda
