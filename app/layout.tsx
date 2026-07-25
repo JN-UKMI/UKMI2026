@@ -48,6 +48,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { AuthProvider } from "@/components/providers/AuthProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -79,17 +81,19 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-        <ThemeProvider>
-          <LoadingProvider>
-            <MusicProvider>
-              <Navbar />
-              <main id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</main>
-              <Footer />
-              <MusicPlayer />
-              <BackToTop />
-            </MusicProvider>
-          </LoadingProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <LoadingProvider>
+              <MusicProvider>
+                <Navbar />
+                <main id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</main>
+                <Footer />
+                <MusicPlayer />
+                <BackToTop />
+              </MusicProvider>
+            </LoadingProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

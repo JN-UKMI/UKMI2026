@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { signOut, useSession } from "next-auth/react";
 import { ArticleBody } from "@/components/article/ArticleBody";
 import { urlFor } from "@/lib/sanity";
 import {
   ArrowLeft,
   ShieldCheck,
-  Lock,
-  Eye,
-  EyeOff,
   Check,
   Trash2,
   Calendar,
@@ -22,7 +20,9 @@ import {
   ExternalLink,
   Save,
   Pencil,
-  X
+  X,
+  LogOut,
+  Eye
 } from "lucide-react";
 
 interface DraftArticle {
@@ -38,9 +38,7 @@ interface DraftArticle {
 }
 
 export default function AdminPage() {
-  const [passcode, setPasscode] = useState("");
-  const [showPasscode, setShowPasscode] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<"moderasi" | "terbit">("moderasi");
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
@@ -60,60 +58,35 @@ export default function AdminPage() {
   const [editExcerpt, setEditExcerpt] = useState("");
   const [editContentText, setEditContentText] = useState("");
 
-  // Authenticate user with local storage cache
+  // Fetch drafts and published articles on mount
   useEffect(() => {
-    const cachedPass = sessionStorage.getItem("admin_passcode");
-    if (cachedPass) {
-      setPasscode(cachedPass);
-      setIsAuthorized(true);
-      fetchDrafts(cachedPass);
-      fetchPublishedArticles(cachedPass);
-    }
+    fetchDrafts();
+    fetchPublishedArticles();
   }, []);
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    fetchDrafts(passcode);
-    fetchPublishedArticles(passcode);
-  };
-
-  const fetchDrafts = async (pass: string) => {
+  const fetchDrafts = async () => {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/admin/drafts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ passcode: pass }),
-      });
-
+      const res = await fetch("/api/admin/drafts");
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Gagal masuk ke panel admin.");
+        throw new Error(data.message || "Gagal membaca antrean moderasi.");
       }
 
       setDrafts(data.drafts || []);
       setIsFallbackMode(!!data.fallback);
-      setIsAuthorized(true);
-      sessionStorage.setItem("admin_passcode", pass);
     } catch (err: any) {
-      setError(err.message || "Gagal memproses otorisasi.");
-      setIsAuthorized(false);
-      sessionStorage.removeItem("admin_passcode");
+      setError(err.message || "Gagal memproses data draf.");
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchPublishedArticles = async (pass: string) => {
+  const fetchPublishedArticles = async () => {
     try {
-      const res = await fetch("/api/admin/articles", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ passcode: pass }),
-      });
+      const res = await fetch("/api/admin/articles");
       const data = await res.json();
       if (res.ok) {
         setPublishedArticles(data.articles || []);
@@ -130,7 +103,7 @@ export default function AdminPage() {
       const res = await fetch("/api/admin/approve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ draftId, passcode }),
+        body: JSON.stringify({ draftId }),
       });
 
       const data = await res.json();
@@ -141,7 +114,7 @@ export default function AdminPage() {
 
       setSuccessMsg(data.message || "Artikel berhasil dipublikasikan!");
       setDrafts((prev) => prev.filter((d) => d._id !== draftId));
-      fetchPublishedArticles(passcode);
+      fetchPublishedArticles();
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -159,7 +132,7 @@ export default function AdminPage() {
       const res = await fetch("/api/admin/approve", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ draftId, passcode }),
+        body: JSON.stringify({ draftId }),
       });
 
       const data = await res.json();
@@ -187,7 +160,7 @@ export default function AdminPage() {
       const res = await fetch("/api/admin/articles/manage", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: articleId, passcode }),
+        body: JSON.stringify({ id: articleId }),
       });
 
       const data = await res.json();
@@ -251,7 +224,6 @@ export default function AdminPage() {
           category: editCategory,
           excerpt: editExcerpt,
           content: structuredContent,
-          passcode,
         }),
       });
 
@@ -265,8 +237,8 @@ export default function AdminPage() {
       setEditArticle(null);
       
       // Refresh local lists
-      fetchDrafts(passcode);
-      fetchPublishedArticles(passcode);
+      fetchDrafts();
+      fetchPublishedArticles();
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -291,108 +263,47 @@ export default function AdminPage() {
     return "";
   };
 
-  const handleLogout = () => {
-    setPasscode("");
-    setIsAuthorized(false);
-    setDrafts([]);
-    setPublishedArticles([]);
-    sessionStorage.removeItem("admin_passcode");
-  };
-
-  if (!isAuthorized) {
-    return (
-      <div className="bg-gray-50 min-h-[85vh] flex items-center justify-center px-4">
-        <div className="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-forest-600/10 text-forest-600 rounded-3xl flex items-center justify-center mb-6 mx-auto shadow-inner">
-            <ShieldCheck className="w-8 h-8" />
-          </div>
-          <h1 className="text-2xl font-black text-forest-900 uppercase tracking-wider mb-2">
-            Moderasi Admin
-          </h1>
-          <p className="text-xs text-gray-400 font-semibold mb-8">
-            Verifikasi kode akses pengurus untuk mengelola antrean draf artikel.
-          </p>
-
-          {error && (
-            <div className="mb-6 p-3.5 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs font-bold rounded-r-lg text-left">
-              ⚠️ {error}
-            </div>
-          )}
-
-          <form onSubmit={handleLoginSubmit} className="space-y-4">
-            <div className="flex flex-col gap-1.5 text-left">
-              <label htmlFor="passcode" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-forest-600" />
-                Kode Akses Moderasi
-              </label>
-              <div className="relative w-full">
-                <input
-                  id="passcode"
-                  type={showPasscode ? "text" : "password"}
-                  required
-                  placeholder="Tanya Admin"
-                  value={passcode}
-                  onChange={(e) => setPasscode(e.target.value)}
-                  className="w-full pl-4 pr-11 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPasscode(!showPasscode)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
-                >
-                  {showPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full py-3.5 px-6 rounded-full text-xs font-bold text-white transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98 ${
-                loading
-                  ? "bg-gray-400 cursor-not-allowed shadow-none"
-                  : "bg-forest-600 hover:bg-forest-800 hover:shadow-lg"
-              }`}
-            >
-              {loading ? (
-                <>
-                  <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                  Memverifikasi...
-                </>
-              ) : (
-                "Masuk Ke Panel Moderasi"
-              )}
-            </button>
-          </form>
-
-          <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 font-bold hover:text-forest-600 transition-colors mt-6">
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Kembali ke Daftar Artikel
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-gray-50 min-h-screen py-12 px-4 md:px-6">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen py-12 px-4 md:px-6 transition-colors">
       <div className="max-w-4xl mx-auto">
-        {/* Header Toolbar */}
-        <div className="flex items-center justify-between mb-8">
+        {/* Header Toolbar & User Profile */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <Link
             href="/artikel"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-forest-600 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Artikel
           </Link>
 
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 border border-gray-200 rounded-full text-xs font-bold text-gray-500 hover:text-red-600 hover:bg-red-50 hover:border-red-100 transition-all cursor-pointer"
-          >
-            Keluar Panel
-          </button>
+          {session?.user && (
+            <div className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-2 pl-3.5 shadow-xs">
+              {session.user.image && (
+                <img
+                  src={session.user.image}
+                  alt={session.user.name || "Avatar"}
+                  className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 shrink-0"
+                />
+              )}
+              <div className="text-left leading-tight pr-2">
+                <p className="text-xs font-black text-gray-900 dark:text-white truncate">
+                  {session.user.name}
+                </p>
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">
+                  {session.user.email}
+                </p>
+              </div>
+
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-3 py-1.5 bg-red-50 dark:bg-red-950/60 hover:bg-red-100 dark:hover:bg-red-900 text-red-600 dark:text-red-400 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer ml-1"
+                title="Keluar Sesi Admin"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                Keluar
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Panel Title */}

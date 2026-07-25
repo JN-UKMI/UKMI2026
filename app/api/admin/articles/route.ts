@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
+import { requireAdmin } from "@/lib/auth";
 
 const SANITY_CONFIG = {
   projectId: "ksc63oa8",
@@ -17,18 +18,13 @@ function getWriteClient(token: string) {
   return cachedWriteClient;
 }
 
-export async function POST(request: Request) {
+export async function GET() {
+  const adminUser = await requireAdmin();
+  if (!adminUser) {
+    return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
+  }
+
   try {
-    const { passcode } = await request.json();
-
-    const expectedPasscode = process.env.KODE_AKSES_ADMIN || process.env.KODE_AKSES_PENGURUS || "UKMI2026";
-    if (passcode !== expectedPasscode) {
-      return NextResponse.json(
-        { message: "Kode Akses tidak valid." },
-        { status: 401 }
-      );
-    }
-
     const token = process.env.SANITY_WRITE_TOKEN;
     if (!token) {
       return NextResponse.json({ articles: [], fallback: true });

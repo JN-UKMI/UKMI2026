@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
+import { requireAdmin } from "@/lib/auth";
 
 export async function PUT(request: Request) {
   try {
-    const { id, title, category, excerpt, content, passcode } = await request.json();
+    const adminUser = await requireAdmin();
+    if (!adminUser) {
+      return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
+    }
+
+    const { id, title, category, excerpt, content } = await request.json();
 
     if (!id || !title || !category || !excerpt || !content) {
       return NextResponse.json({ message: "Semua field wajib diisi." }, { status: 400 });
-    }
-
-    const expectedPasscode = process.env.KODE_AKSES_ADMIN || process.env.KODE_AKSES_PENGURUS || "UKMI2026";
-    if (passcode !== expectedPasscode) {
-      return NextResponse.json({ message: "Kode Akses tidak valid." }, { status: 401 });
     }
 
     const token = process.env.SANITY_WRITE_TOKEN;
@@ -45,15 +46,15 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const { id, passcode } = await request.json();
+    const adminUser = await requireAdmin();
+    if (!adminUser) {
+      return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
+    }
+
+    const { id } = await request.json();
 
     if (!id) {
       return NextResponse.json({ message: "ID Artikel diperlukan." }, { status: 400 });
-    }
-
-    const expectedPasscode = process.env.KODE_AKSES_ADMIN || process.env.KODE_AKSES_PENGURUS || "UKMI2026";
-    if (passcode !== expectedPasscode) {
-      return NextResponse.json({ message: "Kode Akses tidak valid." }, { status: 401 });
     }
 
     const token = process.env.SANITY_WRITE_TOKEN;

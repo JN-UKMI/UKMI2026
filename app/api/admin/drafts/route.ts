@@ -1,16 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
-
-// In-memory brute force protection for admin login
-const failedAttempts = new Map<string, { count: number; blockedUntil: number }>();
-
-function getClientIp(request: Request): string {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0].trim();
-  }
-  return "anonymous-ip";
-}
+import { requireAdmin } from "@/lib/auth";
 
 const mockDrafts = [
   {
@@ -35,44 +25,13 @@ const mockDrafts = [
   }
 ];
 
-export async function POST(request: Request) {
-  const ip = getClientIp(request);
-  const now = Date.now();
-
-  // Rate Limiting Check
-  const record = failedAttempts.get(ip);
-  if (record && record.blockedUntil > now) {
-    const minutesLeft = Math.ceil((record.blockedUntil - now) / 60000);
-    return NextResponse.json(
-      { message: `Terlalu banyak percobaan login salah. Akses diblokir selama ${minutesLeft} menit.` },
-      { status: 429 }
-    );
+export async function GET() {
+  const adminUser = await requireAdmin();
+  if (!adminUser) {
+    return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
   }
 
   try {
-    const { passcode } = await request.json();
-
-    const expectedPasscode = process.env.KODE_AKSES_ADMIN || process.env.KODE_AKSES_PENGURUS || "UKMI2026";
-    if (passcode !== expectedPasscode) {
-      const newAttempts = (record?.count || 0) + 1;
-      if (newAttempts >= 5) {
-        failedAttempts.set(ip, { count: newAttempts, blockedUntil: now + 15 * 60 * 1000 });
-        return NextResponse.json(
-          { message: "Sandi Admin salah 5 kali. Akses Anda diblokir sementara selama 15 menit." },
-          { status: 429 }
-        );
-      } else {
-        failedAttempts.set(ip, { count: newAttempts, blockedUntil: 0 });
-        return NextResponse.json(
-          { message: `Kode Akses Admin salah. Sisa percobaan: ${5 - newAttempts}` },
-          { status: 401 }
-        );
-      }
-    }
-
-    // Passcode correct, reset failures
-    failedAttempts.delete(ip);
-
     const token = process.env.SANITY_WRITE_TOKEN;
     if (!token) {
       // Graceful fallback to mock data if Sanity token is missing
