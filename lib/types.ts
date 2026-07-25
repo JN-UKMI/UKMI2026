@@ -103,6 +103,19 @@ export interface EventItem {
   isPuasa?: boolean;
 }
 
+export interface KegiatanSeruItem {
+  id: string;
+  title: string;
+  date: string;
+  dayBadge: string;
+  monthBadge: string;
+  location: string;
+  description: string;
+  posterUrl: string;
+  instagramUrl: string;
+  createdAt: string;
+}
+
 export interface ArticleListItem {
   title: string;
   slug: string;

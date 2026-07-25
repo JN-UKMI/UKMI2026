@@ -39,10 +39,11 @@ interface DraftArticle {
 
 export default function AdminPage() {
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState<"moderasi" | "terbit">("moderasi");
+  const [activeTab, setActiveTab] = useState<"moderasi" | "terbit" | "kegiatan">("moderasi");
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
   const [publishedArticles, setPublishedArticles] = useState<DraftArticle[]>([]);
+  const [kegiatanList, setKegiatanList] = useState<any[]>([]);
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -58,11 +59,130 @@ export default function AdminPage() {
   const [editExcerpt, setEditExcerpt] = useState("");
   const [editContentText, setEditContentText] = useState("");
 
-  // Fetch drafts and published articles on mount
+  // Form State for Kegiatan Seru
+  const [editingEventId, setEditingEventId] = useState<string | null>(null);
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [eventDayBadge, setEventDayBadge] = useState("");
+  const [eventMonthBadge, setEventMonthBadge] = useState("");
+  const [eventLocation, setEventLocation] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
+  const [eventInstagramUrl, setEventInstagramUrl] = useState("");
+  const [eventPosterFile, setEventPosterFile] = useState<File | null>(null);
+  const [eventPosterPreview, setEventPosterPreview] = useState<string | null>(null);
+  const [eventSubmitting, setEventSubmitting] = useState(false);
+
+  // Fetch drafts, published articles, and kegiatan on mount
   useEffect(() => {
     fetchDrafts();
     fetchPublishedArticles();
+    fetchKegiatan();
   }, []);
+
+  const fetchKegiatan = async () => {
+    try {
+      const res = await fetch("/api/admin/kegiatan");
+      if (res.ok) {
+        const data = await res.json();
+        setKegiatanList(data.events || []);
+      }
+    } catch {}
+  };
+
+  const startEditKegiatan = (item: any) => {
+    setEditingEventId(item.id);
+    setEventTitle(item.title || "");
+    setEventDate(item.date || "");
+    setEventDayBadge(item.dayBadge || "");
+    setEventMonthBadge(item.monthBadge || "");
+    setEventLocation(item.location || "");
+    setEventDescription(item.description || "");
+    setEventInstagramUrl(item.instagramUrl || "");
+    setEventPosterFile(null);
+    setEventPosterPreview(item.posterUrl || null);
+  };
+
+  const cancelEditKegiatan = () => {
+    setEditingEventId(null);
+    setEventTitle("");
+    setEventDate("");
+    setEventDayBadge("");
+    setEventMonthBadge("");
+    setEventLocation("");
+    setEventDescription("");
+    setEventInstagramUrl("");
+    setEventPosterFile(null);
+    setEventPosterPreview(null);
+  };
+
+  const handleAddKegiatan = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccessMsg("");
+    setEventSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      if (editingEventId) {
+        formData.append("id", editingEventId);
+      }
+      formData.append("title", eventTitle);
+      formData.append("date", eventDate);
+      formData.append("dayBadge", eventDayBadge);
+      formData.append("monthBadge", eventMonthBadge);
+      formData.append("location", eventLocation);
+      formData.append("description", eventDescription);
+      formData.append("instagramUrl", eventInstagramUrl);
+      if (eventPosterFile) {
+        formData.append("poster", eventPosterFile);
+      }
+
+      const res = await fetch("/api/admin/kegiatan", {
+        method: editingEventId ? "PUT" : "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Gagal menyimpan kegiatan.");
+      }
+
+      setSuccessMsg(data.message || (editingEventId ? "Kegiatan seru berhasil diperbarui!" : "Kegiatan seru berhasil ditambahkan!"));
+      cancelEditKegiatan();
+      fetchKegiatan();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setEventSubmitting(false);
+    }
+  };
+
+  const handleDeleteKegiatan = async (eventId: string) => {
+    if (!confirm("Apakah Anda yakin ingin menghapus kegiatan ini?")) return;
+    setError("");
+    setSuccessMsg("");
+    setActionLoadingId(eventId);
+
+    try {
+      const res = await fetch(`/api/admin/kegiatan?id=${eventId}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Gagal menghapus kegiatan.");
+      }
+
+      setSuccessMsg(data.message || "Kegiatan berhasil dihapus.");
+      setKegiatanList((prev) => prev.filter((item) => item.id !== eventId));
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
 
   const fetchDrafts = async () => {
     setLoading(true);
@@ -343,6 +463,17 @@ export default function AdminPage() {
             <Check className="w-4 h-4" />
             Artikel Terbit ({publishedArticles.length})
           </button>
+          <button
+            onClick={() => setActiveTab("kegiatan")}
+            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+              activeTab === "kegiatan"
+                ? "border-forest-600 text-forest-900 dark:text-lime"
+                : "border-transparent text-gray-400 hover:text-gray-600"
+            }`}
+          >
+            <Calendar className="w-4 h-4" />
+            Kegiatan Seru ({kegiatanList.length})
+          </button>
         </div>
 
         {/* Fallback Banner Alert */}
@@ -551,6 +682,232 @@ export default function AdminPage() {
                 </div>
               ))
             )}
+          </div>
+        )}
+
+        {/* Tab 3: Kegiatan Seru Management */}
+        {activeTab === "kegiatan" && (
+          <div className="space-y-10">
+            {/* Form Tambah Kegiatan Baru */}
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-800 space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-lime flex items-center gap-2">
+                  <Pencil className="w-5 h-5 text-forest-600 dark:text-lime" />
+                  Tambah Kegiatan Seru Baru
+                </h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">
+                  Isi formulir di bawah ini untuk menampilkan agenda kegiatan terdekat pada carousel beranda.
+                </p>
+              </div>
+
+              <form onSubmit={handleAddKegiatan} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {/* Judul Kegiatan */}
+                  <div className="flex flex-col gap-1.5 md:col-span-2">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                      Judul Kegiatan <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="mis. Kuliah Kerja Dakwah (KKD)"
+                      value={eventTitle}
+                      onChange={(e) => setEventTitle(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold dark:bg-gray-950 dark:text-white"
+                    />
+                  </div>
+
+                  {/* Badge Tanggal & Bulan */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                      Tgl Badge (Angka) & Bulan <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex gap-3">
+                      <input
+                        type="text"
+                        required
+                        placeholder="Tgl (mis. 17)"
+                        value={eventDayBadge}
+                        onChange={(e) => setEventDayBadge(e.target.value)}
+                        className="w-1/2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold dark:bg-gray-950 dark:text-white"
+                      />
+                      <input
+                        type="text"
+                        required
+                        placeholder="Bulan (mis. JUL)"
+                        value={eventMonthBadge}
+                        onChange={(e) => setEventMonthBadge(e.target.value.toUpperCase())}
+                        className="w-1/2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold uppercase dark:bg-gray-950 dark:text-white"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Tanggal Lengkap Teks */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                      Hari & Tanggal Lengkap <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="mis. Jumat, 17 Juli 2026"
+                      value={eventDate}
+                      onChange={(e) => setEventDate(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium dark:bg-gray-950 dark:text-white"
+                    />
+                  </div>
+
+                  {/* Lokasi */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                      Lokasi Kegiatan
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="mis. Zoom Meeting / Masjid Kampus UNS"
+                      value={eventLocation}
+                      onChange={(e) => setEventLocation(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium dark:bg-gray-950 dark:text-white"
+                    />
+                  </div>
+
+                  {/* Link Instagram / Detail */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                      Link Detail / Instagram
+                    </label>
+                    <input
+                      type="url"
+                      placeholder="https://www.instagram.com/p/..."
+                      value={eventInstagramUrl}
+                      onChange={(e) => setEventInstagramUrl(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium dark:bg-gray-950 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                {/* Poster Image File Upload */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                    Upload Poster Event (Portrait 3:4 / 4:5)
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setEventPosterFile(file);
+                        setEventPosterPreview(URL.createObjectURL(file));
+                      }
+                    }}
+                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-forest-50 file:text-forest-700 hover:file:bg-forest-100 dark:file:bg-gray-800 dark:file:text-lime cursor-pointer"
+                  />
+                  {eventPosterPreview && (
+                    <div className="mt-2 relative w-32 aspect-[3/4] rounded-xl overflow-hidden border border-gray-200 shadow-md">
+                      <img src={eventPosterPreview} alt="Preview Poster" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Deskripsi */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                    Deskripsi Singkat <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    required
+                    rows={3}
+                    placeholder="Tulis ringkasan singkat kegiatan ini..."
+                    value={eventDescription}
+                    onChange={(e) => setEventDescription(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-normal leading-relaxed dark:bg-gray-950 dark:text-white"
+                  />
+                </div>
+
+                {/* Submit / Cancel Buttons */}
+                <div className="pt-2 flex justify-end gap-3">
+                  {editingEventId && (
+                    <button
+                      type="button"
+                      onClick={cancelEditKegiatan}
+                      className="px-5 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-bold transition-all cursor-pointer"
+                    >
+                      Batal Edit
+                    </button>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={eventSubmitting}
+                    className="px-6 py-3 bg-forest-600 hover:bg-forest-800 dark:bg-lime dark:hover:bg-lime/90 dark:text-forest-950 text-white rounded-full text-xs font-bold transition-all inline-flex items-center gap-2 shadow-md cursor-pointer active:scale-95 disabled:opacity-50"
+                  >
+                    {eventSubmitting ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        {editingEventId ? "Memperbarui Event..." : "Menyimpan Event..."}
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-4 h-4" />
+                        {editingEventId ? "Simpan Perubahan Event" : "Tambah Kegiatan"}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* List Active Events */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-forest-600 dark:text-lime" />
+                Daftar Kegiatan Seru Aktif ({kegiatanList.length})
+              </h3>
+
+              {kegiatanList.length === 0 ? (
+                <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                  <p className="text-sm font-semibold text-gray-400">Belum ada kegiatan seru yang ditambahkan.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {kegiatanList.map((item) => (
+                    <div
+                      key={item.id}
+                      className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-4 shadow-sm flex gap-4 items-center justify-between"
+                    >
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <div className="relative w-16 aspect-[3/4] rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                          <img src={item.posterUrl || "/placeholder.png"} alt={item.title} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="overflow-hidden">
+                          <h4 className="text-sm font-bold text-gray-900 dark:text-white truncate">{item.title}</h4>
+                          <p className="text-xs text-forest-600 dark:text-lime font-medium mt-0.5">{item.date}</p>
+                          <p className="text-[11px] text-gray-400 truncate mt-0.5">{item.location}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button
+                          onClick={() => startEditKegiatan(item)}
+                          className="p-2.5 bg-forest-50 hover:bg-forest-100 text-forest-700 dark:bg-forest-950 dark:hover:bg-forest-900 dark:text-lime rounded-xl transition-colors cursor-pointer"
+                          title="Edit Kegiatan"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteKegiatan(item.id)}
+                          disabled={actionLoadingId === item.id}
+                          className="p-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors cursor-pointer"
+                          title="Hapus Kegiatan"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
 

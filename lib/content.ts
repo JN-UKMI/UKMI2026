@@ -139,3 +139,13 @@ export async function loadTestimoni(): Promise<import("./types").TestimonialItem
   );
   return JSON.parse(file);
 }
+
+export async function loadKegiatanSeru(): Promise<import("./types").KegiatanSeruItem[]> {
+  try {
+    const filePath = path.join(contentDir, "kegiatan-seru", "events.json");
+    const raw = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}

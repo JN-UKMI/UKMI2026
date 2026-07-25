@@ -62,7 +62,7 @@ export function MemberCard({ member }: MemberCardProps) {
       whileHover={{ y: -6, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-colors hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-forest-600/40 dark:hover:border-lime/40 group select-none shrink-0 cursor-pointer"
+      className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-4 hover:border-lime group select-none shrink-0 cursor-pointer"
     >
       {/* 1. TOP HEADER: LOGO + KARTU TANDA PENGURUS & TOP-RIGHT ROLE */}
       <div className="relative z-10 w-full flex items-center justify-between pb-2 border-b border-gray-100 dark:border-gray-800">

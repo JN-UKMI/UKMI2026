@@ -1,0 +1,26 @@
+[
+  {
+    "id": "event-1784974928423",
+    "title": "Open Recruitment Panitia SIFT",
+    "date": "Jumat, 24 Juli 2026",
+    "dayBadge": "24",
+    "monthBadge": "JUL",
+    "location": "Online",
+    "description": "Open Recruitment Panitia Sebelas Maret Islamic Festival 2026",
+    "posterUrl": "/events/event-1784974928420.jpeg",
+    "instagramUrl": "https://linktr.ee/siftjnukmi2026",
+    "createdAt": "2026-07-25T10:22:08.423Z"
+  },
+  {
+    "id": "event-kkd-2026",
+    "title": "Kuliah Kerja Dakwah (KKD)",
+    "date": "Jumat, 17 Juli 2026",
+    "dayBadge": "17",
+    "monthBadge": "JUL",
+    "location": "Zoom Meeting & Masjid Kampus UNS",
+    "description": "Assalamu'alaikum warahmatullahi wabarakatuh. Ngga terasa ya, Kuliah Kerja Dakwah (KKD) hadir kembali untuk menemani perjalanan pembinaan kader dakwah yang siap berkhidmat dan membawa manfaat di setiap langkah pengabdian.",
+    "posterUrl": "/events/kkd-poster.jpg",
+    "instagramUrl": "https://www.instagram.com/jnukmiuns/",
+    "createdAt": "2026-07-25T10:00:00.000Z"
+  }
+]

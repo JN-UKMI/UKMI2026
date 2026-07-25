@@ -17,7 +17,7 @@ export function LdfCard({ ldf }: LdfCardProps) {
       whileHover={{ y: -6, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-forest-600/30 dark:hover:border-lime/30 transition-colors overflow-hidden flex flex-col justify-between"
+      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-4 hover:border-lime transition-all duration-300 overflow-hidden flex flex-col justify-between"
     >
       <div className="flex flex-col flex-1 items-stretch justify-between">
         {/* 1. Gambar */}

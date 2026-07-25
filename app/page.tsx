@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
 import { QuoteSection } from "@/components/home/QuoteSection";
+import { KegiatanSeruSection } from "@/components/home/KegiatanSeruSection";
 import { ArtikelTerbaruSection } from "@/components/home/ArtikelTerbaruSection";
 import { KalenderSection } from "@/components/home/KalenderSection";
 import { TestimonialSection } from "@/components/home/TestimonialSection";
-import { loadTestimoni } from "@/lib/content";
+import { loadTestimoni, loadKegiatanSeru } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Beranda | JN UKMI",
@@ -21,11 +22,13 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const testimonials = await loadTestimoni();
+  const kegiatanSeruList = await loadKegiatanSeru();
 
   return (
     <>
       <HeroSection />
       <QuoteSection />
+      <KegiatanSeruSection initialEvents={kegiatanSeruList} />
       <ArtikelTerbaruSection />
       <KalenderSection />
       <TestimonialSection testimonials={testimonials} />
