@@ -9,7 +9,7 @@ export const client = createClient({
   projectId: "ksc63oa8",
   dataset: "production",
   apiVersion: "2024-01-01",
-  useCdn: true,
+  useCdn: false,
 })
 
 const builder = createImageUrlBuilder(client)

@@ -7,6 +7,9 @@ import { KalenderSection } from "@/components/home/KalenderSection";
 import { TestimonialSection } from "@/components/home/TestimonialSection";
 import { loadTestimoni, loadKegiatanSeru } from "@/lib/content";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Beranda | JN UKMI",
   description:
