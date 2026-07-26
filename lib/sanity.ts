@@ -12,6 +12,15 @@ export const client = createClient({
   useCdn: false,
 })
 
+// Write client for mutations (create, update, delete)
+export const writeClient = createClient({
+  projectId: "ksc63oa8",
+  dataset: "production",
+  apiVersion: "2024-01-01",
+  token: process.env.SANITY_WRITE_TOKEN,
+  useCdn: false,
+})
+
 const builder = createImageUrlBuilder(client)
 
 export function urlFor(source: SanityImageSource) {

@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 
-// In-memory store for rate limiting brute force attempts
 const failedAttempts = new Map<string, { count: number; blockedUntil: number }>();
 
-// Prune expired entries periodically to prevent unbounded Map growth
 function pruneExpiredAttempts() {
   const now = Date.now();
   for (const [ip, record] of failedAttempts.entries()) {
@@ -30,24 +28,22 @@ function getClientIp(request: Request): string {
   return "anonymous-ip";
 }
 
-// Simple slugify function
 function slugify(text: string) {
   return text
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/&/g, "-dan-") // Replace & with 'dan'
-    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
+    .replace(/\s+/g, "-")
+    .replace(/&/g, "-dan-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-");
 }
 
 export async function POST(request: Request) {
-  pruneExpiredAttempts(); // Clean expired rate-limit entries
+  pruneExpiredAttempts();
   const ip = getClientIp(request);
   const now = Date.now();
 
-  // Check if IP is currently blocked
   const record = failedAttempts.get(ip);
   if (record && record.blockedUntil > now) {
     const minutesLeft = Math.ceil((record.blockedUntil - now) / 60000);
@@ -68,7 +64,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verify passcode (fallback to default "UKMI2026" if env is not set)
     const expectedPasscode = process.env.KODE_AKSES_PENGURUS || "UKMI2026";
     if (passcode !== expectedPasscode) {
       const newAttempts = (record?.count || 0) + 1;
@@ -87,10 +82,8 @@ export async function POST(request: Request) {
       }
     }
 
-    // Passcode verified successfully
     failedAttempts.delete(ip);
 
-    // Validate uploaded Image Data (Server-Side Hardening)
     let imageBuffer: Buffer | null = null;
     if (imageBase64) {
       const matches = imageBase64.match(/^data:(image\/\w+);base64,(.+)$/);
@@ -110,7 +103,6 @@ export async function POST(request: Request) {
       }
 
       imageBuffer = Buffer.from(matches[2], "base64");
-      // Strict Server-Side Size Validation (Max 5MB)
       if (imageBuffer.length > 5 * 1024 * 1024) {
         return NextResponse.json(
           { message: "Ukuran gambar terlalu besar. Maksimal 5MB." },
@@ -131,7 +123,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Initialize write client (CDN must be false for mutative operations)
     const writeClient = createClient({
       projectId: "ksc63oa8",
       dataset: "production",
@@ -140,7 +131,6 @@ export async function POST(request: Request) {
       useCdn: false,
     });
 
-    // Upload image asset to Sanity CDN if buffer exists
     let imageAssetRef: any = null;
     if (imageBuffer) {
       try {
@@ -161,7 +151,6 @@ export async function POST(request: Request) {
 
     const slug = `${slugify(title)}-${Date.now().toString().slice(-4)}`;
 
-    // Prepare Sanity Article Document (creating as draft for moderation)
     const document: any = {
       _type: "article",
       _id: `drafts.${slug}`,
@@ -185,7 +174,8 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { 
         message: "Artikel dan gambar berhasil dikirim ke moderasi.",
-        id: createdDoc._id 
+        id: createdDoc._id,
+        slug: slug
       },
       { status: 201 }
     );
@@ -193,6 +183,130 @@ export async function POST(request: Request) {
     console.error("Sanity post error:", err);
     return NextResponse.json(
       { message: `Gagal menyimpan ke database Sanity: ${err.message}` },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: Request) {
+  pruneExpiredAttempts();
+  const ip = getClientIp(request);
+  const now = Date.now();
+
+  const record = failedAttempts.get(ip);
+  if (record && record.blockedUntil > now) {
+    const minutesLeft = Math.ceil((record.blockedUntil - now) / 60000);
+    return NextResponse.json(
+      { message: `Terlalu banyak percobaan salah. Akses Anda diblokir sementara selama ${minutesLeft} menit.` },
+      { status: 429 }
+    );
+  }
+
+  try {
+    const body = await request.json();
+    const { slug, title, author, publishedAt, category, excerpt, content, imageName, imageBase64, passcode } = body;
+
+    if (!slug || !title || !author || !publishedAt || !category || !excerpt || !content || !passcode) {
+      return NextResponse.json(
+        { message: "Slug dan seluruh field artikel wajib diisi." },
+        { status: 400 }
+      );
+    }
+
+    const expectedPasscode = process.env.KODE_AKSES_PENGURUS || "UKMI2026";
+    if (passcode !== expectedPasscode) {
+      const newAttempts = (record?.count || 0) + 1;
+      if (newAttempts >= 5) {
+        failedAttempts.set(ip, { count: newAttempts, blockedUntil: now + 15 * 60 * 1000 });
+        return NextResponse.json(
+          { message: "Kode Akses salah 5 kali berturut-turut. Akses Anda diblokir selama 15 menit." },
+          { status: 429 }
+        );
+      } else {
+        failedAttempts.set(ip, { count: newAttempts, blockedUntil: 0 });
+        return NextResponse.json(
+          { message: `Kode Akses Pengurus tidak valid. Sisa percobaan: ${5 - newAttempts}` },
+          { status: 401 }
+        );
+      }
+    }
+
+    failedAttempts.delete(ip);
+
+    const token = process.env.SANITY_WRITE_TOKEN;
+
+    if (!token) {
+      return NextResponse.json(
+        { message: "SANITY_WRITE_TOKEN tidak dikonfigurasi." },
+        { status: 501 }
+      );
+    }
+
+    const writeClient = createClient({
+      projectId: "ksc63oa8",
+      dataset: "production",
+      apiVersion: "2024-01-01",
+      token: token,
+      useCdn: false,
+    });
+
+    let imageAssetRef: any = undefined;
+    if (imageBase64) {
+      const matches = imageBase64.match(/^data:(image\/\w+);base64,(.+)$/);
+      if (matches) {
+        const mimeType = matches[1].toLowerCase();
+        if (ALLOWED_IMAGE_MIME_TYPES.includes(mimeType)) {
+          const imageBuffer = Buffer.from(matches[2], "base64");
+          if (imageBuffer.length <= 5 * 1024 * 1024) {
+            try {
+              const uploadedAsset = await writeClient.assets.upload("image", imageBuffer, {
+                filename: imageName || "updated-cover.jpg",
+              });
+              imageAssetRef = {
+                _type: "image",
+                asset: {
+                  _type: "reference",
+                  _ref: uploadedAsset._id,
+                },
+              };
+            } catch (imgErr) {
+              console.error("Gagal mengunggah gambar baru:", imgErr);
+            }
+          }
+        }
+      }
+    }
+
+    const updatePayload: any = {
+      title,
+      author,
+      publishedAt: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
+      category,
+      excerpt,
+      content,
+      tags: [category.toLowerCase()],
+    };
+
+    if (imageAssetRef) {
+      updatePayload.coverImage = imageAssetRef;
+    }
+
+    const updatedDoc = await writeClient
+      .patch(slug)
+      .set(updatePayload)
+      .commit();
+
+    return NextResponse.json(
+      { 
+        message: "Artikel berhasil diperbarui.",
+        id: updatedDoc._id
+      },
+      { status: 200 }
+    );
+  } catch (err: any) {
+    console.error("Sanity patch error:", err);
+    return NextResponse.json(
+      { message: `Gagal memperbarui artikel: ${err.message}` },
       { status: 500 }
     );
   }

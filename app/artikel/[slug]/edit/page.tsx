@@ -1,12 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, BookOpen, Send, User, FileText, Tag, Upload, CheckCircle, Lock, Calendar, X, ShieldCheck, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, BookOpen, Save, User, FileText, Tag, Upload, CheckCircle, Lock, Calendar, X, ShieldCheck, Eye, EyeOff, Loader2 } from "lucide-react";
 import NovelEditor from "@/components/editor/NovelEditor";
 
-export default function TulisArtikelPage() {
+export default function EditArtikelPage() {
+  const router = useRouter();
+  const params = useParams();
+  const slug = params.slug as string;
+
   const [passcode, setPasscode] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [verifyLoading, setVerifyLoading] = useState(false);
@@ -15,15 +20,17 @@ export default function TulisArtikelPage() {
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [publishedAt, setPublishedAt] = useState(new Date().toISOString().split("T")[0]);
+  const [publishedAt, setPublishedAt] = useState("");
   const [category, setCategory] = useState("Artikel Islami");
   const [excerpt, setExcerpt] = useState("");
   const [contentHtml, setContentHtml] = useState("");
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [existingImageUrl, setExistingImageUrl] = useState<string | null>(null);
 
   const [loading, setLoading] = useState(false);
+  const [fetchLoading, setFetchLoading] = useState(true);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
@@ -34,6 +41,38 @@ export default function TulisArtikelPage() {
       setIsVerified(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (isVerified && slug) {
+      fetchArticle();
+    }
+  }, [isVerified, slug]);
+
+  const fetchArticle = async () => {
+    setFetchLoading(true);
+    try {
+      const res = await fetch(`/api/artikel/${slug}`);
+      if (!res.ok) {
+        throw new Error("Artikel tidak ditemukan");
+      }
+      
+      const data = await res.json();
+      setTitle(data.title || "");
+      setAuthor(data.author || "");
+      setPublishedAt(data.publishedAt ? new Date(data.publishedAt).toISOString().split("T")[0] : "");
+      setCategory(data.category || "Artikel Islami");
+      setExcerpt(data.excerpt || "");
+      setContentHtml(data.content || "");
+      
+      if (data.coverImage?.asset?.url) {
+        setExistingImageUrl(data.coverImage.asset.url);
+      }
+    } catch (err: any) {
+      setError(err.message || "Gagal memuat artikel");
+    } finally {
+      setFetchLoading(false);
+    }
+  };
 
   const handleVerifyGate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,18 +139,17 @@ export default function TulisArtikelPage() {
       !publishedAt.trim() ||
       !category.trim() ||
       !excerpt.trim() ||
-      !contentHtml.trim() ||
-      !imageFile ||
-      !imagePreview
+      !contentHtml.trim()
     ) {
-      setError("Seluruh kolom form dan Gambar Sampul Wajib diisi/diunggah!");
+      setError("Seluruh kolom form wajib diisi!");
       return;
     }
 
     setLoading(true);
 
     try {
-      const bodyPayload = {
+      const bodyPayload: any = {
+        slug,
         title,
         author,
         publishedAt,
@@ -119,12 +157,15 @@ export default function TulisArtikelPage() {
         passcode,
         excerpt,
         content: contentHtml,
-        imageName: imageFile.name,
-        imageBase64: imagePreview,
       };
 
+      if (imageFile && imagePreview) {
+        bodyPayload.imageName = imageFile.name;
+        bodyPayload.imageBase64 = imagePreview;
+      }
+
       const res = await fetch("/api/artikel/create", {
-        method: "POST",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bodyPayload),
       });
@@ -132,18 +173,13 @@ export default function TulisArtikelPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Gagal mengirimkan artikel");
+        throw new Error(data.message || "Gagal memperbarui artikel");
       }
 
       setSuccess(true);
-      setTitle("");
-      setAuthor("");
-      setPublishedAt(new Date().toISOString().split("T")[0]);
-      setCategory("Artikel Islami");
-      setExcerpt("");
-      setContentHtml("");
-      setImageFile(null);
-      setImagePreview(null);
+      setTimeout(() => {
+        router.push(`/artikel/${slug}`);
+      }, 2000);
     } catch (err: any) {
       setError(err.message || "Terjadi kesalahan koneksi server");
     } finally {
@@ -162,7 +198,7 @@ export default function TulisArtikelPage() {
             Akses Pengurus
           </h1>
           <p className="text-xs text-gray-400 font-semibold mb-8">
-            Silakan masukkan Kode Akses Pengurus terlebih dahulu sebelum membuka form tulis artikel.
+            Silakan masukkan Kode Akses Pengurus terlebih dahulu sebelum mengedit artikel.
           </p>
 
           {verifyError && (
@@ -214,7 +250,7 @@ export default function TulisArtikelPage() {
                   Memverifikasi Kode Akses...
                 </>
               ) : (
-                "Buka Form Tulis Artikel"
+                "Buka Form Edit Artikel"
               )}
             </button>
           </form>
@@ -228,12 +264,23 @@ export default function TulisArtikelPage() {
     );
   }
 
+  if (fetchLoading) {
+    return (
+      <div className="bg-transparent min-h-[85vh] flex items-center justify-center px-4">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 text-forest-600 animate-spin mx-auto mb-4" />
+          <p className="text-sm text-gray-600 font-medium">Memuat artikel...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-transparent min-h-screen py-12 px-4 md:px-6">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <Link
-            href="/artikel"
+            href={`/artikel/${slug}`}
             className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-forest-600 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -252,35 +299,21 @@ export default function TulisArtikelPage() {
               <CheckCircle className="w-10 h-10" />
             </div>
             <h2 className="text-2xl font-black text-gray-900 uppercase tracking-wide mb-3">
-              Artikel Berhasil Dikirim!
+              Artikel Berhasil Diperbarui!
             </h2>
             <p className="text-gray-500 text-sm max-w-md leading-relaxed mb-8">
-              Terima kasih atas kontribusi Anda. Artikel telah masuk ke database antrean moderasi Sanity. Artikel akan langsung muncul di website setelah disetujui oleh Admin.
+              Perubahan artikel telah disimpan ke database. Anda akan dialihkan ke halaman artikel dalam beberapa detik...
             </p>
-            <div className="flex gap-4">
-              <button
-                onClick={() => setSuccess(false)}
-                className="px-6 py-2.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95"
-              >
-                Tulis Artikel Lain
-              </button>
-              <Link
-                href="/artikel"
-                className="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full text-xs font-bold transition-all cursor-pointer"
-              >
-                Lihat Semua Artikel
-              </Link>
-            </div>
           </div>
         ) : (
           <div className="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 space-y-6">
             <div className="border-b border-gray-150/60 pb-6">
               <h1 className="text-2xl md:text-3xl font-black text-forest-900 uppercase tracking-wider flex items-center gap-2">
                 <BookOpen className="w-7 h-7 text-forest-600" />
-                Tulis Artikel Baru
+                Edit Artikel
               </h1>
               <p className="text-xs text-gray-400 font-semibold mt-1">
-                Seluruh kolom dan gambar sampul wajib diisi sebelum dikirimkan.
+                Perbarui informasi artikel sesuai kebutuhan.
               </p>
             </div>
 
@@ -360,29 +393,31 @@ export default function TulisArtikelPage() {
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
                   <Upload className="w-3.5 h-3.5 text-forest-600" />
-                  Gambar Sampul <span className="text-red-500">*</span>
+                  Gambar Sampul (Opsional - kosongkan jika tidak ingin mengubah)
                 </label>
 
                 <div className={`relative min-h-[220px] border-2 border-dashed rounded-2xl bg-gray-50/50 hover:bg-forest-50/10 transition-all flex flex-col items-center justify-center p-4 text-center group overflow-hidden ${
-                  !imageFile ? "border-amber-300 hover:border-forest-600" : "border-forest-600"
+                  !imagePreview && !existingImageUrl ? "border-gray-300 hover:border-forest-600" : "border-forest-600"
                 }`}>
-                  {imagePreview ? (
+                  {imagePreview || existingImageUrl ? (
                     <div className="relative w-full h-full min-h-[200px] rounded-xl overflow-hidden group">
                       <Image
-                        src={imagePreview}
+                        src={imagePreview || existingImageUrl || ""}
                         alt="Preview Sampul"
                         fill
                         className="object-cover"
                         unoptimized
                       />
-                      <button
-                        type="button"
-                        onClick={removeImage}
-                        className="absolute top-3 right-3 p-1.5 bg-black/60 hover:bg-red-600 text-white rounded-full transition-colors z-10 cursor-pointer"
-                        title="Hapus Gambar"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
+                      {imagePreview && (
+                        <button
+                          type="button"
+                          onClick={removeImage}
+                          className="absolute top-3 right-3 p-1.5 bg-black/60 hover:bg-red-600 text-white rounded-full transition-colors z-10 cursor-pointer"
+                          title="Hapus Gambar Baru"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                   ) : (
                     <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer p-6">
@@ -390,7 +425,7 @@ export default function TulisArtikelPage() {
                         <Upload className="w-6 h-6 text-forest-600" />
                       </div>
                       <span className="text-sm font-bold text-gray-800 mb-1">
-                        Klik untuk Unggah Gambar
+                        Klik untuk Unggah Gambar Baru
                       </span>
                       <span className="text-xs text-gray-400 font-medium">
                         JPG, PNG, WEBP (Max 5MB)
@@ -398,7 +433,6 @@ export default function TulisArtikelPage() {
                       <input
                         type="file"
                         accept="image/*"
-                        required
                         onChange={handleImageChange}
                         className="hidden"
                       />
@@ -431,6 +465,7 @@ export default function TulisArtikelPage() {
                   Isi Artikel <span className="text-red-500">*</span>
                 </label>
                 <NovelEditor
+                  initialContent={contentHtml}
                   onChange={(html) => setContentHtml(html)}
                   uploadFn={async (file) => {
                     const formData = new FormData();
@@ -461,12 +496,12 @@ export default function TulisArtikelPage() {
                 {loading ? (
                   <>
                     <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                    Mengirimkan Artikel...
+                    Menyimpan Perubahan...
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" />
-                    Kirim Artikel Ke Moderasi
+                    <Save className="w-4 h-4" />
+                    Simpan Perubahan
                   </>
                 )}
               </button>
