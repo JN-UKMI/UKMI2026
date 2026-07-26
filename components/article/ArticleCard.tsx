@@ -38,7 +38,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
     >
       <TransitionLink
         href={`/artikel/${article.slug}`}
-        className="group flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-4 hover:border-lime shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden"
+        className="group flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-100 dark:border-gray-800 hover:border-forest-600 dark:hover:border-lime shadow-sm hover:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)] transition-all duration-300 overflow-hidden"
       >
         {/* Thumbnail Image with Category Badge overlay */}
         <div className="relative w-full h-52 bg-gray-100 dark:bg-gray-800 overflow-hidden shrink-0">

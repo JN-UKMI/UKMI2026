@@ -44,7 +44,7 @@ body {
 
 /* ── Global Dark Mode Surface & Text Overrides ── */
 .dark body {
-  background-color: #0B130B;
+  background-color: #121B27;
   color: #E2E8F0;
 }
 
@@ -118,7 +118,7 @@ body {
 
 /* Dark Mode Scrollbar */
 .dark ::-webkit-scrollbar-track {
-  background: #0B130B;
+  background: #121B27;
 }
 
 .dark ::-webkit-scrollbar-thumb {

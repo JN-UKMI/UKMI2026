@@ -113,7 +113,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                 key={item.id}
                 className="w-full lg:w-[calc(50%-12px)] shrink-0"
               >
-                <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col sm:flex-row h-full transition-all duration-300 group hover:shadow-2xl hover:border-4 hover:border-lime">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col sm:flex-row h-full transition-all duration-300 group hover:shadow-2xl hover:border-forest-600 dark:hover:border-lime dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)]">
                   {/* Left Column: Full Portrait Poster with Date Badge */}
                   <div className="relative w-full sm:w-5/12 aspect-[3/4] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <Image
