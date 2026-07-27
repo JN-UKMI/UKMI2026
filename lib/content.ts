@@ -12,6 +12,7 @@ import type {
   Quote,
   EventItem,
   BukuUkmiContent,
+  AlKahfiSurah,
 } from "./types";
 
 const contentDir = path.join(process.cwd(), "content");
@@ -155,5 +156,58 @@ export async function loadKegiatanSeru(): Promise<import("./types").KegiatanSeru
     return JSON.parse(raw);
   } catch {
     return [];
+  }
+}
+
+/**
+ * Load Surah Al-Kahfi from local JSON file at content/al-kahfi/al-kahfi.json.
+ *
+ * JSON source format (equran.id v3 web-style schema):
+ *   {
+ *     "id": 18,
+ *     "name": "الكهف",
+ *     "transliteration": "Al-Kahf",
+ *     "translation": "Para Penghuni Gua",
+ *     "type": "meccan",
+ *     "total_verses": 110,
+ *     "verses": [
+ *       { "id": 1, "text": "...", "transliteration": "...", "translation": "..." },
+ *       ...
+ *     ]
+ *   }
+ *
+ * Adapts to the `AlKahfiSurah` shape consumed by app/al-kahfi/page.tsx
+ * and components/islamic/AlKahfiViewer.tsx.
+ */
+export async function loadAlKahfi(): Promise<AlKahfiSurah | null> {
+  try {
+    const filePath = path.join(contentDir, "al-kahfi", "al-kahfi.json");
+    const raw = await fs.readFile(filePath, "utf-8");
+    const json = JSON.parse(raw);
+    const verses: unknown[] = Array.isArray(json?.verses) ? json.verses : [];
+
+    return {
+      nomor: typeof json?.id === "number" ? json.id : 18,
+      namaLatin: typeof json?.transliteration === "string" ? json.transliteration : "Al-Kahf",
+      arti: typeof json?.translation === "string" ? json.translation : "",
+      tempatTurun:
+        typeof json?.type === "string"
+          ? json.type.toLowerCase() === "meccan"
+            ? "Makkiyah"
+            : "Madaniyah"
+          : "Makkiyah",
+      jumlahAyat:
+        typeof json?.total_verses === "number"
+          ? json.total_verses
+          : verses.length,
+      ayat: verses.map((v: any) => ({
+        nomorAyat: typeof v?.id === "number" ? v.id : 0,
+        teksArab: typeof v?.text === "string" ? v.text : "",
+        teksLatin: typeof v?.transliteration === "string" ? v.transliteration : "",
+        teksIndonesia: typeof v?.translation === "string" ? v.translation : "",
+      })),
+    };
+  } catch {
+    return null;
   }
 }

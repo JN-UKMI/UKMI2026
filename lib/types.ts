@@ -168,3 +168,19 @@ export interface TestimonialItem {
   testimoni: string;
 }
 
+export interface AlKahfiAyat {
+  nomorAyat: number;
+  teksArab: string;
+  teksLatin: string;
+  teksIndonesia: string;
+}
+
+export interface AlKahfiSurah {
+  nomor: number;
+  namaLatin: string;
+  arti: string;
+  tempatTurun: string;
+  jumlahAyat: number;
+  ayat: AlKahfiAyat[];
+}
+
