@@ -57,13 +57,13 @@ export default function TentangPage() {
         
         {/* Top Header Title & Subtitle (Centered Layout) */}
         <div className="flex flex-col items-center justify-center text-center mb-12 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight">
             JN UKMI <span className="text-forest-600 relative inline-block">
               Universitas Sebelas Maret
               <span className="absolute bottom-1 left-0 w-full h-[4px] bg-lime/30 rounded-full" />
             </span>
           </h2>
-          <p className="mt-3 text-sm md:text-base text-gray-500 font-medium max-w-2xl">
+          <p className="mt-3 text-sm md:text-base text-gray-500 dark:text-gray-400 font-medium max-w-2xl">
             Mengenal lebih dalam profil, arah gerak, sejarah, dan nilai-nilai perjuangan unit kegiatan mahasiswa Islam tingkat universitas.
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function TentangPage() {
                   className={`relative flex items-center justify-center gap-2 px-3.5 md:px-5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer ${
                     isActive
                       ? "text-white"
-                      : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                      : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50"
                   }`}
                 >
                   {isActive && (
@@ -91,7 +91,7 @@ export default function TentangPage() {
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <TabIcon className={`relative z-10 w-4 h-4 ${isActive ? "text-white" : "text-gray-400"}`} />
+                  <TabIcon className={`relative z-10 w-4 h-4 ${isActive ? "text-white" : "text-gray-400 dark:text-gray-500"}`} />
                   <span className="relative z-10">{tab.label}</span>
                 </button>
               );
@@ -124,8 +124,8 @@ export default function TentangPage() {
                     Ukhuwah
                   </span>
                   <div className="absolute -bottom-4 -right-3 bg-white border border-gray-200 rounded-2xl shadow-sm px-4 py-2 flex flex-col items-center">
-                    <span className="text-[8px] font-bold text-gray-400 uppercase leading-none tracking-wider">Sejak</span>
-                    <span className="text-sm font-bold text-forest-800 leading-none mt-1 font-mono">1991</span>
+                    <span className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase leading-none tracking-wider">Sejak</span>
+                    <span className="text-sm font-bold text-forest-800 dark:text-lime leading-none mt-1 font-mono">1991</span>
                   </div>
 
                   <Image
@@ -136,30 +136,30 @@ export default function TentangPage() {
                     className="object-contain"
                   />
                 </div>
-                <p className="mt-8 text-xs md:text-sm text-gray-500 italic max-w-sm leading-relaxed font-medium">
+                <p className="mt-8 text-xs md:text-sm text-gray-500 dark:text-gray-400 italic max-w-sm leading-relaxed font-medium">
                   JN UKMI berkomitmen menjadi motor penggerak dakwah kampus yang ramah, akademis, kolaboratif, serta berkarakter kepemimpinan Islam.
                 </p>
               </div>
 
               {/* Right Side: Introduction Card */}
               <div className="lg:col-span-7">
-                <div className="bg-white rounded-3xl border border-gray-200/60 shadow-md p-6 md:p-8 flex flex-col gap-6">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 md:p-8 flex flex-col gap-6 transition-colors">
                   {/* Header info */}
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-2xl bg-forest-600 text-white flex items-center justify-center shadow-sm">
                       <Landmark className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="font-extrabold text-gray-900 text-base md:text-lg leading-tight">
+                      <h3 className="font-extrabold text-gray-900 dark:text-white text-base md:text-lg leading-tight">
                         Lembaga Dakwah Kampus
                       </h3>
-                      <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Universitas Sebelas Maret</p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider mt-0.5">Universitas Sebelas Maret</p>
                     </div>
                   </div>
 
                   {/* Description List */}
-                  <div className="space-y-4 text-gray-600 text-sm md:text-base leading-relaxed">
-                    <p className="font-semibold text-gray-800">
+                  <div className="space-y-4 text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed">
+                    <p className="font-semibold text-gray-800 dark:text-gray-200">
                       {aboutData.deskripsi_perkenalan[0]}
                     </p>
                     <div className="space-y-3.5 pl-1.5">
@@ -172,11 +172,11 @@ export default function TentangPage() {
                               {idx + 1}
                             </span>
                             <div className="flex flex-col gap-2">
-                              <p className="font-semibold text-gray-700 leading-relaxed">
+                              <p className="font-semibold text-gray-700 dark:text-gray-200 leading-relaxed">
                                 {mainText}
                               </p>
                               {hasSubPoints && subLines.length > 0 && (
-                                <div className="pl-4 border-l-2 border-lime/40 space-y-1.5 text-xs text-gray-500 font-bold tracking-wide mt-1">
+                                <div className="pl-4 border-l-2 border-lime/40 space-y-1.5 text-xs text-gray-500 dark:text-gray-400 font-bold tracking-wide mt-1">
                                   {subLines.filter(line => line.trim() !== "").map((line, lIdx) => (
                                     <p key={lIdx}>{line}</p>
                                   ))}
@@ -190,26 +190,21 @@ export default function TentangPage() {
                   </div>
 
                   {/* Highlights Grid with custom borders (anti-card overuse) */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-6 border-t border-gray-100">
-                    <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-gray-200/50">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-6 border-t border-gray-100 dark:border-gray-800">                      <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-gray-800/60 border border-gray-200/50 dark:border-gray-700/60">
                       <GraduationCap className="w-4.5 h-4.5 text-forest-600 shrink-0" />
-                      <span className="text-xs font-bold text-gray-700">Mentoring Pekanan</span>
-                    </div>
-                    <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-gray-200/50">
+                      <span className="text-xs font-bold text-gray-700 dark:text-gray-200">Mentoring Pekanan</span>
+                    </div>                      <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-gray-800/60 border border-gray-200/50 dark:border-gray-700/60">
                       <ShieldCheck className="w-4.5 h-4.5 text-forest-600 shrink-0" />
-                      <span className="text-xs font-bold text-gray-700">Ukhuwah Islamiyah</span>
-                    </div>
-                    <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-gray-200/50">
+                      <span className="text-xs font-bold text-gray-700 dark:text-gray-200">Ukhuwah Islamiyah</span>
+                    </div>                      <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-gray-800/60 border border-gray-200/50 dark:border-gray-700/60">
                       <Megaphone className="w-4.5 h-4.5 text-forest-600 shrink-0" />
-                      <span className="text-xs font-bold text-gray-700">Syiar & Media Kreatif</span>
-                    </div>
-                    <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-gray-200/50">
+                      <span className="text-xs font-bold text-gray-700 dark:text-gray-200">Syiar & Media Kreatif</span>
+                    </div>                      <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-gray-800/60 border border-gray-200/50 dark:border-gray-700/60">
                       <Trophy className="w-4.5 h-4.5 text-forest-600 shrink-0" />
-                      <span className="text-xs font-bold text-gray-700">Leadership Program</span>
-                    </div>
-                    <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-gray-200/50">
+                      <span className="text-xs font-bold text-gray-700 dark:text-gray-200">Leadership Program</span>
+                    </div>                      <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-gray-800/60 border border-gray-200/50 dark:border-gray-700/60">
                       <HandHelping className="w-4.5 h-4.5 text-forest-600 shrink-0" />
-                      <span className="text-xs font-bold text-gray-700">Bakti Sosial & Rihlah</span>
+                      <span className="text-xs font-bold text-gray-700 dark:text-gray-200">Bakti Sosial & Rihlah</span>
                     </div>
                   </div>
                 </div>
@@ -230,7 +225,7 @@ export default function TentangPage() {
                   className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
                 >
                   {/* Left Side: Sejarah Text Card */}
-                  <div className="lg:col-span-6 bg-white rounded-3xl border border-gray-200/60 shadow-lg p-6 md:p-8 flex flex-col gap-6 overflow-hidden">
+                  <div className="lg:col-span-6 bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-lg p-6 md:p-8 flex flex-col gap-6 overflow-hidden transition-colors">
                     <div className="self-start inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-forest-400/10 text-forest-700 text-xs font-bold border border-forest-400/20">
                       <History className="w-3.5 h-3.5 text-forest-600" />
                       Sejarah
@@ -245,20 +240,20 @@ export default function TentangPage() {
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="flex flex-col gap-4"
                       >
-                        <h3 className="text-2xl font-bold text-gray-900 relative pb-3 border-b border-gray-150/60 flex items-center gap-3">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white relative pb-3 border-b border-gray-150/60 flex items-center gap-3">
                           Perjalanan JN UKMI
                           <span className="text-forest-600 font-mono">({activeMilestone.year})</span>
                           <span className="absolute bottom-0 left-0 w-16 h-[3px] bg-lime" />
                         </h3>
-                        <div className="space-y-4 text-gray-600 text-sm md:text-base leading-relaxed">
-                          <h4 className="font-extrabold text-gray-900 text-base md:text-lg flex items-center gap-2 text-forest-800">
+                        <div className="space-y-4 text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed">
+                          <h4 className="font-extrabold text-gray-900 dark:text-white text-base md:text-lg flex items-center gap-2 text-forest-800 dark:text-lime">
                             <ChevronRight className="w-5 h-5 text-lime stroke-[3]" />
                             {activeMilestone.title}
                           </h4>
-                          <p className="whitespace-pre-line text-gray-600 font-medium">
+                          <p className="whitespace-pre-line text-gray-600 dark:text-gray-300 font-medium">
                             {activeMilestone.narrative || "Detail perjalanan sejarah belum tersedia."}
                           </p>
-                          <p className="text-xs text-gray-400 mt-4 border-t border-gray-100 pt-4 italic">
+                          <p className="text-xs text-gray-400 dark:text-gray-500 mt-4 border-t border-gray-100 dark:border-gray-800 pt-4 italic">
                             *Klik lingkaran tahun pada linimasa di sebelah kanan untuk menjelajahi periode sejarah lainnya.
                           </p>
                         </div>
@@ -388,13 +383,13 @@ export default function TentangPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="max-w-3xl mx-auto bg-white rounded-3xl border border-gray-200/60 shadow-md p-6 md:p-8"
+                className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 md:p-8 transition-colors"
               >
-                <div className="flex items-center gap-3.5 pb-4 border-b border-gray-150/60 mb-8 justify-center">
+                <div className="flex items-center gap-3.5 pb-4 border-b border-gray-150/60 dark:border-gray-800 mb-8 justify-center">
                   <div className="w-10 h-10 rounded-xl bg-forest-600 text-white flex items-center justify-center shadow-sm">
                     <Target className="w-5 h-5" />
                   </div>
-                  <h3 className="font-extrabold text-gray-900 text-lg">Misi Kami</h3>
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-lg">Misi Kami</h3>
                 </div>
                 <div className="space-y-4">
                   {aboutData.misi.map((misiItem, idx) => (
@@ -402,7 +397,7 @@ export default function TentangPage() {
                       <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-forest-600/10 text-forest-700 font-mono text-xs font-black shrink-0 mt-0.5">
                         {(idx + 1).toString().padStart(2, "0")}
                       </span>
-                      <p className="text-gray-700 text-sm md:text-base leading-relaxed font-semibold">
+                      <p className="text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed font-semibold">
                         {misiItem}
                       </p>
                     </div>
@@ -419,13 +414,13 @@ export default function TentangPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="max-w-3xl mx-auto bg-white rounded-3xl border border-gray-200/60 shadow-md p-6 md:p-8"
+                className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 md:p-8 transition-colors"
               >
-                <div className="flex items-center gap-3.5 pb-4 border-b border-gray-150/60 mb-8">
+                <div className="flex items-center gap-3.5 pb-4 border-b border-gray-150/60 dark:border-gray-800 mb-8">
                   <div className="w-10 h-10 rounded-xl bg-forest-600 text-white flex items-center justify-center shadow-sm">
                     <Award className="w-5 h-5" />
                   </div>
-                  <h3 className="font-extrabold text-gray-900 text-lg">Nilai-Nilai Luhur Organisasi</h3>
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-lg">Nilai-Nilai Luhur Organisasi</h3>
                 </div>
 
                 <div className="space-y-6">
@@ -438,7 +433,7 @@ export default function TentangPage() {
                         <h4 className="text-base font-extrabold text-forest-900">
                           {point.title}
                         </h4>
-                        <p className="text-sm text-gray-600 font-semibold leading-relaxed">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold leading-relaxed">
                           {point.description}
                         </p>
                       </div>

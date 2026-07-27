@@ -11,7 +11,7 @@ export function VisiMisiSection({ visi, misi }: VisiMisiSectionProps) {
           <h2 className="text-3xl font-bold text-forest-900 mb-8 text-center">
             Visi
           </h2>
-          <p className="text-lg text-muted leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg text-muted dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
             {visi}
           </p>
         </div>
@@ -22,7 +22,7 @@ export function VisiMisiSection({ visi, misi }: VisiMisiSectionProps) {
           <h2 className="text-3xl font-bold text-forest-900 mb-8 text-center">
             Misi
           </h2>
-          <p className="text-lg text-muted leading-relaxed">
+          <p className="text-lg text-muted dark:text-gray-300 leading-relaxed">
             {misi}
           </p>
         </div>

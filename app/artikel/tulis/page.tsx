@@ -153,15 +153,15 @@ export default function TulisArtikelPage() {
 
   if (!isVerified) {
     return (
-      <div className="bg-transparent min-h-[85vh] flex items-center justify-center px-4">
-        <div className="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 max-w-md w-full text-center">
+    <div className="bg-transparent min-h-[85vh] flex items-center justify-center px-4">
+      <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 dark:border-gray-800 max-w-md w-full text-center transition-colors">
           <div className="w-16 h-16 bg-forest-600/10 text-forest-600 rounded-3xl flex items-center justify-center mb-6 mx-auto shadow-inner">
             <Lock className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-black text-forest-900 uppercase tracking-wider mb-2">
             Akses Pengurus
           </h1>
-          <p className="text-xs text-gray-400 font-semibold mb-8">
+          <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold mb-8">
             Silakan masukkan Kode Akses Pengurus terlebih dahulu sebelum membuka form tulis artikel.
           </p>
 
@@ -173,7 +173,7 @@ export default function TulisArtikelPage() {
 
           <form onSubmit={handleVerifyGate} className="space-y-4">
             <div className="flex flex-col gap-1.5 text-left">
-              <label htmlFor="passcodeGate" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+              <label htmlFor="passcodeGate" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5 text-forest-600" />
                 Kode Akses Pengurus
               </label>
@@ -185,14 +185,14 @@ export default function TulisArtikelPage() {
                   placeholder="Tanya Admin"
                   value={passcode}
                   onChange={(e) => setPasscode(e.target.value)}
-                  className="w-full pl-4 pr-11 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
+                  className="w-full pl-4 pr-11 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-gray-900 dark:text-white text-sm focus:border-forest-600 focus:outline-none transition-all font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   autoComplete="off"
                   suppressHydrationWarning
                 />
                 <button
                   type="button"
                   onClick={() => setShowPasscode(!showPasscode)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none transition-colors"
                 >
                   {showPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -217,9 +217,7 @@ export default function TulisArtikelPage() {
                 "Buka Form Tulis Artikel"
               )}
             </button>
-          </form>
-
-          <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 font-bold hover:text-forest-600 transition-colors mt-6">
+          </form>            <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime transition-colors mt-6">
             <ArrowLeft className="w-3.5 h-3.5" />
             Kembali ke Daftar Artikel
           </Link>
@@ -228,13 +226,12 @@ export default function TulisArtikelPage() {
     );
   }
 
-  return (
-    <div className="bg-transparent min-h-screen py-12 px-4 md:px-6">
+  return (        <div className="bg-transparent min-h-screen py-12 px-4 md:px-6">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <Link
             href="/artikel"
-            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-forest-600 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-forest-600 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Artikel
@@ -247,14 +244,14 @@ export default function TulisArtikelPage() {
         </div>
 
         {success ? (
-          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 text-center flex flex-col items-center justify-center">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-800 text-center flex flex-col items-center justify-center transition-colors">
             <div className="w-16 h-16 bg-lime/10 text-lime rounded-full flex items-center justify-center mb-6">
               <CheckCircle className="w-10 h-10" />
             </div>
-            <h2 className="text-2xl font-black text-gray-900 uppercase tracking-wide mb-3">
+            <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-wide mb-3">
               Artikel Berhasil Dikirim!
             </h2>
-            <p className="text-gray-500 text-sm max-w-md leading-relaxed mb-8">
+            <p className="text-gray-500 dark:text-gray-400 text-sm max-w-md leading-relaxed mb-8">
               Terima kasih atas kontribusi Anda. Artikel telah masuk ke database antrean moderasi Sanity. Artikel akan langsung muncul di website setelah disetujui oleh Admin.
             </p>
             <div className="flex gap-4">
@@ -266,20 +263,20 @@ export default function TulisArtikelPage() {
               </button>
               <Link
                 href="/artikel"
-                className="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full text-xs font-bold transition-all cursor-pointer"
+                className="px-6 py-2.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all cursor-pointer"
               >
                 Lihat Semua Artikel
               </Link>
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 space-y-6">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 dark:border-gray-800 space-y-6 transition-colors">
             <div className="border-b border-gray-150/60 pb-6">
               <h1 className="text-2xl md:text-3xl font-black text-forest-900 uppercase tracking-wider flex items-center gap-2">
                 <BookOpen className="w-7 h-7 text-forest-600" />
                 Tulis Artikel Baru
               </h1>
-              <p className="text-xs text-gray-400 font-semibold mt-1">
+              <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold mt-1">
                 Seluruh kolom dan gambar sampul wajib diisi sebelum dikirimkan.
               </p>
             </div>
@@ -292,7 +289,7 @@ export default function TulisArtikelPage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="title" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label htmlFor="title" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
                   Judul Artikel <span className="text-red-500">*</span>
                 </label>
@@ -303,13 +300,13 @@ export default function TulisArtikelPage() {
                   placeholder="Contoh: Manfaat Membaca Al-Kahfi di Hari Jumat"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-900"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold bg-white dark:bg-gray-950 text-gray-900 dark:text-white"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="author" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                  <label htmlFor="author" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                     <User className="w-3.5 h-3.5 text-forest-600" />
                     Penulis <span className="text-red-500">*</span>
                   </label>
@@ -320,12 +317,12 @@ export default function TulisArtikelPage() {
                     placeholder="Departemen Media & Syiar"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-medium text-gray-900 dark:text-white"
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="publishedAt" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                  <label htmlFor="publishedAt" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-forest-600" />
                     Tanggal <span className="text-red-500">*</span>
                   </label>
@@ -340,7 +337,7 @@ export default function TulisArtikelPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="category" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                  <label htmlFor="category" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                     <Tag className="w-3.5 h-3.5 text-forest-600" />
                     Kategori <span className="text-red-500">*</span>
                   </label>
@@ -348,7 +345,7 @@ export default function TulisArtikelPage() {
                     id="category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-700"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-700 dark:text-gray-200"
                   >
                     <option value="Artikel Islami">Artikel Islami</option>
                     <option value="Kajian Islami">Kajian Islami</option>
@@ -358,7 +355,7 @@ export default function TulisArtikelPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <Upload className="w-3.5 h-3.5 text-forest-600" />
                   Gambar Sampul <span className="text-red-500">*</span>
                 </label>
@@ -389,10 +386,10 @@ export default function TulisArtikelPage() {
                       <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-gray-200 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
                         <Upload className="w-6 h-6 text-forest-600" />
                       </div>
-                      <span className="text-sm font-bold text-gray-800 mb-1">
+                      <span className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">
                         Klik untuk Unggah Gambar
                       </span>
-                      <span className="text-xs text-gray-400 font-medium">
+                      <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">
                         JPG, PNG, WEBP (Max 5MB)
                       </span>
                       <input
@@ -408,7 +405,7 @@ export default function TulisArtikelPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="excerpt" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label htmlFor="excerpt" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
                   Ringkasan Singkat <span className="text-red-500">*</span>
                 </label>
@@ -420,13 +417,13 @@ export default function TulisArtikelPage() {
                   placeholder="Ringkasan singkat maksimal 250 karakter..."
                   value={excerpt}
                   onChange={(e) => setExcerpt(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium resize-y"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-medium resize-y text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
-                <p className="text-xs text-gray-400">{excerpt.length}/250</p>
+                <p className="text-xs text-gray-400 dark:text-gray-500">{excerpt.length}/250</p>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
                   Isi Artikel <span className="text-red-500">*</span>
                 </label>
@@ -444,7 +441,7 @@ export default function TulisArtikelPage() {
                     return data.url;
                   }}
                 />
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-gray-500">
                   💡 Gunakan "/" untuk melihat menu perintah (heading, list, blockquote, dll)
                 </p>
               </div>

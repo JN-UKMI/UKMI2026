@@ -197,7 +197,7 @@ export default function EditArtikelPage() {
           <h1 className="text-2xl font-black text-forest-900 uppercase tracking-wider mb-2">
             Akses Pengurus
           </h1>
-          <p className="text-xs text-gray-400 font-semibold mb-8">
+          <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold mb-8">
             Silakan masukkan Kode Akses Pengurus terlebih dahulu sebelum mengedit artikel.
           </p>
 
@@ -209,7 +209,7 @@ export default function EditArtikelPage() {
 
           <form onSubmit={handleVerifyGate} className="space-y-4">
             <div className="flex flex-col gap-1.5 text-left">
-              <label htmlFor="passcodeGate" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+              <label htmlFor="passcodeGate" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5 text-forest-600" />
                 Kode Akses Pengurus
               </label>
@@ -228,7 +228,7 @@ export default function EditArtikelPage() {
                 <button
                   type="button"
                   onClick={() => setShowPasscode(!showPasscode)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none transition-colors"
                 >
                   {showPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -255,7 +255,7 @@ export default function EditArtikelPage() {
             </button>
           </form>
 
-          <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 font-bold hover:text-forest-600 transition-colors mt-6">
+          <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime transition-colors mt-6">
             <ArrowLeft className="w-3.5 h-3.5" />
             Kembali ke Daftar Artikel
           </Link>
@@ -269,7 +269,7 @@ export default function EditArtikelPage() {
       <div className="bg-transparent min-h-[85vh] flex items-center justify-center px-4">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-forest-600 animate-spin mx-auto mb-4" />
-          <p className="text-sm text-gray-600 font-medium">Memuat artikel...</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">Memuat artikel...</p>
         </div>
       </div>
     );
@@ -281,7 +281,7 @@ export default function EditArtikelPage() {
         <div className="flex items-center justify-between mb-6">
           <Link
             href={`/artikel/${slug}`}
-            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-forest-600 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-forest-600 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Artikel
@@ -297,13 +297,11 @@ export default function EditArtikelPage() {
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 text-center flex flex-col items-center justify-center">
             <div className="w-16 h-16 bg-lime/10 text-lime rounded-full flex items-center justify-center mb-6">
               <CheckCircle className="w-10 h-10" />
-            </div>
-            <h2 className="text-2xl font-black text-gray-900 uppercase tracking-wide mb-3">
+            </div>              <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-wide mb-3">
               Artikel Berhasil Diperbarui!
-            </h2>
-            <p className="text-gray-500 text-sm max-w-md leading-relaxed mb-8">
-              Perubahan artikel telah disimpan ke database. Anda akan dialihkan ke halaman artikel dalam beberapa detik...
-            </p>
+            </h2>              <p className="text-gray-500 dark:text-gray-400 text-sm max-w-md leading-relaxed mb-8">
+                Perubahan artikel telah disimpan ke database. Anda akan dialihkan ke halaman artikel dalam beberapa detik...
+              </p>
           </div>
         ) : (
           <div className="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 space-y-6">
@@ -312,7 +310,7 @@ export default function EditArtikelPage() {
                 <BookOpen className="w-7 h-7 text-forest-600" />
                 Edit Artikel
               </h1>
-              <p className="text-xs text-gray-400 font-semibold mt-1">
+              <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold mt-1">
                 Perbarui informasi artikel sesuai kebutuhan.
               </p>
             </div>
@@ -325,7 +323,7 @@ export default function EditArtikelPage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="title" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label htmlFor="title" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
                   Judul Artikel <span className="text-red-500">*</span>
                 </label>
@@ -336,13 +334,13 @@ export default function EditArtikelPage() {
                   placeholder="Contoh: Manfaat Membaca Al-Kahfi di Hari Jumat"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-900"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-900 dark:text-white"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="author" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                  <label htmlFor="author" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                     <User className="w-3.5 h-3.5 text-forest-600" />
                     Penulis <span className="text-red-500">*</span>
                   </label>
@@ -358,7 +356,7 @@ export default function EditArtikelPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="publishedAt" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                  <label htmlFor="publishedAt" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-forest-600" />
                     Tanggal <span className="text-red-500">*</span>
                   </label>
@@ -373,7 +371,7 @@ export default function EditArtikelPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="category" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                  <label htmlFor="category" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                     <Tag className="w-3.5 h-3.5 text-forest-600" />
                     Kategori <span className="text-red-500">*</span>
                   </label>
@@ -381,7 +379,7 @@ export default function EditArtikelPage() {
                     id="category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-700"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-bold text-gray-700 dark:text-gray-200"
                   >
                     <option value="Artikel Islami">Artikel Islami</option>
                     <option value="Kajian Islami">Kajian Islami</option>
@@ -391,7 +389,7 @@ export default function EditArtikelPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <Upload className="w-3.5 h-3.5 text-forest-600" />
                   Gambar Sampul (Opsional - kosongkan jika tidak ingin mengubah)
                 </label>
@@ -424,10 +422,10 @@ export default function EditArtikelPage() {
                       <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-gray-200 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
                         <Upload className="w-6 h-6 text-forest-600" />
                       </div>
-                      <span className="text-sm font-bold text-gray-800 mb-1">
+                      <span className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">
                         Klik untuk Unggah Gambar Baru
                       </span>
-                      <span className="text-xs text-gray-400 font-medium">
+                      <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">
                         JPG, PNG, WEBP (Max 5MB)
                       </span>
                       <input
@@ -442,7 +440,7 @@ export default function EditArtikelPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="excerpt" className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label htmlFor="excerpt" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
                   Ringkasan Singkat <span className="text-red-500">*</span>
                 </label>
@@ -454,13 +452,13 @@ export default function EditArtikelPage() {
                   placeholder="Ringkasan singkat maksimal 250 karakter..."
                   value={excerpt}
                   onChange={(e) => setExcerpt(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium resize-y"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-medium resize-y text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
-                <p className="text-xs text-gray-400">{excerpt.length}/250</p>
+                <p className="text-xs text-gray-400 dark:text-gray-500">{excerpt.length}/250</p>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-forest-600" />
                   Isi Artikel <span className="text-red-500">*</span>
                 </label>
@@ -479,7 +477,7 @@ export default function EditArtikelPage() {
                     return data.url;
                   }}
                 />
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-gray-500">
                   💡 Gunakan "/" untuk melihat menu perintah (heading, list, blockquote, dll)
                 </p>
               </div>

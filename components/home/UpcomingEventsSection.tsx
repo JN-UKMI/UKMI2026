@@ -43,7 +43,7 @@ export function UpcomingEventsSection({
           <TransitionLink
             key={article.slug}
             href={`/artikel/${article.slug}`}
-            className="group overflow-hidden rounded-xl border border-gray-200 hover:shadow-lg hover:border-forest-600 transition-all duration-300 bg-white"
+            className="group overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 hover:shadow-lg hover:border-forest-600 dark:hover:border-lime transition-all duration-300 bg-white dark:bg-gray-900"
           >
             <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
               {article.coverImage ? (
@@ -60,7 +60,7 @@ export function UpcomingEventsSection({
             <div className="p-5">
               <div className="flex items-center gap-2 mb-2">
                 <Calendar className="w-4 h-4 text-forest-600" />
-                <time className="text-xs font-semibold text-gray-500">
+                <time className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                   {new Date(article.publishedAt).toLocaleDateString("id-ID", {
                     year: "numeric",
                     month: "long",
@@ -68,10 +68,10 @@ export function UpcomingEventsSection({
                   })}
                 </time>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-forest-600 transition-colors">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                 {article.title}
               </h3>
-              <p className="text-sm text-gray-600 line-clamp-2">
+              <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
                 {article.excerpt}
               </p>
             </div>

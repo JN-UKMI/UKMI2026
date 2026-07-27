@@ -69,7 +69,7 @@ function ToolbarButton({
       className={`p-1.5 rounded-md transition text-sm flex items-center justify-center cursor-pointer ${
         isActive
           ? "bg-forest-100 text-forest-800 shadow-sm ring-1 ring-forest-200"
-          : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+          : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
       }`}
     >
       {children}
@@ -134,7 +134,7 @@ function EditorToolbar({ editor }: { editor: EditorInstance }) {
               .run();
           }
         }}
-        className="h-8 rounded-md border border-gray-200 bg-white px-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-forest-600/20 focus:border-forest-600 mr-1"
+        className="h-8 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-2 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-forest-600/20 focus:border-forest-600 mr-1"
         title="Tipe paragraf"
       >
         <option value="p">Paragraf</option>
@@ -277,7 +277,7 @@ function BubbleMenuContent() {
           className={`h-8 w-8 flex items-center justify-center rounded-md transition-colors ${
             editor.isActive("bold")
               ? "bg-forest-600 text-white shadow-sm"
-              : "text-gray-700 hover:bg-gray-100"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
           }`}
           title="Bold (Ctrl+B)"
         >
@@ -293,7 +293,7 @@ function BubbleMenuContent() {
           className={`h-8 w-8 flex items-center justify-center rounded-md transition-colors ${
             editor.isActive("italic")
               ? "bg-forest-600 text-white shadow-sm"
-              : "text-gray-700 hover:bg-gray-100"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
           }`}
           title="Italic (Ctrl+I)"
         >
@@ -309,7 +309,7 @@ function BubbleMenuContent() {
           className={`h-8 w-8 flex items-center justify-center rounded-md transition-colors ${
             editor.isActive("underline")
               ? "bg-forest-600 text-white shadow-sm"
-              : "text-gray-700 hover:bg-gray-100"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
           }`}
           title="Underline (Ctrl+U)"
         >
@@ -325,7 +325,7 @@ function BubbleMenuContent() {
           className={`h-8 w-8 flex items-center justify-center rounded-md transition-colors ${
             editor.isActive("strike")
               ? "bg-forest-600 text-white shadow-sm"
-              : "text-gray-700 hover:bg-gray-100"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
           }`}
           title="Strikethrough"
         >
@@ -343,7 +343,7 @@ function BubbleMenuContent() {
           className={`h-8 w-8 flex items-center justify-center rounded-md text-xs font-mono font-bold transition-colors ${
             editor.isActive("code")
               ? "bg-forest-600 text-white shadow-sm"
-              : "text-gray-700 hover:bg-gray-100"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
           }`}
           title="Inline Code"
         >
@@ -366,7 +366,7 @@ function BubbleMenuContent() {
           className={`h-8 w-8 flex items-center justify-center rounded-md transition-colors ${
             editor.isActive("link")
               ? "bg-forest-600 text-white shadow-sm"
-              : "text-gray-700 hover:bg-gray-100"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
           }`}
           title={editor.isActive("link") ? "Remove Link" : "Add Link"}
         >
@@ -384,7 +384,7 @@ function SlashCommandContent() {
 
   return (
     <EditorCommand className="z-50 h-auto max-h-[360px] w-72 overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl shadow-black/5 animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150">
-      <EditorCommandEmpty className="px-3 py-3 text-sm text-gray-400 text-center">
+      <EditorCommandEmpty className="px-3 py-3 text-sm text-gray-400 dark:text-gray-500 text-center">
         <span className="block text-lg mb-1">🔍</span>
         Tidak ada hasil untuk perintah ini
       </EditorCommandEmpty>
@@ -396,15 +396,15 @@ function SlashCommandContent() {
             onCommand={(val) => item.command?.(val)}
             className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all aria-selected:bg-forest-50 aria-selected:text-forest-900 hover:bg-gray-50 cursor-pointer"
           >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-100 bg-white text-gray-600 shadow-sm">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 shadow-sm">
               {item.icon}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-semibold text-gray-900 text-[13px]">
+              <p className="font-semibold text-gray-900 dark:text-white text-[13px]">
                 {item.title}
               </p>
               {item.description && (
-                <p className="text-xs text-gray-400 truncate leading-tight mt-0.5">
+                <p className="text-xs text-gray-400 dark:text-gray-500 truncate leading-tight mt-0.5">
                   {item.description}
                 </p>
               )}
@@ -599,7 +599,7 @@ export default function NovelEditor({
   if (!mounted) {
     return (
       <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm min-h-[400px] flex items-center justify-center">
-        <div className="flex items-center gap-3 text-gray-400">
+        <div className="flex items-center gap-3 text-gray-400 dark:text-gray-500">
           <div className="w-5 h-5 rounded-full border-2 border-forest-600 border-t-transparent animate-spin" />
           <span className="text-sm">Memuat editor...</span>
         </div>
@@ -736,13 +736,13 @@ export default function NovelEditor({
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="bg-gray-900/95 backdrop-blur text-white text-xs px-3.5 py-2 rounded-full shadow-xl flex items-center gap-2 border border-white/10">
             <kbd className="bg-gray-700 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold tracking-wide">Ctrl+Enter</kbd>
-            <span className="text-gray-400">atau</span>
+            <span className="text-gray-400 dark:text-gray-500">atau</span>
             {blockHint === "codeBlock" ? (
               <kbd className="bg-gray-700 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold tracking-wide">Enter 2×</kbd>
             ) : (
               <kbd className="bg-gray-700 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold tracking-wide">Enter</kbd>
             )}
-            <span className="text-gray-400">
+            <span className="text-gray-400 dark:text-gray-500">
               {blockHint === "codeBlock"
                 ? "untuk keluar"
                 : "di baris kosong untuk keluar"}

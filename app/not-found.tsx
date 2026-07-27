@@ -18,8 +18,8 @@ export default function NotFound() {
           className="mx-auto mb-8 opacity-80"
         />
         <h1 className="text-6xl font-bold text-forest-900 mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-2">Halaman tidak ditemukan</p>
-        <p className="text-gray-500 mb-8">
+        <p className="text-xl text-gray-600 dark:text-gray-300 mb-2">Halaman tidak ditemukan</p>
+        <p className="text-gray-500 dark:text-gray-400 mb-8">
           Halaman yang Anda cari mungkin telah dipindahkan atau tidak tersedia.
         </p>
         <Link

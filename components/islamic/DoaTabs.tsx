@@ -47,7 +47,7 @@ export function DoaTabs({ sughra, kubra }: DoaTabsProps) {
       <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-md border border-gray-100 dark:border-gray-800 -mt-10 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-4 transition-colors">
         {/* Selector 1: Versi (Sughra vs Kubra) */}
         <div className="flex flex-col gap-1.5 w-full lg:flex-1">
-          <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-400 tracking-wider px-1 flex items-center gap-1">
+          <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider px-1 flex items-center gap-1">
             <Layers className="w-3 h-3 text-forest-600 dark:text-lime" />
             Pilih Versi
           </span>
@@ -80,7 +80,7 @@ export function DoaTabs({ sughra, kubra }: DoaTabsProps) {
 
         {/* Selector 2: Waktu (Pagi vs Sore) */}
         <div className="flex flex-col gap-1.5 w-full lg:flex-1">
-          <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-400 tracking-wider px-1 flex items-center gap-1">
+          <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider px-1 flex items-center gap-1">
             <BookOpen className="w-3 h-3 text-forest-600 dark:text-lime" />
             Waktu Dzikir
           </span>
@@ -115,7 +115,7 @@ export function DoaTabs({ sughra, kubra }: DoaTabsProps) {
 
         {/* Selector 3: Tampilan Terpisah Latin & Terjemahan */}
         <div className="flex flex-col gap-1.5 w-full lg:w-auto">
-          <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-400 tracking-wider px-1 flex items-center gap-1">
+          <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider px-1 flex items-center gap-1">
             <Eye className="w-3 h-3 text-forest-600 dark:text-lime" />
             Pengaturan Teks
           </span>
@@ -149,8 +149,7 @@ export function DoaTabs({ sughra, kubra }: DoaTabsProps) {
         </div>
       </div>
 
-      {/* Info Status Bacaan Aktif */}
-      <div className="text-center text-xs text-gray-400 dark:text-gray-400 font-medium tracking-wide mt-2">
+      {/* Info Status Bacaan Aktif */}          <div className="text-center text-xs text-gray-400 dark:text-gray-500 font-medium tracking-wide mt-2">
         Membaca <span className="font-bold text-forest-600 dark:text-lime">Al-Ma'surat {version === "sughra" ? "Sughra" : "Kubra"}</span> untuk waktu <span className="font-bold text-forest-600 dark:text-lime">{time === "morning" ? "Pagi" : "Sore/Petang"}</span>
       </div>
 

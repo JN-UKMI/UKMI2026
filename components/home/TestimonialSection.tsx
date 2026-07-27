@@ -152,7 +152,7 @@ function TestimonialCard({ item }: { item: TestimonialItem }) {
             {item.periode}
           </p>
           {item.kabinet && (
-            <span className="text-[11px] text-gray-400 dark:text-gray-400 font-medium truncate">
+            <span className="text-[11px] text-gray-400 dark:text-gray-500 font-medium truncate">
               {item.kabinet}
             </span>
           )}

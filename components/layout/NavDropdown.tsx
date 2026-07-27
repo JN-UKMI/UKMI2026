@@ -60,7 +60,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
                 onClick={() => toggle(sub.label)}
                 aria-expanded={!!openSections[sub.label]}
                 aria-controls={`sub-menu-${sub.label}`}
-                className="w-full flex items-center justify-between pl-3 pr-3 py-1.5 text-sm font-medium text-gray-700 hover:text-forest-600 transition-colors"
+                className="w-full flex items-center justify-between pl-3 pr-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-forest-600 dark:hover:text-lime transition-colors"
               >
                 &nbsp;&nbsp;{sub.label}
                 <ChevronRight
@@ -78,7 +78,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
                     <DropdownMenuItem key={leaf.label}>
                       <TransitionLink
                         href={leaf.href || "#"}
-                        className="block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
+                        className="block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
                       >
                         {leaf.label}
                       </TransitionLink>
@@ -91,7 +91,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
             <DropdownMenuItem key={sub.label}>
               <TransitionLink
                 href={sub.href || "#"}
-                className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
+                className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
               >
                 {sub.label}
               </TransitionLink>

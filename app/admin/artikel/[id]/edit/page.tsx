@@ -264,7 +264,7 @@ export default function AdminEditArticlePage() {
   if (loading) {
     return (
       <div className="bg-gray-50 dark:bg-gray-950 min-h-screen flex items-center justify-center">
-        <div className="flex items-center gap-3 text-gray-500">
+        <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
           <Loader2 className="w-6 h-6 animate-spin text-forest-600" />
           <span className="text-sm font-semibold">Memuat artikel...</span>
         </div>
@@ -458,15 +458,15 @@ export default function AdminEditArticlePage() {
                 type="text"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
-                className="w-full text-2xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight leading-tight bg-transparent border-b-2 border-dashed border-gray-300 focus:border-forest-600 focus:outline-none px-1 py-1"
+                className="w-full text-2xl md:text-4xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-tight leading-tight bg-transparent border-b-2 border-dashed border-gray-300 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none px-1 py-1 placeholder:text-gray-400 dark:placeholder:text-gray-500"
               />
             ) : (
-              <h1 className="text-2xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight leading-tight">
+              <h1 className="text-2xl md:text-4xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-tight leading-tight">
                 {article.title}
               </h1>
             )}
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-gray-400">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-gray-400 dark:text-gray-500">
               {isEditing ? (
                 <div className="flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-forest-600" />
@@ -474,7 +474,7 @@ export default function AdminEditArticlePage() {
                     type="date"
                     value={editPublishedAt}
                     onChange={(e) => setEditPublishedAt(e.target.value)}
-                    className="bg-transparent border border-dashed border-gray-300 focus:border-forest-600 focus:outline-none text-xs font-semibold text-gray-500 px-2 py-0.5 rounded"
+                    className="bg-transparent border border-dashed border-gray-300 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none text-xs font-semibold text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded dark:text-white"
                   />
                 </div>
               ) : (
@@ -499,7 +499,7 @@ export default function AdminEditArticlePage() {
                     value={editAuthor}
                     onChange={(e) => setEditAuthor(e.target.value)}
                     placeholder="Nama penulis"
-                    className="bg-transparent border-b border-dashed border-gray-300 focus:border-forest-600 focus:outline-none text-xs font-semibold text-gray-500 w-32"
+                    className="bg-transparent border-b border-dashed border-gray-300 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none text-xs font-semibold text-gray-500 dark:text-gray-400 w-32 placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:text-white"
                   />
                 </div>
               ) : (
@@ -527,11 +527,11 @@ export default function AdminEditArticlePage() {
               value={editExcerpt}
               onChange={(e) => setEditExcerpt(e.target.value)}
               rows={2}
-              className="w-full px-4 py-3 rounded-xl border border-dashed border-gray-300 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium text-gray-600 italic mb-6 bg-gray-50"
+              className="w-full px-4 py-3 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 text-sm focus:border-forest-600 dark:focus:border-lime focus:outline-none transition-all font-medium text-gray-600 dark:text-gray-300 italic mb-6 bg-gray-50 dark:bg-gray-800/50 placeholder:text-gray-400 dark:placeholder:text-gray-500"
             />
           ) : (
             article.excerpt && (
-              <div className="border-l-4 border-forest-600 bg-forest-50/20 px-5 py-3 rounded-r-xl italic text-sm text-gray-600 font-medium mb-8">
+              <div className="border-l-4 border-forest-600 dark:border-lime bg-forest-50/20 dark:bg-forest-950/30 px-5 py-3 rounded-r-xl italic text-sm text-gray-600 dark:text-gray-300 font-medium mb-8">
                 &ldquo;{article.excerpt}&rdquo;
               </div>
             )
@@ -540,7 +540,7 @@ export default function AdminEditArticlePage() {
           {/* Content */}
           {isEditing ? (
             <div className="mt-6">
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">
+              <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
                 ✏️ Konten Artikel — edit dengan editor di bawah
               </p>
               <NovelEditor
@@ -549,7 +549,7 @@ export default function AdminEditArticlePage() {
               />
             </div>
           ) : (
-            <div className="prose prose-forest prose-lg max-w-none mb-12">
+            <div className="prose prose-forest dark:prose-invert prose-lg max-w-none mb-12">
               <ArticleBody content={article.content} />
             </div>
           )}

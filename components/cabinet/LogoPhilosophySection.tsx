@@ -13,7 +13,7 @@ export function LogoPhilosophySection({
 
   return (
     <section className="mb-12">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden transition-colors">
         <div className="flex flex-col md:flex-row gap-8 items-center p-8">
           <div className="w-1/2 max-w-lg flex-shrink-0">
             <Image
@@ -26,8 +26,8 @@ export function LogoPhilosophySection({
             />
           </div>
           <div className="w-1/2">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Filosofi Logo</h2>
-            <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Filosofi Logo</h2>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
               {filosofi}
             </p>
           </div>

@@ -224,7 +224,7 @@ export function KalenderInteractive({
                     disabled={isMinMonth}
                     className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all ${
                       isMinMonth
-                        ? "opacity-30 cursor-not-allowed text-gray-400"
+                        ? "opacity-30 cursor-not-allowed text-gray-400 dark:text-gray-600"
                         : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
                     }`}
                     aria-label="Bulan sebelumnya"
@@ -236,7 +236,7 @@ export function KalenderInteractive({
                     disabled={isMaxMonth}
                     className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all ${
                       isMaxMonth
-                        ? "opacity-30 cursor-not-allowed text-gray-400"
+                        ? "opacity-30 cursor-not-allowed text-gray-400 dark:text-gray-600"
                         : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
                     }`}
                     aria-label="Bulan berikutnya"

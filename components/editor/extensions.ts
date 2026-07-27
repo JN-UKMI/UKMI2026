@@ -52,21 +52,21 @@ export const defaultExtensions = [
     blockquote: {
       HTMLAttributes: {
         class: cx(
-          "border-l-[3px] border-forest-600 pl-4 py-2 my-4 bg-forest-50/30 rounded-r-lg italic text-gray-600"
+          "border-l-[3px] border-forest-600 dark:border-forest-400 pl-4 py-2 my-4 bg-forest-50/30 dark:bg-forest-950/30 rounded-r-lg italic text-gray-600 dark:text-gray-300"
         ),
       },
     },
     codeBlock: {
       HTMLAttributes: {
         class: cx(
-          "rounded-xl bg-[#1F2937] text-gray-100 p-5 font-mono text-sm overflow-x-auto my-4 shadow-sm"
+          "rounded-xl bg-[#1F2937] dark:bg-[#0F172A] text-gray-100 p-5 font-mono text-sm overflow-x-auto my-4 shadow-sm"
         ),
       },
     },
     code: {
       HTMLAttributes: {
         class: cx(
-          "bg-gray-100 px-1.5 py-0.5 rounded-md text-sm font-mono text-forest-700 before:content-none after:content-none"
+          "bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded-md text-sm font-mono text-forest-700 dark:text-forest-300 before:content-none after:content-none"
         ),
         spellcheck: "false",
       },

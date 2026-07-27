@@ -172,10 +172,9 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
                 type="text"
                 name="q"
                 defaultValue={q || ""}
-                placeholder="Cari artikel berdasarkan kata kunci atau judul..."
-                className="w-full pl-11 pr-24 py-3 bg-gray-50 border border-gray-200 rounded-full text-xs md:text-sm font-medium focus:outline-none focus:border-forest-600 focus:bg-white transition-all shadow-inner"
+                placeholder="Cari artikel berdasarkan kata kunci atau judul..."                  className="w-full pl-11 pr-24 py-3 bg-gray-50 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 rounded-full text-xs md:text-sm font-medium focus:outline-none focus:border-forest-600 focus:bg-white dark:focus:bg-gray-900 transition-all shadow-inner"
               />
-              <Search className="w-4 h-4 text-gray-400 absolute left-4 pointer-events-none" />
+              <Search className="w-4 h-4 text-gray-400 dark:text-gray-500 absolute left-4 pointer-events-none" />
               <button
                 type="submit"
                 className="absolute right-1.5 px-4 py-1.5 bg-forest-600 hover:bg-forest-800 text-white text-xs font-bold rounded-full transition-all cursor-pointer"
@@ -185,44 +184,50 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
             </div>
           </form>
 
-          {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-2.5">
+          {/* Category Filters — single row on mobile (short labels on tiny screens), horizontal scroll fallback */}
+          <div className="flex justify-center gap-1.5 sm:gap-2.5 overflow-x-auto px-1 py-0.5 -mx-1 scrollbar-none">
             <Link
               href={getCategoryUrl()}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+              aria-current={!category ? "page" : undefined}
+              className={`shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border whitespace-nowrap ${
                 !category
                   ? "bg-forest-600 text-white border-forest-600"
-                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
             >
               Semua
             </Link>
             <Link
               href={getCategoryUrl("Artikel Islami")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+              aria-current={category === "Artikel Islami" ? "page" : undefined}
+              className={`shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border whitespace-nowrap ${
                 category === "Artikel Islami"
                   ? "bg-forest-600 text-white border-forest-600"
-                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
             >
-              Artikel Islami
+              <span className="sm:hidden">Artikel</span>
+              <span className="hidden sm:inline">Artikel Islami</span>
             </Link>
             <Link
               href={getCategoryUrl("Kajian Islami")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+              aria-current={category === "Kajian Islami" ? "page" : undefined}
+              className={`shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border whitespace-nowrap ${
                 category === "Kajian Islami"
                   ? "bg-forest-600 text-white border-forest-600"
-                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
             >
-              Kajian Islami
+              <span className="sm:hidden">Kajian</span>
+              <span className="hidden sm:inline">Kajian Islami</span>
             </Link>
             <Link
               href={getCategoryUrl("Lainnya")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border ${
+              aria-current={category === "Lainnya" ? "page" : undefined}
+              className={`shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border whitespace-nowrap ${
                 category === "Lainnya"
                   ? "bg-forest-600 text-white border-forest-600"
-                  : "bg-gray-100 text-gray-600 border-transparent hover:bg-gray-200"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
             >
               Lainnya
@@ -232,9 +237,9 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
 
         {/* Search Query Info Indicator */}
         {q && (
-          <div className="text-center mb-6 text-xs text-gray-500">
-            Menampilkan hasil pencarian untuk kata kunci: <span className="font-bold text-forest-600">"{q}"</span>
-            <Link href="/artikel" className="ml-2 text-xs underline text-gray-400 hover:text-gray-600">
+          <div className="text-center mb-6 text-xs text-gray-500 dark:text-gray-400">
+            Menampilkan hasil pencarian untuk kata kunci: <span className="font-bold text-forest-600 dark:text-lime">"{q}"</span>
+            <Link href="/artikel" className="ml-2 text-xs underline text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
               Reset Pencarian
             </Link>
           </div>
@@ -242,8 +247,8 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
 
         {/* Articles Content Grid */}
         {paginatedArticles.length === 0 ? (
-          <div className="text-center py-20 bg-gray-50 border border-gray-200/50 rounded-2xl max-w-xl mx-auto">
-            <p className="text-gray-500 font-semibold text-sm">Tidak ditemukan artikel yang sesuai.</p>
+          <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/60 border border-gray-200/50 dark:border-gray-800 rounded-2xl max-w-xl mx-auto">
+            <p className="text-gray-500 dark:text-gray-400 font-semibold text-sm">Tidak ditemukan artikel yang sesuai.</p>
           </div>
         ) : (
           <div className="space-y-12">
@@ -251,14 +256,14 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 pt-8 border-t border-gray-100 mt-12">
+              <div className="flex items-center justify-center gap-2 pt-8 border-t border-gray-100 dark:border-gray-800 mt-12">
                 {/* Prev Button */}
                 <Link
                   href={currentPage > 1 ? getPageUrl(currentPage - 1) : "#"}
                   className={`flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                     currentPage === 1
-                      ? "opacity-40 cursor-not-allowed border-gray-100 text-gray-300 pointer-events-none"
-                      : "border-gray-200 text-gray-600 hover:bg-gray-50 cursor-pointer active:scale-95"
+                      ? "opacity-40 cursor-not-allowed border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600 pointer-events-none"
+                      : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer active:scale-95"
                   }`}
                   aria-disabled={currentPage === 1}
                 >
@@ -278,7 +283,7 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
                         className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                           isActive
                             ? "bg-forest-600 text-white shadow-sm"
-                            : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                            : "bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         }`}
                       >
                         {pageNum}
@@ -292,8 +297,8 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
                   href={currentPage < totalPages ? getPageUrl(currentPage + 1) : "#"}
                   className={`flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                     currentPage === totalPages
-                      ? "opacity-40 cursor-not-allowed border-gray-100 text-gray-300 pointer-events-none"
-                      : "border-gray-200 text-gray-600 hover:bg-gray-50 cursor-pointer active:scale-95"
+                      ? "opacity-40 cursor-not-allowed border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600 pointer-events-none"
+                      : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer active:scale-95"
                   }`}
                   aria-disabled={currentPage === totalPages}
                 >

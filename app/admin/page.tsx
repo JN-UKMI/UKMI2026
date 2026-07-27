@@ -372,12 +372,12 @@ export default function AdminPage() {
       return content.map((block: any, idx) => {
         const text = block.children?.map((c: any) => c.text).join("") || "";
         if (block.style === "h2") {
-          return <h2 key={idx} className="text-xl font-bold text-gray-900 mt-4 mb-2">{text}</h2>;
+          return <h2 key={idx} className="text-xl font-bold text-gray-900 dark:text-white mt-4 mb-2">{text}</h2>;
         }
         if (block.style === "h3") {
-          return <h3 key={idx} className="text-lg font-bold text-gray-900 mt-3 mb-1.5">{text}</h3>;
+          return <h3 key={idx} className="text-lg font-bold text-gray-900 dark:text-white mt-3 mb-1.5">{text}</h3>;
         }
-        return <p key={idx} className="my-2.5 text-gray-700 leading-relaxed">{text}</p>;
+        return <p key={idx} className="my-2.5 text-gray-700 dark:text-gray-200 leading-relaxed">{text}</p>;
       });
     }
     return "";
@@ -427,26 +427,26 @@ export default function AdminPage() {
         </div>
 
         {/* Panel Title */}
-        <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-md border border-gray-100 dark:border-gray-800 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-colors">
           <div>
             <h1 className="text-2xl font-black text-forest-900 uppercase tracking-wider flex items-center gap-2">
               <ShieldCheck className="w-7 h-7 text-forest-600 animate-pulse" />
               Panel Moderasi & Pengelolaan
             </h1>
-            <p className="text-xs text-gray-400 font-semibold mt-1">
+            <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold mt-1">
               Setujui draf artikel yang tertunda, or kelola dan edit artikel yang telah terbit secara langsung.
             </p>
           </div>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex gap-2 border-b border-gray-200 mb-8">
+        <div className="flex gap-2 border-b border-gray-200 dark:border-gray-800 mb-8">
           <button
             onClick={() => setActiveTab("moderasi")}
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
               activeTab === "moderasi"
-                ? "border-forest-600 text-forest-900"
-                : "border-transparent text-gray-400 hover:text-gray-600"
+                ? "border-forest-600 text-forest-900 dark:text-lime dark:border-lime"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
           >
             <FileText className="w-4 h-4" />
@@ -456,8 +456,8 @@ export default function AdminPage() {
             onClick={() => setActiveTab("terbit")}
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
               activeTab === "terbit"
-                ? "border-forest-600 text-forest-900"
-                : "border-transparent text-gray-400 hover:text-gray-600"
+                ? "border-forest-600 text-forest-900 dark:text-lime dark:border-lime"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
           >
             <Check className="w-4 h-4" />
@@ -468,7 +468,7 @@ export default function AdminPage() {
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
               activeTab === "kegiatan"
                 ? "border-forest-600 text-forest-900 dark:text-lime"
-                : "border-transparent text-gray-400 hover:text-gray-600"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
           >
             <Calendar className="w-4 h-4" />
@@ -502,12 +502,12 @@ export default function AdminPage() {
         {activeTab === "moderasi" && (
           <div className="space-y-6">
             {drafts.length === 0 ? (
-              <div className="bg-white rounded-3xl p-16 shadow-md border border-gray-100 text-center flex flex-col items-center justify-center">
+              <div className="bg-white dark:bg-gray-900 rounded-3xl p-16 shadow-md border border-gray-100 dark:border-gray-800 text-center flex flex-col items-center justify-center transition-colors">
                 <span className="text-5xl mb-4">🎉</span>
-                <h2 className="text-lg font-black text-gray-900 uppercase tracking-wider mb-2">
+                <h2 className="text-lg font-black text-gray-900 dark:text-white uppercase tracking-wider mb-2">
                   Antrean Kosong!
                 </h2>
-                <p className="text-gray-400 text-xs max-w-sm leading-relaxed">
+                <p className="text-gray-400 dark:text-gray-500 text-xs max-w-sm leading-relaxed">
                   Semua draf artikel kontributor telah ditinjau dan dipublikasikan. Tidak ada antrean tertunda saat ini.
                 </p>
               </div>
@@ -515,7 +515,7 @@ export default function AdminPage() {
               drafts.map((draft) => (
                 <div
                   key={draft._id}
-                  className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
+                  className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-md border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
                 >
                   <div className="flex-1 space-y-3.5">
                     {/* Category Badge & Date */}
@@ -523,7 +523,7 @@ export default function AdminPage() {
                       <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 rounded text-[10px] font-bold text-forest-600 uppercase tracking-wide">
                         {draft.category}
                       </span>
-                      <span className="text-[10px] text-gray-400 font-semibold flex items-center gap-1">
+                      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-forest-600" />
                         {new Date(draft.publishedAt).toLocaleDateString("id-ID", {
                           year: "numeric",
@@ -532,7 +532,7 @@ export default function AdminPage() {
                         })}
                       </span>
                       {draft.author && (
-                        <span className="text-[10px] text-gray-400 font-semibold flex items-center gap-1">
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
                           <User className="w-3.5 h-3.5 text-forest-600" />
                           oleh {draft.author}
                         </span>
@@ -541,10 +541,10 @@ export default function AdminPage() {
 
                     {/* Title & Excerpt */}
                     <div>
-                      <h3 className="text-base md:text-lg font-bold text-gray-900 leading-tight">
+                      <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
                         {draft.title}
                       </h3>
-                      <p className="text-xs md:text-sm text-gray-500 mt-2 leading-relaxed">
+                      <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
                         {draft.excerpt}
                       </p>
                     </div>
@@ -561,8 +561,7 @@ export default function AdminPage() {
                     </a>
                   </div>
 
-                  {/* Actions Toolbar */}
-                  <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100">
+                  {/* Actions Toolbar */}                    <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
                     <Link
                       href={`/admin/artikel/${encodeURIComponent(draft._id)}/edit`}
                       className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
@@ -583,7 +582,7 @@ export default function AdminPage() {
                     <button
                       disabled={actionLoadingId !== null}
                       onClick={() => handleReject(draft._id)}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 hover:bg-red-50 hover:text-red-600 text-gray-600 rounded-full text-xs font-bold transition-all border border-gray-200 hover:border-red-100 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                      className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 hover:text-red-600 dark:hover:text-red-400 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Tolak & Hapus
@@ -599,12 +598,12 @@ export default function AdminPage() {
         {activeTab === "terbit" && (
           <div className="space-y-6">
             {publishedArticles.length === 0 ? (
-              <div className="bg-white rounded-3xl p-16 shadow-md border border-gray-100 text-center flex flex-col items-center justify-center">
+              <div className="bg-white dark:bg-gray-900 rounded-3xl p-16 shadow-md border border-gray-100 dark:border-gray-800 text-center flex flex-col items-center justify-center transition-colors">
                 <span className="text-5xl mb-4">📚</span>
-                <h2 className="text-lg font-black text-gray-900 uppercase tracking-wider mb-2">
+                <h2 className="text-lg font-black text-gray-900 dark:text-white uppercase tracking-wider mb-2">
                   Belum ada artikel terbit
                 </h2>
-                <p className="text-gray-400 text-xs max-w-sm leading-relaxed">
+                <p className="text-gray-400 dark:text-gray-500 text-xs max-w-sm leading-relaxed">
                   Tidak ditemukan artikel yang dipublikasikan di database Sanity.
                 </p>
               </div>
@@ -612,7 +611,7 @@ export default function AdminPage() {
               publishedArticles.map((article) => (
                 <div
                   key={article._id}
-                  className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
+                  className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-md border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
                 >
                   <div className="flex-1 space-y-3.5">
                     {/* Category Badge & Date */}
@@ -620,7 +619,7 @@ export default function AdminPage() {
                       <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 rounded text-[10px] font-bold text-forest-600 uppercase tracking-wide">
                         {article.category}
                       </span>
-                      <span className="text-[10px] text-gray-400 font-semibold flex items-center gap-1">
+                      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-forest-600" />
                         {new Date(article.publishedAt).toLocaleDateString("id-ID", {
                           year: "numeric",
@@ -629,7 +628,7 @@ export default function AdminPage() {
                         })}
                       </span>
                       {article.author && (
-                        <span className="text-[10px] text-gray-400 font-semibold flex items-center gap-1">
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
                           <User className="w-3.5 h-3.5 text-forest-600" />
                           oleh {article.author}
                         </span>
@@ -638,10 +637,10 @@ export default function AdminPage() {
 
                     {/* Title */}
                     <div>
-                      <h3 className="text-base md:text-lg font-bold text-gray-900 leading-tight">
+                      <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
                         {article.title}
                       </h3>
-                      <p className="text-xs md:text-sm text-gray-500 mt-2 leading-relaxed line-clamp-2">
+                      <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed line-clamp-2">
                         {article.excerpt}
                       </p>
                     </div>
@@ -656,20 +655,18 @@ export default function AdminPage() {
                     >
                       <Eye className="w-3.5 h-3.5" />
                       Lihat Isi & Detail (Halaman Baru)
-                    </a>
-                      <Link
-                        href={`/artikel/${article.slug}`}
-                        target="_blank"
-                        className="text-xs text-gray-400 font-bold hover:text-forest-600 hover:underline inline-flex items-center gap-1.5 cursor-pointer"
-                      >
+                    </a>                        <Link
+                          href={`/artikel/${article.slug}`}
+                          target="_blank"
+                          className="text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime hover:underline inline-flex items-center gap-1.5 cursor-pointer"
+                        >
                         <ExternalLink className="w-3.5 h-3.5" />
                         Buka di Halaman Baru
                       </Link>
                     </div>
                   </div>
 
-                  {/* Actions Toolbar */}
-                  <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100">
+                  {/* Actions Toolbar */}                    <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
                     <Link
                       href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
                       className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
@@ -681,7 +678,7 @@ export default function AdminPage() {
                     <button
                       disabled={actionLoadingId !== null}
                       onClick={() => handleDeletePublished(article._id)}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 hover:bg-red-50 hover:text-red-600 text-gray-600 rounded-full text-xs font-bold transition-all border border-gray-200 hover:border-red-100 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                      className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 hover:text-red-600 dark:hover:text-red-400 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Hapus Terbitan
@@ -874,7 +871,7 @@ export default function AdminPage() {
 
               {kegiatanList.length === 0 ? (
                 <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                  <p className="text-sm font-semibold text-gray-400">Belum ada kegiatan seru yang ditambahkan.</p>
+                  <p className="text-sm font-semibold text-gray-400 dark:text-gray-500">Belum ada kegiatan seru yang ditambahkan.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -890,7 +887,7 @@ export default function AdminPage() {
                         <div className="overflow-hidden">
                           <h4 className="text-sm font-bold text-gray-900 dark:text-white truncate">{item.title}</h4>
                           <p className="text-xs text-forest-600 dark:text-lime font-medium mt-0.5">{item.date}</p>
-                          <p className="text-[11px] text-gray-400 truncate mt-0.5">{item.location}</p>
+                          <p className="text-[11px] text-gray-400 dark:text-gray-500 truncate mt-0.5">{item.location}</p>
                         </div>
                       </div>
 
@@ -922,7 +919,7 @@ export default function AdminPage() {
         {/* Modal: View Full Details (Styled like public article details page) */}
         {selectedArticle && (
           <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-xs animate-[fadeIn_0.2s_ease-out]">
-            <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl relative flex flex-col">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl relative flex flex-col transition-colors">
               {/* Header Actions */}
               <div className="absolute right-6 top-6 z-10">
                 <button
@@ -936,7 +933,7 @@ export default function AdminPage() {
 
               <article className="w-full">
                 {/* Cover Image Container */}
-                <div className="relative h-[200px] md:h-[320px] w-full overflow-hidden bg-gray-100">
+                <div className="relative h-[200px] md:h-[320px] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
                   {(() => {
                     let imageSrc = "/placeholder.png";
                     const img: any = selectedArticle.coverImage;
@@ -969,11 +966,11 @@ export default function AdminPage() {
                       <span>{selectedArticle.category}</span>
                     </div>
 
-                    <h1 className="text-xl md:text-3xl font-black text-gray-900 mb-3 uppercase tracking-tight leading-tight">
+                    <h1 className="text-xl md:text-3xl font-black text-gray-900 dark:text-white mb-3 uppercase tracking-tight leading-tight">
                       {selectedArticle.title}
                     </h1>
 
-                    <div className="flex flex-wrap items-center gap-4 text-[11px] font-bold text-gray-400">
+                    <div className="flex flex-wrap items-center gap-4 text-[11px] font-bold text-gray-400 dark:text-gray-500">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-forest-600" />
                         <time>
@@ -994,21 +991,21 @@ export default function AdminPage() {
                   </header>
 
                   {/* Excerpt Divider Box */}
-                  <div className="border-l-4 border-forest-600 bg-forest-50/20 px-4 py-3 rounded-r-xl italic text-xs md:text-sm text-gray-600 font-medium mb-6">
+                  <div className="border-l-4 border-forest-600 bg-forest-50/20 dark:bg-forest-950/30 px-4 py-3 rounded-r-xl italic text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-6">
                     &ldquo;{selectedArticle.excerpt}&rdquo;
                   </div>
 
                   {/* Full Content Body Preview */}
-                  <div className="border-t border-gray-100 pt-6">
+                  <div className="border-t border-gray-100 dark:border-gray-800 pt-6">
                     <ArticleBody content={selectedArticle.content} />
                   </div>
 
                   {/* Actions Footer */}
-                  <div className="flex justify-end pt-8 mt-8 border-t border-gray-100">
-                    <button
-                      onClick={() => setSelectedArticle(null)}
-                      className="px-6 py-2.5 bg-gray-100 hover:bg-gray-250 text-gray-700 rounded-full text-xs font-black transition-all cursor-pointer"
-                    >
+                  <div className="flex justify-end pt-8 mt-8 border-t border-gray-100 dark:border-gray-800">
+                <button
+                  onClick={() => setSelectedArticle(null)}
+                  className="px-6 py-2.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-250 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-black transition-all cursor-pointer"
+                >
                       Kembali ke Panel Admin
                     </button>
                   </div>
@@ -1021,10 +1018,10 @@ export default function AdminPage() {
         {/* Modal: Edit Article Form */}
         {editArticle && (
           <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs animate-[fadeIn_0.2s_ease-out]">
-            <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative transition-colors">
               <button
                 onClick={() => setEditArticle(null)}
-                className="absolute right-6 top-6 text-gray-400 hover:text-gray-900 border border-gray-200 p-1.5 rounded-full hover:bg-gray-50 transition-all cursor-pointer"
+                className="absolute right-6 top-6 text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white border border-gray-200 dark:border-gray-700 p-1.5 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1036,25 +1033,23 @@ export default function AdminPage() {
 
               <form onSubmit={handleUpdateArticle} className="space-y-5">
                 {/* Title Input */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Judul Artikel</label>
-                  <input
-                    type="text"
-                    required
-                    value={editTitle}
-                    onChange={(e) => setEditTitle(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold"
-                  />
+                <div className="flex flex-col gap-1.5">                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Judul Artikel</label>                    <input
+                      type="text"
+                      required
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold text-gray-900 dark:text-white"
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Category select */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Kategori</label>
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Kategori</label>
                     <select
                       value={editCategory}
                       onChange={(e) => setEditCategory(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold bg-white"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold bg-white dark:bg-gray-950 text-gray-900 dark:text-white"
                     >
                       <option value="Artikel Islami">Artikel Islami</option>
                       <option value="Kajian Islami">Kajian Islami</option>
@@ -1064,37 +1059,34 @@ export default function AdminPage() {
                 </div>
 
                 {/* Excerpt */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Kutipan / Ringkasan</label>
+                <div className="flex flex-col gap-1.5">                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Kutipan / Ringkasan</label>
                   <textarea
                     required
                     rows={2}
                     value={editExcerpt}
                     onChange={(e) => setEditExcerpt(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-semibold text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   />
                 </div>
 
                 {/* Full Content */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Isi Konten Artikel</label>
+                <div className="flex flex-col gap-1.5">                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Isi Konten Artikel</label>
                   <textarea
                     required
                     rows={6}
                     value={editContentText}
                     onChange={(e) => setEditContentText(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium leading-relaxed"
-                  />
-                  <p className="text-[10px] text-gray-400 font-semibold">Gunakan pemisah baris ganda (Enter dua kali) untuk memisahkan paragraf.</p>
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 focus:border-forest-600 focus:outline-none transition-all font-medium leading-relaxed text-gray-900 dark:text-white"
+                  />                    <p className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold">Gunakan pemisah baris ganda (Enter dua kali) untuk memisahkan paragraf.</p>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
-                  <button
-                    type="button"
-                    onClick={() => setEditArticle(null)}
-                    className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full text-xs font-bold cursor-pointer"
-                  >
+                <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+                <button
+                  type="button"
+                  onClick={() => setEditArticle(null)}
+                  className="px-5 py-2.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-bold cursor-pointer"
+                >
                     Batal
                   </button>
                   <button

@@ -9,7 +9,7 @@ function TujuanItem({ item }: TujuanItemProps) {
         0{item}
       </span>
       <div className="h-px bg-forest-600 mb-8" />
-      <p className="text-base text-muted leading-relaxed">{item}</p>
+      <p className="text-base text-muted dark:text-gray-300 leading-relaxed">{item}</p>
     </li>
   );
 }

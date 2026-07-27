@@ -27,13 +27,13 @@ const sections = [
 
 export function ContentColumns() {
   return (
-    <section className="bg-white px-4 py-20">
+    <section className="bg-white dark:bg-transparent px-4 py-20 transition-colors">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-forest-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-forest-900 dark:text-lime md:text-4xl">
             Jelajahi Lebih Lanjut
           </h2>
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
             Temukan berbagai konten dan kegiatan inspiratif
           </p>
         </div>
@@ -52,19 +52,19 @@ export function ContentColumns() {
                   <div className="absolute inset-0 opacity-[0.04]">
                     <div className="h-full w-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.15)_1px,transparent_1px)] bg-[length:24px_24px]" />
                   </div>
-                  <Icon className="relative h-16 w-16 text-gray-400" />
+                  <Icon className="relative h-16 w-16 text-gray-400 dark:text-gray-500" />
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-1 flex-col p-6">
+                <div className="flex flex-1 flex-col p-6 transition-colors">
                   {/* Purple circle icon */}
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-purple-600/10 text-purple-600">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-xl font-semibold text-forest-900">
+                  <h3 className="text-xl font-semibold text-forest-900 dark:text-lime">
                     {section.title}
                   </h3>
-                  <p className="mt-3 flex-1 leading-relaxed text-gray-600">
+                  <p className="mt-3 flex-1 leading-relaxed text-gray-600 dark:text-gray-300">
                     {section.description}
                   </p>
                   <div className="mt-6">

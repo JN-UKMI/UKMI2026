@@ -113,7 +113,7 @@ export function DoaCard({
               setTimeout(() => setCopied(false), 2000);
             }}
             title="Salin Doa"
-            className="p-1.5 rounded-full text-gray-400 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+            className="p-1.5 rounded-full text-gray-400 dark:text-gray-500 hover:text-forest-600 dark:hover:text-lime hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-forest-600 dark:text-lime" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
@@ -122,7 +122,7 @@ export function DoaCard({
             <button
               onClick={reset}
               title="Reset hitungan"
-              className="p-1.5 rounded-full text-gray-400 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+              className="p-1.5 rounded-full text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>

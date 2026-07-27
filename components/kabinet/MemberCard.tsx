@@ -168,7 +168,7 @@ export function MemberCard({ member }: MemberCardProps) {
 
       {/* 7. FOOTER TEXT: KABINET ISKANDAR MUDA */}
       <div className="relative z-10 w-full text-center pt-1.5 border-t border-gray-100 dark:border-gray-800">
-        <span className="text-[8.5px] md:text-[9.5px] font-black font-mono text-gray-400 dark:text-gray-400 tracking-widest uppercase">
+        <span className="text-[8.5px] md:text-[9.5px] font-black font-mono text-gray-400 dark:text-gray-500 tracking-widest uppercase">
           KABINET ISKANDAR MUDA
         </span>
       </div>

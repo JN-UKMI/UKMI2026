@@ -325,8 +325,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
     return "/placeholder.png";
   };
 
-  return (
-    <div className="bg-white">
+  return (      <div className="bg-white dark:bg-gray-950">
       <article>
         {/* Cover Image */}
         <div className="relative h-[250px] md:h-[450px] w-full overflow-hidden">
@@ -344,7 +343,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
           {/* Back Button */}
           <Link
             href="/artikel"
-            className="inline-flex items-center gap-2 text-sm font-bold text-gray-700 hover:text-forest-600 transition-colors mb-8 cursor-pointer active:scale-95"
+            className="inline-flex items-center gap-2 text-sm font-bold text-gray-700 dark:text-gray-200 hover:text-forest-600 transition-colors mb-8 cursor-pointer active:scale-95"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Daftar Artikel
@@ -356,10 +355,10 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
               <Tag className="w-3.5 h-3.5" />
               <span>{article.category}</span>
             </div>
-            <h1 className="text-2xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight leading-tight">
+            <h1 className="text-2xl md:text-4xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-tight leading-tight">
               {article.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-gray-400">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-gray-400 dark:text-gray-500">
               {article.publishedAt && (
                 <div className="flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-forest-600" />
@@ -382,7 +381,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
           </header>
 
           {/* Article Content */}
-          <div className="prose prose-forest prose-lg max-w-none mb-12">
+          <div className="prose prose-forest dark:prose-invert prose-lg max-w-none mb-12">
             <ArticleBody content={article.content} />
           </div>
         </div>
