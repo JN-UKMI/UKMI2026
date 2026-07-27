@@ -6,43 +6,63 @@
   "program_kerja": [
     {
       "title": "Rapat Kerja",
-      "description": "Wadah sidang penetapan, sosialisasi, dan koordinasi seluruh rencana program kerja JN UKMI 2026."
+      "description": "Wadah sidang penetapan, sosialisasi, dan koordinasi seluruh rencana program kerja JN UKMI 2026.",
+      "tanggal": "Awal Periode",
+      "target": "Proker Terkoordinasi"
     },
     {
       "title": "Pleno Tengah",
-      "description": "Sidang komunikasi dan evaluasi pertengahan periode terhadap keberjalanan program kerja serta kinerja pengurus."
+      "description": "Sidang komunikasi dan evaluasi pertengahan periode terhadap keberjalanan program kerja serta kinerja pengurus.",
+      "tanggal": "Pertengahan Periode",
+      "target": "Evaluasi Menyeluruh"
     },
     {
       "title": "Pleno Akhir",
-      "description": "Sidang evaluasi menyeluruh terhadap pelaksanaan program kerja selama satu periode kepengurusan."
+      "description": "Sidang evaluasi menyeluruh terhadap pelaksanaan program kerja selama satu periode kepengurusan.",
+      "tanggal": "Akhir Periode",
+      "target": "LPJ Komprehensif"
     },
     {
       "title": "Muktamar",
-      "description": "Musyawarah besar pertanggungjawaban LPJ Ketua Umum dan reorganisasi pemulihan estafet kepemimpinan baru."
+      "description": "Musyawarah besar pertanggungjawaban LPJ Ketua Umum dan reorganisasi pemulihan estafet kepemimpinan baru.",
+      "tanggal": "Akhir Periode",
+      "target": "Estafet Kepemimpinan"
     },
     {
       "title": "Inventarisasi, Pengelolaan Surat & Dokumen",
-      "description": "Pendataan barang inventaris sekretariat serta penomoran/pengarsipan surat masuk-keluar via Google Drive."
+      "description": "Pendataan barang inventaris sekretariat serta penomoran/pengarsipan surat masuk-keluar via Google Drive.",
+      "tanggal": "Bulanan",
+      "target": "Arsip Digital Lengkap"
     },
     {
       "title": "Sosialisasi Buku Pedoman Organisasi (BPO)",
-      "description": "Penyediaan dan sosialisasi pedoman dasar tata kelola serta koridor aturan berorganisasi bagi pengurus."
+      "description": "Penyediaan dan sosialisasi pedoman dasar tata kelola serta koridor aturan berorganisasi bagi pengurus.",
+      "tanggal": "Triwulan I",
+      "target": "Pengurus Paham BPO"
     },
     {
       "title": "Buku Ukmi (BUMI)",
-      "description": "Pengelolaan perpustakaan buku cetak di sekretariat dan rujukan e-book digital untuk meningkatkan literasi pengurus."
+      "description": "Pengelolaan perpustakaan buku cetak di sekretariat dan rujukan e-book digital untuk meningkatkan literasi pengurus.",
+      "tanggal": "Sepanjang Periode",
+      "target": "Perpustakaan Aktif"
     },
     {
       "title": "Piket Sekre",
-      "description": "Penjagaan kebersihan, kerapian, dan penataan barang inventaris di Sekretariat JN UKMI secara bergilir."
+      "description": "Penjagaan kebersihan, kerapian, dan penataan barang inventaris di Sekretariat JN UKMI secara bergilir.",
+      "tanggal": "Harian",
+      "target": "Sekretariat Bersih & Rapi"
     },
     {
       "title": "Rapat Harian Terbatas",
-      "description": "Rapat koordinasi dan evaluasi berkala Pimpinan Harian Tetap (PHT) dan Pimpinan untuk menyelaraskan proker."
+      "description": "Rapat koordinasi dan evaluasi berkala Pimpinan Harian Tetap (PHT) dan Pimpinan untuk menyelaraskan proker.",
+      "tanggal": "Pekanan",
+      "target": "Koordinasi Rutin"
     },
     {
       "title": "Kalender UKMI",
-      "description": "Penyusunan spreadsheet timeline dan publikasi pamflet kalender agenda bulanan untuk koordinasi pengurus."
+      "description": "Penyusunan spreadsheet timeline dan publikasi pamflet kalender agenda bulanan untuk koordinasi pengurus.",
+      "tanggal": "Bulanan",
+      "target": "Kalender Tersebar"
     }
   ],
   "staff": [

@@ -6,27 +6,39 @@
   "program_kerja": [
     {
       "title": "Kajian Rutin (KANTIN)",
-      "description": "Majelis kajian rutin dan diskusi interaktif di Masjid Nurul Huda UNS untuk meningkatkan keimanan dan wawasan keislaman."
+      "description": "Majelis kajian rutin dan diskusi interaktif di Masjid Nurul Huda UNS untuk meningkatkan keimanan dan wawasan keislaman.",
+      "tanggal": "Pekanan",
+      "target": "Min. 50 Peserta / Edisi"
     },
     {
       "title": "Sebelas Maret Islamic Festival (SIFT)",
-      "description": "Festival Islam terbesar di UNS berupa Talkshow/Kajian Akbar puncak, perlombaan islami, dan social campaign berskala besar."
+      "description": "Festival Islam terbesar di UNS berupa Talkshow/Kajian Akbar puncak, perlombaan islami, dan social campaign berskala besar.",
+      "tanggal": "Triwulan II",
+      "target": "500+ Peserta"
     },
     {
       "title": "Al Khobar",
-      "description": "Media syiar mikroblog edukatif yang mengangkat isu kampus dan tantangan mahasiswa muslim dalam perspektif Islam."
+      "description": "Media syiar mikroblog edukatif yang mengangkat isu kampus dan tantangan mahasiswa muslim dalam perspektif Islam.",
+      "tanggal": "Bulanan",
+      "target": "4 Edisi / Bulan"
     },
     {
       "title": "Forum Kajian Isu Strategis (FOKUS)",
-      "description": "Kajian mendalam, pencerdasan ilmiah, dan forum diskusi luring terhadap isu-isu strategis keumatan dan nasional."
+      "description": "Kajian mendalam, pencerdasan ilmiah, dan forum diskusi luring terhadap isu-isu strategis keumatan dan nasional.",
+      "tanggal": "Triwulan II & IV",
+      "target": "2 Kali / Periode"
     },
     {
       "title": "UKMI Reels",
-      "description": "Produksi konten video reels dakwah singkat di Instagram untuk menyebarkan inspirasi, tips ibadah, dan hikmah harian."
+      "description": "Produksi konten video reels dakwah singkat di Instagram untuk menyebarkan inspirasi, tips ibadah, dan hikmah harian.",
+      "tanggal": "Pekanan",
+      "target": "Konten Konsisten"
     },
     {
       "title": "QuizLam",
-      "description": "Kuis teka-teki Islam interaktif via Instagram Story untuk meningkatkan engagement dan edukasi ringan keislaman."
+      "description": "Kuis teka-teki Islam interaktif via Instagram Story untuk meningkatkan engagement dan edukasi ringan keislaman.",
+      "tanggal": "Kondisional",
+      "target": "Partisipasi Aktif"
     }
   ],
   "staff": [

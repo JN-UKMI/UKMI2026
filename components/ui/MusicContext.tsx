@@ -231,7 +231,16 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
   const handleFabClick = () => {
     if (typeof window !== "undefined" && window.innerWidth < 768) {
-      toggleMute();
+      if (isMuted) {
+        // One-click: unmute + start playing
+        toggleMute();
+        if (!isPlaying) {
+          audioRef.current?.play().then(() => setIsPlaying(true)).catch(() => {});
+        }
+      } else {
+        // Mute to silence
+        toggleMute();
+      }
     } else {
       setIsExpanded((prev) => !prev);
     }

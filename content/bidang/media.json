@@ -6,35 +6,51 @@
   "program_kerja": [
     {
       "title": "Publish It!",
-      "description": "Pengelolaan dan publikasi media sosial digital (Instagram, TikTok, Telegram, YouTube) berbasis SOP Publikasi sebagai sarana dakwah."
+      "description": "Pengelolaan dan publikasi media sosial digital (Instagram, TikTok, Telegram, YouTube) berbasis SOP Publikasi sebagai sarana dakwah.",
+      "tanggal": "Harian",
+      "target": "Rilis Tepat Waktu"
     },
     {
       "title": "Pelatihan Desain",
-      "description": "Pembekalan dan pelatihan teknik desain grafis serta videografi bagi pengurus JN UKMI, perwakilan media LDF, dan umum."
+      "description": "Pembekalan dan pelatihan teknik desain grafis serta videografi bagi pengurus JN UKMI, perwakilan media LDF, dan umum.",
+      "tanggal": "Triwulan I & III",
+      "target": "Pengurus Terampil"
     },
     {
       "title": "Wejangan Grafis",
-      "description": "Penyampaian pesan dakwah dan reminder keislaman tematik berupa poster/infografis edukatif secara rutin di media sosial."
+      "description": "Penyampaian pesan dakwah dan reminder keislaman tematik berupa poster/infografis edukatif secara rutin di media sosial.",
+      "tanggal": "Pekanan",
+      "target": "Konten Konsisten"
     },
     {
       "title": "KINIUKMI (Kini Informasi UKMI)",
-      "description": "Penyediaan rubrik tulisan kajian Islam kontemporer dan buletin dakwah digital yang dipublikasikan berkala di website resmi."
+      "description": "Penyediaan rubrik tulisan kajian Islam kontemporer dan buletin dakwah digital yang dipublikasikan berkala di website resmi.",
+      "tanggal": "Bulanan",
+      "target": "4 Artikel / Bulan"
     },
     {
       "title": "Website JN UKMI",
-      "description": "Pengelolaan, pengembangan, dan perbaikan berkesinambungan situs web resmi sebagai pusat portal informasi dan branding organisasi."
+      "description": "Pengelolaan, pengembangan, dan perbaikan berkesinambungan situs web resmi sebagai pusat portal informasi dan branding organisasi.",
+      "tanggal": "Sepanjang Periode",
+      "target": "Website Aktif & Update"
     },
     {
       "title": "KREASIIN (Kreativitas Inspiratif)",
-      "description": "Produksi video dakwah singkat kreatif (reels/short content) di media sosial untuk menyebarkan pesan positif keislaman."
+      "description": "Produksi video dakwah singkat kreatif (reels/short content) di media sosial untuk menyebarkan pesan positif keislaman.",
+      "tanggal": "Pekanan",
+      "target": "Min. 2 Video / Bulan"
     },
     {
       "title": "Hearme (Hear UKMI)",
-      "description": "Produksi talkshow podcast audio & videografi bersama narasumber inspiratif membahas topik keislaman dan isu hangat."
+      "description": "Produksi talkshow podcast audio & videografi bersama narasumber inspiratif membahas topik keislaman dan isu hangat.",
+      "tanggal": "Triwulan II & IV",
+      "target": "Min. 2 Episode / Periode"
     },
     {
       "title": "Company Profile",
-      "description": "Pembuatan video profil resmi organisasi guna mengenalkan visi, misi, dan program unggulan JN UKMI kepada civitas akademika."
+      "description": "Pembuatan video profil resmi organisasi guna mengenalkan visi, misi, dan program unggulan JN UKMI kepada civitas akademika.",
+      "tanggal": "Triwulan III",
+      "target": "1 Video Profil"
     }
   ],
   "staff": [

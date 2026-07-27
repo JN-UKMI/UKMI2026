@@ -20,6 +20,8 @@ import {
   CheckCircle,
   AlertCircle,
   X,
+  Upload,
+  ImageIcon,
 } from "lucide-react";
 
 interface ArticleData {
@@ -53,6 +55,12 @@ export default function AdminEditArticlePage() {
   const [editExcerpt, setEditExcerpt] = useState("");
   const [editContent, setEditContent] = useState("");
   const [editAuthor, setEditAuthor] = useState("");
+  const [editPublishedAt, setEditPublishedAt] = useState("");
+
+  // Cover image state
+  const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(null);
+  const [coverImageChanged, setCoverImageChanged] = useState(false);
 
   // ── Fetch article by Sanity ID ──
   useEffect(() => {
@@ -74,6 +82,11 @@ export default function AdminEditArticlePage() {
         setEditCategory(data.article.category);
         setEditExcerpt(data.article.excerpt);
         setEditAuthor(data.article.author || "");
+        // Format publishedAt to YYYY-MM-DD for date input
+        const pubDate = data.article.publishedAt
+          ? new Date(data.article.publishedAt).toISOString().split("T")[0]
+          : new Date().toISOString().split("T")[0];
+        setEditPublishedAt(pubDate);
 
         // Convert content to HTML for NovelEditor
         const content = data.article.content;
@@ -99,6 +112,35 @@ export default function AdminEditArticlePage() {
     setEditContent(html);
   }, []);
 
+  // ── Handle cover image upload ──
+  const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        setError("Silakan pilih file gambar yang valid (JPG, PNG, WEBP).");
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        setError("Ukuran gambar maksimal adalah 5MB.");
+        return;
+      }
+      setError("");
+      setCoverImageFile(file);
+      setCoverImageChanged(true);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeCoverImage = () => {
+    setCoverImageFile(null);
+    setCoverImagePreview(null);
+    setCoverImageChanged(true);
+  };
+
   // ── Save updated article ──
   const handleSave = async () => {
     if (!article) return;
@@ -122,17 +164,49 @@ export default function AdminEditArticlePage() {
     setSaving(true);
 
     try {
+      // Upload new cover image if changed
+      let coverImagePayload: any = undefined;
+      if (coverImageChanged) {
+        if (coverImageFile && coverImagePreview) {
+          // Upload the new image
+          const formData = new FormData();
+          formData.append("file", coverImageFile);
+          const uploadRes = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
+          });
+          if (!uploadRes.ok) {
+            const uploadErr = await uploadRes.json();
+            throw new Error(uploadErr.error || "Gagal mengunggah gambar sampul.");
+          }
+          const uploadData = await uploadRes.json();
+          coverImagePayload = {
+            url: uploadData.url,
+            assetId: uploadData.assetId,
+          };
+        } else {
+          // User removed the image — send null to clear it
+          coverImagePayload = null;
+        }
+      }
+
+      const bodyPayload: Record<string, any> = {
+        id: article._id,
+        title: editTitle,
+        category: editCategory,
+        excerpt: editExcerpt,
+        content: editContent,
+        author: editAuthor,
+        publishedAt: editPublishedAt,
+      };
+      if (coverImageChanged) {
+        bodyPayload.coverImage = coverImagePayload;
+      }
+
       const res = await fetch("/api/admin/articles/manage", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: article._id,
-          title: editTitle,
-          category: editCategory,
-          excerpt: editExcerpt,
-          content: editContent,
-          author: editAuthor,
-        }),
+        body: JSON.stringify(bodyPayload),
       });
 
       const data = await res.json();
@@ -144,9 +218,24 @@ export default function AdminEditArticlePage() {
       // Update local article data
       setArticle((prev) =>
         prev
-          ? { ...prev, title: editTitle, category: editCategory, excerpt: editExcerpt, content: editContent, author: editAuthor }
+          ? {
+              ...prev,
+              title: editTitle,
+              category: editCategory,
+              excerpt: editExcerpt,
+              content: editContent,
+              author: editAuthor,
+              publishedAt: editPublishedAt,
+              coverImage: coverImageChanged && coverImagePreview
+                ? coverImagePreview
+                : coverImageChanged
+                  ? null
+                  : prev.coverImage,
+            }
           : prev
       );
+      // Reset image change flag
+      setCoverImageChanged(false);
       setIsEditing(false);
 
       // Clear success after 4s
@@ -207,93 +296,141 @@ export default function AdminEditArticlePage() {
 
   return (
     <div className="bg-gray-50 dark:bg-gray-950 min-h-screen">
-      {/* ── Top Nav Bar ── */}
-      <div className="sticky top-0 z-30 bg-white/95 dark:bg-gray-900/95 backdrop-blur border-b border-gray-200 dark:border-gray-800 px-4 py-3 flex items-center justify-between">
-        <Link
-          href="/admin"
-          className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Panel Admin
-        </Link>
-
-        <div className="flex items-center gap-3">
-          {successMsg && (
-            <span className="text-xs font-bold text-green-600 flex items-center gap-1">
-              <CheckCircle className="w-4 h-4" />
-              {successMsg}
-            </span>
-          )}
-          {error && (
-            <span className="text-xs font-bold text-red-600 flex items-center gap-1">
-              <AlertCircle className="w-4 h-4" />
-              {error}
-            </span>
-          )}
-
-          {!isEditing ? (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold flex items-center gap-2 shadow-sm transition-all cursor-pointer active:scale-95"
-            >
-              <Edit className="w-3.5 h-3.5" />
-              Edit Artikel
-            </button>
-          ) : (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => {
-                  setIsEditing(false);
-                  setError("");
-                  // Reset form to current article state
-                  if (article) {
-                    setEditTitle(article.title);
-                    setEditCategory(article.category);
-                    setEditExcerpt(article.excerpt);
-                    setEditAuthor(article.author || "");
-                    const c = article.content;
-                    setEditContent(typeof c === "string" ? c : Array.isArray(c) ? portableTextToHtml(c) : "");
-                  }
-                }}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-bold flex items-center gap-2 transition-all cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-                Batal
-              </button>
-              <button
-                onClick={handleSave}
-                disabled={saving}
-                className="px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold flex items-center gap-2 shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50"
-              >
-                {saving ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    Menyimpan...
-                  </>
-                ) : (
-                  <>
-                    <Save className="w-3.5 h-3.5" />
-                    Simpan
-                  </>
-                )}
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
       {/* ── Article Preview (like the public detail page) ── */}
       <article>
         {/* Cover Image */}
-        <div className="relative h-[250px] md:h-[400px] w-full overflow-hidden bg-gray-200">
+        <div className="relative h-[250px] md:h-[400px] w-full overflow-hidden bg-gray-200 group">
           <Image
-            src={getCoverUrl()}
+            src={
+              isEditing && coverImagePreview
+                ? coverImagePreview
+                : isEditing && coverImageChanged && !coverImagePreview
+                  ? "/placeholder.png"
+                  : getCoverUrl()
+            }
             alt={article.title}
             fill
-            className="object-cover"
+            className={`object-cover transition-opacity ${isEditing ? "opacity-70" : "opacity-100"}`}
             priority
             unoptimized
           />
+          {/* Edit overlay for cover image */}
+          {isEditing && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+              <label className="flex flex-col items-center gap-2 cursor-pointer group/label">
+                <div className="w-14 h-14 bg-white/90 backdrop-blur rounded-2xl shadow-lg flex items-center justify-center group-hover/label:scale-105 transition-transform">
+                  {coverImagePreview ? (
+                    <ImageIcon className="w-6 h-6 text-forest-600" />
+                  ) : (
+                    <Upload className="w-6 h-6 text-forest-600" />
+                  )}
+                </div>
+                <span className="text-xs font-bold text-white bg-black/50 px-3 py-1 rounded-full backdrop-blur">
+                  {coverImagePreview ? "Ganti Gambar Sampul" : "Klik untuk Unggah Gambar Baru"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleCoverImageChange}
+                  className="hidden"
+                />
+              </label>
+              {coverImagePreview && (
+                <button
+                  type="button"
+                  onClick={removeCoverImage}
+                  className="absolute top-4 right-4 p-2 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg transition-colors cursor-pointer"
+                  title="Hapus gambar"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* ── Nav Bar (below thumbnail) ── */}
+        <div className="sticky top-0 z-30 bg-white/95 dark:bg-gray-900/95 backdrop-blur border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Panel Admin
+            </Link>
+
+            <div className="flex items-center gap-3">
+              {successMsg && (
+                <span className="text-xs font-bold text-green-600 flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4" />
+                  {successMsg}
+                </span>
+              )}
+              {error && (
+                <span className="text-xs font-bold text-red-600 flex items-center gap-1">
+                  <AlertCircle className="w-4 h-4" />
+                  {error}
+                </span>
+              )}
+
+              {!isEditing ? (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold flex items-center gap-2 shadow-sm transition-all cursor-pointer active:scale-95"
+                >
+                  <Edit className="w-3.5 h-3.5" />
+                  Edit Artikel
+                </button>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      setIsEditing(false);
+                      setError("");
+                      if (article) {
+                        setEditTitle(article.title);
+                        setEditCategory(article.category);
+                        setEditExcerpt(article.excerpt);
+                        setEditAuthor(article.author || "");
+                        const pubDate = article.publishedAt
+                          ? new Date(article.publishedAt).toISOString().split("T")[0]
+                          : new Date().toISOString().split("T")[0];
+                        setEditPublishedAt(pubDate);
+                        const c = article.content;
+                        setEditContent(typeof c === "string" ? c : Array.isArray(c) ? portableTextToHtml(c) : "");
+                        // Reset cover image changes
+                        setCoverImageFile(null);
+                        setCoverImagePreview(null);
+                        setCoverImageChanged(false);
+                      }
+                    }}
+                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-bold flex items-center gap-2 transition-all cursor-pointer"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    Batal
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    disabled={saving}
+                    className="px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold flex items-center gap-2 shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+                  >
+                    {saving ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        Menyimpan...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-3.5 h-3.5" />
+                        Simpan
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="max-w-4xl mx-auto px-4 py-10 md:py-14">
@@ -330,17 +467,29 @@ export default function AdminEditArticlePage() {
             )}
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-gray-400">
-              {article.publishedAt && (
+              {isEditing ? (
                 <div className="flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-forest-600" />
-                  <time>
-                    {new Date(article.publishedAt).toLocaleDateString("id-ID", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
+                  <input
+                    type="date"
+                    value={editPublishedAt}
+                    onChange={(e) => setEditPublishedAt(e.target.value)}
+                    className="bg-transparent border border-dashed border-gray-300 focus:border-forest-600 focus:outline-none text-xs font-semibold text-gray-500 px-2 py-0.5 rounded"
+                  />
                 </div>
+              ) : (
+                article.publishedAt && (
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-forest-600" />
+                    <time>
+                      {new Date(article.publishedAt).toLocaleDateString("id-ID", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                  </div>
+                )
               )}
               {isEditing ? (
                 <div className="flex items-center gap-1.5">

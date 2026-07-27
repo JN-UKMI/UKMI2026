@@ -114,14 +114,14 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                 className="w-full lg:w-[calc(50%-12px)] shrink-0"
               >
                 <div className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col sm:flex-row h-full transition-all duration-300 group hover:shadow-2xl hover:border-forest-600 dark:hover:border-lime dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)]">
-                  {/* Left Column: Full Portrait Poster with Date Badge */}
-                  <div className="relative w-full sm:w-5/12 aspect-[3/4] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
+                  {/* Left Column: Poster with Date Badge */}
+                  <div className="relative w-full sm:w-5/12 aspect-[16/10] sm:aspect-[3/4] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <Image
                       src={item.posterUrl || "/placeholder.png"}
                       alt={item.title}
                       fill
                       sizes="(max-width: 640px) 100vw, 400px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover object-top sm:object-center transition-transform duration-500 group-hover:scale-105"
                       priority
                     />
                     

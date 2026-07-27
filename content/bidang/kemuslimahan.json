@@ -6,23 +6,33 @@
   "program_kerja": [
     {
       "title": "MUSPACE (Muslimah Space)",
-      "description": "Wadah pembinaan rutin, pelatihan crafting, serta kajian keislaman dialogis kolaboratif untuk memperdalam ilmu dan mengasah keterampilan muslimah."
+      "description": "Wadah pembinaan rutin, pelatihan crafting, serta kajian keislaman dialogis kolaboratif untuk memperdalam ilmu dan mengasah keterampilan muslimah.",
+      "tanggal": "Bulanan",
+      "target": "Min. 30 Peserta / Edisi"
     },
     {
       "title": "GALAKSI (Gala Kabar dan Informasi Muslimah)",
-      "description": "Dakwah media sosial Instagram @mbaknurul_ukmi melalui konten edukatif kajian, isu, tips & trick, dan reminder kemuslimahan."
+      "description": "Dakwah media sosial Instagram @mbaknurul_ukmi melalui konten edukatif kajian, isu, tips & trick, dan reminder kemuslimahan.",
+      "tanggal": "Pekanan",
+      "target": "Konten Konsisten"
     },
     {
       "title": "TTS (Teka-Teki Sholihah)",
-      "description": "Sarana edukatif kreatif kuis interaktif berhadiah di Instagram Story untuk meningkatkan engagement dan literasi digital mahasiswi."
+      "description": "Sarana edukatif kreatif kuis interaktif berhadiah di Instagram Story untuk meningkatkan engagement dan literasi digital mahasiswi.",
+      "tanggal": "Kondisional",
+      "target": "Engagement Aktif"
     },
     {
       "title": "Silat FORNIS",
-      "description": "Wadah komunikasi, sharing session, FGD, dan penyelarasan dakwah kemuslimahan antara LDK dan LDF se-UNS."
+      "description": "Wadah komunikasi, sharing session, FGD, dan penyelarasan dakwah kemuslimahan antara LDK dan LDF se-UNS.",
+      "tanggal": "Bulanan",
+      "target": "13 LDF Terkoordinasi"
     },
     {
       "title": "GEMUS (Gema Muslimah)",
-      "description": "Event besar kemuslimahan mencakup perlombaan, seminar, kajian akbar, dan bedah buku untuk melahirkan muslimah berdaya."
+      "description": "Event besar kemuslimahan mencakup perlombaan, seminar, kajian akbar, dan bedah buku untuk melahirkan muslimah berdaya.",
+      "tanggal": "Triwulan III",
+      "target": "200+ Peserta"
     }
   ],
   "staff": [

@@ -17,11 +17,13 @@ export function LdfCard({ ldf }: LdfCardProps) {
       whileHover={{ y: -6, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-4 hover:border-lime transition-all duration-300 overflow-hidden flex flex-col justify-between"
+      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-4 hover:border-lime transition-all duration-300 overflow-hidden"
     >
-      <div className="flex flex-col flex-1 items-stretch justify-between">
+      {/* ── Mobile: Horizontal layout (image left, text right) ── */}
+      {/* ── sm+: Vertical layout (image top, text bottom) ── */}
+      <div className="flex flex-row sm:flex-col h-full">
         {/* 1. Gambar */}
-        <div className="relative w-full aspect-[16/10] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
+        <div className="relative w-28 h-28 sm:w-full sm:aspect-[16/10] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
           <Image
             src={ldf.gambar || "/placeholder.png"}
             alt={ldf.nama}
@@ -34,10 +36,10 @@ export function LdfCard({ ldf }: LdfCardProps) {
         </div>
 
         {/* Content Container */}
-        <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 gap-3 sm:gap-0">
+        <div className="flex-1 p-3 sm:p-5 flex flex-col justify-between min-w-0">
           <div>
-            {/* 2. Nama LDF */}
-            <h3 className="text-sm sm:text-lg font-bold text-forest-900 dark:text-lime leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
+            {/* 2. Nama */}
+            <h3 className="text-sm sm:text-lg font-bold text-forest-900 dark:text-lime leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors line-clamp-2 sm:line-clamp-none">
               {ldf.nama}
             </h3>
 
@@ -48,7 +50,7 @@ export function LdfCard({ ldf }: LdfCardProps) {
           </div>
 
           {/* 4. Tombol Menuju Instagram */}
-          <div className="pt-1 sm:pt-4 sm:mt-auto">
+          <div className="pt-1.5 sm:pt-4 mt-auto">
             <motion.a
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.95 }}
@@ -56,9 +58,10 @@ export function LdfCard({ ldf }: LdfCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Kunjungi Instagram ${ldf.nama}`}
-              className="flex items-center justify-center gap-1.5 sm:gap-2 w-full py-2 sm:py-2.5 px-3 sm:px-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-[11px] sm:text-xs font-bold transition-all shadow-sm hover:shadow-md cursor-pointer"
+              className="flex items-center justify-center gap-1 sm:gap-2 w-full py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-[11px] sm:text-xs font-bold transition-all shadow-sm hover:shadow-md cursor-pointer"
             >
-              <span>Kunjungi Instagram</span>
+              <span className="hidden sm:inline">Kunjungi Instagram</span>
+              <span className="sm:hidden">Instagram</span>
               <motion.span
                 animate={{ x: [0, 3, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}

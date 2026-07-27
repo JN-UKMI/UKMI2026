@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Calendar, Target, Shield, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar, Target, Sparkles } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 
 interface ProgramKerjaCarouselProps {
-  program_kerja: Array<{ title: string; description: string }>;
+  program_kerja: Array<{ title: string; description: string; tanggal?: string; target?: string }>;
 }
 
 export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProps) {
@@ -45,16 +45,9 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
     }
   };
 
-  // Helper mock details for card enrichment
-  const getEnrichedDetails = (index: number) => {
-    const targets = ["Triwulan I", "Bulanan", "Setiap Semester", "Kondisional", "Pekanan"];
-    const indicators = ["Terlaksana 100%", "Min. 50 Peserta", "Konten Konsisten", "Sinergi LDF Aktif", "Rilis Tepat Waktu"];
-    
-    return {
-      target: targets[index % targets.length],
-      indicator: indicators[index % indicators.length]
-    };
-  };
+  // Fallback untuk data yang belum diisi
+  const fallbackTargets = ["Triwulan I", "Triwulan II", "Bulanan", "Setiap Semester", "Kondisional", "Pekanan"];
+  const fallbackTarget = (i: number) => fallbackTargets[i % fallbackTargets.length];
 
   return (
     <section className="bg-transparent py-20 px-4 transition-colors duration-300">
@@ -74,7 +67,8 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
               style={{ transform: `translateX(calc(-${currentIndex * (100 / visibleCards)}% - ${currentIndex * (24 / visibleCards)}px))` }}
             >
               {itemsToShow.map((prog, i) => {
-                const info = getEnrichedDetails(i);
+                const tanggal = prog.tanggal || fallbackTarget(i);
+                const target = prog.target || "Program Kerja Bidang";
                 return (
                   <div
                     key={i}
@@ -97,15 +91,15 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                       </p>
                     </div>
 
-                    {/* Bottom Enriched Details Pill */}
+                    {/* Bottom Details Pill */}
                     <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-medium">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
-                        {info.target}
+                        {tanggal}
                       </span>
                       <span className="flex items-center gap-1 text-forest-700 dark:text-lime font-bold">
-                        <Shield className="w-3.5 h-3.5 text-lime" />
-                        {info.indicator}
+                        <Target className="w-3.5 h-3.5 text-lime" />
+                        {target}
                       </span>
                     </div>
                   </div>

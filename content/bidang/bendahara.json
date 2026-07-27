@@ -6,31 +6,45 @@
   "program_kerja": [
     {
       "title": "Tertib Administrasi",
-      "description": "Pembuatan laporan keuangan kas besar JN UKMI (pemasukan dan pengeluaran) secara berkala dan transparansi kas pengurus secara akuntabel."
+      "description": "Pembuatan laporan keuangan kas besar JN UKMI (pemasukan dan pengeluaran) secara berkala dan transparansi kas pengurus secara akuntabel.",
+      "tanggal": "Bulanan",
+      "target": "Laporan Tepat Waktu"
     },
     {
       "title": "Penggalian Dana",
-      "description": "Pengajuan proposal pendanaan, RAB, dan pertanggungjawaban SPJ ke Rektorat/Mawa serta penarikan kas pengurus rutin tiap bulan."
+      "description": "Pengajuan proposal pendanaan, RAB, dan pertanggungjawaban SPJ ke Rektorat/Mawa serta penarikan kas pengurus rutin tiap bulan.",
+      "tanggal": "Triwulan I & III",
+      "target": "Dana Tersalurkan 100%"
     },
     {
       "title": "PELAPIS (Pelatihan Administrasi & Pimpinan Sidang)",
-      "description": "Pelatihan dan simulasi pembuatan TOR, proposal kegiatan, proposal dana, SIK, RAB, dan alur SPJ bagi pengurus JN UKMI."
+      "description": "Pelatihan dan simulasi pembuatan TOR, proposal kegiatan, proposal dana, SIK, RAB, dan alur SPJ bagi pengurus JN UKMI.",
+      "tanggal": "Triwulan I",
+      "target": "Pengurus Terlatih"
     },
     {
       "title": "Pengajuan Dana ke Internal JN UKMI",
-      "description": "Manajemen dan pengarsipan memo pengajuan dana internal dari setiap bidang/kegiatan secara terstruktur dan sistematis."
+      "description": "Manajemen dan pengarsipan memo pengajuan dana internal dari setiap bidang/kegiatan secara terstruktur dan sistematis.",
+      "tanggal": "Kondisional",
+      "target": "Arsip Sistematis"
     },
     {
       "title": "UKMI Cloth",
-      "description": "Penggalangan dana mandiri melalui produksi dan penyediaan PDH/jaket resmi kepengurusan JN UKMI 2026."
+      "description": "Penggalangan dana mandiri melalui produksi dan penyediaan PDH/jaket resmi kepengurusan JN UKMI 2026.",
+      "tanggal": "Triwulan I",
+      "target": "Produksi & Distribusi"
     },
     {
       "title": "UKMI Store",
-      "description": "Usaha ekonomi kreatif berupa produksi dan penjualan merchandise resmi serta paket gift untuk pengurus dan umum."
+      "description": "Usaha ekonomi kreatif berupa produksi dan penjualan merchandise resmi serta paket gift untuk pengurus dan umum.",
+      "tanggal": "Sepanjang Periode",
+      "target": "Unit Usaha Aktif"
     },
     {
       "title": "Kantin Kejujuran",
-      "description": "Penyediaan aneka makanan dan minuman ringan berbasis kejujuran di Sekretariat JN UKMI untuk menyokong operasional."
+      "description": "Penyediaan aneka makanan dan minuman ringan berbasis kejujuran di Sekretariat JN UKMI untuk menyokong operasional.",
+      "tanggal": "Pekanan",
+      "target": "Operasional Berjalan"
     }
   ],
   "staff": [

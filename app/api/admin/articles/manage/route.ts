@@ -78,7 +78,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
     }
 
-    const { id, title, category, excerpt, content, author } = await request.json();
+    const { id, title, category, excerpt, content, author, coverImage, publishedAt } = await request.json();
 
     if (!id || !title || !category || !excerpt || !content) {
       return NextResponse.json({ message: "Semua field wajib diisi." }, { status: 400 });
@@ -99,11 +99,30 @@ export async function PUT(request: Request) {
 
     const patchData: Record<string, any> = { title, category, excerpt, content };
     if (author !== undefined) patchData.author = author;
+    if (publishedAt !== undefined) patchData.publishedAt = publishedAt;
 
-    await writeClient
-      .patch(id)
-      .set(patchData)
-      .commit();
+    // Handle coverImage: construct Sanity image reference from assetId
+    if (coverImage !== undefined) {
+      if (coverImage === null) {
+        // User removed the image — unset the field
+        patchData.coverImage = null;
+      } else if (coverImage.assetId) {
+        // New image uploaded — construct proper Sanity image reference
+        patchData.coverImage = {
+          _type: "image",
+          asset: {
+            _type: "reference",
+            _ref: coverImage.assetId,
+          },
+        };
+      } else if (coverImage.url) {
+        // Fallback: plain URL (simulation mode, base64 data URL, or legacy)
+        patchData.coverImage = coverImage.url;
+      } else if (typeof coverImage === "string" && coverImage.trim() !== "") {
+        // Plain URL string (legacy)
+        patchData.coverImage = coverImage;
+      }
+    }
 
     return NextResponse.json({ message: "Artikel berhasil diperbarui." });
   } catch (err: any) {

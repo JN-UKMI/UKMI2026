@@ -9,7 +9,7 @@ export interface BidangPageProps {
   slug: string;
   deskripsi: string;
   instagram_url: string;
-  program_kerja: Array<{ title: string; description: string }>;
+  program_kerja: Array<{ title: string; description: string; tanggal?: string; target?: string }>;
   staff: MemberCardType[];
 }
 

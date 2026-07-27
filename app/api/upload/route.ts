@@ -56,7 +56,10 @@ export async function POST(request: Request) {
       contentType: file.type,
     });
 
-    return NextResponse.json({ url: asset.url });
+    return NextResponse.json({
+      url: asset.url,
+      assetId: asset._id,
+    });
   } catch (error) {
     console.error("Image upload failed:", error);
     return NextResponse.json(

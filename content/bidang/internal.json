@@ -6,27 +6,39 @@
   "program_kerja": [
     {
       "title": "Islamic Mentorship Training (IMT)",
-      "description": "Pembekalan mabit, pengayaan materi, pengenalan kurikulum mentoring, dan praktik bagi calon mentor JN UKMI & perwakilan LDF."
+      "description": "Pembekalan mabit, pengayaan materi, pengenalan kurikulum mentoring, dan praktik bagi calon mentor JN UKMI & perwakilan LDF.",
+      "tanggal": "Triwulan I",
+      "target": "30+ Mentor Tersertifikasi"
     },
     {
       "title": "EXPO SAMARU",
-      "description": "Wadah penyambutan, pendataan mahasiswa baru muslim UNS, penyambutan grup info, serta pameran booth EXPO UKM."
+      "description": "Wadah penyambutan, pendataan mahasiswa baru muslim UNS, penyambutan grup info, serta pameran booth EXPO UKM.",
+      "tanggal": "Awal Semester Ganjil",
+      "target": "500+ Maba Terdata"
     },
     {
       "title": "Muslim Intensive Bootcamp (MIB)",
-      "description": "Pembinaan intensif awal perkuliahan materi keislaman, mentoring, proyek tim, dan pengembangan kepemimpinan mahasiswa baru."
+      "description": "Pembinaan intensif awal perkuliahan materi keislaman, mentoring, proyek tim, dan pengembangan kepemimpinan mahasiswa baru.",
+      "tanggal": "Triwulan I",
+      "target": "100+ Peserta Maba"
     },
     {
       "title": "UPGRADE",
-      "description": "Pelatihan kepemimpinan, pengayaan materi, penguatan ukhuwah, dan pembekalan manajemen proker pengurus (2x seperiode)."
+      "description": "Pelatihan kepemimpinan, pengayaan materi, penguatan ukhuwah, dan pembekalan manajemen proker pengurus (2x seperiode).",
+      "tanggal": "Triwulan I & III",
+      "target": "2 Kali / Periode"
     },
     {
       "title": "MENTOR Plus",
-      "description": "Pembinaan rutin terstruktur via diskusi kelompok kecil 2x/bulan & Mentoring Besar/Gathering (rihlah, olahraga, outdoor)."
+      "description": "Pembinaan rutin terstruktur via diskusi kelompok kecil 2x/bulan & Mentoring Besar/Gathering (rihlah, olahraga, outdoor).",
+      "tanggal": "2x / Bulan",
+      "target": "Kelompok Mentoring Aktif"
     },
     {
       "title": "DQ (Daily Quest)",
-      "description": "Pemantauan dan rekapitulasi amalan harian (amal yaumi) pengurus secara digital untuk menjaga disiplin spiritual."
+      "description": "Pemantauan dan rekapitulasi amalan harian (amal yaumi) pengurus secara digital untuk menjaga disiplin spiritual.",
+      "tanggal": "Harian",
+      "target": "Partisipasi 80%+"
     }
   ],
   "staff": [

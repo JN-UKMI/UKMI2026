@@ -6,35 +6,51 @@
   "program_kerja": [
     {
       "title": "Forum Alumni",
-      "description": "Wadah silaturahmi alumni dan pengurus aktif JN UKMI melalui sharing time, FGD, dan games untuk memperkuat ikatan ukhuwah serta arah dakwah."
+      "description": "Wadah silaturahmi alumni dan pengurus aktif JN UKMI melalui sharing time, FGD, dan games untuk memperkuat ikatan ukhuwah serta arah dakwah.",
+      "tanggal": "Kondisional",
+      "target": "Sinergi Alumni Aktif"
     },
     {
       "title": "Silaturahmi Lembaga Dakwah (SIDAK)",
-      "description": "Kunjungan dan penerimaan kunjungan Lembaga Dakwah Kampus skala Solo Raya dan Nasional untuk memperluas jaringan dan kolaborasi."
+      "description": "Kunjungan dan penerimaan kunjungan Lembaga Dakwah Kampus skala Solo Raya dan Nasional untuk memperluas jaringan dan kolaborasi.",
+      "tanggal": "Triwulan I & III",
+      "target": "Min. 2 Kunjungan / Periode"
     },
     {
       "title": "Grebeg Wisuda",
-      "description": "Apresiasi, ucapan selamat, dan doa secara luring/daring kepada alumni JN UKMI yang telah lulus menempuh pendidikan."
+      "description": "Apresiasi, ucapan selamat, dan doa secara luring/daring kepada alumni JN UKMI yang telah lulus menempuh pendidikan.",
+      "tanggal": "Setiap Wisuda UNS",
+      "target": "Seluruh Alumni Wisuda"
     },
     {
       "title": "Forum Masyarakat (Formas) Lembaga Dakwah UNS",
-      "description": "Wadah silaturahmi, pertukaran informasi, dan koordinasi kolaborasi antar 13 Lembaga Dakwah Fakultas (LDF) se-UNS."
+      "description": "Wadah silaturahmi, pertukaran informasi, dan koordinasi kolaborasi antar 13 Lembaga Dakwah Fakultas (LDF) se-UNS.",
+      "tanggal": "Bulanan",
+      "target": "13 LDF Terkoordinasi"
     },
     {
       "title": "Dusun Binaan (DusBin)",
-      "description": "Pengabdian masyarakat dan pembinaan TPA interaktif, public speaking, serta pelatihan keterampilan anak-anak di dusun binaan."
+      "description": "Pengabdian masyarakat dan pembinaan TPA interaktif, public speaking, serta pelatihan keterampilan anak-anak di dusun binaan.",
+      "tanggal": "Sepanjang Periode",
+      "target": "1 Dusun Binaan Aktif"
     },
     {
       "title": "Qurban Bersama Masyarakat (Qurma)",
-      "description": "Penggalangan dana, penyembelihan, dan penyaluran daging qurban bagi masyarakat membutuhkan di daerah binaan."
+      "description": "Penggalangan dana, penyembelihan, dan penyaluran daging qurban bagi masyarakat membutuhkan di daerah binaan.",
+      "tanggal": "Idul Adha 1447 H",
+      "target": "Min. 5 Hewan Qurban"
     },
     {
       "title": "SOSMA Berbagi",
-      "description": "Program kepedulian sosial berupa interaksi kebersamaan dan penyaluran bantuan ke lembaga sosial/panti secara berkala."
+      "description": "Program kepedulian sosial berupa interaksi kebersamaan dan penyaluran bantuan ke lembaga sosial/panti secara berkala.",
+      "tanggal": "Triwulanan",
+      "target": "Min. 3 Kunjungan / Periode"
     },
     {
       "title": "MEDIA SOSMA",
-      "description": "Pengelolaan platform media digital khusus untuk publikasi dan dokumentasi seluruh kegiatan sosial kemasyarakatan SOSMA JN UKMI."
+      "description": "Pengelolaan platform media digital khusus untuk publikasi dan dokumentasi seluruh kegiatan sosial kemasyarakatan SOSMA JN UKMI.",
+      "tanggal": "Pekanan",
+      "target": "Konten Konsisten"
     }
   ],
   "staff": [
