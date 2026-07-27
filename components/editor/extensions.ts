@@ -33,6 +33,13 @@ export async function uploadImageToSanity(file: File): Promise<string> {
   });
 }
 
+// ── Block Exit Key Handler ────────────────────────────────────
+// State for tracking double-Enter in code blocks
+export const blockExitState = {
+  lastEnterBlock: "",
+  lastEnterTime: 0,
+};
+
 export const defaultExtensions = [
   StarterKit.configure({
     heading: { levels: [1, 2, 3, 4] },
@@ -64,12 +71,17 @@ export const defaultExtensions = [
         spellcheck: "false",
       },
     },
-    horizontalRule: false,
+    horizontalRule: {
+      HTMLAttributes: {
+        class: cx("border-gray-200"),
+      },
+    },
     dropcursor: {
       color: "#255f38",
       width: 4,
     },
-    gapcursor: false,
+    // gapcursor enabled by default — allows clicking below block elements
+    // (code blocks, blockquotes, etc.) to insert new paragraphs
   }),
   TiptapUnderline,
   TiptapLink.configure({

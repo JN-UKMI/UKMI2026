@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
-import { ArticleBody } from "@/components/article/ArticleBody";
-import { urlFor } from "@/lib/sanity";
 import {
   ArrowLeft,
   ShieldCheck,
@@ -13,14 +10,11 @@ import {
   Trash2,
   Calendar,
   User,
-  Tag,
   AlertCircle,
   FileText,
   Edit,
   ExternalLink,
-  Save,
   Pencil,
-  X,
   LogOut,
   Eye
 } from "lucide-react";
@@ -50,14 +44,6 @@ export default function AdminPage() {
   const [successMsg, setSuccessMsg] = useState("");
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const [isFallbackMode, setIsFallbackMode] = useState(false);
-
-  // Detail & Edit Modals State
-  const [selectedArticle, setSelectedArticle] = useState<DraftArticle | null>(null);
-  const [editArticle, setEditArticle] = useState<DraftArticle | null>(null);
-  const [editTitle, setEditTitle] = useState("");
-  const [editCategory, setEditCategory] = useState("Artikel Islami");
-  const [editExcerpt, setEditExcerpt] = useState("");
-  const [editContentText, setEditContentText] = useState("");
 
   // Form State for Kegiatan Seru
   const [editingEventId, setEditingEventId] = useState<string | null>(null);
@@ -298,74 +284,6 @@ export default function AdminPage() {
     }
   };
 
-  const openEditModal = (article: DraftArticle) => {
-    setEditArticle(article);
-    setEditTitle(article.title);
-    setEditCategory(article.category);
-    setEditExcerpt(article.excerpt);
-    
-    // Parse portable text to plain text for simple editor if it is structured
-    if (typeof article.content === "string") {
-      setEditContentText(article.content);
-    } else if (Array.isArray(article.content)) {
-      const plain = article.content
-        .map((block: any) => block.children?.map((c: any) => c.text).join("") || "")
-        .join("\n\n");
-      setEditContentText(plain);
-    } else {
-      setEditContentText("");
-    }
-  };
-
-  const handleUpdateArticle = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!editArticle) return;
-    setError("");
-    setSuccessMsg("");
-    setLoading(true);
-
-    try {
-      // Re-structure to portable text format or keep string
-      let structuredContent: any = editContentText;
-      if (Array.isArray(editArticle.content)) {
-        structuredContent = editContentText.split("\n\n").map((para) => ({
-          _type: "block",
-          style: "normal",
-          children: [{ _type: "span", text: para }],
-        }));
-      }
-
-      const res = await fetch("/api/admin/articles/manage", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: editArticle._id,
-          title: editTitle,
-          category: editCategory,
-          excerpt: editExcerpt,
-          content: structuredContent,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Gagal memperbarui artikel.");
-      }
-
-      setSuccessMsg("Artikel berhasil diperbarui!");
-      setEditArticle(null);
-      
-      // Refresh local lists
-      fetchDrafts();
-      fetchPublishedArticles();
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const renderContentText = (content: any) => {
     if (typeof content === "string") return content;
     if (Array.isArray(content)) {
@@ -563,18 +481,10 @@ export default function AdminPage() {
 
                   {/* Actions Toolbar */}
                   <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100">
-                    <Link
-                      href={`/admin/artikel/${encodeURIComponent(draft._id)}/edit`}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
-                    >
-                      <Edit className="w-3.5 h-3.5" />
-                      Edit Artikel
-                    </Link>
-
                     <button
                       disabled={actionLoadingId !== null}
                       onClick={() => handleApprove(draft._id)}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
+                      className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
                     >
                       <Check className="w-3.5 h-3.5" />
                       Setujui

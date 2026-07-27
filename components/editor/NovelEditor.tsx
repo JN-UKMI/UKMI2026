@@ -11,11 +11,16 @@ import {
   EditorCommandList,
   useEditor,
   handleCommandNavigation,
-  type JSONContent,
   type EditorInstance,
+  type JSONContent,
 } from "novel";
-import { useState, useEffect, useCallback } from "react";
-import { defaultExtensions, setImageUploadHandler, uploadImageToSanity } from "./extensions";
+import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  defaultExtensions,
+  setImageUploadHandler,
+  uploadImageToSanity,
+  blockExitState,
+} from "./extensions";
 import { suggestionItems } from "./slash-commands";
 import {
   Bold,
@@ -23,9 +28,6 @@ import {
   Underline,
   Strikethrough,
   Code2,
-  Heading1,
-  Heading2,
-  Heading3,
   List,
   ListOrdered,
   CheckSquare,
@@ -64,10 +66,10 @@ function ToolbarButton({
       type="button"
       onClick={onClick}
       title={title}
-      className={`p-1.5 rounded-lg transition text-sm flex items-center justify-center cursor-pointer ${
+      className={`p-1.5 rounded-md transition text-sm flex items-center justify-center cursor-pointer ${
         isActive
-          ? "bg-forest-100 text-forest-800 shadow-sm border border-forest-200"
-          : "text-gray-500 hover:text-gray-700 hover:bg-gray-100 border border-transparent"
+          ? "bg-forest-100 text-forest-800 shadow-sm ring-1 ring-forest-200"
+          : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
       }`}
     >
       {children}
@@ -80,11 +82,9 @@ function ToolbarDivider() {
   return <div className="w-px h-5 bg-gray-200 mx-0.5 shrink-0" />;
 }
 
-// ── Top Toolbar ──────────────────────────────────────────────
-function EditorToolbar({ editor }: { editor: EditorInstance | null }) {
-  if (!editor) return null;
-
-  // ── Image upload handler (from slash command too) ──────
+// ── Top Toolbar (receives editor instance as prop) ─
+function EditorToolbar({ editor }: { editor: EditorInstance }) {
+  // Hooks must be before any conditional return (rules of hooks)
   const handleImageUpload = useCallback(() => {
     const input = document.createElement("input");
     input.type = "file";
@@ -102,7 +102,6 @@ function EditorToolbar({ editor }: { editor: EditorInstance | null }) {
     input.click();
   }, [editor]);
 
-  // ── Link handler ──────────────────────────────────────
   const handleLink = useCallback(() => {
     if (editor.isActive("link")) {
       editor.chain().focus().unsetLink().run();
@@ -112,9 +111,41 @@ function EditorToolbar({ editor }: { editor: EditorInstance | null }) {
     }
   }, [editor]);
 
+  // Determine current heading level
+  const activeHeading = editor.isActive("heading");
+  const headingLevel = activeHeading
+    ? (editor.getAttributes("heading").level as number)
+    : 0;
+
   return (
-    <div className="bg-gray-50/90 border-b border-gray-200 px-3 py-2 flex flex-wrap items-center gap-0.5 sticky top-0 z-10 rounded-t-2xl">
-      {/* Group 1: Text Formatting */}
+    <div className="sticky top-0 z-20 bg-white border-b border-gray-200 px-3 py-2 flex flex-wrap items-center gap-0.5 rounded-t-2xl">
+      {/* Paragraph / Heading Type Selector */}
+      <select
+        value={headingLevel > 0 ? String(headingLevel) : "p"}
+        onChange={(e) => {
+          const val = e.target.value;
+          if (val === "p") {
+            editor.chain().focus().setParagraph().run();
+          } else {
+            editor
+              .chain()
+              .focus()
+              .setNode("heading", { level: Number(val) })
+              .run();
+          }
+        }}
+        className="h-8 rounded-md border border-gray-200 bg-white px-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-forest-600/20 focus:border-forest-600 mr-1"
+        title="Tipe paragraf"
+      >
+        <option value="p">Paragraf</option>
+        <option value="1">Heading 1</option>
+        <option value="2">Heading 2</option>
+        <option value="3">Heading 3</option>
+      </select>
+
+      <ToolbarDivider />
+
+      {/* Text Formatting */}
       <ToolbarButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         isActive={editor.isActive("bold")}
@@ -157,46 +188,7 @@ function EditorToolbar({ editor }: { editor: EditorInstance | null }) {
 
       <ToolbarDivider />
 
-      {/* Group 2: Headings */}
-      <ToolbarButton
-        onClick={() =>
-          editor.isActive("heading", { level: 1 })
-            ? editor.chain().focus().setParagraph().run()
-            : editor.chain().focus().setNode("heading", { level: 1 }).run()
-        }
-        isActive={editor.isActive("heading", { level: 1 })}
-        title="Heading 1"
-      >
-        <Heading1 className="w-4 h-4" />
-      </ToolbarButton>
-
-      <ToolbarButton
-        onClick={() =>
-          editor.isActive("heading", { level: 2 })
-            ? editor.chain().focus().setParagraph().run()
-            : editor.chain().focus().setNode("heading", { level: 2 }).run()
-        }
-        isActive={editor.isActive("heading", { level: 2 })}
-        title="Heading 2"
-      >
-        <Heading2 className="w-4 h-4" />
-      </ToolbarButton>
-
-      <ToolbarButton
-        onClick={() =>
-          editor.isActive("heading", { level: 3 })
-            ? editor.chain().focus().setParagraph().run()
-            : editor.chain().focus().setNode("heading", { level: 3 }).run()
-        }
-        isActive={editor.isActive("heading", { level: 3 })}
-        title="Heading 3"
-      >
-        <Heading3 className="w-4 h-4" />
-      </ToolbarButton>
-
-      <ToolbarDivider />
-
-      {/* Group 3: Lists */}
+      {/* Lists */}
       <ToolbarButton
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         isActive={editor.isActive("bulletList")}
@@ -223,7 +215,7 @@ function EditorToolbar({ editor }: { editor: EditorInstance | null }) {
 
       <ToolbarDivider />
 
-      {/* Group 4: Blocks */}
+      {/* Blocks */}
       <ToolbarButton
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         isActive={editor.isActive("blockquote")}
@@ -250,7 +242,7 @@ function EditorToolbar({ editor }: { editor: EditorInstance | null }) {
 
       <ToolbarDivider />
 
-      {/* Group 5: Media & Links */}
+      {/* Media & Links */}
       <ToolbarButton
         onClick={handleLink}
         isActive={editor.isActive("link")}
@@ -275,46 +267,14 @@ function BubbleMenuContent() {
   const { editor } = useEditor();
   if (!editor) return null;
 
-  const headingLevel = editor.isActive("heading")
-    ? editor.getAttributes("heading").level
-    : 0;
-
   return (
     <>
-      {/* Heading Level Selector */}
-      <div className="flex items-center gap-0.5">
-        <select
-          value={headingLevel || "p"}
-          onChange={(e) => {
-            const val = e.target.value;
-            if (val === "p") {
-              editor.chain().focus().setParagraph().run();
-            } else {
-              editor
-                .chain()
-                .focus()
-                .setNode("heading", { level: Number(val) })
-                .run();
-            }
-          }}
-          className="h-8 rounded-md border-0 bg-transparent px-1.5 text-xs font-bold text-gray-700 hover:bg-gray-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-forest-600/20"
-          title="Heading level"
-        >
-          <option value="p">Paragraph</option>
-          <option value="1">H1</option>
-          <option value="2">H2</option>
-          <option value="3">H3</option>
-          <option value="4">H4</option>
-        </select>
-        <div className="mx-1 h-5 w-px bg-gray-200" />
-      </div>
-
       {/* Bold */}
       <EditorBubbleItem
         onSelect={() => editor.chain().focus().toggleBold().run()}
       >
         <button
-          className={`h-8 w-8 flex items-center justify-center rounded-md text-sm font-bold transition-colors ${
+          className={`h-8 w-8 flex items-center justify-center rounded-md transition-colors ${
             editor.isActive("bold")
               ? "bg-forest-600 text-white shadow-sm"
               : "text-gray-700 hover:bg-gray-100"
@@ -373,7 +333,6 @@ function BubbleMenuContent() {
         </button>
       </EditorBubbleItem>
 
-      {/* Separator */}
       <div className="mx-1 h-5 w-px bg-gray-200" />
 
       {/* Inline Code */}
@@ -457,6 +416,24 @@ function SlashCommandContent() {
   );
 }
 
+// ── Sanitise HTML content (strip inline colour/font styles) ──
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<font[^>]*>/gi, "")
+    .replace(/<\/font>/gi, "")
+    .replace(/\sstyle\s*=\s*"[^"]*"/gi, "")
+    .replace(/\sstyle\s*=\s*'[^']*'/gi, "");
+}
+
+// ── Block-quote ancestor helper ─────────────────────────────
+// Returns the depth of the nearest enclosing blockquote, or 0
+function findBlockquoteDepth($from: { depth: number; node: (d: number) => { type: { name: string } } }) {
+  for (let d = $from.depth; d > 0; d--) {
+    if ($from.node(d).type.name === "blockquote") return d;
+  }
+  return 0;
+}
+
 // ── Main Editor Component ────────────────────────────────────
 export default function NovelEditor({
   initialContent,
@@ -464,9 +441,17 @@ export default function NovelEditor({
   uploadFn,
 }: NovelEditorProps) {
   const [mounted, setMounted] = useState(false);
-  const [editorInstance, setEditorInstance] = useState<EditorInstance | null>(
-    null
-  );
+  const [editorInstance, setEditorInstance] = useState<EditorInstance | null>(null);
+  const editorInstanceRef = useRef<EditorInstance | null>(null);
+  const cleanupHandlersRef = useRef<(() => void) | null>(null);
+
+  // Track which block type the cursor is currently inside (for shortcut hint)
+  const [blockHint, setBlockHint] = useState<"codeBlock" | "blockquote" | null>(null);
+
+  // Keep latest values accessible from stable callbacks
+  const initialContentRef = useRef(initialContent);
+  // eslint-disable-next-line react-hooks/refs -- intentional: keep ref in sync with latest prop
+  initialContentRef.current = initialContent;
 
   // Register custom upload handler
   const defaultUpload = useCallback(async (file: File): Promise<string> => {
@@ -489,29 +474,27 @@ export default function NovelEditor({
   }, [uploadFn, defaultUpload]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard mount detector
     setMounted(true);
   }, []);
 
-  // ── Sanitise HTML content (strip inline colour/font styles) ──
-  const sanitizeContent = useCallback((html: string) => {
-    return html
-      .replace(/<font[^>]*>/gi, "")
-      .replace(/<\/font>/gi, "")
-      .replace(/<span[^>]*>/gi, "")
-      .replace(/<\/span>/gi, "")
-      .replace(/\sstyle\s*=\s*"[^"]*"/gi, "")
-      .replace(/\sstyle\s*=\s*'[^']*'/gi, "");
+  // Cleanup event handlers on unmount
+  useEffect(() => {
+    return () => {
+      cleanupHandlersRef.current?.();
+    };
   }, []);
 
-  // Sync external content changes
+  // Sync external content changes (for edit page)
   useEffect(() => {
-    if (!editorInstance || !initialContent) return;
-    const sanitized = sanitizeContent(initialContent);
-    const currentContent = editorInstance.getHTML();
+    const editor = editorInstanceRef.current;
+    if (!editor || !initialContent) return;
+    const sanitized = sanitizeHtml(initialContent);
+    const currentContent = editor.getHTML();
     if (currentContent !== sanitized) {
-      editorInstance.commands.setContent(sanitized, false);
+      editor.commands.setContent(sanitized, false);
     }
-  }, [editorInstance, initialContent, sanitizeContent]);
+  }, [initialContent]);
 
   const handleUpdate = useCallback(
     ({ editor }: { editor: EditorInstance }) => {
@@ -520,13 +503,43 @@ export default function NovelEditor({
     [onChange]
   );
 
-  // ── Image Drag & Drop / Paste Handler ────────────────────
+  // Track cursor block type for keyboard shortcut hints
+  const handleSelectionUpdate = useCallback(
+    ({ editor }: { editor: EditorInstance }) => {
+      const $from = editor.state.selection.$from;
+      const parentName = $from.parent.type.name;
+
+      if (parentName === "codeBlock") {
+        setBlockHint("codeBlock");
+        return;
+      }
+      if (findBlockquoteDepth($from) > 0) {
+        setBlockHint("blockquote");
+        return;
+      }
+      setBlockHint(null);
+    },
+    []
+  );
+
+  // ── Editor onCreate: capture instance, sync content, attach event handlers ──
   const handleCreate = useCallback(
     ({ editor }: { editor: EditorInstance }) => {
-      setEditorInstance(editor);
+      editorInstanceRef.current = editor;
+      setEditorInstance(editor); // trigger re-render so toolbar appears
 
-      // Handle image drag & drop
-      editor.view.dom.addEventListener("drop", async (event: DragEvent) => {
+      // Sync initial content immediately when editor is ready
+      const content = initialContentRef.current;
+      if (content) {
+        const sanitized = sanitizeHtml(content);
+        const currentContent = editor.getHTML();
+        if (currentContent !== sanitized) {
+          editor.commands.setContent(sanitized, false);
+        }
+      }
+
+      // Drag & drop handler
+      const handleDrop = async (event: DragEvent) => {
         const files = event.dataTransfer?.files;
         if (!files || files.length === 0) return;
         const file = files[0];
@@ -543,36 +556,43 @@ export default function NovelEditor({
         } catch (err) {
           console.error("Gagal mengunggah gambar (drop):", err);
         }
-      });
+      };
 
-      // Handle image paste from clipboard
-      editor.view.dom.addEventListener(
-        "paste",
-        async (event: ClipboardEvent) => {
-          const items = event.clipboardData?.items;
-          if (!items) return;
-          for (const item of Array.from(items)) {
-            if (item.type.startsWith("image/")) {
-              event.preventDefault();
-              const file = item.getAsFile();
-              if (file) {
-                try {
-                  const url = await uploadImageToSanity(file);
-                  editor
-                    .chain()
-                    .focus()
-                    .setImage({ src: url, alt: file.name })
-                    .run();
-                } catch (err) {
-                  console.error("Gagal mengunggah gambar (paste):", err);
-                }
+      // Paste handler
+      const handlePaste = async (event: ClipboardEvent) => {
+        const items = event.clipboardData?.items;
+        if (!items) return;
+        for (const item of Array.from(items)) {
+          if (item.type.startsWith("image/")) {
+            event.preventDefault();
+            const file = item.getAsFile();
+            if (file) {
+              try {
+                const url = await uploadImageToSanity(file);
+                editor
+                  .chain()
+                  .focus()
+                  .setImage({ src: url, alt: file.name })
+                  .run();
+              } catch (err) {
+                console.error("Gagal mengunggah gambar (paste):", err);
               }
-              break;
             }
+            break;
           }
         }
-      );
+      };
+
+      editor.view.dom.addEventListener("drop", handleDrop);
+      editor.view.dom.addEventListener("paste", handlePaste);
+
+      // Store cleanup for unmount
+      cleanupHandlersRef.current = () => {
+        editor.view.dom.removeEventListener("drop", handleDrop);
+        editor.view.dom.removeEventListener("paste", handlePaste);
+      };
     },
+    // Stable callback — uses refs for latest values
     []
   );
 
@@ -589,16 +609,18 @@ export default function NovelEditor({
 
   return (
     <div className="relative w-full editor-container">
-      <EditorRoot>
-        {/* Top Toolbar */}
-        <EditorToolbar editor={editorInstance} />
+      {/* Toolbar outside EditorRoot — receives editor via prop for reliable rendering */}
+      {editorInstance && <EditorToolbar editor={editorInstance} />}
 
+      <EditorRoot>
         <EditorContent
           extensions={defaultExtensions}
-          initialContent={(initialContent as unknown as JSONContent) || undefined}
+          initialContent={initialContent as unknown as JSONContent}
           className="novel-editor-wrapper"
           onUpdate={handleUpdate}
           onCreate={handleCreate}
+          onSelectionUpdate={handleSelectionUpdate as unknown as (props: { editor: EditorInstance }) => void}
+          onBlur={() => setBlockHint(null)}
           immediatelyRender={false}
           editorProps={{
             attributes: {
@@ -606,23 +628,88 @@ export default function NovelEditor({
                 "prose prose-lg focus:outline-none max-w-none min-h-[500px] px-8 py-8",
             },
             handleDOMEvents: {
-              keydown: (_view, event) => handleCommandNavigation(event as KeyboardEvent),
+              keydown: (view, event) => {
+                const ke = event as KeyboardEvent;
+
+                // ── Helpers ──────────────────────────────
+                const $from = view.state.selection.$from;
+                const parentName = $from.parent.type.name;
+                const isMod = ke.ctrlKey || ke.metaKey;
+                const isEnter = ke.key === "Enter";
+                const bqDepth = findBlockquoteDepth($from);
+                const isInCodeBlock = parentName === "codeBlock";
+                const isInBlockquote = bqDepth > 0;
+
+                // ── Ctrl/Cmd + Enter: force-exit any block ──
+                if (isEnter && isMod && (isInCodeBlock || isInBlockquote)) {
+                  ke.preventDefault();
+                  // Exit *after* the block, not just after the inner paragraph
+                  const exitDepth = isInCodeBlock ? $from.depth : bqDepth;
+                  const exitPos = $from.after(exitDepth);
+                  const tr = view.state.tr;
+                  const para = view.state.schema.nodes.paragraph.create();
+                  view.dispatch(tr.replaceWith(exitPos, exitPos, para));
+                  view.focus();
+                  return true;
+                }
+
+                // ── Enter on empty paragraph inside blockquote: lift out ──
+                if (
+                  isEnter &&
+                  !isMod &&
+                  isInBlockquote &&
+                  parentName === "paragraph" &&
+                  $from.parent.textContent === ""
+                ) {
+                  ke.preventDefault();
+                  const ed = editorInstanceRef.current;
+                  if (ed) {
+                    ed.chain().focus().liftEmptyBlock().run();
+                  }
+                  return true;
+                }
+
+                // ── Double Enter in code block: exit ──
+                if (isEnter && !isMod && isInCodeBlock) {
+                  const now = Date.now();
+                  if (
+                    blockExitState.lastEnterBlock === "codeBlock" &&
+                    now - blockExitState.lastEnterTime < 500
+                  ) {
+                    ke.preventDefault();
+                    blockExitState.lastEnterBlock = "";
+                    blockExitState.lastEnterTime = 0;
+                    const exitPos = $from.after($from.depth);
+                    const tr = view.state.tr;
+                    const para = view.state.schema.nodes.paragraph.create();
+                    view.dispatch(tr.replaceWith(exitPos, exitPos, para));
+                    view.focus();
+                    return true;
+                  }
+                  blockExitState.lastEnterBlock = "codeBlock";
+                  blockExitState.lastEnterTime = now;
+                } else if (isInCodeBlock && !isEnter) {
+                  // Reset double-enter tracking on any non-Enter key inside code block
+                  blockExitState.lastEnterBlock = "";
+                  blockExitState.lastEnterTime = 0;
+                } else if (!isInCodeBlock) {
+                  // Reset when outside code block entirely
+                  blockExitState.lastEnterBlock = "";
+                  blockExitState.lastEnterTime = 0;
+                }
+
+                // Fall through to novel's command navigation
+                return handleCommandNavigation(ke);
+              },
             },
             transformPastedHTML(html) {
-              // Strip all colour/font styling from pasted HTML so text always
-              // inherits the editor's default colours.
               return html
-                // Strip <font> tags completely
                 .replace(/<font[^>]*>/gi, "")
                 .replace(/<\/font>/gi, "")
-                // Strip ALL <span> tags (they are purely style wrappers in pasted content)
                 .replace(/<span[^>]*>/gi, "")
                 .replace(/<\/span>/gi, "")
-                // Strip inline style attributes entirely
                 .replace(/\sstyle\s*=\s*"[^"]*"/gi, "")
                 .replace(/\sstyle\s*=\s*'[^']*'/gi, "")
-                // Belt-and-suspenders: strip any colour declarations that may
-                // have been injected by other means (e.g. a rich-text source)
                 .replace(/color\s*:\s*[^;"'>]+;?/gi, "")
                 .replace(/background\s*:\s*[^;"'>]+;?/gi, "")
                 .replace(/background-color\s*:\s*[^;"'>]+;?/gi, "");
@@ -644,6 +731,26 @@ export default function NovelEditor({
         </EditorContent>
       </EditorRoot>
 
+      {/* ── Floating Keyboard Shortcut Hint ── */}
+      {blockHint && (
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="bg-gray-900/95 backdrop-blur text-white text-xs px-3.5 py-2 rounded-full shadow-xl flex items-center gap-2 border border-white/10">
+            <kbd className="bg-gray-700 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold tracking-wide">Ctrl+Enter</kbd>
+            <span className="text-gray-400">atau</span>
+            {blockHint === "codeBlock" ? (
+              <kbd className="bg-gray-700 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold tracking-wide">Enter 2×</kbd>
+            ) : (
+              <kbd className="bg-gray-700 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold tracking-wide">Enter</kbd>
+            )}
+            <span className="text-gray-400">
+              {blockHint === "codeBlock"
+                ? "untuk keluar"
+                : "di baris kosong untuk keluar"}
+            </span>
+          </div>
+        </div>
+      )}
+
       <style jsx global>{`
         /* ── Editor Container ── */
         .editor-container {
@@ -651,7 +758,7 @@ export default function NovelEditor({
           border-radius: 1rem;
           overflow: hidden;
           background: white;
-          transition: border-color 0.2s, box-shadow 0.2s, box-shadow 0.2s;
+          transition: border-color 0.2s, box-shadow 0.2s;
         }
         .editor-container:focus-within {
           border-color: #255f38;
@@ -675,7 +782,9 @@ export default function NovelEditor({
         }
 
         /* ── Placeholder ── */
-        .novel-editor-wrapper .ProseMirror p.is-editor-empty:first-child::before {
+        .novel-editor-wrapper
+          .ProseMirror
+          p.is-editor-empty:first-child::before {
           content: attr(data-placeholder);
           float: left;
           color: #adb5bd;
@@ -725,9 +834,6 @@ export default function NovelEditor({
         }
 
         /* ── Text Formatting ── */
-        /* Elements with inline style attributes get forced to inherit colour
-           as a visual safeguard for any styling that sneaks past the
-           transformPastedHTML/sanitizeContent sanitisation. */
         .novel-editor-wrapper .ProseMirror [style] {
           color: inherit !important;
           background-color: transparent !important;
@@ -754,10 +860,10 @@ export default function NovelEditor({
           font-family: ui-monospace, monospace;
           color: #166534;
           font-weight: 500;
-          &::before,
-          &::after {
-            content: none;
-          }
+        }
+        .novel-editor-wrapper .ProseMirror code::before,
+        .novel-editor-wrapper .ProseMirror code::after {
+          content: none;
         }
 
         /* ── Lists ── */
@@ -770,10 +876,8 @@ export default function NovelEditor({
           margin: 0.3em 0;
           line-height: 1.8;
         }
-        .novel-editor-wrapper .ProseMirror ul li {
-          &::marker {
-            color: #255f38;
-          }
+        .novel-editor-wrapper .ProseMirror ul li::marker {
+          color: #255f38;
         }
 
         /* ── Quotes ── */
@@ -839,7 +943,9 @@ export default function NovelEditor({
         .novel-editor-wrapper .ProseMirror img:hover {
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
         }
-        .novel-editor-wrapper .ProseMirror img.ProseMirror-selectednode {
+        .novel-editor-wrapper
+          .ProseMirror
+          img.ProseMirror-selectednode {
           outline: 3px solid #255f38;
           outline-offset: 2px;
           border-radius: 0.75rem;
@@ -864,25 +970,152 @@ export default function NovelEditor({
           align-items: flex-start;
           gap: 0.5rem;
         }
-        .novel-editor-wrapper .ProseMirror ul[data-type="taskList"] li > label {
+        .novel-editor-wrapper
+          .ProseMirror
+          ul[data-type="taskList"]
+          li
+          > label {
           flex-shrink: 0;
           margin-top: 0.35rem;
         }
-        .novel-editor-wrapper .ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"] {
+        .novel-editor-wrapper
+          .ProseMirror
+          ul[data-type="taskList"]
+          li
+          > label
+          input[type="checkbox"] {
           accent-color: #255f38;
           width: 1rem;
           height: 1rem;
           cursor: pointer;
         }
-        .novel-editor-wrapper .ProseMirror ul[data-type="taskList"] li[data-checked="true"] > div > p {
+        .novel-editor-wrapper
+          .ProseMirror
+          ul[data-type="taskList"]
+          li[data-checked="true"]
+          > div
+          > p {
           text-decoration: line-through;
           color: #9ca3af;
+        }
+
+        /* ── Gap Cursor (klik di bawah block untuk paragraf baru) ── */
+        .novel-editor-wrapper .ProseMirror-gapcursor {
+          display: block;
+          position: relative;
+        }
+        .novel-editor-wrapper .ProseMirror-gapcursor::after {
+          content: "";
+          display: block;
+          border-top: 2px solid #255f38;
+          width: 100%;
+          animation: gapcursor-blink 1s step-end infinite;
+        }
+        /* Label: "Klik untuk paragraf baru" */
+        .novel-editor-wrapper .ProseMirror-gapcursor::before {
+          content: "Klik untuk paragraf baru";
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1f2937;
+          color: #f9fafb;
+          font-size: 0.6875rem;
+          font-weight: 500;
+          padding: 0.25rem 0.75rem;
+          border-radius: 9999px;
+          white-space: nowrap;
+          pointer-events: none;
+          opacity: 0.92;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          animation: gapcursor-label-in 0.25s ease-out;
+        }
+        @keyframes gapcursor-label-in {
+          from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(6px);
+          }
+          to {
+            opacity: 0.92;
+            transform: translateX(-50%) translateY(0);
+          }
+        }
+        @keyframes gapcursor-blink {
+          50% {
+            border-color: transparent;
+          }
+        }
+        .dark .novel-editor-wrapper .ProseMirror-gapcursor::after {
+          border-color: #499a13;
+        }
+        .dark .novel-editor-wrapper .ProseMirror-gapcursor::before {
+          background: #e5e7eb;
+          color: #111827;
         }
 
         /* ── Resize Handle ── */
         .novel-editor-wrapper .ProseMirror .resize-cursor {
           cursor: ew-resize;
           cursor: col-resize;
+        }
+
+        /* ── Dark mode: editor ── */
+        .dark .editor-container {
+          background: #111827;
+          border-color: #1f2937;
+        }
+        .dark .editor-container:focus-within {
+          border-color: #499a13;
+          box-shadow: 0 0 0 3px rgba(73, 154, 19, 0.08);
+        }
+        .dark .novel-editor-wrapper .ProseMirror {
+          color: #e5e7eb;
+          caret-color: #499a13;
+        }
+        .dark .novel-editor-wrapper .ProseMirror h1,
+        .dark .novel-editor-wrapper .ProseMirror h2,
+        .dark .novel-editor-wrapper .ProseMirror h3,
+        .dark .novel-editor-wrapper .ProseMirror h4 {
+          color: #f9fafb;
+        }
+        .dark .novel-editor-wrapper .ProseMirror p {
+          color: #d1d5db;
+        }
+        .dark .novel-editor-wrapper .ProseMirror strong {
+          color: #f9fafb;
+        }
+        .dark .novel-editor-wrapper .ProseMirror code {
+          background: #1f2937;
+          color: #86efac;
+        }
+        .dark .novel-editor-wrapper .ProseMirror blockquote {
+          background: #0d2818;
+          color: #9ca3af;
+          border-left-color: #499a13;
+        }
+        .dark .novel-editor-wrapper .ProseMirror a {
+          color: #499a13;
+        }
+        .dark .novel-editor-wrapper .ProseMirror a:hover {
+          color: #73c91d;
+        }
+        .dark .novel-editor-wrapper .ProseMirror ul li::marker {
+          color: #499a13;
+        }
+        .dark .novel-editor-wrapper .ProseMirror ::selection {
+          background-color: rgba(73, 154, 19, 0.2);
+        }
+        .dark
+          .novel-editor-wrapper
+          .ProseMirror
+          p.is-editor-empty:first-child::before {
+          color: #6b7280;
+        }
+
+        /* ── Dark mode: toolbar ── */
+        .dark .editor-container .sticky {
+          background: #111827;
+          border-color: #1f2937;
         }
       `}</style>
     </div>
