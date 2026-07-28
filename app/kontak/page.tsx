@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { PageHero } from "@/components/layout/PageHero";
 import contactData from "@/content/kontak/main.json";
 import { MessageSquare, Mail, AtSign, MapPin, Send } from "lucide-react";
@@ -41,6 +42,33 @@ export default function KontakPage() {
     }
   };
 
+  const tabs = [
+    {
+      key: "wa" as const,
+      label: "WhatsApp",
+      icon: MessageSquare,
+      activeClass: "bg-white dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border-emerald-100 dark:border-emerald-800/80",
+      inactiveClass: "text-gray-600 dark:text-gray-400",
+      iconColor: "text-emerald-600 dark:text-emerald-400",
+    },
+    {
+      key: "email" as const,
+      label: "Email",
+      icon: Mail,
+      activeClass: "bg-white dark:bg-forest-950/80 text-forest-800 dark:text-lime border-forest-100 dark:border-forest-800/80",
+      inactiveClass: "text-gray-600 dark:text-gray-400",
+      iconColor: "text-forest-600 dark:text-lime",
+    },
+    {
+      key: "ig" as const,
+      label: "Instagram",
+      icon: AtSign,
+      activeClass: "bg-white dark:bg-pink-950/80 text-pink-700 dark:text-pink-300 border-pink-100 dark:border-pink-800/80",
+      inactiveClass: "text-gray-600 dark:text-gray-400",
+      iconColor: "text-pink-600 dark:text-pink-400",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-transparent transition-colors duration-300">
       <PageHero
@@ -49,62 +77,115 @@ export default function KontakPage() {
         subtitle="Kami siap melayani pertanyaan, saran, dan koordinasi syiar dakwah"
       />
 
-      <div className="max-w-4xl mx-auto px-4 py-12 flex flex-col gap-10 animate-[fadeIn_0.5s_ease-out]">
+      <div className="max-w-4xl mx-auto px-4 py-12 flex flex-col gap-10">
         {/* Main Interactive Form Card */}
-        <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-xl p-6 sm:p-8 md:p-10 flex flex-col gap-8 transition-colors duration-300">
-          {/* Header & Description */}
-          <div className="text-center max-w-xl mx-auto space-y-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-xl p-6 sm:p-8 md:p-10 flex flex-col gap-8 transition-colors duration-300"
+        >
+          {/* Header & Description — animates per tab */}
+          <div className="text-center max-w-xl mx-auto space-y-3">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
               Kirim Pesan & Pengajuan
             </h2>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
-              Pilih platform komunikasi yang Anda inginkan, lengkapi formulir di bawah ini untuk terhubung langsung dengan pengurus JN UKMI UNS.
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={activeTab}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+                className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium"
+              >
+                {activeTab === "wa" && (
+                  <>
+                    Pesan WhatsApp langsung terkirim ke nomor pengurus{" "}
+                    <span className="font-bold text-emerald-600 dark:text-emerald-400">{contactData.phone}</span>
+                  </>
+                )}
+                {activeTab === "email" && (
+                  <>
+                    Kirim email resmi ke{" "}
+                    <span className="font-bold text-forest-600 dark:text-lime">{contactData.email}</span>{" "}
+                    — cocok untuk surat menyurat dan proposal
+                  </>
+                )}
+                {activeTab === "ig" && (
+                  <>
+                    Pesan otomatis tersalin, lalu lanjutkan percakapan via{" "}
+                    <span className="font-bold text-pink-600 dark:text-pink-400">DM Instagram @jnukmiuns</span>
+                  </>
+                )}
+              </motion.p>
+            </AnimatePresence>
+
+            {/* Feature hint card — animates per tab */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`hint-${activeTab}`}
+                initial={{ opacity: 0, scale: 0.95, y: 4 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -4 }}
+                transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold"
+              >
+                {activeTab === "wa" && (
+                  <span className="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/60 px-4 py-1.5 rounded-full flex items-center gap-2">
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    Respon cepat &bull; Cocok untuk pertanyaan singkat & koordinasi
+                  </span>
+                )}
+                {activeTab === "email" && (
+                  <span className="bg-forest-50 dark:bg-forest-950/60 text-forest-700 dark:text-lime border border-forest-200/80 dark:border-forest-800/60 px-4 py-1.5 rounded-full flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5" />
+                    Surat resmi &bull; Bisa lampirkan dokumen pendukung
+                  </span>
+                )}
+                {activeTab === "ig" && (
+                  <span className="bg-pink-50 dark:bg-pink-950/60 text-pink-700 dark:text-pink-300 border border-pink-200/80 dark:border-pink-800/60 px-4 py-1.5 rounded-full flex items-center gap-2">
+                    <AtSign className="w-3.5 h-3.5" />
+                    DM Instagram &bull; Pesan akan tersalin otomatis ke clipboard
+                  </span>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          {/* Navigation Tabs */}
+          {/* Navigation Tabs — animated with layout + hover effects */}
           <div className="grid grid-cols-3 gap-2 bg-gray-100/80 dark:bg-gray-800/60 p-1.5 rounded-2xl border border-gray-200/60 dark:border-gray-700/60">
-            {/* WhatsApp Tab */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("wa")}
-              className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-                activeTab === "wa"
-                  ? "bg-white dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 shadow-md border border-emerald-100 dark:border-emerald-800/80"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-700/50"
-              }`}
-            >
-              <MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>WhatsApp</span>
-            </button>
-
-            {/* Email Tab */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("email")}
-              className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-                activeTab === "email"
-                  ? "bg-white dark:bg-forest-950/80 text-forest-800 dark:text-lime shadow-md border border-forest-100 dark:border-forest-800/80"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-700/50"
-              }`}
-            >
-              <Mail className="w-4 h-4 text-forest-600 dark:text-lime" />
-              <span>Email</span>
-            </button>
-
-            {/* Instagram Tab */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("ig")}
-              className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-                activeTab === "ig"
-                  ? "bg-white dark:bg-pink-950/80 text-pink-700 dark:text-pink-300 shadow-md border border-pink-100 dark:border-pink-800/80"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-700/50"
-              }`}
-            >
-              <AtSign className="w-4 h-4 text-pink-600 dark:text-pink-400" />
-              <span>Instagram</span>
-            </button>
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.key;
+              return (
+                <motion.button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setActiveTab(tab.key)}
+                  layout
+                  whileHover={isActive ? undefined : { scale: 1.03 }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className={`relative flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold text-xs sm:text-sm transition-colors cursor-pointer ${
+                    isActive
+                      ? `${tab.activeClass} shadow-md border`
+                      : `${tab.inactiveClass} hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-700/50`
+                  }`}
+                >
+                  {/* Active tab glow ring */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="kontak-tab-glow"
+                      className="absolute inset-0 rounded-xl ring-2 ring-forest-600/30 dark:ring-lime/30 pointer-events-none"
+                      transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                    />
+                  )}
+                  <Icon className={`w-4 h-4 ${tab.iconColor}`} />
+                  <span>{tab.label}</span>
+                </motion.button>
+              );
+            })}
           </div>
 
           {/* Form Element */}
@@ -167,62 +248,92 @@ export default function KontakPage() {
               <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                 Pesan / Detail Kebutuhan <span className="text-rose-500">*</span>
               </label>
-              <textarea
-                name="pesan"
-                rows={4}
-                required
-                suppressHydrationWarning
-                placeholder={
-                  activeTab === "wa"
-                    ? "Tuliskan rincian acara, tanggal, dan bentuk permohonan kerjasama..."
-                    : "Tuliskan pesan atau isi surat permohonan Anda..."
-                }
-                value={formData.pesan}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
-              />
+              <AnimatePresence mode="wait">
+                <motion.textarea
+                  key={`pesan-${activeTab}`}
+                  name="pesan"
+                  rows={4}
+                  required
+                  suppressHydrationWarning
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+                  placeholder={
+                    activeTab === "wa"
+                      ? "Tuliskan rincian acara, tanggal, dan bentuk permohonan kerjasama..."
+                      : activeTab === "email"
+                        ? "Tuliskan isi surat permohonan, lampiran, atau pertanyaan resmi Anda..."
+                        : "Tuliskan perkenalan singkat atau pesan untuk DM Instagram..."
+                  }
+                  value={formData.pesan}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                />
+              </AnimatePresence>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit Button — animated with AnimatePresence on tab switch */}
             <div className="pt-2">
-              {activeTab === "wa" && (
-                <button
-                  type="submit"
-                  className="w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                  transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
                 >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Kirim via WhatsApp ({contactData.phone})</span>
-                  <Send className="w-4 h-4 ml-1" />
-                </button>
-              )}
+                  {activeTab === "wa" && (
+                    <motion.button
+                      type="submit"
+                      whileHover={{ scale: 1.015, y: -1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Kirim via WhatsApp ({contactData.phone})</span>
+                      <Send className="w-4 h-4 ml-1" />
+                    </motion.button>
+                  )}
 
-              {activeTab === "email" && (
-                <button
-                  type="submit"
-                  className="w-full py-3.5 px-6 rounded-xl bg-forest-600 hover:bg-forest-800 dark:bg-forest-700 dark:hover:bg-forest-600 text-white font-bold text-sm shadow-lg shadow-forest-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>Kirim Email Resmi ({contactData.email})</span>
-                  <Send className="w-4 h-4 ml-1" />
-                </button>
-              )}
+                  {activeTab === "email" && (
+                    <motion.button
+                      type="submit"
+                      whileHover={{ scale: 1.015, y: -1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full py-3.5 px-6 rounded-xl bg-forest-600 hover:bg-forest-800 dark:bg-forest-700 dark:hover:bg-forest-600 text-white font-bold text-sm shadow-lg shadow-forest-600/20 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>Kirim Email Resmi ({contactData.email})</span>
+                      <Send className="w-4 h-4 ml-1" />
+                    </motion.button>
+                  )}
 
-              {activeTab === "ig" && (
-                <button
-                  type="submit"
-                  className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-95 text-white font-bold text-sm shadow-lg shadow-pink-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
-                >
-                  <AtSign className="w-4 h-4" />
-                  <span>Salin Pesan & Buka DM Instagram (@jnukmiuns)</span>
-                  <Send className="w-4 h-4 ml-1" />
-                </button>
-              )}
+                  {activeTab === "ig" && (
+                    <motion.button
+                      type="submit"
+                      whileHover={{ scale: 1.015, y: -1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-95 text-white font-bold text-sm shadow-lg shadow-pink-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <AtSign className="w-4 h-4" />
+                      <span>Salin Pesan & Buka DM Instagram (@jnukmiuns)</span>
+                      <Send className="w-4 h-4 ml-1" />
+                    </motion.button>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </form>
-        </div>
+        </motion.div>
 
         {/* Address & Map Section */}
-        <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 sm:p-8 flex flex-col gap-6 transition-colors duration-300">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 sm:p-8 flex flex-col gap-6 transition-colors duration-300"
+        >
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-forest-50 dark:bg-forest-950/80 text-forest-700 dark:text-lime flex items-center justify-center shadow-inner shrink-0">
               <MapPin className="w-6 h-6" />
@@ -248,7 +359,7 @@ export default function KontakPage() {
               title="Peta Lokasi Sekretariat JN UKMI UNS"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
