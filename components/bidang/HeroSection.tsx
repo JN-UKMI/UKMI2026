@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface HeroSectionProps {
   name: string;
@@ -20,7 +23,12 @@ export function HeroSection({ name, instagram_url }: HeroSectionProps) {
       <div className="absolute inset-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center text-white max-w-4xl mx-auto pt-[60px]">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 flex flex-col items-center justify-center text-center text-white max-w-4xl mx-auto pt-[60px]"
+      >
         <h1 className="text-3xl md:text-5xl font-black leading-tight tracking-wider uppercase drop-shadow-sm mb-4">
           {name}
         </h1>
@@ -45,7 +53,7 @@ export function HeroSection({ name, instagram_url }: HeroSectionProps) {
           className="mt-6 h-auto w-8 md:w-9 opacity-40"
           priority
         />
-      </div>
+      </motion.div>
     </section>
   );
 }

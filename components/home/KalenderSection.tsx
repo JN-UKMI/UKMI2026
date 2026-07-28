@@ -2,7 +2,6 @@ import { loadEvents } from "@/lib/content";
 import { KalenderInteractive } from "./KalenderInteractive";
 import { Calendar } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
-import { AmbientBackground } from "@/components/ui/motion";
 
 export async function KalenderSection() {
   const { events, monthly_quotes, hijri_months } = await loadEvents();

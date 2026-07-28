@@ -2,10 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import homeData from "@/content/beranda/main.json";
+import { useIsTouchDevice } from "@/lib/hooks";
 
 export function HeroSection() {
+  const shouldReduceMotion = useReducedMotion();
+  const isTouchDevice = useIsTouchDevice();
+
   const containerVariants = {
     hidden: {},
     visible: {
@@ -16,18 +20,27 @@ export function HeroSection() {
     },
   };
 
-  const itemVariants = {
-    hidden: { scale: 0.85, y: 40 },
-    visible: {
-      scale: 1,
-      y: 0,
-      transition: {
-        type: "spring" as const,
-        stiffness: 80,
-        damping: 16,
-      },
-    },
-  };
+  const itemVariants =
+    shouldReduceMotion || isTouchDevice
+      ? {
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { duration: 0.25 },
+          },
+        }
+      : {
+          hidden: { scale: 0.85, y: 40 },
+          visible: {
+            scale: 1,
+            y: 0,
+            transition: {
+              type: "spring" as const,
+              stiffness: 80,
+              damping: 16,
+            },
+          },
+        };
 
   return (
     <section className="relative min-h-screen -mt-[80px] overflow-hidden">
@@ -47,16 +60,22 @@ export function HeroSection() {
         animate="visible"
         className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-[80px] text-center text-white -mt-16 z-10"
       >
-        <motion.div 
+        <motion.div
           variants={itemVariants}
-          animate={{
-            y: [0, -8, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={
+            shouldReduceMotion || isTouchDevice
+              ? undefined
+              : { y: [0, -8, 0] }
+          }
+          transition={
+            shouldReduceMotion || isTouchDevice
+              ? undefined
+              : {
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }
+          }
         >
           <Image
             src="/image/logo-jnukmi.svg"

@@ -40,7 +40,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
         className={`flex items-center gap-1 px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-default outline-none
           ${
             isAnyChildActive
-              ? "bg-forest-100/90 dark:bg-forest-900/80 text-forest-900 dark:text-lime font-bold border-forest-600/70 shadow-md"
+              ? "bg-forest-600 dark:bg-forest-600 text-white font-bold border-forest-600 dark:border-forest-500 shadow-md"
               : "text-gray-700 dark:text-gray-200 font-semibold border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:border-forest-700/60"
           }
         `}

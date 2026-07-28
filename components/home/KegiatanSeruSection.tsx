@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Sparkles, ChevronLeft, ChevronRight, ArrowRight, MapPin, Calendar } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { KegiatanSeruItem } from "@/lib/types";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 interface KegiatanSeruSectionProps {
   initialEvents?: KegiatanSeruItem[];
@@ -62,7 +63,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
     <section className="py-16 px-4 bg-transparent transition-colors duration-300 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="relative mb-8 text-center">
+        <FadeIn className="relative mb-8 text-center">
           <SectionHeader
             icon={<Sparkles className="w-6 h-6 text-forest-600 dark:text-lime" />}
             title="Event Terdekat"
@@ -98,22 +99,26 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
               </button>
             </div>
           )}
-        </div>
+        </FadeIn>
 
         {/* Carousel Container */}
-        <div className="overflow-hidden">
+        {/* StaggerContainer keeps overflow-visible so card hover effects
+            (lift, scale, glow ring) can render outside the visible slot.
+            The inner flex track keeps overflow-hidden to clip off-screen
+            siblings during the slide animation. */}
+        <StaggerContainer className="overflow-visible">
           <div
-            className="flex transition-transform duration-500 ease-out gap-6"
+            className="flex transition-transform duration-500 ease-out gap-6 overflow-hidden"
             style={{
               transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
             }}
           >
             {events.map((item) => (
-              <div
+              <StaggerItem
                 key={item.id}
                 className="w-full lg:w-[calc(50%-12px)] shrink-0"
               >
-                <div className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col sm:flex-row h-full transition-all duration-300 group hover:shadow-2xl hover:border-forest-600 dark:hover:border-lime dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)]">
+                <div className="relative bg-white dark:bg-gray-900 rounded-3xl border-2 border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col sm:flex-row h-full transition-all duration-300 group hover:shadow-2xl hover:border-forest-600 dark:hover:border-lime dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)] hover:-translate-y-1 hover:scale-[1.005] active:scale-[0.995] z-10 hover:z-30">
                   {/* Left Column: Poster with Date Badge */}
                   <div className="relative w-full sm:w-5/12 aspect-[16/10] sm:aspect-[3/4] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <Image
@@ -181,10 +186,10 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                     </div>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
           </div>
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

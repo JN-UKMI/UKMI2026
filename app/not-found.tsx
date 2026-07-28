@@ -1,10 +1,12 @@
-import Link from "next/link";
 import Image from "next/image";
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
-export const metadata: Metadata = {
-  title: "Halaman Tidak Ditemukan — JN UKMI",
-};
+export const metadata = buildPageMetadata({
+  title: 'Halaman Tidak Ditemukan',
+  description: '',
+  path: '/404',
+});
 
 export default function NotFound() {
   return (
@@ -22,12 +24,12 @@ export default function NotFound() {
         <p className="text-gray-500 dark:text-gray-400 mb-8">
           Halaman yang Anda cari mungkin telah dipindahkan atau tidak tersedia.
         </p>
-        <Link
+        <TransitionLink
           href="/"
           className="inline-block bg-forest-600 hover:bg-forest-800 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md hover:shadow-lg shadow-forest-600/10"
         >
           Kembali ke Beranda
-        </Link>
+        </TransitionLink>
       </div>
     </div>
   );

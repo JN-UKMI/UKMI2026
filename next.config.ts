@@ -1,5 +1,29 @@
 import type { NextConfig } from "next";
 
+const isProduction = process.env.NODE_ENV === "production";
+
+/**
+ * Static security headers. (CSP itself is set dynamically per-request in
+ * proxy.ts so we can include a per-request nonce and drop `'unsafe-inline'`.)
+ */
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+  },
+  ...(isProduction
+    ? [
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=63072000; includeSubDomains; preload",
+        },
+      ]
+    : []),
+];
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -8,12 +32,24 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
     ],
   },
-  // Disable source maps in development to reduce memory usage significantly
-  // Source maps for a project this size can consume 2-4GB of memory on their own
   experimental: {
-    // Turbopack is already the default in Next.js 16 dev, but be explicit
+    // Tree-shake icon library imports to keep client JS payload small
+    optimizePackageImports: ["lucide-react"],
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: securityHeaders,
+      },
+    ];
   },
 };
 

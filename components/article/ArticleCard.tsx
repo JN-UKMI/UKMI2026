@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Calendar, Pencil, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 import { TransitionLink } from "@/components/ui/TransitionLink";
@@ -12,6 +12,7 @@ export interface ArticleCardProps {
 }
 
 export function ArticleCard({ article }: ArticleCardProps) {
+  const shouldReduceMotion = useReducedMotion();
   // Safe helper to resolve cover image URL
   const getCoverImageUrl = () => {
     const img: any = article.coverImage;
@@ -31,8 +32,8 @@ export function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <motion.div
-      whileHover={{ y: -8, scale: 1.015 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={shouldReduceMotion ? undefined : { y: -8, scale: 1.015 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
       className="h-full flex flex-col flex-1"
     >

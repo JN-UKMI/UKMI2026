@@ -1,13 +1,15 @@
-import { Metadata } from "next";
 import { LdfCard } from "@/components/ldf/LdfCard";
 import { loadPartner } from "@/lib/content";
 
 import { PageHero } from "@/components/layout/PageHero";
+import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Partner Dakwah | Partner Directory",
-  description: "Direktori Partner Dakwah di kampus UNS",
-};
+export const metadata = buildPageMetadata({
+  title: 'Partner Dakwah',
+  description: 'Direktori Partner Dakwah di kampus UNS',
+  path: '/partnership',
+});
 
 export default async function PartnerPage() {
   const partnerList = await loadPartner();
@@ -24,11 +26,13 @@ export default async function PartnerPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {partnerList.map((partner) => (
-              <LdfCard key={partner.nama} ldf={partner} />
+              <StaggerItem key={partner.nama} className="h-full">
+                <LdfCard ldf={partner} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         )}
       </div>
     </main>

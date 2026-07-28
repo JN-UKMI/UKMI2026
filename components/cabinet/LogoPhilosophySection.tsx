@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { FadeIn } from "@/components/ui/motion";
 
 interface LogoPhilosophySectionProps {
   logoPath?: string;
@@ -15,7 +18,7 @@ export function LogoPhilosophySection({
     <section className="mb-12">
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden transition-colors">
         <div className="flex flex-col md:flex-row gap-8 items-center p-8">
-          <div className="w-1/2 max-w-lg flex-shrink-0">
+          <FadeIn direction="left" className="w-1/2 max-w-lg flex-shrink-0">
             <Image
               src={hasLogo ? logoPath : "/placeholder.png"}
               alt="Logo JN UKMI"
@@ -24,13 +27,13 @@ export function LogoPhilosophySection({
               className="mx-auto"
               unoptimized
             />
-          </div>
-          <div className="w-1/2">
+          </FadeIn>
+          <FadeIn direction="right" delay={0.15} className="w-1/2">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Filosofi Logo</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
               {filosofi}
             </p>
-          </div>
+          </FadeIn>
         </div>
       </div>
     </section>

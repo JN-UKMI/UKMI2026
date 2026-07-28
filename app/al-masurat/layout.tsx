@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Al-Ma'surat | JN UKMI",
-  description: "Dzikir pagi dan petang berdasarkan Al-Quran dan Hadist",
-};
+export const metadata = buildPageMetadata({
+  title: 'Al-Ma’surat',
+  description: 'Dzikir pagi dan petang berdasarkan Al-Quran dan Hadist',
+  path: '/al-masurat',
+});
 
 export default function AlMasuratLayout({
   children,

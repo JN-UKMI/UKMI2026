@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signIn } from "@/lib/auth";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 interface LoginPageProps {
   searchParams: Promise<{ callbackUrl?: string; error?: string }>;
@@ -83,12 +83,12 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         </form>
 
         <div className="pt-2 text-center">
-          <Link
+          <TransitionLink
             href="/"
             className="text-xs font-semibold text-gray-500 hover:text-forest-600 dark:hover:text-lime transition-colors"
           >
             ← Kembali ke Beranda
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArticleBody } from "@/components/article/ArticleBody";
 import { urlFor } from "@/lib/sanity";
 import {
@@ -388,13 +389,13 @@ export default function AdminPage() {
       <div className="max-w-4xl mx-auto">
         {/* Header Toolbar & User Profile */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-          <Link
+          <TransitionLink
             href="/artikel"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Artikel
-          </Link>
+          </TransitionLink>
 
           {session?.user && (
             <div className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-2 pl-3.5 shadow-xs">
@@ -481,7 +482,7 @@ export default function AdminPage() {
           <div className="mb-6 p-4 bg-lime/10 border border-lime/30 rounded-2xl flex gap-3 text-forest-900 text-xs font-bold leading-relaxed items-center">
             <AlertCircle className="w-5 h-5 text-forest-600 shrink-0" />
             <span>
-              Mode Simulasi Aktif: Server belum terhubung ke database live Sanity (SANITY_WRITE_TOKEN kosong). Menampilkan data dummy antrean. Klik "Setujui" or "Tolak" akan mensimulasikan aksi secara instan.
+              Mode Simulasi Aktif: Server belum terhubung ke database live Sanity (SANITY_WRITE_TOKEN kosong). Menampilkan data dummy antrean. Klik {`"Setujui" or "Tolak"`} akan mensimulasikan aksi secara instan.
             </span>
           </div>
         )}
@@ -562,13 +563,13 @@ export default function AdminPage() {
                   </div>
 
                   {/* Actions Toolbar */}                    <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
-                    <Link
+                    <TransitionLink
                       href={`/admin/artikel/${encodeURIComponent(draft._id)}/edit`}
                       className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
                     >
                       <Edit className="w-3.5 h-3.5" />
                       Edit Artikel
-                    </Link>
+                    </TransitionLink>
 
                     <button
                       disabled={actionLoadingId !== null}
@@ -667,13 +668,13 @@ export default function AdminPage() {
                   </div>
 
                   {/* Actions Toolbar */}                    <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
-                    <Link
+                    <TransitionLink
                       href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
                       className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
                     >
                       <Edit className="w-3.5 h-3.5" />
                       Edit Artikel
-                    </Link>
+                    </TransitionLink>
 
                     <button
                       disabled={actionLoadingId !== null}

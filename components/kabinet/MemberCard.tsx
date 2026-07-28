@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { MemberCard as MemberCardInterface } from "@/lib/types";
 
 interface MemberCardProps {
@@ -9,6 +9,7 @@ interface MemberCardProps {
 }
 
 export function MemberCard({ member }: MemberCardProps) {
+  const shouldReduceMotion = useReducedMotion();
   // Extract role short title for top-right header
   const getShortRole = (role: string) => {
     if (role.includes("Ketua Umum")) return "KETUA";
@@ -59,8 +60,8 @@ export function MemberCard({ member }: MemberCardProps) {
 
   return (
     <motion.div
-      whileHover={{ y: -6, scale: 1.01 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.01 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
       className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-4 hover:border-lime group select-none shrink-0 cursor-pointer"
     >

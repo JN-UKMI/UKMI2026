@@ -1,13 +1,14 @@
-import { Metadata } from "next";
 import { LdfCard } from "@/components/ldf/LdfCard";
 import { loadOKI } from "@/lib/content";
 
 import { PageHero } from "@/components/layout/PageHero";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Ormawa Kerohanian Islam | OKI Directory",
-  description: "Direktori Ormawa Kerohanian Islam di kampus UNS",
-};
+export const metadata = buildPageMetadata({
+  title: 'Ormawa Kerohanian Islam',
+  description: 'Direktori Ormawa Kerohanian Islam di kampus UNS',
+  path: '/oki',
+});
 
 export default async function OkiPage() {
   const okiList = await loadOKI();

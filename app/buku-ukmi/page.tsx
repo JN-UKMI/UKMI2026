@@ -1,5 +1,4 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+import { buildPageMetadata } from "@/lib/page-metadata";
 import { PageHero } from "@/components/layout/PageHero";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { loadBukuUkmi } from "@/lib/content";
@@ -16,10 +15,11 @@ import {
   BookmarkCheck,
 } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "BUMI - Perpustakaan Mini & Jariyah Buku | JN UKMI",
-  description: "BUMI (Buku UKMI) adalah perpustakaan mini JN-UKMI untuk peminjaman dan jariyah wakaf buku mahasiswa UNS.",
-};
+export const metadata = buildPageMetadata({
+  title: 'BUMI — Perpustakaan Mini',
+  description: 'BUMI (Buku UKMI) adalah perpustakaan mini JN-UKMI untuk peminjaman dan jariyah wakaf buku mahasiswa UNS.',
+  path: '/buku-ukmi',
+});
 
 export default async function BukuUkmiPage() {
   const data = await loadBukuUkmi();

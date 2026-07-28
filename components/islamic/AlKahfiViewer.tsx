@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { AyatCard } from "./AyatCard";
 import { ArrowUp, Eye, EyeOff } from "lucide-react";
+import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 interface Ayat {
   nomorAyat: number;
@@ -140,21 +141,22 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
       </div>
 
       {/* Verses List */}
-      <div className="space-y-6">
+      <StaggerContainer className="space-y-6">
         {displayedAyat.map((ayat) => (
-          <AyatCard
-            key={ayat.nomorAyat}
-            nomorAyat={ayat.nomorAyat}
-            teksArab={ayat.teksArab}
-            teksLatin={ayat.teksLatin}
-            teksIndonesia={ayat.teksIndonesia}
-            showLatin={showGlobalLatin}
-            showTranslation={showGlobalTranslation}
-            isBookmarked={bookmarkedAyat === ayat.nomorAyat}
-            onToggleBookmark={() => toggleBookmark(ayat.nomorAyat)}
-          />
+          <StaggerItem key={ayat.nomorAyat}>
+            <AyatCard
+              nomorAyat={ayat.nomorAyat}
+              teksArab={ayat.teksArab}
+              teksLatin={ayat.teksLatin}
+              teksIndonesia={ayat.teksIndonesia}
+              showLatin={showGlobalLatin}
+              showTranslation={showGlobalTranslation}
+              isBookmarked={bookmarkedAyat === ayat.nomorAyat}
+              onToggleBookmark={() => toggleBookmark(ayat.nomorAyat)}
+            />
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
 
       {/* Target for infinite scroll trigger */}
       {displayedCount < ayatList.length && (

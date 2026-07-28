@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, BookOpen, Calendar, Newspaper } from "lucide-react";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 const sections = [
   {
@@ -38,13 +41,13 @@ export function ContentColumns() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {sections.map((section) => {
             const Icon = section.icon;
             return (
-              <div
+              <StaggerItem
                 key={section.title}
-                className="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm"
+                className="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
               >
                 {/* Image placeholder */}
                 <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
@@ -70,17 +73,17 @@ export function ContentColumns() {
                   <div className="mt-6">
                     <Link
                       href={section.href}
-                      className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+                      className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-purple-700 hover:gap-3 group"
                     >
                       Selengkapnya
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

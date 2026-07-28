@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { motion, HTMLMotionProps, Variants } from "framer-motion";
+import { motion, HTMLMotionProps, Variants, useReducedMotion } from "framer-motion";
 
 // ── 1. FadeIn Scroll / Mount Component ──────────────────────────────
 export interface FadeInProps extends HTMLMotionProps<"div"> {
@@ -19,11 +19,14 @@ export function FadeIn({
   direction = "up",
   delay = 0,
   duration = 0.5,
-  distance = 24,
+  distance: distanceProp = 24,
   viewportOnce = true,
   className = "",
   ...props
 }: FadeInProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const distance = shouldReduceMotion ? 0 : distanceProp;
+
   const getInitialPosition = () => {
     switch (direction) {
       case "up":
@@ -49,9 +52,13 @@ export function FadeIn({
     <motion.div
       initial={initial}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: viewportOnce, margin: "-60px" }}
+      viewport={
+        shouldReduceMotion
+          ? undefined
+          : { once: viewportOnce, margin: "-60px" }
+      }
       transition={{
-        duration,
+        duration: shouldReduceMotion ? 0.15 : duration,
         delay,
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
@@ -80,23 +87,32 @@ export function StaggerContainer({
   viewportOnce = true,
   ...props
 }: StaggerContainerProps) {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren,
-        delayChildren,
-      },
-    },
-  };
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants: Variants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1 },
+        show: { opacity: 1 },
+      }
+    : {
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+          transition: {
+            staggerChildren,
+            delayChildren,
+          },
+        },
+      };
 
   return (
     <motion.div
       variants={containerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: viewportOnce, margin: "-60px" }}
+      initial={shouldReduceMotion ? false : "hidden"}
+      whileInView={shouldReduceMotion ? undefined : "show"}
+      viewport={
+        shouldReduceMotion ? undefined : { once: viewportOnce, margin: "-60px" }
+      }
       className={className}
       {...props}
     >
@@ -115,44 +131,55 @@ export interface StaggerItemProps extends HTMLMotionProps<"div"> {
 export function StaggerItem({
   children,
   direction = "up",
-  distance = 20,
+  distance: distanceProp = 20,
   className = "",
   ...props
 }: StaggerItemProps) {
-  const getInitialPosition = () => {
-    switch (direction) {
-      case "up":
-        return { y: distance, x: 0 };
-      case "down":
-        return { y: -distance, x: 0 };
-      case "left":
-        return { x: distance, y: 0 };
-      case "right":
-        return { x: -distance, y: 0 };
-      case "none":
-      default:
-        return { x: 0, y: 0 };
-    }
-  };
+  const shouldReduceMotion = useReducedMotion();
+  const distance = shouldReduceMotion ? 0 : distanceProp;
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, ...getInitialPosition() },
-    show: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      },
-    },
-  };
+  const itemVariants: Variants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1, x: 0, y: 0 },
+        show: { opacity: 1, x: 0, y: 0 },
+      }
+    : {
+        hidden: { opacity: 0, ...getInitialPosition(direction, distance) },
+        show: {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          transition: {
+            duration: 0.5,
+            ease: [0.21, 0.47, 0.32, 0.98],
+          },
+        },
+      };
 
   return (
     <motion.div variants={itemVariants} className={className} {...props}>
       {children}
     </motion.div>
   );
+}
+
+function getInitialPosition(
+  direction: StaggerItemProps["direction"],
+  distance: number
+) {
+  switch (direction) {
+    case "up":
+      return { y: distance, x: 0 };
+    case "down":
+      return { y: -distance, x: 0 };
+    case "left":
+      return { x: distance, y: 0 };
+    case "right":
+      return { x: -distance, y: 0 };
+    case "none":
+    default:
+      return { x: 0, y: 0 };
+  }
 }
 
 // ── 3. ScaleIn Component ────────────────────────────────────────────
@@ -172,13 +199,22 @@ export function ScaleIn({
   className?: string;
   viewportOnce?: boolean;
 } & HTMLMotionProps<"div">) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, scale: initialScale }}
+      initial={{
+        opacity: 0,
+        scale: shouldReduceMotion ? 1 : initialScale,
+      }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: viewportOnce, margin: "-60px" }}
+      viewport={
+        shouldReduceMotion
+          ? undefined
+          : { once: viewportOnce, margin: "-60px" }
+      }
       transition={{
-        duration,
+        duration: shouldReduceMotion ? 0.15 : duration,
         delay,
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
@@ -202,7 +238,12 @@ export function TextReveal({
   delay?: number;
   stagger?: number;
 }) {
+  const shouldReduceMotion = useReducedMotion();
   const words = text.split(" ");
+
+  if (shouldReduceMotion) {
+    return <span className={className}>{text}</span>;
+  }
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -257,10 +298,18 @@ export function ButtonMotion({
   hoverLift?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 } & HTMLMotionProps<"button">) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.button
-      whileHover={hoverLift ? { y: -2, scale: 1.01 } : { scale: 1.01 }}
-      whileTap={{ scale: 0.96 }}
+      whileHover={
+        shouldReduceMotion
+          ? undefined
+          : hoverLift
+          ? { y: -2, scale: 1.01 }
+          : { scale: 1.01 }
+      }
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
       className={className}
       onClick={onClick}
@@ -286,17 +335,21 @@ export function CardMotion({
   liftDistance?: number;
   glowOnHover?: boolean;
 } & HTMLMotionProps<"div">) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
       whileHover={
-        hoverLift
+        shouldReduceMotion
+          ? undefined
+          : hoverLift
           ? {
               y: liftDistance,
               transition: { duration: 0.25, ease: "easeOut" },
             }
           : undefined
       }
-      whileTap={{ scale: 0.99 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
       className={`transition-shadow duration-300 ${
         glowOnHover ? "hover:shadow-xl hover:shadow-forest-900/5 dark:hover:shadow-lime/10" : ""
       } ${className}`}

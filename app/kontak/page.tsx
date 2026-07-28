@@ -119,6 +119,7 @@ export default function KontakPage() {
                   type="text"
                   name="nama"
                   required
+                  suppressHydrationWarning
                   placeholder="Masukkan nama Anda"
                   value={formData.nama}
                   onChange={handleInputChange}
@@ -133,6 +134,7 @@ export default function KontakPage() {
                 <input
                   type="text"
                   name="instansi"
+                  suppressHydrationWarning
                   placeholder="Contoh: BEM UNS, UKM Kerohanian"
                   value={formData.instansi}
                   onChange={handleInputChange}
@@ -148,6 +150,7 @@ export default function KontakPage() {
               </label>
               <select
                 name="perihal"
+                suppressHydrationWarning
                 value={formData.perihal}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-semibold outline-none transition-all cursor-pointer"
@@ -168,6 +171,7 @@ export default function KontakPage() {
                 name="pesan"
                 rows={4}
                 required
+                suppressHydrationWarning
                 placeholder={
                   activeTab === "wa"
                     ? "Tuliskan rincian acara, tanggal, dan bentuk permohonan kerjasama..."

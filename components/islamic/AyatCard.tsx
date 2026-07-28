@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, Bookmark } from "lucide-react";
+import { motion } from "framer-motion";
 import { toArabicDigits } from "@/lib/utils";
 
 type AyatCardProps = {
@@ -36,7 +37,7 @@ export function AyatCard({
   };
 
   return (
-    <div
+    <motion.div
       id={`ayat-${nomorAyat}`}
       className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 transition-all duration-300 flex flex-col gap-4 ${
         isBookmarked
@@ -116,6 +117,6 @@ export function AyatCard({
           “{teksIndonesia}”
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

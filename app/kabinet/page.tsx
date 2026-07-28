@@ -1,12 +1,13 @@
-import { Metadata } from "next";
 import kabinetData from "@/content/kabinet/main.json";
 import { PengurusUtamaGrid } from "@/components/cabinet/PengurusUtamaGrid";
 import { PageHero } from "@/components/layout/PageHero";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Kabinet Iskandar Muda | JN UKMI",
-  description: "Struktur kepengurusan Jamaah Nurul Huda UKMI",
-};
+export const metadata = buildPageMetadata({
+  title: 'Kabinet Iskandar Muda',
+  description: 'Struktur kepengurusan Jamaah Nurul Huda UKMI',
+  path: '/kabinet',
+});
 
 export default function KabinetPage() {
   return (

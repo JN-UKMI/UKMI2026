@@ -1,70 +1,116 @@
-import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
+import { randomUUID } from "node:crypto";
+import { authorizeAdminOrPasscode } from "@/lib/api-auth";
+import {
+  apiOk,
+  apiBadRequest,
+  apiServerError,
+  apiServiceUnavailable,
+  apiUnauthorized,
+} from "@/lib/api-response";
+import { ContentType, ALLOWED_IMAGE_MIME_TYPES } from "@/lib/schemas";
 
-const sanityClient = createClient({
-  projectId: "ksc63oa8",
-  dataset: "production",
-  apiVersion: "2024-01-01",
-  token: process.env.SANITY_WRITE_TOKEN,
-  useCdn: false,
-});
+const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
+
+function extFromMime(mime: string): string {
+  switch (mime) {
+    case ContentType.png:
+      return ".png";
+    case ContentType.webp:
+      return ".webp";
+    case ContentType.gif:
+      return ".gif";
+    case ContentType.jpg:
+    case ContentType.jpeg:
+    default:
+      return ".jpg";
+  }
+}
+
+// Sanitize filename: strip path components, control characters, and inject a
+// random suffix so collisions are unlikely even if attacker guesses the base.
+function sanitizeFilename(originalName: string, mime: string): string {
+  const trimmed = String(originalName || "upload")
+    .replace(/[\\/]/g, "")
+    .replace(/[^a-zA-Z0-9._-]/g, "_")
+    .slice(0, 60);
+  const base = trimmed.split(".")[0] || "upload";
+  return `${base}-${randomUUID().slice(0, 8)}${extFromMime(mime)}`;
+}
+
+function getWriteClient(token: string) {
+  return createClient({
+    projectId: "ksc63oa8",
+    dataset: "production",
+    apiVersion: "2024-01-01",
+    token,
+    useCdn: false,
+  });
+}
 
 export async function POST(request: Request) {
+  let formData: FormData;
   try {
-    const formData = await request.formData();
-    const file = formData.get("file") as File;
+    formData = await request.formData();
+  } catch {
+    return apiBadRequest("Body bukan form-data valid.");
+  }
 
-    if (!file) {
-      return NextResponse.json(
-        { error: "Tidak ada file yang disertakan" },
-        { status: 400 }
+  const file = formData.get("file");
+  const providedPasscode = formData.get("passcode");
+  const passcodeStr =
+    typeof providedPasscode === "string" ? providedPasscode : null;
+
+  const auth = await authorizeAdminOrPasscode(request, passcodeStr);
+  if (!auth.authorized) {
+    if (auth.reason === "not_configured") {
+      return apiServiceUnavailable(
+        "Login admin atau kode akses pengurus belum dikonfigurasi di server."
       );
     }
+    return apiUnauthorized(
+      "Akses ditolak. Login sebagai admin atau gunakan kode akses pengurus."
+    );
+  }
 
-    // Validate file type
-    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
-    if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json(
-        { error: "Format file tidak didukung. Gunakan JPG, PNG, WEBP, atau GIF." },
-        { status: 400 }
-      );
-    }
+  if (!(file instanceof File) || file.size === 0) {
+    return apiBadRequest("Tidak ada file yang disertakan.");
+  }
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      return NextResponse.json(
-        { error: "Ukuran file maksimal 5MB." },
-        { status: 400 }
-      );
-    }
+  if (!ALLOWED_IMAGE_MIME_TYPES.includes(file.type)) {
+    return apiBadRequest(
+      "Format file tidak didukung. Gunakan JPG, PNG, WEBP, atau GIF."
+    );
+  }
 
-    // Convert file to buffer for Sanity upload
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+  if (file.size > MAX_UPLOAD_BYTES) {
+    return apiBadRequest("Ukuran file maksimal 5MB.");
+  }
 
-    // Check if Sanity token is configured
-    if (!process.env.SANITY_WRITE_TOKEN) {
-      // Fallback: return a base64 data URL for local development
-      const base64 = buffer.toString("base64");
-      const dataUrl = `data:${file.type};base64,${base64}`;
-      return NextResponse.json({ url: dataUrl });
-    }
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
 
-    // Upload to Sanity Assets
-    const asset = await sanityClient.assets.upload("image", buffer, {
-      filename: file.name,
+  const token = process.env.SANITY_WRITE_TOKEN;
+  if (!token) {
+    // Fallback: base64 data URL for local dev. Embed only the validated MIME.
+    const base64 = buffer.toString("base64");
+    return apiOk("Unggah lokal (tanpa Sanity).", {
+      url: `data:${file.type};base64,${base64}`,
+    });
+  }
+
+  try {
+    const client = getWriteClient(token);
+    const asset = await client.assets.upload("image", buffer, {
+      filename: sanitizeFilename(file.name, file.type),
       contentType: file.type,
     });
-
-    return NextResponse.json({
+    return apiOk("Gambar berhasil diunggah.", {
       url: asset.url,
       assetId: asset._id,
     });
   } catch (error) {
     console.error("Image upload failed:", error);
-    return NextResponse.json(
-      { error: "Gagal mengunggah gambar" },
-      { status: 500 }
-    );
+    return apiServerError("Gagal mengunggah gambar.");
   }
 }

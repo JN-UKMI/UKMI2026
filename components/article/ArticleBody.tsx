@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 
 export interface ArticleBodyProps {
@@ -9,10 +10,12 @@ const components: PortableTextComponents = {
     image: ({ value }: { value: any }) => (
       <figure className="my-10">
         <div className="relative w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 shadow-sm">
-          <img
+          <Image
             src={value.asset?.url || value.src || ""}
             alt={value.alt || ""}
-            className="w-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
             loading="lazy"
           />
         </div>

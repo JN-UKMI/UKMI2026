@@ -68,7 +68,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
       className={`relative px-3.5 py-1.5 text-sm transition-colors duration-200 rounded-lg cursor-pointer flex items-center justify-center font-semibold
         ${
           isActive
-            ? "text-forest-900 dark:text-lime font-bold"
+            ? "text-white font-bold"
             : "text-gray-700 dark:text-gray-200 hover:text-forest-700 dark:hover:text-lime"
         }
       `}
@@ -76,7 +76,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
       {isActive && (
         <motion.span
           layoutId="activeNavBackground"
-          className="absolute inset-0 bg-forest-100/90 dark:bg-forest-900/80 border border-forest-600/50 dark:border-lime/40 rounded-lg shadow-sm -z-10"
+          className="absolute inset-0 bg-forest-600 dark:bg-forest-600 border border-forest-600 dark:border-forest-500 rounded-lg shadow-md -z-10"
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}

@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
+
+import { headers } from "next/headers";
+import { BASE_URL, getAbsoluteUrl } from "@/lib/seo";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd } from "@/lib/json-ld";
 import { getArticles, getArticleBySlug, urlFor } from "@/lib/sanity";
 import { createClient } from "next-sanity";
 import { ArticleBody } from "@/components/article/ArticleBody";
-import Link from "next/link";
 import Image from "next/image";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArrowLeft, Calendar, Tag, Pencil } from "lucide-react";
 import { notFound } from "next/navigation";
+import { FadeIn } from "@/components/ui/motion";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const dynamic = "force-dynamic";
-
-const categoryColors: Record<string, string> = {
-  "Artikel Islami": "bg-lime/10 text-lime",
-  "Kajian Islami": "bg-teal/10 text-teal",
-  Lainnya: "bg-sage/10 text-sage",
-};
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -225,15 +225,51 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!article) {
     return {
       title: "Artikel Tidak Ditemukan",
+      robots: { index: false, follow: false },
     };
   }
 
+  const url = `${BASE_URL}/artikel/${article.slug}`;
+  const coverImageUrl =
+    typeof article.coverImage === "object" && article.coverImage?.asset
+      ? urlFor(article.coverImage).url()
+      : typeof article.coverImage === "string"
+        ? article.coverImage
+        : "/placeholder.png";
+
+  const publishedTime =
+    article.publishedAt instanceof Date
+      ? article.publishedAt.toISOString()
+      : typeof article.publishedAt === "string"
+        ? article.publishedAt
+        : undefined;
+
   return {
-    title: `${article.title} - JN UKMI`,
+    title: article.title,
     description: article.excerpt,
+    authors: article.author ? [{ name: article.author }] : undefined,
+    keywords: Array.isArray(article.tags) ? article.tags : undefined,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: article.title,
+      description: article.excerpt,
+      siteName: "Jamaah Nurul Hada UKMI",
+      locale: "id_ID",
+      images: [{ url: coverImageUrl, width: 1200, height: 630, alt: article.title }],
+      ...(publishedTime ? { publishedTime } : {}),
+      ...(article.author ? { authors: [article.author] } : {}),
+      ...(Array.isArray(article.tags) && article.tags.length ? { tags: article.tags } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [coverImageUrl],
+    },
   };
 }
-
 export default async function ArtikelDetailPage({ params, searchParams }: PageProps & { searchParams: Promise<{ preview?: string; draft?: string; draftId?: string }> }) {
   const { slug } = await params;
   const { preview, draft, draftId } = await searchParams;
@@ -309,7 +345,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
     notFound();
   }
 
-  // Safe helper to resolve cover image URL
+  // Safe helper to resolve cover image URL (declared BEFORE its use in JSON-LD).
   const getCoverImageUrl = () => {
     if (!article.coverImage) return "/placeholder.png";
     try {
@@ -325,9 +361,46 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
     return "/placeholder.png";
   };
 
-  return (      <div className="bg-white dark:bg-gray-950">
+  const headersList = await headers();
+  const nonce = headersList.get("x-nonce") ?? undefined;
+  const articleJsonLd = buildArticleJsonLd({
+    slug: article.slug,
+    title: article.title,
+    description: article.excerpt,
+    image: getCoverImageUrl(),
+    publishedAt:
+      typeof article.publishedAt === "string"
+        ? article.publishedAt
+        : article.publishedAt instanceof Date
+          ? article.publishedAt.toISOString()
+          : new Date().toISOString(),
+    ...(article.author ? { author: article.author } : {}),
+    ...(article.category ? { category: article.category } : {}),
+  });
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Beranda", path: "/" },
+    { name: "Artikel", path: "/artikel" },
+    { name: article.title, path: `/artikel/${article.slug}` },
+  ]);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        nonce={nonce}
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: articleJsonLd }}
+      />
+      <script
+        type="application/ld+json"
+        nonce={nonce}
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: breadcrumbJsonLd }}
+      />
+      <div className="bg-white dark:bg-gray-950">
       <article>
         {/* Cover Image */}
+        <FadeIn direction="down">
         <div className="relative h-[250px] md:h-[450px] w-full overflow-hidden">
           <Image
             src={getCoverImageUrl()}
@@ -338,18 +411,20 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
             unoptimized
           />
         </div>
+        </FadeIn>
 
         <div className="max-w-4xl mx-auto px-4 py-12">
           {/* Back Button */}
-          <Link
+          <TransitionLink
             href="/artikel"
             className="inline-flex items-center gap-2 text-sm font-bold text-gray-700 dark:text-gray-200 hover:text-forest-600 transition-colors mb-8 cursor-pointer active:scale-95"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Daftar Artikel
-          </Link>
+          </TransitionLink>
 
           {/* Meta Info */}
+          <FadeIn direction="up" delay={0.1}>
           <header className="mb-8">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-forest-50 border border-forest-150 rounded-full text-xs font-bold text-forest-600 mb-4 w-fit">
               <Tag className="w-3.5 h-3.5" />
@@ -379,13 +454,17 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
               )}
             </div>
           </header>
+          </FadeIn>
 
           {/* Article Content */}
+          <FadeIn delay={0.2}>
           <div className="prose prose-forest dark:prose-invert prose-lg max-w-none mb-12">
             <ArticleBody content={article.content} />
           </div>
+          </FadeIn>
         </div>
       </article>
     </div>
+    </>
   );
 }

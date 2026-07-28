@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/page-metadata";
 import { PageHero } from "@/components/layout/PageHero";
 import { loadDoaDoa } from "@/lib/content";
 import { DoaDoaList } from "@/components/islamic/DoaDoaList";
 
-export const metadata: Metadata = {
-  title: "Database Doa & Zikir | JN UKMI",
-  description: "Kumpulan doa-doa pilihan dan doa pembuka majelis untuk diamalkan dalam kehidupan sehari-hari.",
-};
+export const metadata = buildPageMetadata({
+  title: 'Database Doa & Zikir',
+  description: 'Kumpulan doa-doa pilihan dan doa pembuka majelis untuk diamalkan dalam kehidupan sehari-hari.',
+  path: '/doa-doa',
+});
 
 export default async function DoaDoaPage() {
   const doaList = await loadDoaDoa();

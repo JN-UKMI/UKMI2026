@@ -1,7 +1,10 @@
+"use client";
+
 import { MemberCard } from "@/components/kabinet/MemberCard";
 import type { MemberCard as MemberCardType } from "@/lib/types";
 import { Users } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 interface TimSectionProps {
   staff: MemberCardType[];
@@ -41,29 +44,31 @@ export function TimSection({ staff }: TimSectionProps) {
 
   return (
     <section className="py-20 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
-      <SectionHeader
-        icon={<Users className="w-6 h-6" />}
-        title="Tim Kami"
-        subtitle="Pimpinan dan seluruh staf pengurus bidang"
-      />
+      <FadeIn className="mb-10">
+        <SectionHeader
+          icon={<Users className="w-6 h-6" />}
+          title="Tim Kami"
+          subtitle="Pimpinan dan seluruh staf pengurus bidang"
+        />
+      </FadeIn>
 
       {/* Layout Mobile: Horizontal Carousel / Layout Desktop: Grid Hierarki */}
-      <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
+      <StaggerContainer className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
         {mobileOrderedList.map((member, i) => (
-          <div key={i} className="shrink-0 w-[290px] snap-center flex justify-center">
+          <StaggerItem key={i} className="shrink-0 w-[290px] snap-center flex justify-center">
             <MemberCard member={member} />
-          </div>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
 
       {/* Desktop Layout (sm:flex/grid) */}
-      <div className="hidden sm:flex flex-col gap-10">
+      <StaggerContainer className="hidden sm:flex flex-col gap-10">
         {/* Baris 1: Kepala & Wakil (2 kolom, gap longgar) */}
         <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
           {leaders.map((member, i) => (
-            <div key={i} className="w-[320px] flex justify-center">
+            <StaggerItem key={i} className="w-[320px] flex justify-center">
               <MemberCard member={member} />
-            </div>
+            </StaggerItem>
           ))}
         </div>
 
@@ -71,9 +76,9 @@ export function TimSection({ staff }: TimSectionProps) {
         {mainStaff.length > 0 && (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center">
             {mainStaff.map((member, i) => (
-              <div key={i} className="w-full max-w-[320px] flex justify-center">
+              <StaggerItem key={i} className="w-full max-w-[320px] flex justify-center">
                 <MemberCard member={member} />
-              </div>
+              </StaggerItem>
             ))}
           </div>
         )}
@@ -82,13 +87,13 @@ export function TimSection({ staff }: TimSectionProps) {
         {leftoverStaff.length > 0 && (
           <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
             {leftoverStaff.map((member, i) => (
-              <div key={i} className="w-[320px] flex justify-center">
+              <StaggerItem key={i} className="w-[320px] flex justify-center">
                 <MemberCard member={member} />
-              </div>
+              </StaggerItem>
             ))}
           </div>
         )}
-      </div>
+      </StaggerContainer>
     </section>
   );
 }

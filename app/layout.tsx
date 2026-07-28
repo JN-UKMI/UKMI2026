@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono, Amiri, Amiri_Quran, Noto_Naskh_Arabic } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -8,6 +9,9 @@ import { MusicProvider } from "@/components/ui/MusicContext";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { AmbientBackground } from "@/components/ui/motion";
+import { BASE_URL, siteConfig } from "@/lib/seo";
+import { buildSiteJsonLd } from "@/lib/json-ld";
+import { AuthProvider } from "@/components/providers/AuthProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,16 +42,71 @@ const notoNaskh = Noto_Naskh_Arabic({
   variable: "--font-noto-naskh",
 });
 
+/**
+ * Root metadata — applied to every page unless overridden by a more specific
+ * `metadata` export or a `generateMetadata` function. The `title.template`
+ * means individual page titles like "Artikel Islami" become
+ * "Artikel Islami | JN UKMI" automatically.
+ */
 export const metadata: Metadata = {
-  title: "JN UKMI | Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
-  description:
-    "Website resmi Jamaah Nurul Huda UKMI Universitas Sebelas Maret. Organisasi kemahasiswaan Islam yang berkomitmen membina generasi qurani.",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: `${siteConfig.name} | ${siteConfig.shortName}`,
+    template: `%s | ${siteConfig.shortName}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  generator: "Next.js",
+  keywords: [
+    "UKMI",
+    "JN UKMI",
+    "Jamaah Nurul Huda",
+    "Universitas Sebelas Maret",
+    "UNS",
+    "kemahasiswaan Islam",
+    "dakwah kampus",
+    "kajian Islam",
+    "Surakarta",
+  ],
+  authors: [{ name: siteConfig.name, url: BASE_URL }],
+  creator: siteConfig.shortName,
+  publisher: siteConfig.name,
+  category: "Education",
+  alternates: {
+    canonical: BASE_URL,
+  },
   openGraph: {
-    title: "JN UKMI | Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
-    description:
-      "Website resmi Jamaah Nurul Huda UKMI Universitas Sebelas Maret. Organisasi kemahasiswaan Islam yang berkomitmen membina generasi qurani.",
     type: "website",
-    locale: "id_ID",
+    locale: siteConfig.locale,
+    url: BASE_URL,
+    siteName: siteConfig.name,
+    title: {
+      default: `${siteConfig.name} | ${siteConfig.shortName}`,
+      template: `%s | ${siteConfig.shortName}`,
+    },
+    description: siteConfig.description,
+    images: [
+      {
+        url: siteConfig.defaultOgImage,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — Organisasi Kemahasiswaan Islam UNS`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: {
+      default: `${siteConfig.name} | ${siteConfig.shortName}`,
+      template: `%s | ${siteConfig.shortName}`,
+    },
+    description: siteConfig.description,
+    images: [siteConfig.defaultOgImage],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   icons: {
     icon: [
@@ -58,39 +117,62 @@ export const metadata: Metadata = {
     apple: [
       { url: "/favicon_io/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
+    shortcut: ["/favicon_io/favicon.ico"],
   },
+  manifest: "/favicon_io/site.webmanifest",
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
+  verification: siteConfig.googleVerification
+    ? { google: siteConfig.googleVerification }
+    : undefined,
 };
 
-import { AuthProvider } from "@/components/providers/AuthProvider";
+/**
+ * Viewport is a separate export in Next 16 — `themeColor` was moved out of
+ * `metadata` so it can adapt per scheme.
+ */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: siteConfig.themeColorLight },
+    { media: "(prefers-color-scheme: dark)", color: siteConfig.themeColorDark },
+  ],
+  colorScheme: "light dark",
+  viewportFit: "cover",
+};
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Read the per-request nonce injected by proxy.ts so the inline
+  // JSON-LD `<script>` matches the strict CSP we set per request.
+  const headersList = await headers();
+  const nonce = headersList.get("x-nonce") ?? undefined;
+
   return (
     <html
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} ${amiri.variable} ${amiriQuran.variable} ${notoNaskh.variable} h-full antialiased`}
     >
       <head>
+        <link rel="manifest" href="/favicon_io/site.webmanifest" />
+        <link rel="canonical" href={BASE_URL} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Jamaah Nurul Huda UKMI",
-              alternateName: "JN UKMI",
-              url: "https://jnukmi.org",
-              description:
-                "Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret",
-              memberOf: {
-                "@type": "EducationalOrganization",
-                name: "Universitas Sebelas Maret",
-              },
-            }),
-          }}
+          nonce={nonce}
+          // The nonce is generated per-request in middleware; React's
+          // client-side tree has no access to it, so the attribute differs
+          // between server HTML and hydration. JSON-LD is non-executable,
+          // so suppressing the warning is safe here.
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: buildSiteJsonLd() }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">

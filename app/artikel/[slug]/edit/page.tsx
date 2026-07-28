@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, BookOpen, Save, User, FileText, Tag, Upload, CheckCircle, Lock, Calendar, X, ShieldCheck, Eye, EyeOff, Loader2 } from "lucide-react";
 import NovelEditor from "@/components/editor/NovelEditor";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 export default function EditArtikelPage() {
   const router = useRouter();
@@ -255,10 +255,10 @@ export default function EditArtikelPage() {
             </button>
           </form>
 
-          <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime transition-colors mt-6">
+          <TransitionLink href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime transition-colors mt-6">
             <ArrowLeft className="w-3.5 h-3.5" />
             Kembali ke Daftar Artikel
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     );
@@ -279,13 +279,13 @@ export default function EditArtikelPage() {
     <div className="bg-transparent min-h-screen py-12 px-4 md:px-6">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <Link
+          <TransitionLink
             href={`/artikel/${slug}`}
             className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-forest-600 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Artikel
-          </Link>
+          </TransitionLink>
 
           <span className="px-3 py-1 bg-lime/10 border border-lime/30 text-forest-900 rounded-full text-xs font-bold flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
@@ -478,7 +478,7 @@ export default function EditArtikelPage() {
                   }}
                 />
                 <p className="text-xs text-gray-400 dark:text-gray-500">
-                  💡 Gunakan "/" untuk melihat menu perintah (heading, list, blockquote, dll)
+                  💡 Gunakan {"/"} untuk melihat menu perintah (heading, list, blockquote, dll)
                 </p>
               </div>
 

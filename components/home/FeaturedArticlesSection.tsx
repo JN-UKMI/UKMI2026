@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Calendar, Tag, Sparkles } from "lucide-react";
 import { EmptyState } from "./EmptyState";
@@ -5,6 +7,7 @@ import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { TransitionLink } from "@/components/ui/TransitionLink";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 interface FeaturedArticlesSectionProps {
   articles: ArticleListItem[];
@@ -40,17 +43,22 @@ export function FeaturedArticlesSection({
   return (
     <section className="bg-gray-50 py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <SectionHeader
-          icon={<Sparkles className="w-6 h-6" />}
-          title="Artikel Unggulan"
-          subtitle="Koleksi tulisan dan kajian pilihan JN UKMI"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <FadeIn className="mb-8">
+          <SectionHeader
+            icon={<Sparkles className="w-6 h-6" />}
+            title="Artikel Unggulan"
+            subtitle="Koleksi tulisan dan kajian pilihan JN UKMI"
+          />
+        </FadeIn>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article) => (
-            <TransitionLink
+            <StaggerItem
               key={article.slug}
+              className="flex flex-col h-full"
+            >
+            <TransitionLink
               href={`/artikel/${article.slug}`}
-              className="group flex flex-col h-full bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-forest-600 dark:hover:border-lime hover:shadow-lg transition-all duration-300"
+              className="group flex flex-col h-full bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-all duration-300 hover:border-forest-600 dark:hover:border-lime hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
             >
               <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
                 {article.coverImage ? (
@@ -58,7 +66,7 @@ export function FeaturedArticlesSection({
                     src={urlFor(article.coverImage).url()}
                     alt={article.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-forest-100 to-forest-200" />
@@ -89,8 +97,9 @@ export function FeaturedArticlesSection({
                 </p>
               </div>
             </TransitionLink>
+          </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

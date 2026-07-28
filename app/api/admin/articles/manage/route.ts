@@ -1,48 +1,61 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 import { requireAdmin } from "@/lib/auth";
+import {
+  apiOk,
+  apiBadRequest,
+  apiUnauthorized,
+  apiServerError,
+  apiNotFound,
+} from "@/lib/api-response";
+import {
+  ManageGetQuerySchema,
+  ArticleUpdateSchema,
+  ArticleDeleteSchema,
+} from "@/lib/schemas";
 
-// ── GET: Fetch single article by Sanity ID (for admin edit page) ──
+function getWriteClient(token: string) {
+  return createClient({
+    projectId: "ksc63oa8",
+    dataset: "production",
+    apiVersion: "2024-01-01",
+    token,
+    useCdn: false,
+  });
+}
+
+// ── GET: fetch single article by Sanity ID (admin gated) ─────────
 export async function GET(request: Request) {
-  try {
-    const adminUser = await requireAdmin();
-    if (!adminUser) {
-      return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
-    }
+  const admin = await requireAdmin();
+  if (!admin) return apiUnauthorized();
 
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+  const { searchParams } = new URL(request.url);
+  const parsed = ManageGetQuerySchema.safeParse({
+    id: searchParams.get("id"),
+  });
+  if (!parsed.success) return apiBadRequest("ID artikel tidak valid.");
 
-    if (!id) {
-      return NextResponse.json({ message: "ID Artikel diperlukan." }, { status: 400 });
-    }
-
-    const token = process.env.SANITY_WRITE_TOKEN;
-    if (!token) {
-      // Fallback: return a mock article for simulation mode
-      return NextResponse.json({
-        article: {
-          _id: id,
-          title: "[Simulasi] Artikel Demo",
-          slug: "artikel-demo",
-          category: "Artikel Islami",
-          excerpt: "Ini adalah mode simulasi — token Sanity tidak tersedia.",
-          content: "<p>Konten artikel simulasi. Token SANITY_WRITE_TOKEN tidak ditemukan.</p>",
-          coverImage: null,
-          publishedAt: new Date().toISOString(),
-          author: "Admin",
-        },
-      });
-    }
-
-    const writeClient = createClient({
-      projectId: "ksc63oa8",
-      dataset: "production",
-      apiVersion: "2024-01-01",
-      token: token,
-      useCdn: false,
+  const token = process.env.SANITY_WRITE_TOKEN;
+  if (!token) {
+    return NextResponse.json({
+      article: {
+        _id: parsed.data.id,
+        title: "[Simulasi] Artikel Demo",
+        slug: "artikel-demo",
+        category: "Artikel Islami",
+        excerpt:
+          "Ini adalah mode simulasi — token Sanity tidak tersedia.",
+        content:
+          "<p>Konten artikel simulasi. Token SANITY_WRITE_TOKEN tidak ditemukan.</p>",
+        coverImage: null,
+        publishedAt: new Date().toISOString(),
+        author: "Admin",
+      },
     });
+  }
 
+  try {
+    const writeClient = getWriteClient(token);
     const article = await writeClient.fetch(
       `*[_type == "article" && _id == $id][0] {
         _id,
@@ -55,59 +68,52 @@ export async function GET(request: Request) {
         publishedAt,
         author
       }`,
-      { id }
+      { id: parsed.data.id }
     );
-
-    if (!article) {
-      return NextResponse.json({ message: "Artikel tidak ditemukan." }, { status: 404 });
-    }
-
+    if (!article) return apiNotFound("Artikel tidak ditemukan.");
     return NextResponse.json({ article });
   } catch (err: any) {
-    return NextResponse.json(
-      { message: `Gagal mengambil artikel: ${err.message}` },
-      { status: 500 }
-    );
+    return apiServerError("Gagal mengambil artikel: " + (err?.message ?? "unknown"));
   }
 }
 
+// ── PUT: update article (admin gated) ────────────────────────────
 export async function PUT(request: Request) {
+  const admin = await requireAdmin();
+  if (!admin) return apiUnauthorized();
+
+  let body: unknown;
   try {
-    const adminUser = await requireAdmin();
-    if (!adminUser) {
-      return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
-    }
+    body = await request.json();
+  } catch {
+    return apiBadRequest("Body bukan JSON valid.");
+  }
 
-    const { id, title, category, excerpt, content, author, coverImage, publishedAt } = await request.json();
+  const parsed = ArticleUpdateSchema.safeParse(body);
+  if (!parsed.success) {
+    return apiBadRequest(
+      "Validasi gagal: " + parsed.error.issues.map((i) => i.message).join("; ")
+    );
+  }
+  const { id, title, category, excerpt, content, author, publishedAt, coverImage } = parsed.data;
 
-    if (!id || !title || !category || !excerpt || !content) {
-      return NextResponse.json({ message: "Semua field wajib diisi." }, { status: 400 });
-    }
+  const token = process.env.SANITY_WRITE_TOKEN;
+  if (!token) {
+    // Simulation mode — surface intent clearly so callers don't mistake it for success.
+    return apiOk("Mode Simulasi: Artikel berhasil diedit (Simulasi, tidak tersimpan).");
+  }
 
-    const token = process.env.SANITY_WRITE_TOKEN;
-    if (!token) {
-      return NextResponse.json({ message: "Mode Simulasi: Artikel berhasil diedit (Simulasi)." });
-    }
-
-    const writeClient = createClient({
-      projectId: "ksc63oa8",
-      dataset: "production",
-      apiVersion: "2024-01-01",
-      token: token,
-      useCdn: false,
-    });
-
-    const patchData: Record<string, any> = { title, category, excerpt, content };
+  try {
+    const writeClient = getWriteClient(token);
+    const patchData: Record<string, unknown> = { title, category, excerpt, content };
     if (author !== undefined) patchData.author = author;
     if (publishedAt !== undefined) patchData.publishedAt = publishedAt;
 
-    // Handle coverImage: construct Sanity image reference from assetId
+    // Sanitize / structure coverImage input.
     if (coverImage !== undefined) {
       if (coverImage === null) {
-        // User removed the image — unset the field
         patchData.coverImage = null;
-      } else if (coverImage.assetId) {
-        // New image uploaded — construct proper Sanity image reference
+      } else if (typeof coverImage === "object" && "assetId" in coverImage) {
         patchData.coverImage = {
           _type: "image",
           asset: {
@@ -115,51 +121,51 @@ export async function PUT(request: Request) {
             _ref: coverImage.assetId,
           },
         };
-      } else if (coverImage.url) {
-        // Fallback: plain URL (simulation mode, base64 data URL, or legacy)
-        patchData.coverImage = coverImage.url;
-      } else if (typeof coverImage === "string" && coverImage.trim() !== "") {
-        // Plain URL string (legacy)
-        patchData.coverImage = coverImage;
+      } else if (typeof coverImage === "string") {
+        const trimmed = coverImage.trim();
+        if (trimmed.startsWith("data:image/") || /^https?:\/\//.test(trimmed)) {
+          patchData.coverImage = trimmed;
+        } else {
+          return apiBadRequest("Format coverImage tidak valid.");
+        }
+      } else {
+        return apiBadRequest("Format coverImage tidak dikenal.");
       }
     }
 
-    return NextResponse.json({ message: "Artikel berhasil diperbarui." });
+    // FIX: actually dispatch the patch to Sanity.
+    await writeClient.patch(id).set(patchData).commit();
+    return apiOk("Artikel berhasil diperbarui.");
   } catch (err: any) {
-    return NextResponse.json({ message: `Gagal memperbarui artikel: ${err.message}` }, { status: 500 });
+    return apiServerError("Gagal memperbarui artikel: " + (err?.message ?? "unknown"));
   }
 }
 
+// ── DELETE: delete article (admin gated) ─────────────────────────
 export async function DELETE(request: Request) {
+  const admin = await requireAdmin();
+  if (!admin) return apiUnauthorized();
+
+  let body: unknown;
   try {
-    const adminUser = await requireAdmin();
-    if (!adminUser) {
-      return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
-    }
+    body = await request.json();
+  } catch {
+    return apiBadRequest("Body bukan JSON valid.");
+  }
 
-    const { id } = await request.json();
+  const parsed = ArticleDeleteSchema.safeParse(body);
+  if (!parsed.success) return apiBadRequest("ID artikel tidak valid.");
 
-    if (!id) {
-      return NextResponse.json({ message: "ID Artikel diperlukan." }, { status: 400 });
-    }
+  const token = process.env.SANITY_WRITE_TOKEN;
+  if (!token) {
+    return apiOk("Mode Simulasi: Artikel berhasil dihapus (Simulasi, tidak tersimpan).");
+  }
 
-    const token = process.env.SANITY_WRITE_TOKEN;
-    if (!token) {
-      return NextResponse.json({ message: "Mode Simulasi: Artikel berhasil dihapus (Simulasi)." });
-    }
-
-    const writeClient = createClient({
-      projectId: "ksc63oa8",
-      dataset: "production",
-      apiVersion: "2024-01-01",
-      token: token,
-      useCdn: false,
-    });
-
-    await writeClient.delete(id);
-
-    return NextResponse.json({ message: "Artikel berhasil dihapus." });
+  try {
+    const writeClient = getWriteClient(token);
+    await writeClient.delete(parsed.data.id);
+    return apiOk("Artikel berhasil dihapus.");
   } catch (err: any) {
-    return NextResponse.json({ message: `Gagal menghapus artikel: ${err.message}` }, { status: 500 });
+    return apiServerError("Gagal menghapus artikel: " + (err?.message ?? "unknown"));
   }
 }

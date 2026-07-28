@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, RotateCcw, Copy } from "lucide-react";
+import { motion } from "framer-motion";
 
 type DoaCardProps = {
   index: number;
@@ -43,9 +44,10 @@ export function DoaCard({
   const isCompleted = count === repeat;
 
   return (
-    <div
+    <motion.div
       onClick={increment}
-      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border transition-all duration-300 cursor-pointer select-none flex flex-col gap-4 border-l-4 active:scale-[0.98] ${
+      whileTap={{ scale: 0.98 }}
+      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border transition-all duration-300 cursor-pointer select-none flex flex-col gap-4 border-l-4 ${
         isCompleted
           ? "border-l-lime border-gray-200 dark:border-gray-800 bg-lime/5 dark:bg-lime/10 shadow-lime/5"
           : count > 0
@@ -164,6 +166,6 @@ export function DoaCard({
           Klik kartu untuk menghitung
         </span>
       )}
-    </div>
+    </motion.div>
   );
 }

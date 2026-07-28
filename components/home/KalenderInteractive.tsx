@@ -13,6 +13,7 @@ import {
   CalendarDays,
 } from "lucide-react";
 import type { EventItem } from "@/lib/types";
+import { useIsTouchDevice } from "@/lib/hooks";
 
 interface KalenderInteractiveProps {
   events: EventItem[];
@@ -27,7 +28,7 @@ const INDONESIAN_MONTHS = [
 
 const DAYS_OF_WEEK = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 export function KalenderInteractive({
   events,
@@ -47,6 +48,8 @@ export function KalenderInteractive({
   const [activeCategory, setActiveCategory] = useState<"all" | "kegiatan" | "puasa">("all");
   const [calendarHeight, setCalendarHeight] = useState<number>(0);
   const calendarCardRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const isTouchDevice = useIsTouchDevice();
 
   useEffect(() => {
     const updateHeight = () => {
@@ -153,35 +156,65 @@ export function KalenderInteractive({
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-3 sm:p-4 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-colors">
         
         {/* Left: Filter Segmented Control */}
-        <div className="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80 p-1.5 rounded-2xl w-full sm:w-auto">
+        <div className="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80 p-1.5 rounded-2xl w-full sm:w-auto relative">
           <button
-            onClick={() => setActiveCategory("all")}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
+            onClick={() => {
+              setMonthPage([monthPage, 0]);
+              setActiveCategory("all");
+            }}
+            className={`relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-colors cursor-pointer z-10 ${
               activeCategory === "all"
-                ? "bg-white dark:bg-gray-700 text-forest-900 dark:text-lime shadow-sm"
+                ? "text-forest-900 dark:text-lime"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
             }`}
           >
+            {activeCategory === "all" && (
+              <motion.div
+                layoutId="activeCategoryTab"
+                className="absolute inset-0 bg-white dark:bg-gray-700 shadow-sm rounded-xl -z-10 transition-colors duration-300"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
             Semua ({events.length})
           </button>
           <button
-            onClick={() => setActiveCategory("kegiatan")}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
+            onClick={() => {
+              setMonthPage([monthPage, 0]);
+              setActiveCategory("kegiatan");
+            }}
+            className={`relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-colors cursor-pointer z-10 ${
               activeCategory === "kegiatan"
-                ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
+                ? "text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
             }`}
           >
+            {activeCategory === "kegiatan" && (
+              <motion.div
+                layoutId="activeCategoryTab"
+                className="absolute inset-0 bg-forest-600 dark:bg-forest-700 shadow-sm rounded-xl -z-10 transition-colors duration-300"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
             Agenda UKMI
           </button>
           <button
-            onClick={() => setActiveCategory("puasa")}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
+            onClick={() => {
+              setMonthPage([monthPage, 0]);
+              setActiveCategory("puasa");
+            }}
+            className={`relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-colors cursor-pointer z-10 ${
               activeCategory === "puasa"
-                ? "bg-emerald-700 dark:bg-emerald-800 text-white shadow-sm"
+                ? "text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
             }`}
           >
+            {activeCategory === "puasa" && (
+              <motion.div
+                layoutId="activeCategoryTab"
+                className="absolute inset-0 bg-emerald-700 dark:bg-emerald-800 shadow-sm rounded-xl -z-10 transition-colors duration-300"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
             🌙 Puasa Sunnah
           </button>
         </div>
@@ -287,29 +320,53 @@ export function KalenderInteractive({
               </div>
 
               <div className="relative overflow-hidden w-full">
-                <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+                <AnimatePresence
+                mode={shouldReduceMotion || isTouchDevice ? "wait" : "popLayout"}
+                initial={false}
+                custom={direction}
+              >
                   <motion.div
-                    key={monthPage}
+                    key={`${monthPage}-${activeCategory}`}
                     custom={direction}
                     variants={{
                       enter: (dir: number) => ({
-                        x: dir > 0 ? "100%" : "-100%",
-                        opacity: 1,
+                        x:
+                          shouldReduceMotion || isTouchDevice
+                            ? 0
+                            : dir === 0
+                            ? 0
+                            : dir > 0
+                            ? "100%"
+                            : "-100%",
+                        opacity: 0,
                       }),
                       center: {
                         x: 0,
                         opacity: 1,
                       },
                       exit: (dir: number) => ({
-                        x: dir < 0 ? "100%" : "-100%",
-                        opacity: 1,
+                        x:
+                          shouldReduceMotion || isTouchDevice
+                            ? 0
+                            : dir === 0
+                            ? 0
+                            : dir < 0
+                            ? "100%"
+                            : "-100%",
+                        opacity: 0,
                       }),
                     }}
                     initial="enter"
                     animate="center"
                     exit="exit"
                     transition={{
-                      x: { type: "spring", stiffness: 300, damping: 32 },
+                      x:
+                        shouldReduceMotion || isTouchDevice
+                          ? undefined
+                          : { type: "spring", stiffness: 300, damping: 32 },
+                      opacity: {
+                        duration: shouldReduceMotion || isTouchDevice ? 0.1 : 0.2,
+                      },
                     }}
                   >
                     {/* Days of week header */}
@@ -466,15 +523,24 @@ export function KalenderInteractive({
             </div>
 
             {/* Agenda Cards — Animated Container Slide with Staggered Items */}
-            <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pr-1 relative">
+            <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pr-1 relative max-h-[360px] sm:max-h-full">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={(selectedDateStr || "month") + monthPage + activeCategory}
-                  initial={{ opacity: 0, x: direction >= 0 ? 30 : -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: direction >= 0 ? -30 : 30 }}
+                  initial={{
+                    opacity: 0,
+                    x: direction === 0 ? 0 : direction > 0 ? 30 : -30,
+                    y: direction === 0 ? 10 : 0,
+                  }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  exit={{
+                    opacity: 0,
+                    x: direction === 0 ? 0 : direction > 0 ? -30 : 30,
+                    y: direction === 0 ? -10 : 0,
+                  }}
                   transition={{
                     x: { type: "spring", stiffness: 350, damping: 30 },
+                    y: { type: "spring", stiffness: 350, damping: 30 },
                     opacity: { duration: 0.2 },
                   }}
                   className="space-y-3.5"
@@ -493,7 +559,7 @@ export function KalenderInteractive({
                       const isPuasa = event.type === "Puasa Sunnah" || event.isPuasa;
                       return (
                         <motion.div
-                          whileHover={{ y: -2 }}
+                          whileHover={shouldReduceMotion ? undefined : { y: -2 }}
                           transition={{ duration: 0.2 }}
                           key={event.date + event.title + index}
                           className={`p-4 rounded-2xl border transition-all duration-300 ${

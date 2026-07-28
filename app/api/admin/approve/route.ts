@@ -1,106 +1,107 @@
-import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 import { requireAdmin } from "@/lib/auth";
+import {
+  apiOk,
+  apiBadRequest,
+  apiUnauthorized,
+  apiNotFound,
+  apiServerError,
+} from "@/lib/api-response";
+import { ApproveSchema, RejectSchema, SanityDocumentIdSchema } from "@/lib/schemas";
+
+function getWriteClient(token: string) {
+  return createClient({
+    projectId: "ksc63oa8",
+    dataset: "production",
+    apiVersion: "2024-01-01",
+    token,
+    useCdn: false,
+  });
+}
+
+async function readJsonBody(request: Request) {
+  try {
+    return await request.json();
+  } catch {
+    return null;
+  }
+}
 
 export async function POST(request: Request) {
+  const admin = await requireAdmin();
+  if (!admin) return apiUnauthorized();
+
+  const body = await readJsonBody(request);
+  if (body === null) return apiBadRequest("Body bukan JSON valid.");
+
+  const parsed = ApproveSchema.safeParse(body);
+  if (!parsed.success) {
+    return apiBadRequest(
+      "Validasi gagal: " + parsed.error.issues.map((i) => i.message).join("; ")
+    );
+  }
+  // Sanity drafts always start with `drafts.` — anyone sending the bare id
+  // of a published doc is rejected up front to prevent accidental promotion.
+  if (!parsed.data.draftId.startsWith("drafts.")) {
+    return apiBadRequest("Hanya artikel dengan ID berawalan 'drafts.' yang dapat disetujui.");
+  }
+  if (!SanityDocumentIdSchema.safeParse(parsed.data.draftId).success) {
+    return apiBadRequest("Format ID draft tidak valid.");
+  }
+
+  const token = process.env.SANITY_WRITE_TOKEN;
+  if (!token) {
+    return apiOk(
+      "Simulasi: Artikel berhasil disetujui dan dipublikasikan (Mode Fallback).",
+      { publishedId: parsed.data.draftId.replace(/^drafts\./, "") }
+    );
+  }
+
   try {
-    const adminUser = await requireAdmin();
-    if (!adminUser) {
-      return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
-    }
+    const writeClient = getWriteClient(token);
+    const draftDoc = await writeClient.getDocument(parsed.data.draftId);
+    if (!draftDoc) return apiNotFound("Artikel draf tidak ditemukan.");
 
-    const { draftId } = await request.json();
-
-    if (!draftId) {
-      return NextResponse.json({ message: "ID Artikel draft diperlukan." }, { status: 400 });
-    }
-
-    const token = process.env.SANITY_WRITE_TOKEN;
-    if (!token) {
-      // Mock successful approval during development/fallback
-      return NextResponse.json({ 
-        message: "Simulasi: Artikel berhasil disetujui dan dipublikasikan (Mode Fallback).",
-        publishedId: draftId.replace("drafts.", "")
-      });
-    }
-
-    const writeClient = createClient({
-      projectId: "ksc63oa8",
-      dataset: "production",
-      apiVersion: "2024-01-01",
-      token: token,
-      useCdn: false,
-    });
-
-    // 1. Fetch the draft document
-    const draftDoc = await writeClient.getDocument(draftId);
-    if (!draftDoc) {
-      return NextResponse.json({ message: "Artikel draf tidak ditemukan." }, { status: 404 });
-    }
-
-    const publishedId = draftId.replace("drafts.", "");
-
-    // 2. Perform transaction: copy to published ID and delete the draft ID
+    const publishedId = parsed.data.draftId.replace(/^drafts\./, "");
     await writeClient
       .transaction()
-      .createOrReplace({
-        ...draftDoc,
-        _id: publishedId,
-      })
-      .delete(draftId)
+      .createOrReplace({ ...draftDoc, _id: publishedId })
+      .delete(parsed.data.draftId)
       .commit();
 
-    return NextResponse.json({ 
-      message: "Artikel berhasil disetujui dan dipublikasikan.",
-      publishedId
-    });
+    return apiOk("Artikel berhasil disetujui dan dipublikasikan.", { publishedId });
   } catch (err: any) {
-    return NextResponse.json(
-      { message: `Gagal menyetujui artikel: ${err.message}` },
-      { status: 500 }
-    );
+    return apiServerError("Gagal menyetujui artikel: " + (err?.message ?? "unknown"));
   }
 }
 
 export async function DELETE(request: Request) {
-  try {
-    const adminUser = await requireAdmin();
-    if (!adminUser) {
-      return NextResponse.json({ message: "Akses ditolak. Sesi admin tidak valid." }, { status: 403 });
-    }
+  const admin = await requireAdmin();
+  if (!admin) return apiUnauthorized();
 
-    const { draftId } = await request.json();
+  const body = await readJsonBody(request);
+  if (body === null) return apiBadRequest("Body bukan JSON valid.");
 
-    if (!draftId) {
-      return NextResponse.json({ message: "ID Artikel draft diperlukan." }, { status: 400 });
-    }
-
-    const token = process.env.SANITY_WRITE_TOKEN;
-    if (!token) {
-      // Mock successful deletion during development/fallback
-      return NextResponse.json({ 
-        message: "Simulasi: Artikel berhasil ditolak dan dihapus (Mode Fallback)."
-      });
-    }
-
-    const writeClient = createClient({
-      projectId: "ksc63oa8",
-      dataset: "production",
-      apiVersion: "2024-01-01",
-      token: token,
-      useCdn: false,
-    });
-
-    // Delete the draft document
-    await writeClient.delete(draftId);
-
-    return NextResponse.json({ 
-      message: "Artikel draf berhasil dihapus."
-    });
-  } catch (err: any) {
-    return NextResponse.json(
-      { message: `Gagal menghapus artikel draf: ${err.message}` },
-      { status: 500 }
+  const parsed = RejectSchema.safeParse(body);
+  if (!parsed.success) {
+    return apiBadRequest(
+      "Validasi gagal: " + parsed.error.issues.map((i) => i.message).join("; ")
     );
+  }
+  if (!SanityDocumentIdSchema.safeParse(parsed.data.draftId).success) {
+    return apiBadRequest("Format ID draft tidak valid.");
+  }
+
+  const token = process.env.SANITY_WRITE_TOKEN;
+  if (!token) {
+    return apiOk("Simulasi: Artikel berhasil ditolak dan dihapus (Mode Fallback).");
+  }
+
+  try {
+    const writeClient = getWriteClient(token);
+    await writeClient.delete(parsed.data.draftId);
+    return apiOk("Artikel draf berhasil dihapus.");
+  } catch (err: any) {
+    return apiServerError("Gagal menghapus artikel draf: " + (err?.message ?? "unknown"));
   }
 }

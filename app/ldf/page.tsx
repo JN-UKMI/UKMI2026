@@ -1,13 +1,14 @@
-import { Metadata } from "next";
 import { LdfCard } from "@/components/ldf/LdfCard";
 import { loadLDF } from "@/lib/content";
 import { PageHero } from "@/components/layout/PageHero";
 import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Lembaga Dakwah Fakultas | LDF Directory",
-  description: "Direktori Lembaga Dakwah Fakultas di kampus UNS",
-};
+export const metadata = buildPageMetadata({
+  title: 'Lembaga Dakwah Fakultas',
+  description: 'Direktori Lembaga Dakwah Fakultas di kampus UNS',
+  path: '/ldf',
+});
 
 export default async function LdfPage() {
   const ldfList = await loadLDF();

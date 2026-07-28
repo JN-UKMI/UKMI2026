@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar, Target, Sparkles } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
+import { FadeIn } from "@/components/ui/motion";
 
 interface ProgramKerjaCarouselProps {
   program_kerja: Array<{ title: string; description: string; tanggal?: string; target?: string }>;
@@ -52,14 +53,17 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
   return (
     <section className="bg-transparent py-20 px-4 transition-colors duration-300">
       <div className="max-w-5xl mx-auto relative">
-        <SectionHeader
-          icon={<Sparkles className="w-6 h-6" />}
-          title="Program Kerja Unggulan"
-          subtitle="Daftar agenda kegiatan dan program kerja utama bidang"
-        />
+        <FadeIn direction="up">
+          <SectionHeader
+            icon={<Sparkles className="w-6 h-6" />}
+            title="Program Kerja Unggulan"
+            subtitle="Daftar agenda kegiatan dan program kerja utama bidang"
+          />
+        </FadeIn>
 
         {/* Carousel Container */}
-        <div className="relative px-2 sm:px-12 w-full overflow-hidden">
+        <FadeIn delay={0.2}>
+          <div className="relative px-2 sm:px-12 w-full overflow-hidden">
           {/* Slider viewport */}
           <div className="overflow-hidden w-full">
             <div 
@@ -127,6 +131,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
+        </FadeIn>
 
         {/* Dots Indicator */}
         <div className="flex justify-center items-center gap-2 mt-8">

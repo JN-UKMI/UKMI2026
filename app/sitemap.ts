@@ -1,12 +1,18 @@
 import type { MetadataRoute } from "next";
+import { BASE_URL, getAbsoluteUrl } from "@/lib/seo";
+import { getArticles } from "@/lib/sanity";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://jnukmi.com";
-
-const routes: { path: string; priority?: number }[] = [
+/**
+ * Static routes that have semantic priority for SEO crawlers.
+ * Dynamic routes (artikel, kegiatan events) are appended at build time
+ * — wrapped in try/catch so a Sanity outage doesn't fail the deployment.
+ */
+const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: "/", priority: 1.0 },
   { path: "/tentang", priority: 0.8 },
   { path: "/kabinet", priority: 0.8 },
   { path: "/ldf", priority: 0.7 },
+  { path: "/partnership", priority: 0.7 },
   { path: "/artikel", priority: 0.7 },
   { path: "/doa-doa", priority: 0.6 },
   { path: "/al-kahfi", priority: 0.6 },
@@ -22,11 +28,40 @@ const routes: { path: string; priority?: number }[] = [
   { path: "/buku-ukmi", priority: 0.6 },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
-    url: `${BASE_URL}${route.path}`,
+/**
+ * Build the sitemap for crawlers.
+ *
+ * Note: `getArticles()` calls Sanity via the CDN client. If Sanity is
+ * down or the token is missing in production builds, we degrade
+ * gracefully to the 17 static routes — better an incomplete sitemap
+ * than a failed deployment.
+ */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
+    url: getAbsoluteUrl(r.path),
     lastModified: new Date(),
-    changeFrequency: route.path === "/" ? "weekly" : "monthly",
-    priority: route.priority ?? 0.5,
+    changeFrequency: r.path === "/" ? "weekly" : "monthly",
+    priority: r.priority,
   }));
+
+  let dynamicEntries: MetadataRoute.Sitemap = [];
+  try {
+    const articles = await getArticles();
+    dynamicEntries = articles
+      .filter((a) => typeof a?.slug === "string" && a.slug.length > 0)
+      .map((a) => ({
+        url: getAbsoluteUrl(`/artikel/${a.slug}`),
+        lastModified: a.publishedAt ? new Date(a.publishedAt) : new Date(),
+        changeFrequency: "weekly",
+        priority: 0.6,
+      }));
+  } catch (error) {
+    // Don't fail the whole sitemap if Sanity is unreachable.
+    console.warn(
+      "[sitemap] Failed to fetch dynamic articles — serving static routes only.",
+      error instanceof Error ? error.message : error,
+    );
+  }
+
+  return [...staticEntries, ...dynamicEntries];
 }

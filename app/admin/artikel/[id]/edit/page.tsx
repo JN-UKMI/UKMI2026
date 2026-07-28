@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArticleBody } from "@/components/article/ArticleBody";
 import { portableTextToHtml } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity";
@@ -279,13 +280,13 @@ export default function AdminEditArticlePage() {
         <div className="text-center space-y-4">
           <AlertCircle className="w-12 h-12 text-red-400 mx-auto" />
           <p className="text-red-600 font-bold">{error || "Artikel tidak ditemukan."}</p>
-          <Link
+          <TransitionLink
             href="/admin"
             className="inline-flex items-center gap-2 text-sm font-bold text-forest-600 hover:underline"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Panel Admin
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     );
@@ -352,13 +353,13 @@ export default function AdminEditArticlePage() {
         {/* ── Nav Bar (below thumbnail) ── */}
         <div className="sticky top-0 z-30 bg-white/95 dark:bg-gray-900/95 backdrop-blur border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-            <Link
+            <TransitionLink
               href="/admin"
               className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Panel Admin
-            </Link>
+            </TransitionLink>
 
             <div className="flex items-center gap-3">
               {successMsg && (

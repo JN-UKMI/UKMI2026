@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { getArticleBySlug } from "@/lib/sanity";
+import { apiBadRequest, apiServerError, apiNotFound } from "@/lib/api-response";
+
+// Slug harus merupakan karakter aman dan pendek untuk mencegah
+// overlong-parameter DOS pada downstream GROQ query.
+const SLUG_REGEX = /^[a-z0-9][a-z0-9\-]{0,119}$/;
 
 export async function GET(
   request: Request,
@@ -8,28 +13,19 @@ export async function GET(
   try {
     const { slug } = await params;
 
-    if (!slug) {
-      return NextResponse.json(
-        { message: "Slug artikel diperlukan" },
-        { status: 400 }
-      );
+    if (!slug || !SLUG_REGEX.test(slug)) {
+      return apiBadRequest("Slug artikel tidak valid.");
     }
 
     const article = await getArticleBySlug(slug);
 
     if (!article) {
-      return NextResponse.json(
-        { message: "Artikel tidak ditemukan" },
-        { status: 404 }
-      );
+      return apiNotFound("Artikel tidak ditemukan.");
     }
 
     return NextResponse.json(article, { status: 200 });
   } catch (err: any) {
     console.error("Error fetching article:", err);
-    return NextResponse.json(
-      { message: `Gagal memuat artikel: ${err.message}` },
-      { status: 500 }
-    );
+    return apiServerError("Gagal memuat artikel: " + (err?.message ?? "unknown"));
   }
 }

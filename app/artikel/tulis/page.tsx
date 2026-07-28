@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, BookOpen, Send, User, FileText, Tag, Upload, CheckCircle, Lock, Calendar, X, ShieldCheck, Eye, EyeOff } from "lucide-react";
 import NovelEditor from "@/components/editor/NovelEditor";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 export default function TulisArtikelPage() {
   const [passcode, setPasscode] = useState("");
@@ -171,7 +171,7 @@ export default function TulisArtikelPage() {
             </div>
           )}
 
-          <form onSubmit={handleVerifyGate} className="space-y-4">
+          <form onSubmit={handleVerifyGate} className="space-y-4" id="passcodeForm">
             <div className="flex flex-col gap-1.5 text-left">
               <label htmlFor="passcodeGate" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5 text-forest-600" />
@@ -217,10 +217,11 @@ export default function TulisArtikelPage() {
                 "Buka Form Tulis Artikel"
               )}
             </button>
-          </form>            <Link href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime transition-colors mt-6">
+          </form>
+          <TransitionLink href="/artikel" className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime transition-colors mt-6">
             <ArrowLeft className="w-3.5 h-3.5" />
             Kembali ke Daftar Artikel
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     );
@@ -229,13 +230,13 @@ export default function TulisArtikelPage() {
   return (        <div className="bg-transparent min-h-screen py-12 px-4 md:px-6">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <Link
+          <TransitionLink
             href="/artikel"
             className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-forest-600 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Artikel
-          </Link>
+          </TransitionLink>
 
           <span className="px-3 py-1 bg-lime/10 border border-lime/30 text-forest-900 rounded-full text-xs font-bold flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
@@ -261,12 +262,12 @@ export default function TulisArtikelPage() {
               >
                 Tulis Artikel Lain
               </button>
-              <Link
+              <TransitionLink
                 href="/artikel"
                 className="px-6 py-2.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all cursor-pointer"
               >
                 Lihat Semua Artikel
-              </Link>
+              </TransitionLink>
             </div>
           </div>
         ) : (
@@ -432,6 +433,7 @@ export default function TulisArtikelPage() {
                   uploadFn={async (file) => {
                     const formData = new FormData();
                     formData.append("file", file);
+                    formData.append("passcode", passcode);
                     const res = await fetch("/api/upload", {
                       method: "POST",
                       body: formData,
@@ -442,7 +444,7 @@ export default function TulisArtikelPage() {
                   }}
                 />
                 <p className="text-xs text-gray-400 dark:text-gray-500">
-                  💡 Gunakan "/" untuk melihat menu perintah (heading, list, blockquote, dll)
+                  💡 Gunakan {"/"} untuk melihat menu perintah (heading, list, blockquote, dll)
                 </p>
               </div>
 

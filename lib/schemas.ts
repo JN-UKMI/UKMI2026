@@ -1,0 +1,141 @@
+import { z } from "zod";
+
+/**
+ * Centralized zod schemas for API input validation.
+ *
+ * Design notes:
+ * - Length caps guard against payload-DOS attacks.
+ * - Regex formats prevent parameter pollution (slug chars, dates).
+ * - Defaults match common patterns from existing wire format so callers
+ *   don't have to change.
+ */
+
+// ── Shared atoms ───────────────────────────────────────────────
+export const SlugSchema = z
+  .string()
+  .min(1)
+  .max(120)
+  .regex(/^[a-z0-9\-]+$/, "Slug hanya boleh huruf kecil, angka, dan strip");
+
+export const IsoDateSchema = z
+  .string()
+  .regex(
+    /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?)?$/,
+    "Tanggal tidak valid (format ISO)"
+  );
+
+export const SanityDocumentIdSchema = z
+  .string()
+  .min(1)
+  .max(200)
+  .regex(/^[a-z0-9.\-_]+$/, "ID dokumen tidak valid");
+
+const ImageBase64Schema = z
+  .string()
+  .regex(/^data:image\/(jpeg|jpg|png|webp|gif);base64,[A-Za-z0-9+/=]+$/, "Encoding gambar tidak valid");
+
+// ── Auth ────────────────────────────────────────────────────────
+export const PasscodeOnlySchema = z.object({
+  passcode: z.string().min(1).max(200),
+});
+
+export const ContentType = {
+  jpeg: "image/jpeg",
+  jpg: "image/jpg",
+  png: "image/png",
+  webp: "image/webp",
+  gif: "image/gif",
+} as const;
+
+export const ALLOWED_IMAGE_MIME_TYPES: string[] = Object.values(ContentType);
+
+// ── Artikel create / patch ──────────────────────────────────────
+const ArticleContentShape = {
+  title: z.string().min(1).max(200),
+  author: z.string().min(1).max(100),
+  category: z.enum(["Artikel Islami", "Kajian Islami", "Lainnya"]),
+  excerpt: z.string().min(1).max(500),
+  content: z.string().min(1).max(500_000),
+  passcode: z.string().min(1).max(200),
+  publishedAt: z.string().optional(),
+  imageName: z.string().max(200).optional(),
+  imageBase64: ImageBase64Schema.optional(),
+};
+
+export const ArticleCreateSchema = z.object(ArticleContentShape);
+
+export const ArticlePatchSchema = z.object({
+  slug: SanityDocumentIdSchema,
+  ...ArticleContentShape,
+});
+
+// ── Admin approve ──────────────────────────────────────────────
+export const ApproveSchema = z.object({
+  draftId: SanityDocumentIdSchema,
+});
+
+export const RejectSchema = z.object({
+  draftId: SanityDocumentIdSchema,
+});
+
+// ── Admin articles manage ──────────────────────────────────────
+export const ManageGetQuerySchema = z.object({
+  id: SanityDocumentIdSchema,
+});
+
+export const ArticleUpdateSchema = z.object({
+  id: SanityDocumentIdSchema,
+  title: z.string().min(1).max(200),
+  category: z.enum(["Artikel Islami", "Kajian Islami", "Lainnya"]),
+  excerpt: z.string().min(1).max(500),
+  content: z.string().min(1).max(500_000),
+  author: z.string().max(100).optional(),
+  publishedAt: IsoDateSchema.optional(),
+  coverImage: z
+    .union([
+      z.null(),
+      z.string().url().or(z.string().startsWith("data:image/")),
+      z.object({
+        assetId: z.string().min(1).max(200),
+      }),
+    ])
+    .optional(),
+});
+
+export const ArticleDeleteSchema = z.object({
+  id: SanityDocumentIdSchema,
+});
+
+// ── Kegiatan (event) ───────────────────────────────────────────
+
+const BadgeFields = {
+  dayBadge: z.string().min(1).max(8).regex(/^\d{1,2}$/, "Day badge harus angka 1-2 digit"),
+  monthBadge: z.string().min(1).max(12),
+  title: z.string().min(1).max(200),
+  date: IsoDateSchema,
+  location: z.string().max(200).optional(),
+  description: z.string().min(1).max(2000),
+  instagramUrl: z.string().url().optional().or(z.literal("")),
+};
+
+export const KegiatanCreateSchema = z.object(BadgeFields);
+export const KegiatanUpdateSchema = z.object({
+  id: z.string().min(1).max(200),
+  ...BadgeFields,
+});
+
+export const KegiatanDeleteQuerySchema = z.object({
+  id: z.string().min(1).max(200),
+});
+
+// ── Image upload (metadata only — file body checked server-side) ──
+export const ImageUploadMetaSchema = z.object({
+  passcode: z.string().min(1).max(200).optional(),
+});
+
+// Type helpers so server code can `z.infer<typeof FooSchema>`
+export type ArticleCreatePayload = z.infer<typeof ArticleCreateSchema>;
+export type ArticlePatchPayload = z.infer<typeof ArticlePatchSchema>;
+export type ArticleUpdatePayload = z.infer<typeof ArticleUpdateSchema>;
+export type KegiatanCreatePayload = z.infer<typeof KegiatanCreateSchema>;
+export type KegiatanUpdatePayload = z.infer<typeof KegiatanUpdateSchema>;
