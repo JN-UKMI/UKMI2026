@@ -31,6 +31,7 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
       if (savedBookmark) {
         const ayatNum = parseInt(savedBookmark, 10);
         if (!isNaN(ayatNum)) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved bookmark on mount
           setBookmarkedAyat(ayatNum);
           setDisplayedCount((prev) => Math.max(prev, Math.min(ayatNum + 5, ayatList.length)));
         }

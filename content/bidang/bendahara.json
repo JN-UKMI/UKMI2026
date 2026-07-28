@@ -128,5 +128,27 @@
       "role": "Staf Ekonomi Kreatif",
       "jenis_kelamin": "perempuan"
     }
+  ],
+  "tentang_cards": [
+    {
+      "icon": "dollarsign",
+      "title": "Tata Kelola Keuangan",
+      "description": "Pembuatan laporan keuangan kas besar secara berkala dan transparansi kas pengurus yang akuntabel."
+    },
+    {
+      "icon": "trendingup",
+      "title": "Penggalian Dana",
+      "description": "Pengajuan proposal pendanaan, RAB, dan SPJ ke Rektorat/Mawa serta penarikan kas pengurus rutin tiap bulan."
+    },
+    {
+      "icon": "bookopen",
+      "title": "Pelatihan Administrasi",
+      "description": "PELAPIS: pembekalan pembuatan TOR, proposal, SIK, RAB, dan alur SPJ bagi seluruh pengurus."
+    },
+    {
+      "icon": "store",
+      "title": "Unit Usaha Mandiri",
+      "description": "UKMI Cloth, UKMI Store, dan Kantin Kejujuran sebagai usaha ekonomi kreatif mandiri yang berkelanjutan."
+    }
   ]
 }

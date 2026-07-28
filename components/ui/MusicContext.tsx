@@ -63,6 +63,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== "undefined") {
       const savedMute = localStorage.getItem("ukmi_music_muted");
       if (savedMute !== null) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved mute preference
         setIsMuted(savedMute === "true");
       }
     }
@@ -100,6 +101,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   // Switch track automatically based on active page route
   useEffect(() => {
     if (pathname === "/") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- switch track based on active route
       setCurrentTrackIndex(0);
     } else if (pathname === "/tentang") {
       setCurrentTrackIndex(1);

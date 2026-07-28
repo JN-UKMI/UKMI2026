@@ -2,7 +2,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 import { getArticles, type ArticleListItem } from "@/lib/sanity";
 import { PageHero } from "@/components/layout/PageHero";
 import { TransitionLink } from "@/components/ui/TransitionLink";
-import { ArticleList } from "@/components/article/ArticleList";
+import { ArticleCacheHydrator } from "@/components/article/ArticleCacheHydrator";
 import { Pencil } from "lucide-react";
 
 export const metadata = buildPageMetadata({
@@ -102,14 +102,18 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
   const { category, page, q } = await searchParams;
 
   let articles: ArticleListItem[] = [];
+  let fresh = false;
   try {
     articles = await getArticles();
+    fresh = articles.length > 0;
   } catch {
     articles = [];
   }
-  if (articles.length === 0) {
-    articles = dummyArticles;
-  }
+  // When Sanity returns empty or throws, leave articles as [] so the
+  // ArticleCacheHydrator client can resolve via localStorage cache →
+  // fallback Articles chain. This way a hard refresh during a Sanity
+  // outage shows the user their previously-cached real articles, not
+  // the made-up dummy list.
 
   return (
     <div className="bg-transparent pb-16">
@@ -128,8 +132,10 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
       </PageHero>
 
       <div className="max-w-7xl mx-auto px-4 pt-10">
-        <ArticleList
-          articles={articles}
+        <ArticleCacheHydrator
+          serverArticles={articles}
+          fallbackArticles={dummyArticles}
+          fresh={fresh}
           initialCategory={category}
           initialQuery={q}
           initialPage={page}

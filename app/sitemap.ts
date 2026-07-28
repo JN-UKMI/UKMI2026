@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { BASE_URL, getAbsoluteUrl } from "@/lib/seo";
+import { getAbsoluteUrl } from "@/lib/seo";
 import { getArticles } from "@/lib/sanity";
 
 /**

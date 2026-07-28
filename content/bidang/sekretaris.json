@@ -130,5 +130,27 @@
       "role": "Staf Sekretaris Umum",
       "jenis_kelamin": "perempuan"
     }
+  ],
+  "tentang_cards": [
+    {
+      "icon": "filetext",
+      "title": "Persidangan Organisasi",
+      "description": "Raker, Pleno Tengah, Pleno Akhir, dan Muktamar: siklus lengkap sidang, evaluasi, dan estafet kepemimpinan."
+    },
+    {
+      "icon": "clipboard",
+      "title": "Administrasi & Arsip",
+      "description": "Inventarisasi, pengelolaan surat digital, sosialisasi BPO, dan BUMI: perpustakaan untuk literasi pengurus."
+    },
+    {
+      "icon": "settings",
+      "title": "Sekretariat & Koordinasi",
+      "description": "Piket Sekre, Rapat Harian Terbatas, dan Kalender UKMI untuk koordinasi rutin dan kebersihan sekretariat."
+    },
+    {
+      "icon": "shield",
+      "title": "Tata Kelola Organisasi",
+      "description": "Penataan barang inventaris, penjagaan kerapian, dan standarisasi tata kelola Sekretariat JN UKMI."
+    }
   ]
 }

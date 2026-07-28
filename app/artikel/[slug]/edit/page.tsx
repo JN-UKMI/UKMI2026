@@ -37,6 +37,7 @@ export default function EditArtikelPage() {
   useEffect(() => {
     const savedPasscode = sessionStorage.getItem("pengurus_passcode");
     if (savedPasscode) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved passcode on mount
       setPasscode(savedPasscode);
       setIsVerified(true);
     }

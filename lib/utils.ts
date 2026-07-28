@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import type { PortableTextBlock } from "@/lib/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,7 +20,7 @@ export function toArabicDigits(num: number): string {
  * Used as initialContent for NovelEditor when loading older Portable Text articles.
  * Preserves inline marks: bold, italic, underline, links.
  */
-export function portableTextToHtml(blocks: any[]): string {
+export function portableTextToHtml(blocks: PortableTextBlock[]): string {
   if (!Array.isArray(blocks)) return "";
 
   const result: string[] = [];
@@ -34,7 +35,7 @@ export function portableTextToHtml(blocks: any[]): string {
     }
   }
 
-  function buildLinkMap(markDefs: any[]): Record<string, string> {
+  function buildLinkMap(markDefs: PortableTextBlock["markDefs"]): Record<string, string> {
     const map: Record<string, string> = {};
     if (!Array.isArray(markDefs)) return map;
     for (const def of markDefs) {
@@ -46,9 +47,9 @@ export function portableTextToHtml(blocks: any[]): string {
     return map;
   }
 
-  function renderInline(children: any[], linkMap: Record<string, string>): string {
+  function renderInline(children: NonNullable<PortableTextBlock["children"]>, linkMap: Record<string, string>): string {
     return children
-      .map((c: any) => {
+      .map((c) => {
         let text = c.text || "";
         if (c.marks && Array.isArray(c.marks)) {
           for (const mark of c.marks) {

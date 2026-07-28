@@ -226,5 +226,27 @@
       "role": "Staf Pengembangan Sumber Daya Manusia",
       "jenis_kelamin": "perempuan"
     }
+  ],
+  "tentang_cards": [
+    {
+      "icon": "users",
+      "title": "Pembinaan Mahasiswa Baru",
+      "description": "EXPO SAMARU & MIB: penyambutan, pendataan, dan pembinaan intensif mahasiswa baru muslim UNS."
+    },
+    {
+      "icon": "bookopen",
+      "title": "Mentoring & Kaderisasi",
+      "description": "IMT, MENTOR Plus: pembekalan mentor dan pembinaan rutin terstruktur melalui diskusi kelompok kecil 2x/bulan."
+    },
+    {
+      "icon": "award",
+      "title": "Pengembangan Pengurus",
+      "description": "UPGRADE: pelatihan kepemimpinan, pengayaan materi, dan pembekalan manajemen proker 2x seperiode."
+    },
+    {
+      "icon": "star",
+      "title": "Spiritualitas Harian",
+      "description": "Daily Quest (DQ): pemantauan dan rekapitulasi amalan harian pengurus secara digital untuk menjaga disiplin spiritual."
+    }
   ]
 }

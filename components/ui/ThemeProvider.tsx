@@ -12,20 +12,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "light";
+    const saved = localStorage.getItem("theme") as Theme | null;
+    return saved === "dark" ? "dark" : "light";
+  });
   const [mounted, setMounted] = useState(false);
 
+  // Initialize theme from localStorage (lazy initializer avoids
+  // setState-in-effect lint). Theme CSS class sync happens in a
+  // separate effect that only touches the DOM, not React state.
   useEffect(() => {
-    setMounted(true);
     const savedTheme = localStorage.getItem("theme") as Theme | null;
     if (savedTheme === "dark") {
-      setTheme("dark");
       document.documentElement.classList.add("dark");
     } else {
-      // Default is Light Mode
-      setTheme("light");
       document.documentElement.classList.remove("dark");
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- mounted guard prevents hydration mismatch
+    setMounted(true);
   }, []);
 
   const toggleTheme = () => {

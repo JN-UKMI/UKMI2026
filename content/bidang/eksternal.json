@@ -222,5 +222,27 @@
       "role": "Staf Sosial Masyarakat",
       "jenis_kelamin": "perempuan"
     }
+  ],
+  "tentang_cards": [
+    {
+      "icon": "users",
+      "title": "Forum Alumni & Jejaring",
+      "description": "Silaturahmi alumni, sharing time, FGD, Grebeg Wisuda, SIDAK, dan koordinasi Formas 13 LDF se-UNS."
+    },
+    {
+      "icon": "heart",
+      "title": "Pengabdian Masyarakat",
+      "description": "Dusun Binaan (DusBin) dengan pembinaan TPA interaktif, public speaking, dan pelatihan keterampilan anak-anak."
+    },
+    {
+      "icon": "globe",
+      "title": "Sosial Kemasyarakatan",
+      "description": "SOSMA Berbagi: interaksi kebersamaan dan penyaluran bantuan ke lembaga sosial/panti secara berkala."
+    },
+    {
+      "icon": "star",
+      "title": "Qurban Bersama",
+      "description": "Qurma: penggalangan dana, penyembelihan, dan penyaluran daging qurban bagi masyarakat membutuhkan di daerah binaan."
+    }
   ]
 }

@@ -200,7 +200,7 @@ export async function loadAlKahfi(): Promise<AlKahfiSurah | null> {
         typeof json?.total_verses === "number"
           ? json.total_verses
           : verses.length,
-      ayat: verses.map((v: any) => ({
+      ayat: (verses as Record<string, unknown>[]).map((v) => ({
         nomorAyat: typeof v?.id === "number" ? v.id : 0,
         teksArab: typeof v?.text === "string" ? v.text : "",
         teksLatin: typeof v?.transliteration === "string" ? v.transliteration : "",

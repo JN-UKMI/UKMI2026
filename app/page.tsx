@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
 import { QuoteSection } from "@/components/home/QuoteSection";
 import { KegiatanSeruSection } from "@/components/home/KegiatanSeruSection";

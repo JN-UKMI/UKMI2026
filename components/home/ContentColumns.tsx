@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, BookOpen, Calendar, Newspaper } from "lucide-react";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 const sections = [
   {

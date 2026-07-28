@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { usePageTransition } from "@/components/ui/LoadingProvider";
 
 interface TransitionLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -9,7 +8,6 @@ interface TransitionLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorEleme
 }
 
 export function TransitionLink({ href, children, ...props }: TransitionLinkProps) {
-  const router = useRouter();
   const { navigateWithTransition } = usePageTransition();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {

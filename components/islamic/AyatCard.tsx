@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, Bookmark } from "lucide-react";
 import { motion } from "framer-motion";
-import { toArabicDigits } from "@/lib/utils";
 
 type AyatCardProps = {
   nomorAyat: number;

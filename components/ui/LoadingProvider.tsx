@@ -66,7 +66,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
     }, 300); // small buffer so the new page paints before loader leaves
 
     return () => clearTimeout(dismissTimeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [pathname]); // ← pathname changing = page is ready
 
   // ── Initiate a route transition ────────────────────────────────

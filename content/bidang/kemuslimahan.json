@@ -188,5 +188,27 @@
       "role": "Staf Syiar Muslimah",
       "jenis_kelamin": "perempuan"
     }
+  ],
+  "tentang_cards": [
+    {
+      "icon": "heart",
+      "title": "Pembinaan Muslimah",
+      "description": "MUSPACE: wadah pembinaan rutin, pelatihan crafting, dan kajian keislaman dialogis kolaboratif untuk muslimah."
+    },
+    {
+      "icon": "megaphone",
+      "title": "Syiar Digital Muslimah",
+      "description": "GALAKSI & TTS: dakwah media sosial via konten edukatif, kuis interaktif, dan reminder kemuslimahan."
+    },
+    {
+      "icon": "users",
+      "title": "Koordinasi LDF se-UNS",
+      "description": "Silat FORNIS: sharing session, FGD, dan penyelarasan dakwah kemuslimahan antara LDK dan LDF se-UNS."
+    },
+    {
+      "icon": "star",
+      "title": "Event Akbar Muslimah",
+      "description": "GEMUS (Gema Muslimah): perlombaan, seminar, kajian akbar, dan bedah buku untuk melahirkan muslimah berdaya."
+    }
   ]
 }

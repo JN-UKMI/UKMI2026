@@ -210,5 +210,27 @@
       "role": "Staf Kajian Strategis",
       "jenis_kelamin": "perempuan"
     }
+  ],
+  "tentang_cards": [
+    {
+      "icon": "bookopen",
+      "title": "Kajian Rutin",
+      "description": "KANTIN: majelis kajian rutin dan diskusi interaktif di Masjid Nurul Huda UNS untuk meningkatkan wawasan keislaman."
+    },
+    {
+      "icon": "star",
+      "title": "Festival Islam",
+      "description": "SIFT: festival Islam terbesar di UNS dengan talkshow/kajian akbar, perlombaan islami, dan social campaign."
+    },
+    {
+      "icon": "megaphone",
+      "title": "Media Syiar Kampus",
+      "description": "Al Khobar, UKMI Reels, QuizLam: mikroblog edukatif, video dakwah singkat, dan kuis interaktif Islam."
+    },
+    {
+      "icon": "compass",
+      "title": "Kajian Strategis",
+      "description": "FOKUS: kajian mendalam, pencerdasan ilmiah, dan forum diskusi terhadap isu strategis keumatan dan nasional."
+    }
   ]
 }

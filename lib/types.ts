@@ -1,3 +1,5 @@
+import type { SanityImageSource } from "@sanity/image-url";
+
 export interface MemberCard {
   nama: string;
   fakultas: string;
@@ -9,6 +11,14 @@ export interface MemberCard {
 }
 
 export interface BidangProgram {
+  title: string;
+  description: string;
+  tanggal?: string;
+  target?: string;
+}
+
+export interface TentangCard {
+  icon: string;
   title: string;
   description: string;
 }
@@ -23,6 +33,7 @@ export interface Bidang {
   instagram_url?: string;
   program_kerja: BidangProgram[];
   staff: MemberCard[];
+  tentang_cards?: TentangCard[];
 }
 
 export interface HomeContent {
@@ -116,18 +127,32 @@ export interface KegiatanSeruItem {
   createdAt: string;
 }
 
+export interface PortableTextBlock {
+  _type: string;
+  _key?: string;
+  style?: string;
+  children?: Array<{
+    _type: string;
+    text?: string;
+    marks?: (string | Record<string, unknown>)[];
+  }>;
+  markDefs?: Array<{ _key: string; _type: string; href?: string }>;
+  listItem?: string;
+  level?: number;
+}
+
 export interface ArticleListItem {
   title: string;
   slug: string;
   excerpt: string;
   category: "Artikel Islami" | "Kajian Islami" | "Lainnya";
   publishedAt: string;
-  coverImage?: any;
+  coverImage?: SanityImageSource | string;
   author?: string;
 }
 
 export interface Article extends ArticleListItem {
-  content?: any;
+  content?: PortableTextBlock[];
   tags?: string[];
   featured?: boolean;
 }

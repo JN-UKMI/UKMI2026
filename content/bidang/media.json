@@ -158,5 +158,27 @@
       "role": "Staf Media Komunikasi",
       "jenis_kelamin": "perempuan"
     }
+  ],
+  "tentang_cards": [
+    {
+      "icon": "megaphone",
+      "title": "Publikasi Digital",
+      "description": "Publish It!: pengelolaan media sosial (Instagram, TikTok, Telegram, YouTube) berbasis SOP publikasi sebagai sarana dakwah."
+    },
+    {
+      "icon": "palette",
+      "title": "Desain & Kreatif",
+      "description": "Pelatihan desain grafis & videografi serta Wejangan Grafis: poster dakwah dan infografis edukatif rutin."
+    },
+    {
+      "icon": "globe",
+      "title": "Website & Konten",
+      "description": "KINIUKMI & Website JN UKMI: rubrik kajian Islam kontemporer, buletin digital, dan pusat informasi organisasi."
+    },
+    {
+      "icon": "camera",
+      "title": "Produksi Video & Podcast",
+      "description": "KREASIIN, Hearme, dan Company Profile: video dakwah singkat, talkshow podcast, dan profil resmi organisasi."
+    }
   ]
 }

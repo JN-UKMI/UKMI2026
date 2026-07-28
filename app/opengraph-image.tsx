@@ -100,7 +100,7 @@ export default function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            Membina Generasi Qur'ani
+            Membina Generasi Qur&rsquo;ani
           </div>
           <div
             style={{

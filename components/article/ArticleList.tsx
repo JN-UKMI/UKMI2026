@@ -54,7 +54,10 @@ export function ArticleList({
   const filteredArticles = useMemo(() => {
     let result = articles;
     if (category) {
-      result = result.filter((a) => a.category === category);
+      const cat = category.trim().toLowerCase();
+      result = result.filter(
+        (a) => (a.category || "").trim().toLowerCase() === cat
+      );
     }
     const q = query.trim().toLowerCase();
     if (q) {

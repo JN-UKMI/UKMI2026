@@ -102,17 +102,20 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
         </FadeIn>
 
         {/* Carousel Container */}
-        {/* StaggerContainer keeps overflow-visible so card hover effects
-            (lift, scale, glow ring) can render outside the visible slot.
-            The inner flex track keeps overflow-hidden to clip off-screen
-            siblings during the slide animation. */}
-        <StaggerContainer className="overflow-visible">
-          <div
-            className="flex transition-transform duration-500 ease-out gap-6 overflow-hidden"
-            style={{
-              transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
-            }}
-          >
+        {/* Outer clip wrapper hides off-screen siblings pushed out by
+            translateX during the slide animation. StaggerContainer +
+            inner flex track keep overflow-visible so card hover effects
+            (lift, translate, scale, 25px glow ring) render uncut.
+            py-7 on the track gives the blur shadow 28px vertical
+            breathing room so the glow isn't clipped at top/bottom. */}
+        <div className="overflow-hidden">
+          <StaggerContainer className="overflow-visible">
+            <div
+              className="flex transition-transform duration-500 ease-out gap-6 py-7"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
+              }}
+            >
             {events.map((item) => (
               <StaggerItem
                 key={item.id}
@@ -190,6 +193,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
             ))}
           </div>
         </StaggerContainer>
+        </div>
       </div>
     </section>
   );

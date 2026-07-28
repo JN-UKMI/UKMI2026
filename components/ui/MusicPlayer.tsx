@@ -9,7 +9,6 @@ export function MusicPlayer() {
     isPlaying,
     isMuted,
     isSingleLoop,
-    currentTrack,
     isExpanded,
     isAllowedPage,
     togglePlay,
