@@ -7,6 +7,7 @@ import { TestimonialSection } from "@/components/home/TestimonialSection";
 import { loadTestimoni, loadKegiatanSeru } from "@/lib/content";
 import { getArticles, type ArticlesListResult } from "@/lib/sanity";
 import { buildPageMetadata } from "@/lib/page-metadata";
+import { Analytics } from '@vercel/analytics/next';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -37,6 +38,7 @@ export default async function Home() {
       <ArtikelTerbaruSection articles={articles} />
       <KalenderSection />
       <TestimonialSection testimonials={testimonials} />
+      <Analytics />
     </>
   );
 }
