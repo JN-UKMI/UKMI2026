@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name, url: BASE_URL }],
   creator: siteConfig.shortName,
   publisher: siteConfig.name,
-  category: "Education",
+  category: "Organisasi Kemahasiswaan Islam",
   alternates: {
     canonical: BASE_URL,
   },
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: siteConfig.defaultOgImage,
+        url: "/thumbnail.png",
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} — Organisasi Kemahasiswaan Islam UNS`,
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
       template: `%s | ${siteConfig.shortName}`,
     },
     description: siteConfig.description,
-    images: [siteConfig.defaultOgImage],
+    images: ["/thumbnail.png"],
   },
   robots: {
     index: true,
