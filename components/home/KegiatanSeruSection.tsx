@@ -123,7 +123,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                   <div className="relative bg-white dark:bg-gray-900/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-gray-200/90 dark:border-gray-800 shadow-md hover:shadow-xl hover:border-emerald-500 dark:hover:border-lime dark:hover:shadow-[0_0_30px_rgba(73,154,19,0.25)] transition-all duration-300 group flex flex-row w-full overflow-hidden hover:-translate-y-1 z-10 hover:z-30">
                     
                     {/* Left Column: Poster Container (Always Horizontal side by side) */}
-                    <div className="relative w-[130px] min-[400px]:w-[150px] sm:w-5/12 aspect-[3/4] sm:aspect-[4/5] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800/90">
+                    <div className="relative w-[125px] min-[400px]:w-[145px] sm:w-5/12 self-stretch min-h-full shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800/90">
                       <Image
                         src={item.posterUrl || "/placeholder.png"}
                         alt={item.title}

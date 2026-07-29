@@ -14,18 +14,18 @@ interface PageHeroProps {
 
 export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
   return (
-    <section className="relative min-h-[320px] md:min-h-[380px] -mt-[80px] overflow-hidden flex items-center justify-center py-16 px-4">
+    <section className="relative min-h-[320px] md:min-h-[380px] -mt-[88px] sm:-mt-[96px] overflow-hidden flex items-center justify-center py-16 px-4">
       {/* Background image */}
       <motion.div
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute -top-16 inset-x-0 bottom-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url(/image/ukmi-hero.jpg)" }}
       />
 
       {/* Diagonal green-black overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
+      <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
 
       {/* Ambient Glowing Orbs */}
       <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-lime/10 blur-3xl pointer-events-none" />

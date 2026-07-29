@@ -12,15 +12,15 @@ interface HeroSectionProps {
 
 export function HeroSection({ name, instagram_url }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[320px] md:min-h-[380px] -mt-[80px] overflow-hidden flex items-center justify-center py-16 px-4">
+    <section className="relative min-h-[320px] md:min-h-[380px] -mt-[88px] sm:-mt-[96px] overflow-hidden flex items-center justify-center py-16 px-4">
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
+        className="absolute -top-16 inset-x-0 bottom-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{ backgroundImage: "url(/image/ukmi-hero.jpg)" }}
       />
 
       {/* Diagonal green-black overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
+      <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
 
       {/* Content */}
       <motion.div 

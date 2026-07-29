@@ -53,8 +53,10 @@ export function KalenderInteractive({
 
   useEffect(() => {
     const updateHeight = () => {
-      if (calendarCardRef.current) {
+      if (calendarCardRef.current && window.innerWidth >= 1024) {
         setCalendarHeight(calendarCardRef.current.offsetHeight);
+      } else {
+        setCalendarHeight(0);
       }
     };
     updateHeight();

@@ -4,11 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import homeData from "@/content/beranda/main.json";
-import { useIsTouchDevice } from "@/lib/hooks";
 
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
-  const isTouchDevice = useIsTouchDevice();
 
   const containerVariants = {
     hidden: {},
@@ -20,55 +18,41 @@ export function HeroSection() {
     },
   };
 
-  const itemVariants =
-    shouldReduceMotion || isTouchDevice
-      ? {
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { duration: 0.25 },
-          },
-        }
-      : {
-          hidden: { scale: 0.85, y: 40 },
-          visible: {
-            scale: 1,
-            y: 0,
-            transition: {
-              type: "spring" as const,
-              stiffness: 80,
-              damping: 16,
-            },
-          },
-        };
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut" as const,
+      },
+    },
+  };
 
   return (
-    <section className="relative min-h-screen -mt-[80px] overflow-hidden">
-      {/* Background image */}
+    <section className="relative min-h-[calc(100vh+88px)] sm:min-h-[calc(100vh+96px)] -mt-[88px] sm:-mt-[96px] overflow-hidden flex flex-col justify-center">
+      {/* Background image extended upwards */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute -top-16 inset-x-0 bottom-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url(/image/ukmi-hero.jpg)" }}
       />
 
-      {/* Diagonal green-black overlay 80% */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-950/80 via-forest-900/80 to-black/80" />
+      {/* Diagonal green-black overlay 80% extended upwards */}
+      <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/80 via-forest-900/80 to-black/80" />
 
       {/* Main Hero Content */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-[80px] text-center text-white -mt-16 z-10"
+        className="relative flex flex-1 flex-col items-center justify-center px-4 pt-[96px] pb-12 text-center text-white z-10"
       >
         <motion.div
           variants={itemVariants}
-          animate={
-            shouldReduceMotion || isTouchDevice
-              ? undefined
-              : { y: [0, -8, 0] }
-          }
+          animate={shouldReduceMotion ? undefined : { y: [0, -8, 0] }}
           transition={
-            shouldReduceMotion || isTouchDevice
+            shouldReduceMotion
               ? undefined
               : {
                   duration: 4,
