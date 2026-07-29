@@ -105,11 +105,11 @@ export function MasuratAudioPlayer({
       <audio
         ref={audioRef}
         src={src}
+        preload="none"
         autoPlay={false}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={() => setIsPlaying(false)}
-        preload="metadata"
       />
 
       <div className="flex flex-col lg:flex-row items-center justify-between gap-4">

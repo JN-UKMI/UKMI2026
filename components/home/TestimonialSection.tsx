@@ -65,18 +65,22 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                 </button>
 
                 {/* Dot Indicators */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   {testimonials.map((_, i) => (
                     <button
                       key={i}
                       onClick={() => goToIndex(i)}
                       aria-label={`Testimoni ${i + 1}`}
-                      className={`rounded-full transition-all cursor-pointer ${
-                        i === currentIndex
-                          ? "w-7 h-2.5 bg-forest-600 dark:bg-lime"
-                          : "w-2.5 h-2.5 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
-                      }`}
-                    />
+                      className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer group"
+                    >
+                      <span
+                        className={`block rounded-full transition-all ${
+                          i === currentIndex
+                            ? "w-7 h-2.5 bg-forest-600 dark:bg-lime"
+                            : "w-2.5 h-2.5 bg-gray-300 dark:bg-gray-700 group-hover:bg-gray-400 dark:group-hover:bg-gray-600"
+                        }`}
+                      />
+                    </button>
                   ))}
                 </div>
 

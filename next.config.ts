@@ -10,6 +10,7 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
   {
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
@@ -26,6 +27,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2592000,
     remotePatterns: [
       {
         protocol: "https",
@@ -40,8 +43,8 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    // Tree-shake icon library imports to keep client JS payload small
-    optimizePackageImports: ["lucide-react"],
+    // Tree-shake icon & animation library imports to keep client JS payload small
+    optimizePackageImports: ["lucide-react", "framer-motion"],
   },
   async headers() {
     return [

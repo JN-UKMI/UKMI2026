@@ -17,29 +17,34 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const amiri = Amiri({
   weight: ["400", "700"],
   subsets: ["arabic"],
   variable: "--font-amiri",
+  display: "swap",
 });
 
 const amiriQuran = Amiri_Quran({
   weight: "400",
   subsets: ["arabic"],
   variable: "--font-amiri-quran",
+  display: "swap",
 });
 
 const notoNaskh = Noto_Naskh_Arabic({
   weight: ["400", "700"],
   subsets: ["arabic"],
   variable: "--font-noto-naskh",
+  display: "swap",
 });
 
 /**

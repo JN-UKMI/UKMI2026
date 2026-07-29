@@ -130,7 +130,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                         fill
                         sizes="(max-width: 640px) 150px, 400px"
                         className="object-cover object-center transition-transform duration-700 group-hover:scale-108"
-                        priority
+                        loading="lazy"
                       />
                       
                       {/* Gradient Overlay */}

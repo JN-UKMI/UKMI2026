@@ -17,12 +17,21 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
     <section className="relative min-h-[320px] md:min-h-[380px] -mt-[88px] sm:-mt-[96px] overflow-hidden flex items-center justify-center py-16 px-4">
       {/* Background image */}
       <motion.div
-        initial={{ scale: 1.1 }}
+        initial={{ scale: 1.05 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="absolute -top-16 inset-x-0 bottom-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/image/ukmi-hero.jpg)" }}
-      />
+        className="absolute -top-16 inset-x-0 bottom-0"
+      >
+        <Image
+          src="/image/ukmi-hero.jpg"
+          alt="Page Hero Background"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </motion.div>
 
       {/* Diagonal green-black overlay */}
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />

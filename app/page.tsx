@@ -1,13 +1,20 @@
+import dynamicImport from "next/dynamic";
 import { HeroSection } from "@/components/home/HeroSection";
 import { QuoteSection } from "@/components/home/QuoteSection";
 import { KegiatanSeruSection } from "@/components/home/KegiatanSeruSection";
 import { ArtikelTerbaruSection } from "@/components/home/ArtikelTerbaruSection";
-import { KalenderSection } from "@/components/home/KalenderSection";
-import { TestimonialSection } from "@/components/home/TestimonialSection";
 import { loadTestimoni, loadKegiatanSeru } from "@/lib/content";
 import { getArticles, type ArticlesListResult } from "@/lib/sanity";
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { Analytics } from '@vercel/analytics/next';
+
+// Dynamic imports for below-the-fold heavy components (Code Splitting)
+const KalenderSection = dynamicImport(
+  () => import("@/components/home/KalenderSection").then((m) => m.KalenderSection)
+);
+const TestimonialSection = dynamicImport(
+  () => import("@/components/home/TestimonialSection").then((m) => m.TestimonialSection)
+);
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;

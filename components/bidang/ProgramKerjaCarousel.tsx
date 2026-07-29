@@ -134,18 +134,22 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
         </FadeIn>
 
         {/* Dots Indicator */}
-        <div className="flex justify-center items-center gap-2 mt-8">
+        <div className="flex justify-center items-center gap-1 mt-8">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               aria-label={`Go to slide ${index + 1}`}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                currentIndex === index
-                  ? "w-8 bg-forest-600 dark:bg-lime"
-                  : "w-2.5 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
-              }`}
-            />
+              className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer group"
+            >
+              <span
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  currentIndex === index
+                    ? "w-8 bg-forest-600 dark:bg-lime"
+                    : "w-2.5 bg-gray-300 dark:bg-gray-700 group-hover:bg-gray-400 dark:group-hover:bg-gray-600"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

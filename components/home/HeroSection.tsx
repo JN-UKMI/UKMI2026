@@ -32,11 +32,18 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[calc(100vh+88px)] sm:min-h-[calc(100vh+96px)] -mt-[88px] sm:-mt-[96px] overflow-hidden flex flex-col justify-center">
-      {/* Background image extended upwards */}
-      <div
-        className="absolute -top-16 inset-x-0 bottom-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/image/ukmi-hero.jpg)" }}
-      />
+      {/* Background image extended upwards — Optimized Next.js Image for top LCP */}
+      <div className="absolute -top-16 inset-x-0 bottom-0">
+        <Image
+          src="/image/ukmi-hero.jpg"
+          alt="Hero JN UKMI UNS"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
 
       {/* Diagonal green-black overlay 80% extended upwards */}
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/80 via-forest-900/80 to-black/80" />
@@ -111,10 +118,11 @@ export function HeroSection() {
         <Image
           src="/image/kiri.webp"
           alt="Dekorasi Kiri Bawah"
-          width={400}
-          height={400}
+          width={320}
+          height={320}
+          sizes="(max-width: 640px) 128px, (max-width: 1024px) 256px, 320px"
           className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -133,10 +141,11 @@ export function HeroSection() {
         <Image
           src="/image/kanan.webp"
           alt="Dekorasi Kanan Bawah"
-          width={400}
-          height={400}
+          width={320}
+          height={320}
+          sizes="(max-width: 640px) 128px, (max-width: 1024px) 256px, 320px"
           className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
-          priority
+          loading="lazy"
         />
       </motion.div>
     </section>

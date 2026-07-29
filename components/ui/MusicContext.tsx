@@ -95,6 +95,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
     if (!audioRef.current) {
       const audio = new Audio(PLAYLIST[0].src);
+      audio.preload = "none";
       audioRef.current = audio;
     }
 
