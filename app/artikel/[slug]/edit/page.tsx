@@ -427,7 +427,7 @@ export default function EditArtikelPage() {
                         Klik untuk Unggah Gambar Baru
                       </span>
                       <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">
-                        JPG, PNG, WEBP (Max 5MB)
+                        JPG, PNG, WEBP (Max 2MB)
                       </span>
                       <input
                         type="file"

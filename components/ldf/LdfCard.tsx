@@ -25,15 +25,15 @@ export function LdfCard({ ldf }: LdfCardProps) {
       {/* ── Mobile: Horizontal layout (image left, text right) ── */}
       {/* ── sm+: Vertical layout (image top, text bottom) ── */}
       <div className="flex flex-row sm:flex-col h-full">
-        {/* 1. Gambar */}
-        <div className="relative w-28 h-28 sm:w-full sm:aspect-[16/10] shrink-0 overflow-hidden bg-white dark:bg-gray-900 sm:bg-gray-100 sm:dark:bg-gray-800">
+        {/* 1. Gambar (Full fit container on mobile & desktop) */}
+        <div className="relative w-28 sm:w-full self-stretch sm:aspect-[16/10] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
           <Image
             src={ldf.gambar || "/placeholder.png"}
             alt={ldf.nama}
             fill
             sizes="(max-width: 640px) 112px, (max-width: 1024px) 33vw, 288px"
             loading="lazy"
-            className="object-contain sm:object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>

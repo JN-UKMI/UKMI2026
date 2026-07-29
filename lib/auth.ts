@@ -22,6 +22,8 @@ export function isEmailAdmin(email?: string | null): boolean {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "default-fallback-auth-secret-jnukmi-2026",
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -52,7 +54,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
   },
-  secret: process.env.AUTH_SECRET,
 });
 
 /**

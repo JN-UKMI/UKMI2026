@@ -60,141 +60,144 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
   };
 
   return (
-    <section className="py-16 px-4 bg-transparent transition-colors duration-300 relative">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12 sm:py-20 px-3 sm:px-6 bg-transparent transition-colors duration-300 relative overflow-hidden">
+      {/* Background Decorative Glow Orbs */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-80 h-80 bg-forest-600/5 dark:bg-lime/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-teal/5 dark:bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <FadeIn className="relative mb-8 text-center">
+        <FadeIn className="relative mb-6 sm:mb-10 text-center">
           <SectionHeader
-            icon={<Sparkles className="w-6 h-6 text-forest-600 dark:text-lime" />}
+            icon={<Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-forest-600 dark:text-lime" />}
             title="Event Terdekat"
-            subtitle="Berbagai kegiatan menarik yang bikin kamu makin berkembang!"
+            subtitle="Berbagai agenda & kegiatan seru yang bikin kamu makin berkembang!"
           />
 
-          {/* Carousel Controls (If events exceed visible count) */}
+          {/* Carousel Controls Header Buttons */}
           {events.length > visibleCards && (
             <div className="flex items-center justify-center sm:justify-end gap-2 mt-4 sm:mt-0 sm:absolute sm:top-2 sm:right-0">
               <button
                 onClick={prevSlide}
                 disabled={currentIndex === 0}
                 aria-label="Kegiatan sebelumnya"
-                className={`p-2.5 rounded-full border transition-all duration-200 cursor-pointer ${
+                className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl border backdrop-blur-md transition-all duration-300 cursor-pointer ${
                   currentIndex === 0
-                    ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-50"
-                    : "border-forest-600/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
+                    ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-40"
+                    : "border-forest-600/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
                 }`}
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button
                 onClick={nextSlide}
                 disabled={currentIndex >= maxIndex}
                 aria-label="Kegiatan berikutnya"
-                className={`p-2.5 rounded-full border transition-all duration-200 cursor-pointer ${
+                className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl border backdrop-blur-md transition-all duration-300 cursor-pointer ${
                   currentIndex >= maxIndex
-                    ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-50"
-                    : "border-forest-600/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
+                    ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-40"
+                    : "border-forest-600/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
                 }`}
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           )}
         </FadeIn>
 
-        {/* Carousel Container */}
-        {/* Outer clip wrapper hides off-screen siblings pushed out by
-            translateX during the slide animation. StaggerContainer +
-            inner flex track keep overflow-visible so card hover effects
-            (lift, translate, scale, 25px glow ring) render uncut.
-            py-7 on the track gives the blur shadow 28px vertical
-            breathing room so the glow isn't clipped at top/bottom. */}
-        <div className="overflow-hidden">
+        {/* Carousel Container Wrapper */}
+        <div className="overflow-hidden p-1 -m-1">
           <StaggerContainer className="overflow-visible">
             <div
-              className="flex transition-transform duration-500 ease-out gap-6 py-7"
+              className="flex transition-transform duration-500 ease-out gap-4 sm:gap-6 py-2 sm:py-4"
               style={{
                 transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
               }}
             >
-            {events.map((item) => (
-              <StaggerItem
-                key={item.id}
-                className="w-full lg:w-[calc(50%-12px)] shrink-0"
-              >
-                <div className="relative bg-white dark:bg-gray-900 rounded-3xl border-2 border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col sm:flex-row h-full transition-all duration-300 group hover:shadow-2xl hover:border-forest-600 dark:hover:border-lime dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)] hover:-translate-y-1 hover:scale-[1.005] active:scale-[0.995] z-10 hover:z-30">
-                  {/* Left Column: Poster with Date Badge */}
-                  <div className="relative w-full sm:w-5/12 aspect-[16/10] sm:aspect-[3/4] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
-                    <Image
-                      src={item.posterUrl || "/placeholder.png"}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 400px"
-                      className="object-cover object-top sm:object-center transition-transform duration-500 group-hover:scale-105"
-                      priority
-                    />
+              {events.map((item) => (
+                <StaggerItem
+                  key={item.id}
+                  className="w-full lg:w-[calc(50%-12px)] shrink-0 flex"
+                >
+                  {/* Event Card Component - Always Horizontal Layout (Poster Left, Info Right) */}
+                  <div className="relative bg-white dark:bg-gray-900/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-gray-200/90 dark:border-gray-800 shadow-md hover:shadow-xl hover:border-emerald-500 dark:hover:border-lime dark:hover:shadow-[0_0_30px_rgba(73,154,19,0.25)] transition-all duration-300 group flex flex-row w-full overflow-hidden hover:-translate-y-1 z-10 hover:z-30">
                     
-                    {/* Overlay Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+                    {/* Left Column: Poster Container (Always Horizontal side by side) */}
+                    <div className="relative w-[130px] min-[400px]:w-[150px] sm:w-5/12 aspect-[3/4] sm:aspect-[4/5] shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800/90">
+                      <Image
+                        src={item.posterUrl || "/placeholder.png"}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 640px) 150px, 400px"
+                        className="object-cover object-center transition-transform duration-700 group-hover:scale-108"
+                        priority
+                      />
+                      
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-black/30 opacity-60 group-hover:opacity-40 transition-opacity" />
 
-                    {/* Top Left Floating Date Badge */}
-                    <div className="absolute top-4 left-4 flex flex-col items-center justify-center px-3.5 py-2 rounded-2xl bg-indigo-600/90 dark:bg-forest-600/90 text-white backdrop-blur-md shadow-lg border border-white/20">
-                      <span className="text-xl sm:text-2xl font-black leading-none">
-                        {item.dayBadge}
-                      </span>
-                      <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5 opacity-90">
-                        {item.monthBadge}
-                      </span>
+                      {/* Top Left Floating Date Badge */}
+                      <div className="absolute top-2 left-2 sm:top-3.5 sm:left-3.5 flex flex-col items-center justify-center min-w-[42px] sm:min-w-[56px] px-2 py-1 sm:px-3 sm:py-2 rounded-xl sm:rounded-2xl bg-forest-900/90 dark:bg-forest-950/90 text-white backdrop-blur-md shadow-lg border border-white/20 dark:border-lime/30 transition-transform group-hover:scale-105">
+                        <span className="text-base sm:text-2xl font-black leading-none text-lime dark:text-lime">
+                          {item.dayBadge}
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest mt-0.5 text-gray-200">
+                          {item.monthBadge}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Right Column: Information & Action Button */}
-                  <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 gap-4 sm:w-7/12">
-                    <div className="space-y-3">
-                      {/* Event Title */}
-                      <h3 className="text-lg sm:text-xl font-black text-gray-900 dark:text-white leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
-                        {item.title}
-                      </h3>
+                    {/* Right Column: Information & Details */}
+                    <div className="p-3.5 sm:p-7 flex flex-col justify-between flex-1 gap-2.5 sm:gap-5 min-w-0">
+                      <div className="space-y-2 sm:space-y-3.5">
+                        {/* Event Title */}
+                        <h3 className="text-sm sm:text-xl font-black text-gray-900 dark:text-white leading-tight sm:leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors line-clamp-2">
+                          {item.title}
+                        </h3>
 
-                      {/* Date & Location */}
-                      <div className="space-y-1.5 pt-1">
-                        <div className="flex items-center gap-2 text-xs font-medium text-forest-700 dark:text-lime/90">
-                          <Calendar className="w-3.5 h-3.5 shrink-0" />
-                          <span>{item.date}</span>
-                        </div>
-                        {item.location && (
-                          <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                            <MapPin className="w-3.5 h-3.5 shrink-0" />
-                            <span className="truncate">{item.location}</span>
+                        {/* Date & Location Badges */}
+                        <div className="space-y-1 sm:space-y-2">
+                          <div className="inline-flex items-center gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-forest-50 dark:bg-forest-950/60 text-forest-700 dark:text-lime text-[11px] sm:text-xs font-bold border border-forest-100 dark:border-forest-800/60 max-w-full">
+                            <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 text-forest-600 dark:text-lime" />
+                            <span className="truncate">{item.date}</span>
                           </div>
-                        )}
+
+                          {item.location && (
+                            <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-medium text-gray-600 dark:text-gray-300">
+                              <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 text-forest-600 dark:text-sage" />
+                              <span className="truncate">{item.location}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-[11px] sm:text-sm text-gray-600 dark:text-gray-300 leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-3 font-normal">
+                          {item.description}
+                        </p>
                       </div>
 
-                      {/* Description */}
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-normal line-clamp-3 pt-1">
-                        {item.description}
-                      </p>
+                      {/* Action Button: Lihat Detail (Solid color, no gradient) */}
+                      <div className="pt-1.5 sm:pt-2 border-t border-gray-100 dark:border-gray-800/80">
+                        <a
+                          href={item.instagramUrl || "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl bg-forest-600 hover:bg-forest-700 dark:bg-lime dark:hover:bg-lime-400 dark:text-forest-950 text-white text-[11px] sm:text-sm font-bold sm:font-black transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98] group/btn"
+                        >
+                          <span>Lihat Detail</span>
+                          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                        </a>
+                      </div>
                     </div>
 
-                    {/* Action Button: Lihat Detail */}
-                    <div className="pt-2">
-                      <a
-                        href={item.instagramUrl || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 group/btn"
-                      >
-                        <span>Lihat Detail</span>
-                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                      </a>
-                    </div>
                   </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </div>
-        </StaggerContainer>
+                </StaggerItem>
+              ))}
+            </div>
+          </StaggerContainer>
         </div>
       </div>
     </section>
   );
 }
+

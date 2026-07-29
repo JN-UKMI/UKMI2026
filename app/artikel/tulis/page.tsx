@@ -13,9 +13,28 @@ export default function TulisArtikelPage() {
   const [verifyError, setVerifyError] = useState("");
   const [showPasscode, setShowPasscode] = useState(false);
 
+  const getTodayDDMMYYYY = () => {
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const parseDisplayDateToISO = (dateStr: string) => {
+    const parts = dateStr.trim().split("/");
+    if (parts.length === 3) {
+      const [d, m, y] = parts;
+      if (d && m && y && y.length === 4) {
+        return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+      }
+    }
+    return new Date().toISOString().split("T")[0];
+  };
+
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [publishedAt, setPublishedAt] = useState(new Date().toISOString().split("T")[0]);
+  const [displayDate, setDisplayDate] = useState(getTodayDDMMYYYY());
   const [category, setCategory] = useState("Artikel Islami");
   const [excerpt, setExcerpt] = useState("");
   const [contentHtml, setContentHtml] = useState("");
@@ -95,10 +114,12 @@ export default function TulisArtikelPage() {
     e.preventDefault();
     setError("");
 
+    const isoDate = parseDisplayDateToISO(displayDate);
+
     if (
       !title.trim() ||
       !author.trim() ||
-      !publishedAt.trim() ||
+      !displayDate.trim() ||
       !category.trim() ||
       !excerpt.trim() ||
       !contentHtml.trim() ||
@@ -115,7 +136,7 @@ export default function TulisArtikelPage() {
       const bodyPayload = {
         title,
         author,
-        publishedAt,
+        publishedAt: isoDate,
         category,
         passcode,
         excerpt,
@@ -139,7 +160,7 @@ export default function TulisArtikelPage() {
       setSuccess(true);
       setTitle("");
       setAuthor("");
-      setPublishedAt(new Date().toISOString().split("T")[0]);
+      setDisplayDate(getTodayDDMMYYYY());
       setCategory("Artikel Islami");
       setExcerpt("");
       setContentHtml("");
@@ -324,18 +345,35 @@ export default function TulisArtikelPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="publishedAt" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
+                  <label htmlFor="displayDate" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-forest-600" />
-                    Tanggal <span className="text-red-500">*</span>
+                    Tanggal (dd/mm/yyyy) <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    id="publishedAt"
-                    type="date"
-                    required
-                    value={publishedAt}
-                    onChange={(e) => setPublishedAt(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium bg-white"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      id="displayDate"
+                      type="text"
+                      required
+                      placeholder="dd/mm/yyyy"
+                      value={displayDate}
+                      onChange={(e) => setDisplayDate(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm bg-white dark:bg-gray-950 text-gray-900 dark:text-white focus:border-forest-600 focus:outline-none transition-all font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                    />
+                    <input
+                      type="date"
+                      tabIndex={-1}
+                      value={parseDisplayDateToISO(displayDate)}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          const [y, m, d] = e.target.value.split("-");
+                          setDisplayDate(`${d}/${m}/${y}`);
+                        }
+                      }}
+                      className="absolute right-3 opacity-0 w-6 h-6 cursor-pointer z-10"
+                      title="Pilih tanggal dari kalender"
+                    />
+                    <Calendar className="absolute right-3.5 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
@@ -392,7 +430,7 @@ export default function TulisArtikelPage() {
                         Klik untuk Unggah Gambar
                       </span>
                       <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">
-                        JPG, PNG, WEBP (Max 5MB)
+                        JPG, PNG, WEBP (Max 2MB)
                       </span>
                       <input
                         type="file"
