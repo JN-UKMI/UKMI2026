@@ -25,6 +25,11 @@ export const PLAYLIST: Song[] = [
     artist: "Azzam Haroki",
     src: "/music/TeruslahBergerak-AzzamHaroki.mp3",
   },
+  {
+    title: "Kabinet Iskandar Muda",
+    artist: "JN UKMI UNS",
+    src: "/music/kabinet.mp3",
+  },
 ];
 
 interface MusicContextType {
@@ -48,9 +53,12 @@ const MusicContext = createContext<MusicContextType | undefined>(undefined);
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Music plays on Home (/), Tentang (/tentang), and Bidang Syiar (/bidang/syiar)
+  // Music plays on Home (/), Tentang (/tentang), Bidang Syiar (/bidang/syiar), and Kabinet (/kabinet)
   const isAllowedPage =
-    pathname === "/" || pathname === "/tentang" || pathname === "/bidang/syiar";
+    pathname === "/" ||
+    pathname === "/tentang" ||
+    pathname === "/bidang/syiar" ||
+    pathname === "/kabinet";
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -121,6 +129,8 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         audioRef.current.pause();
       }
       setIsPlaying(false);
+    } else if (pathname === "/kabinet") {
+      setCurrentTrackIndex(3);
     }
   }, [pathname]);
 
@@ -250,7 +260,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     setIsSingleLoop((prev) => !prev);
   };
 
-  const isSingleTrackOnly = pathname === "/bidang/syiar";
+  const isSingleTrackOnly = pathname === "/bidang/syiar" || pathname === "/kabinet";
 
   const nextTrack = () => {
     if (isSingleTrackOnly) {
