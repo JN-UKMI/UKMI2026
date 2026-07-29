@@ -1,20 +1,20 @@
 {
   "name": "Syiar",
   "slug": "syiar",
-  "deskripsi": "Bidang Syiar bertanggung jawab atas pelaksanaan majelis Kajian Rutin (KANTIN), perhelatan festival terbesar Sebelas Maret Islamic Festival (SIFT), penerbitan mikroblog Al Khobar, kajian Forum Isu Strategis (FOKUS), produksi video UKMI Reels, serta kuis interaktif QuizLam.",
+  "deskripsi": "Bidang Syiar bertanggung jawab atas pelaksanaan majelis Kajian Rutin (KANTIN), festival terbesar Sebelas Maret Islamic Festival (SIFT), penerbitan mikroblog Al Khobar, kajian Forum Isu Strategis (FOKUS), produksi video UKMI Reels, serta kuis interaktif QuizLam.",
   "instagram_url": "https://www.instagram.com/sobat_kantin/",
   "program_kerja": [
     {
       "title": "Kajian Rutin (KANTIN)",
       "description": "Majelis kajian rutin dan diskusi interaktif di Masjid Nurul Huda UNS untuk meningkatkan keimanan dan wawasan keislaman.",
-      "tanggal": "Pekanan",
-      "target": "Min. 50 Peserta / Edisi"
+      "tanggal": "Mingguan",
+      "target": "100 Peserta"
     },
     {
       "title": "Sebelas Maret Islamic Festival (SIFT)",
       "description": "Festival Islam terbesar di UNS berupa Talkshow/Kajian Akbar puncak, perlombaan islami, dan social campaign berskala besar.",
-      "tanggal": "Triwulan II",
-      "target": "500+ Peserta"
+      "tanggal": "Triwulan III",
+      "target": "250+ Peserta"
     },
     {
       "title": "Al Khobar",
