@@ -21,9 +21,9 @@ export const PLAYLIST: Song[] = [
     src: "/music/all-2.mp3",
   },
   {
-    title: "Kabinet Iskandar Muda",
-    artist: "JN UKMI UNS",
-    src: "/music/kabinet.mp3",
+    title: "Teruslah Bergerak",
+    artist: "Azzam Haroki",
+    src: "/music/TeruslahBergerak-AzzamHaroki.mp3",
   },
 ];
 
@@ -35,6 +35,7 @@ interface MusicContextType {
   currentTrack: Song;
   isExpanded: boolean;
   isAllowedPage: boolean;
+  isSingleTrackOnly: boolean;
   togglePlay: () => void;
   toggleMute: () => void;
   toggleSingleLoop: () => void;
@@ -47,8 +48,9 @@ const MusicContext = createContext<MusicContextType | undefined>(undefined);
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Music plays ONLY on Home (/) and Tentang (/tentang)
-  const isAllowedPage = pathname === "/" || pathname === "/tentang";
+  // Music plays on Home (/), Tentang (/tentang), and Bidang Syiar (/bidang/syiar)
+  const isAllowedPage =
+    pathname === "/" || pathname === "/tentang" || pathname === "/bidang/syiar";
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -58,7 +60,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Pause & stop music immediately when user leaves allowed pages (/ and /tentang)
+  // Pause & stop music immediately when user leaves allowed pages
   useEffect(() => {
     if (!isAllowedPage && audioRef.current) {
       audioRef.current.pause();
@@ -113,6 +115,12 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       setCurrentTrackIndex(0);
     } else if (pathname === "/tentang") {
       setCurrentTrackIndex(1);
+    } else if (pathname === "/bidang/syiar") {
+      setCurrentTrackIndex(2);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setIsPlaying(false);
     }
   }, [pathname]);
 
@@ -124,15 +132,24 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     const isDifferentSrc = !audio.src.endsWith(currentTrack.src);
     if (isDifferentSrc) {
       audio.src = currentTrack.src;
-      if (isPlaying && isAllowedPage) {
+      if (isPlaying && isAllowedPage && pathname !== "/bidang/syiar") {
         audio.play().catch(() => {});
       }
     }
-  }, [currentTrackIndex, isPlaying, isAllowedPage, currentTrack.src]);
+  }, [currentTrackIndex, isPlaying, isAllowedPage, currentTrack.src, pathname]);
 
   // Attempt Autoplay on Mount & Handle Browser Autoplay Policy on First User Interaction
   useEffect(() => {
     if (typeof window === "undefined" || !isAllowedPage) return;
+
+    // /bidang/syiar is unique: NO AUTOPLAY on page load
+    if (pathname === "/bidang/syiar") {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setIsPlaying(false);
+      return;
+    }
 
     if (!audioRef.current) {
       const audio = new Audio(PLAYLIST[0].src);
@@ -233,7 +250,18 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     setIsSingleLoop((prev) => !prev);
   };
 
+  const isSingleTrackOnly = pathname === "/bidang/syiar";
+
   const nextTrack = () => {
+    if (isSingleTrackOnly) {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        if (isPlaying) {
+          audioRef.current.play().catch(() => {});
+        }
+      }
+      return;
+    }
     setCurrentTrackIndex((prev) => (prev + 1) % PLAYLIST.length);
   };
 
@@ -264,6 +292,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         currentTrack,
         isExpanded,
         isAllowedPage,
+        isSingleTrackOnly,
         togglePlay,
         toggleMute,
         toggleSingleLoop,

@@ -11,6 +11,7 @@ export function MusicPlayer() {
     isSingleLoop,
     isExpanded,
     isAllowedPage,
+    isSingleTrackOnly,
     togglePlay,
     toggleMute,
     toggleSingleLoop,
@@ -63,14 +64,16 @@ export function MusicPlayer() {
                 {isPlaying ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-white ml-0.5" />}
               </button>
 
-              {/* Next Track */}
-              <button
-                onClick={nextTrack}
-                className="p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime hover:bg-gray-100 dark:hover:bg-gray-800 transition-all cursor-pointer"
-                aria-label="Lagu berikutnya"
-              >
-                <SkipForward className="w-4 h-4" />
-              </button>
+              {/* Next Track (Hidden if only 1 song allowed on page) */}
+              {!isSingleTrackOnly && (
+                <button
+                  onClick={nextTrack}
+                  className="p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime hover:bg-gray-100 dark:hover:bg-gray-800 transition-all cursor-pointer"
+                  aria-label="Lagu berikutnya"
+                >
+                  <SkipForward className="w-4 h-4" />
+                </button>
+              )}
 
               {/* Single Track Loop Toggle */}
               <button
