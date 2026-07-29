@@ -135,16 +135,6 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                       
                       {/* Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-black/30 opacity-60 group-hover:opacity-40 transition-opacity" />
-
-                      {/* Top Left Floating Date Badge */}
-                      <div className="absolute top-2 left-2 sm:top-3.5 sm:left-3.5 flex flex-col items-center justify-center min-w-[42px] sm:min-w-[56px] px-2 py-1 sm:px-3 sm:py-2 rounded-xl sm:rounded-2xl bg-forest-900/90 dark:bg-forest-950/90 text-white backdrop-blur-md shadow-lg border border-white/20 dark:border-lime/30 transition-transform group-hover:scale-105">
-                        <span className="text-base sm:text-2xl font-black leading-none text-lime dark:text-lime">
-                          {item.dayBadge}
-                        </span>
-                        <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest mt-0.5 text-gray-200">
-                          {item.monthBadge}
-                        </span>
-                      </div>
                     </div>
 
                     {/* Right Column: Information & Details */}

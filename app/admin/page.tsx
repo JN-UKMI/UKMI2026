@@ -23,7 +23,9 @@ import {
   Pencil,
   X,
   LogOut,
-  Eye
+  Eye,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 interface DraftArticle {
@@ -44,6 +46,7 @@ export default function AdminPage() {
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
   const [publishedArticles, setPublishedArticles] = useState<DraftArticle[]>([]);
+  const [publishedPage, setPublishedPage] = useState(1);
   const [kegiatanList, setKegiatanList] = useState<any[]>([]);
   
   const [loading, setLoading] = useState(false);
@@ -149,7 +152,7 @@ export default function AdminPage() {
         throw new Error(data.message || "Gagal menyimpan kegiatan.");
       }
 
-      setSuccessMsg(data.message || (editingEventId ? "Kegiatan seru berhasil diperbarui!" : "Kegiatan seru berhasil ditambahkan!"));
+      setSuccessMsg(data.message || (editingEventId ? "Event Terdekat berhasil diperbarui!" : "Event Terdekat berhasil ditambahkan!"));
       cancelEditKegiatan();
       fetchKegiatan();
     } catch (err: any) {
@@ -473,7 +476,7 @@ export default function AdminPage() {
             }`}
           >
             <Calendar className="w-4 h-4" />
-            Kegiatan Seru ({kegiatanList.length})
+            Event Terdekat ({kegiatanList.length})
           </button>
         </div>
 
@@ -596,102 +599,152 @@ export default function AdminPage() {
         )}
 
         {/* Tab 2: Artikel Terbit (Manage/Edit/Delete) */}
-        {activeTab === "terbit" && (
-          <div className="space-y-6">
-            {publishedArticles.length === 0 ? (
-              <div className="bg-white dark:bg-gray-900 rounded-3xl p-16 shadow-md border border-gray-100 dark:border-gray-800 text-center flex flex-col items-center justify-center transition-colors">
-                <span className="text-5xl mb-4">📚</span>
-                <h2 className="text-lg font-black text-gray-900 dark:text-white uppercase tracking-wider mb-2">
-                  Belum ada artikel terbit
-                </h2>
-                <p className="text-gray-400 dark:text-gray-500 text-xs max-w-sm leading-relaxed">
-                  Tidak ditemukan artikel yang dipublikasikan di database Sanity.
-                </p>
-              </div>
-            ) : (
-              publishedArticles.map((article) => (
-                <div
-                  key={article._id}
-                  className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-md border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
-                >
-                  <div className="flex-1 space-y-3.5">
-                    {/* Category Badge & Date */}
-                    <div className="flex items-center gap-3">
-                      <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 rounded text-[10px] font-bold text-forest-600 uppercase tracking-wide">
-                        {article.category}
-                      </span>
-                      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-forest-600" />
-                        {new Date(article.publishedAt).toLocaleDateString("id-ID", {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                      {article.author && (
-                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
-                          <User className="w-3.5 h-3.5 text-forest-600" />
-                          oleh {article.author}
-                        </span>
-                      )}
-                    </div>
+        {activeTab === "terbit" && (() => {
+          const ITEMS_PER_PAGE = 10;
+          const totalPages = Math.ceil(publishedArticles.length / ITEMS_PER_PAGE) || 1;
+          const currentPage = Math.min(publishedPage, totalPages);
+          const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+          const currentArticles = publishedArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-                    {/* Title */}
-                    <div>
-                      <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
-                        {article.title}
-                      </h3>
-                      <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed line-clamp-2">
-                        {article.excerpt}
-                      </p>
-                    </div>
-
-                    {/* Detail / Preview Link */}
-                    <div className="flex gap-4">
-                    <a
-                      href={`/artikel/${article.slug}?preview=true`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-forest-600 font-bold hover:underline inline-flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                      Lihat Isi & Detail (Halaman Baru)
-                    </a>                        <Link
-                          href={`/artikel/${article.slug}`}
-                          target="_blank"
-                          className="text-xs text-gray-400 dark:text-gray-500 font-bold hover:text-forest-600 dark:hover:text-lime hover:underline inline-flex items-center gap-1.5 cursor-pointer"
-                        >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                        Buka di Halaman Baru
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Actions Toolbar */}                    <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
-                    <TransitionLink
-                      href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
-                    >
-                      <Edit className="w-3.5 h-3.5" />
-                      Edit Artikel
-                    </TransitionLink>
-
-                    <button
-                      disabled={actionLoadingId !== null}
-                      onClick={() => handleDeletePublished(article._id)}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 hover:text-red-600 dark:hover:text-red-400 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                      Hapus Terbitan
-                    </button>
-                  </div>
+          return (
+            <div className="space-y-6">
+              {publishedArticles.length === 0 ? (
+                <div className="bg-white dark:bg-gray-900 rounded-3xl p-16 shadow-md border border-gray-100 dark:border-gray-800 text-center flex flex-col items-center justify-center transition-colors">
+                  <span className="text-5xl mb-4">📚</span>
+                  <h2 className="text-lg font-black text-gray-900 dark:text-white uppercase tracking-wider mb-2">
+                    Belum ada artikel terbit
+                  </h2>
+                  <p className="text-gray-400 dark:text-gray-500 text-xs max-w-sm leading-relaxed">
+                    Tidak ditemukan artikel yang dipublikasikan di database Sanity.
+                  </p>
                 </div>
-              ))
-            )}
-          </div>
-        )}
+              ) : (
+                <>
+                  {currentArticles.map((article) => (
+                    <div
+                      key={article._id}
+                      className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-md border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
+                    >
+                      <div className="flex-1 space-y-3.5">
+                        {/* Category Badge & Date */}
+                        <div className="flex items-center gap-3">
+                          <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 rounded text-[10px] font-bold text-forest-600 uppercase tracking-wide">
+                            {article.category}
+                          </span>
+                          <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
+                            <Calendar className="w-3.5 h-3.5 text-forest-600" />
+                            {new Date(article.publishedAt).toLocaleDateString("id-ID", {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </span>
+                          {article.author && (
+                            <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
+                              <User className="w-3.5 h-3.5 text-forest-600" />
+                              oleh {article.author}
+                            </span>
+                          )}
+                        </div>
 
-        {/* Tab 3: Kegiatan Seru Management */}
+                        {/* Title */}
+                        <div>
+                          <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
+                            {article.title}
+                          </h3>
+                          <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed line-clamp-2">
+                            {article.excerpt}
+                          </p>
+                        </div>
+
+                        {/* Detail / Preview Link */}
+                        <div className="flex gap-4">
+                          <a
+                            href={`/artikel/${article.slug}?preview=true`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-forest-600 font-bold hover:underline inline-flex items-center gap-1.5 cursor-pointer"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            Lihat Isi & Detail (Halaman Baru)
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Actions Toolbar */}
+                      <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
+                        <TransitionLink
+                          href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
+                          className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
+                        >
+                          <Edit className="w-3.5 h-3.5" />
+                          Edit Artikel
+                        </TransitionLink>
+
+                        <button
+                          disabled={actionLoadingId !== null}
+                          onClick={() => handleDeletePublished(article._id)}
+                          className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 hover:text-red-600 dark:hover:text-red-400 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          Hapus Terbitan
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Pagination Controls */}
+                  {totalPages > 1 && (
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                        Menampilkan {startIndex + 1} - {Math.min(startIndex + ITEMS_PER_PAGE, publishedArticles.length)} dari {publishedArticles.length} artikel terbit
+                      </p>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setPublishedPage((prev) => Math.max(1, prev - 1))}
+                          disabled={currentPage === 1}
+                          className="p-2 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+                          aria-label="Halaman sebelumnya"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+
+                        {Array.from({ length: totalPages }).map((_, idx) => {
+                          const pageNum = idx + 1;
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => setPublishedPage(pageNum)}
+                              className={`w-8 h-8 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                                currentPage === pageNum
+                                  ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
+                                  : "border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                              }`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        })}
+
+                        <button
+                          onClick={() => setPublishedPage((prev) => Math.min(totalPages, prev + 1))}
+                          disabled={currentPage === totalPages}
+                          className="p-2 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+                          aria-label="Halaman berikutnya"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })()}
+
+        {/* Tab 3: Event Terdekat Management */}
         {activeTab === "kegiatan" && (
           <div className="space-y-10">
             {/* Form Tambah Kegiatan Baru */}
@@ -699,10 +752,10 @@ export default function AdminPage() {
               <div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-lime flex items-center gap-2">
                   <Pencil className="w-5 h-5 text-forest-600 dark:text-lime" />
-                  Tambah Kegiatan Seru Baru
+                  Tambah Event Terdekat Baru
                 </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">
-                  Isi formulir di bawah ini untuk menampilkan agenda kegiatan terdekat pada carousel beranda.
+                  Isi formulir di bawah ini untuk menampilkan agenda event terdekat pada carousel beranda.
                 </p>
               </div>
 
@@ -867,12 +920,12 @@ export default function AdminPage() {
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-forest-600 dark:text-lime" />
-                Daftar Kegiatan Seru Aktif ({kegiatanList.length})
+                Daftar Event Terdekat Aktif ({kegiatanList.length})
               </h3>
 
               {kegiatanList.length === 0 ? (
                 <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                  <p className="text-sm font-semibold text-gray-400 dark:text-gray-500">Belum ada kegiatan seru yang ditambahkan.</p>
+                  <p className="text-sm font-semibold text-gray-400 dark:text-gray-500">Belum ada event terdekat yang ditambahkan.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

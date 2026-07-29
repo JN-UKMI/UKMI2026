@@ -194,7 +194,7 @@ export async function POST(req: Request) {
         ...(imageRef ? { poster: imageRef } : {}),
       };
       const created = await sanityClient.create(doc);
-      return apiOk("Kegiatan seru berhasil ditambahkan ke Sanity CMS Cloud!", created);
+      return apiOk("Event Terdekat berhasil ditambahkan ke Sanity CMS Cloud!", created);
     } catch (err: any) {
       return apiServerError("Gagal menyimpan ke Sanity: " + (err?.message ?? "unknown"));
     }
@@ -230,7 +230,7 @@ export async function POST(req: Request) {
   events.unshift(newEvent);
   await writeEvents(events);
 
-  return apiOk("Kegiatan seru berhasil ditambahkan!", newEvent);
+  return apiOk("Event Terdekat berhasil ditambahkan!", newEvent);
 }
 
 // ── PUT: edit existing event (admin gated) ──
@@ -303,7 +303,7 @@ export async function PUT(req: Request) {
       };
       if (imageRef) patchData.poster = imageRef;
       const updated = await sanityClient.patch(parsed.data.id).set(patchData).commit();
-      return apiOk("Kegiatan seru berhasil diperbarui di Sanity CMS Cloud!", updated);
+      return apiOk("Event Terdekat berhasil diperbarui di Sanity CMS Cloud!", updated);
     } catch (err: any) {
       return apiServerError("Gagal memperbarui: " + (err?.message ?? "unknown"));
     }
@@ -339,7 +339,7 @@ export async function PUT(req: Request) {
   };
   await writeEvents(events);
 
-  return apiOk("Kegiatan seru berhasil diperbarui!", events[idx]);
+  return apiOk("Event Terdekat berhasil diperbarui!", events[idx]);
 }
 
 // ── DELETE: remove event (admin gated) ──
