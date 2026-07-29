@@ -4,6 +4,7 @@ import { useState } from "react";
 import sughraData from "@/content/al-masurat/sughra.json";
 import kubraData from "@/content/al-masurat/kubra.json";
 import { DoaCard } from "./DoaCard";
+import { MasuratAudioPlayer } from "./MasuratAudioPlayer";
 import { Sun, Moon, BookOpen, Layers, Eye, EyeOff } from "lucide-react";
 
 type RawDoaItem = {
@@ -169,6 +170,9 @@ export function DoaTabs() {
           </div>
         </div>
       </div>
+
+      {/* Audio Murottal Player for Al-Masurat (Hanan Attaki) */}
+      <MasuratAudioPlayer />
 
       {/* Info Status Bacaan Aktif */}
       <div className="text-center text-xs text-gray-400 dark:text-gray-500 font-medium tracking-wide mt-2">

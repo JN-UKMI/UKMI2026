@@ -47,8 +47,8 @@ const MusicContext = createContext<MusicContextType | undefined>(undefined);
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Music plays on Home (/), Tentang (/tentang), and Kabinet (/kabinet)
-  const isAllowedPage = pathname === "/" || pathname === "/tentang" || pathname === "/kabinet";
+  // Music plays ONLY on Home (/) and Tentang (/tentang)
+  const isAllowedPage = pathname === "/" || pathname === "/tentang";
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -57,6 +57,14 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Pause & stop music immediately when user leaves allowed pages (/ and /tentang)
+  useEffect(() => {
+    if (!isAllowedPage && audioRef.current) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  }, [isAllowedPage]);
 
   // Load saved mute preference once on mount
   useEffect(() => {
@@ -105,8 +113,6 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       setCurrentTrackIndex(0);
     } else if (pathname === "/tentang") {
       setCurrentTrackIndex(1);
-    } else if (pathname === "/kabinet") {
-      setCurrentTrackIndex(2);
     }
   }, [pathname]);
 

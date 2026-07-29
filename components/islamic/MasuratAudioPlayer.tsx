@@ -1,0 +1,233 @@
+"use client";
+
+import { useState, useRef } from "react";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  FastForward,
+  Rewind,
+  Music,
+  Gauge,
+  Volume1,
+} from "lucide-react";
+
+interface MasuratAudioPlayerProps {
+  src?: string;
+  title?: string;
+  artist?: string;
+}
+
+export function MasuratAudioPlayer({
+  src = "/music/Al-Masurat-Hanan_Attaki.mp3",
+  title = "Al-Ma'surat (Pagi & Petang)",
+  artist = "Ustadz Hanan Attaki",
+}: MasuratAudioPlayerProps) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState<number>(1);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const SPEED_OPTIONS = [0.75, 1, 1.25, 1.5];
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.error("Playback error:", err));
+    }
+  };
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    audioRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
+
+  const cycleSpeed = () => {
+    const nextIdx = (SPEED_OPTIONS.indexOf(playbackRate) + 1) % SPEED_OPTIONS.length;
+    const newSpeed = SPEED_OPTIONS[nextIdx];
+    setPlaybackRate(newSpeed);
+    if (audioRef.current) {
+      audioRef.current.playbackRate = newSpeed;
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const time = parseFloat(e.target.value);
+    if (audioRef.current) {
+      audioRef.current.currentTime = time;
+      setCurrentTime(time);
+    }
+  };
+
+  const skip = (seconds: number) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = Math.min(
+        Math.max(0, audioRef.current.currentTime + seconds),
+        duration
+      );
+    }
+  };
+
+  const formatTime = (timeInSeconds: number) => {
+    if (isNaN(timeInSeconds)) return "00:00";
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  };
+
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
+
+  return (
+    <div className="w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 transition-colors">
+      {/* HTML5 Audio Element */}
+      <audio
+        ref={audioRef}
+        src={src}
+        autoPlay={false}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={() => setIsPlaying(false)}
+        preload="metadata"
+      />
+
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+        {/* Left Column: Track Info */}
+        <div className="flex items-center gap-3.5 w-full lg:w-auto">
+          <div className="w-12 h-12 rounded-xl bg-forest-50 dark:bg-gray-800 border border-forest-100 dark:border-gray-700 flex items-center justify-center shrink-0 text-forest-600 dark:text-lime">
+            <Music className="w-6 h-6" />
+          </div>
+
+          <div className="overflow-hidden min-w-0 flex-1">
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="px-2 py-0.5 bg-forest-50 dark:bg-forest-950/60 text-forest-700 dark:text-lime border border-forest-200/80 dark:border-forest-800 rounded-md text-[10px] font-bold uppercase tracking-wider">
+                Murottal Audio
+              </span>
+              {isPlaying && (
+                <span className="text-[10px] text-forest-600 dark:text-lime font-bold">
+                  ● Sedang Diputar
+                </span>
+              )}
+            </div>
+
+            <h4 className="text-sm sm:text-base font-bold text-forest-900 dark:text-white truncate leading-snug">
+              {title}
+            </h4>
+            <p className="text-xs text-gray-500 dark:text-gray-400 font-medium truncate">
+              {artist}
+            </p>
+          </div>
+        </div>
+
+        {/* Right Column: Player Controls & Progress Bar */}
+        <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full lg:w-auto flex-1 max-w-2xl bg-gray-50 dark:bg-gray-800/60 p-3 rounded-xl border border-gray-100 dark:border-gray-750">
+          {/* Main Playback Buttons */}
+          <div className="flex items-center justify-center gap-1.5 shrink-0">
+            {/* Rewind -10s */}
+            <button
+              onClick={() => skip(-10)}
+              className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+              title="Mundur 10 Detik"
+            >
+              <Rewind className="w-3.5 h-3.5" />
+              <span className="text-[10px] font-bold">-10s</span>
+            </button>
+
+            {/* Play / Pause Button */}
+            <button
+              onClick={togglePlay}
+              className="w-10 h-10 rounded-xl bg-forest-600 hover:bg-forest-700 dark:bg-forest-700 dark:hover:bg-forest-600 text-white flex items-center justify-center shadow-xs transition-colors active:scale-95 cursor-pointer"
+              title={isPlaying ? "Jeda Audio" : "Putar Audio Murottal"}
+            >
+              {isPlaying ? (
+                <Pause className="w-5 h-5 fill-current" />
+              ) : (
+                <Play className="w-5 h-5 fill-current ml-0.5" />
+              )}
+            </button>
+
+            {/* FastForward +10s */}
+            <button
+              onClick={() => skip(10)}
+              className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+              title="Maju 10 Detik"
+            >
+              <span className="text-[10px] font-bold">+10s</span>
+              <FastForward className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Progress Bar & Timers */}
+          <div className="flex flex-col gap-1 w-full flex-1">
+            <div className="flex items-center justify-between text-[11px] font-mono font-medium text-gray-500 dark:text-gray-400 px-0.5">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+
+            <div className="relative w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden flex items-center cursor-pointer">
+              <div
+                className="h-full bg-forest-600 dark:bg-lime transition-all duration-150 rounded-full"
+                style={{ width: `${progressPercent}%` }}
+              />
+              <input
+                type="range"
+                min={0}
+                max={duration || 100}
+                value={currentTime}
+                onChange={handleSeek}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              />
+            </div>
+          </div>
+
+          {/* Secondary Controls: Speed & Mute */}
+          <div className="flex items-center gap-1.5 shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 sm:border-l border-gray-200 dark:border-gray-700 sm:pl-3">
+            {/* Speed Button */}
+            <button
+              onClick={cycleSpeed}
+              className="px-2 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+              title="Kecepatan Putar Audio"
+            >
+              <Gauge className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
+              <span>{playbackRate}x</span>
+            </button>
+
+            {/* Mute Button */}
+            <button
+              onClick={toggleMute}
+              className="p-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer active:scale-95 shadow-2xs"
+              title={isMuted ? "Aktifkan Suara" : "Bisukan Suara"}
+            >
+              {isMuted ? (
+                <VolumeX className="w-4 h-4 text-red-500" />
+              ) : (
+                <Volume2 className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
