@@ -17,12 +17,10 @@ interface AlKahfiViewerProps {
 }
 
 export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
-  const [displayedCount, setDisplayedCount] = useState(10);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [showGlobalLatin, setShowGlobalLatin] = useState(true);
   const [showGlobalTranslation, setShowGlobalTranslation] = useState(true);
   const [bookmarkedAyat, setBookmarkedAyat] = useState<number | null>(null);
-  const observerRef = useRef<HTMLDivElement | null>(null);
 
   // Read saved bookmark on mount
   useEffect(() => {
@@ -33,11 +31,10 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
         if (!isNaN(ayatNum)) {
           // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved bookmark on mount
           setBookmarkedAyat(ayatNum);
-          setDisplayedCount((prev) => Math.max(prev, Math.min(ayatNum + 5, ayatList.length)));
         }
       }
     }
-  }, [ayatList.length]);
+  }, []);
 
   const toggleBookmark = (nomorAyat: number) => {
     if (bookmarkedAyat === nomorAyat) {
@@ -53,29 +50,6 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
     }
   };
 
-  // Load more verses when scrolled near bottom
-  useEffect(() => {
-    const currentTarget = observerRef.current;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setDisplayedCount((prev) => Math.min(prev + 10, ayatList.length));
-        }
-      },
-      { threshold: 0.1, rootMargin: "300px" }
-    );
-
-    if (currentTarget) {
-      observer.observe(currentTarget);
-    }
-
-    return () => {
-      if (currentTarget) {
-        observer.unobserve(currentTarget);
-      }
-    };
-  }, [ayatList.length]);
-
   // Handle back to top visibility
   useEffect(() => {
     const handleScroll = () => {
@@ -89,8 +63,6 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
   const handleBackToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const displayedAyat = ayatList.slice(0, displayedCount);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6 relative">
@@ -141,9 +113,9 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
         </button>
       </div>
 
-      {/* Verses List */}
+      {/* Verses List — Renders all 110 verses directly */}
       <StaggerContainer className="space-y-6">
-        {displayedAyat.map((ayat) => (
+        {ayatList.map((ayat) => (
           <StaggerItem key={ayat.nomorAyat}>
             <AyatCard
               nomorAyat={ayat.nomorAyat}
@@ -158,13 +130,6 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
           </StaggerItem>
         ))}
       </StaggerContainer>
-
-      {/* Target for infinite scroll trigger */}
-      {displayedCount < ayatList.length && (
-        <div ref={observerRef} className="h-12 flex items-center justify-center py-4">
-          <div className="w-6 h-6 rounded-full border-2 border-forest-600 border-t-transparent animate-spin" />
-        </div>
-      )}
 
       {/* Floating Action Button (FAB) Back to Top */}
       <button
