@@ -46,6 +46,33 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
     }
   };
 
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe && currentIndex < maxIndex) {
+      nextSlide();
+    }
+    if (isRightSwipe && currentIndex > 0) {
+      prevSlide();
+    }
+  };
+
   // Fallback untuk data yang belum diisi
   const fallbackTargets = ["Triwulan I", "Triwulan II", "Bulanan", "Setiap Semester", "Kondisional", "Pekanan"];
   const fallbackTarget = (i: number) => fallbackTargets[i % fallbackTargets.length];
@@ -65,7 +92,12 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
         <FadeIn delay={0.2}>
           <div className="relative px-2 sm:px-12 w-full overflow-hidden">
           {/* Slider viewport */}
-          <div className="overflow-hidden w-full">
+          <div
+            className="overflow-hidden w-full touch-pan-y"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <div 
               className="flex transition-transform duration-500 ease-out gap-6"
               style={{ transform: `translateX(calc(-${currentIndex * (100 / visibleCards)}% - ${currentIndex * (24 / visibleCards)}px))` }}
