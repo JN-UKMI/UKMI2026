@@ -1,6 +1,36 @@
 {
   "deskripsi_kabinet": "Struktur kepengurusan Kabinet Iskandar Muda JN UKMI UNS yang mengemban amanah dakwah kampus dengan semangat persatuan, kepemimpinan Islam, dan kontribusi nyata.",
   "filosofi_logo": "Logo kami mencerminkan nilai-nilai keislaman, persatuan, dan semangat dakwah yang bersinar terang di kalangan mahasiswa.",
+  "filosofi_items": [
+    {
+      "id": "full",
+      "title": "Logo Utama Kabinet",
+      "subtitle": "Kesatuan & Visioner",
+      "image": "/image/kabinet-full-1.webp",
+      "description": "Simbol kepemimpinan Islam yang visioner, tangguh, dan berani seperti Sultan Iskandar Muda, memadukan seluruh elemen ukhuwah dan perjuangan dakwah JN UKMI UNS."
+    },
+    {
+      "id": "kelopak",
+      "title": "Kelopak Bunga Melati",
+      "subtitle": "Kesucian Akhlak & Keharuman Syiar",
+      "image": "/image/kabinet-kelopak-2.webp",
+      "description": "Melambangkan kesucian niat, kerendahan hati, dan keharuman akhlak para Aktivis Dakwah Kampus dalam menebarkan kebaikan di Universitas Sebelas Maret."
+    },
+    {
+      "id": "lingkaran",
+      "title": "Lingkaran Benteng Ukhuwah",
+      "subtitle": "Barisan Kokoh & Pelindung",
+      "image": "/image/kabinet-lingkaran-3.webp",
+      "description": "Melambangkan persatuan barisan yang kokoh (QS. Ash-Shaff: 4), menjaga keharmonisan lembaga, serta membentengi nilai-nilai keislaman dari pengaruh luar."
+    },
+    {
+      "id": "daun",
+      "title": "Daun & Perisai Pertumbuhan",
+      "subtitle": "Kaderisasi & Gagasan Segar",
+      "image": "/image/kabinet-daun-4.webp",
+      "description": "Melambangkan proses kaderisasi yang terus tumbuh berkembang, ide-ide segar dalam syiar, serta perisai dakwah yang memberikan manfaat bagi civitas akademika."
+    }
+  ],
   "pengurus": [
     {
       "nama": "M. Fadhlan Azzam Hasya",

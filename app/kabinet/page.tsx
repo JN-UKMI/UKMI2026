@@ -20,7 +20,7 @@ export default function KabinetPage() {
       />
 
       {/* Logo Section */}
-      <LogoKabinetSection filosofi={kabinetData.filosofi_logo} />
+      <LogoKabinetSection filosofi={kabinetData.filosofi_logo} items={kabinetData.filosofi_items} />
 
       {/* Pengurus Utama */}
       <PengurusUtamaGrid members={kabinetData.pengurus} />
