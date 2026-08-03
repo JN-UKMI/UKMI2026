@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Sparkles, Layers, ShieldCheck, Flower2, Leaf } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export interface FilosofiItem {
   id: string;

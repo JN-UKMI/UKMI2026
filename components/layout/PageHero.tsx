@@ -47,7 +47,11 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
         transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
         className="relative z-10 flex flex-col items-center justify-center text-center text-white max-w-4xl mx-auto pt-[60px]"
       >
-        {/* JN UKMI Logo Above Text */}
+        {badge && (
+          <span className="inline-block px-3 py-1 mb-3 rounded-full text-xs font-semibold bg-lime/20 text-lime border border-lime/30 backdrop-blur-xs">
+            {badge}
+          </span>
+        )}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.9, scale: 1 }}

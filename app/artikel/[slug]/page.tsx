@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { headers } from "next/headers";
-import { BASE_URL, getAbsoluteUrl } from "@/lib/seo";
+import { BASE_URL } from "@/lib/seo";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd } from "@/lib/json-ld";
 import { getArticles, getArticleBySlug, urlFor } from "@/lib/sanity";
 import { createClient } from "next-sanity";
@@ -11,7 +11,6 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArrowLeft, Calendar, Tag, Pencil } from "lucide-react";
 import { notFound } from "next/navigation";
 import { FadeIn } from "@/components/ui/motion";
-import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const dynamic = "force-dynamic";
 

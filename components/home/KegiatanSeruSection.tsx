@@ -16,12 +16,6 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
 
-  useEffect(() => {
-    if (initialEvents.length === 0) {
-      fetchEvents();
-    }
-  }, [initialEvents]);
-
   const fetchEvents = async () => {
     try {
       const res = await fetch("/api/admin/kegiatan");
@@ -31,6 +25,12 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
       }
     } catch {}
   };
+
+  useEffect(() => {
+    if (initialEvents.length === 0) {
+      fetchEvents();
+    }
+  }, [initialEvents]);
 
   // Responsive visible card counts (2 on desktop lg, 1 on mobile/tablet)
   useEffect(() => {

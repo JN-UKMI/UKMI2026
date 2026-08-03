@@ -10,7 +10,6 @@ import {
   Rewind,
   Music,
   Gauge,
-  Volume1,
 } from "lucide-react";
 
 interface MasuratAudioPlayerProps {

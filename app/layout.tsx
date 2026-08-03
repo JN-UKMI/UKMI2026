@@ -124,7 +124,6 @@ export const metadata: Metadata = {
     ],
     shortcut: ["/favicon_io/favicon.ico"],
   },
-  manifest: "/favicon_io/site.webmanifest",
   formatDetection: {
     telephone: false,
     email: false,
@@ -167,7 +166,6 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${amiri.variable} ${amiriQuran.variable} ${notoNaskh.variable} h-full antialiased`}
     >
       <head>
-        <link rel="manifest" href="/favicon_io/site.webmanifest" />
         <link rel="canonical" href={BASE_URL} />
         <script
           type="application/ld+json"

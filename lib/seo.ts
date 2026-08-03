@@ -58,9 +58,11 @@ export const siteConfig = {
    */
   social: {
     instagram: "https://www.instagram.com/jnukmiuns/",
+    youtube: "https://www.youtube.com/@jnukmiuns",
+    tiktok: "https://www.tiktok.com/@jnukmiuns",
+    spotify: "https://open.spotify.com/show/5PSDOR33zWFxnl2AOu8Rx8",
+    telegram: "https://t.me/WejanganGrafisJNUKMI",
     twitter: null,
-    youtube: null,
-    tiktok: null,
     facebook: null,
   } as Record<string, string | null>,
   /**

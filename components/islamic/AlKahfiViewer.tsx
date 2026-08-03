@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { AyatCard } from "./AyatCard";
 import { ArrowUp, Eye, EyeOff } from "lucide-react";
 import { StaggerContainer, StaggerItem } from "@/components/ui/motion";

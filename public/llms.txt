@@ -1,0 +1,36 @@
+# Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI) UNS
+
+> Organisasi Kemahasiswaan Islam di Universitas Sebelas Maret (UNS), Surakarta.
+
+## Informasi Umum
+- **Nama Resmi**: Jamaah Nurul Huda UKMI UNS
+- **Singkatan**: JN UKMI UNS
+- **Kabinet 2026**: Kabinet Iskandar Muda
+- **Lokasi**: Masjid Nurul Huda UNS, Jl. Ir. Sutami No. 36A, Kentingan, Surakarta, Jawa Tengah, Indonesia.
+- **Website Resmi**: https://jnukmi.com
+
+## Visi & Misi
+- **Visi**: Menjadi pusat pembinaan, syiar, dan pengabdian mahasiswa muslim UNS yang berkarakter Qur'ani, profesional, dan inklusif.
+- **Misi**:
+  1. Membina aqidah, ibadah, dan akhlak mahasiswa muslim UNS.
+  2. Menyebarkan nilai-nilai Islam yang rahmatan lil 'alamin di lingkungan kampus UNS.
+  3. Mengembangkan potensi kepemimpinan dan keilmuan anggota.
+  4. Memberikan pelayanan sosial dan keummatan bagi sivitas akademika UNS.
+
+## Struktur & Bidang Kerja
+1. **Pengurus Harian**: Ketua Umum, Koordinator Akhwat, Sekretaris Umum, Bendahara Umum.
+2. **Bidang Syiar Islam**: Mengelola kajian rutin, peringatan hari besar Islam (PHBI), dan publikasi dakwah.
+3. **Bidang Pembinaan Internal**: Pembinaan kader, mentoring Al-Qur'an, dan pengembangan karakter islami.
+4. **Bidang Kemuslimahan**: Pengelolaan kegiatan khusus mahasiswi (akhwat) dan wawasan keputrian.
+5. **Bidang Hubungan Eksternal**: Kerjasama antar-lembaga, aksi sosial pengabdian masyarakat, dan koordinasi LDF/OKI.
+6. **Biro Media & Informasi (Medinfo)**: Pengelolaan website resmi, media sosial, desain grafis, dan dokumentasi visual.
+
+## Jejaring Dakwah Kampus
+- **LDF (Lembaga Dakwah Fakultas)**: Terdapat 12 Lembaga Dakwah Fakultas di lingkungan UNS (FK, FT, FH, FEB, FKIP, FIB, FP, FISIP, FMIPA, SV, FATISDA, FKOR).
+- **OKI (Ormawa Kerohanian Islam)**: Organisasi kemahasiswaan kerohanian Islam universitas.
+
+## Layanan & Konten Digital Website
+- **Profil & Kabinet**: Struktur pengurus Kabinet Iskandar Muda 2026 dan program kerja.
+- **Artikel & Kajian**: Artikel islami, opini mahasiswa, serta rilis kegiatan terbaru dari Sanity CMS.
+- **Fitur Islami**: Bacaan Al-Kahfi digital, Al-Masurat (zikir pagi & petang), dan database Doa Harian.
+- **Direktori LDF**: Kontak dan informasi lengkap seluruh LDF di UNS.
