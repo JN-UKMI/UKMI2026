@@ -15,6 +15,8 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 type NavItem = {
   label: string;
   href?: string;
+  target?: string;
+  rel?: string;
   items?: NavItem[];
 };
 
@@ -78,6 +80,8 @@ export function NavDropdown({ item }: { item: NavItem }) {
                     <DropdownMenuItem key={leaf.label}>
                       <TransitionLink
                         href={leaf.href || "#"}
+                        target={leaf.target}
+                        rel={leaf.rel}
                         className="block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
                       >
                         {leaf.label}
@@ -91,6 +95,8 @@ export function NavDropdown({ item }: { item: NavItem }) {
             <DropdownMenuItem key={sub.label}>
               <TransitionLink
                 href={sub.href || "#"}
+                target={sub.target}
+                rel={sub.rel}
                 className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
               >
                 {sub.label}

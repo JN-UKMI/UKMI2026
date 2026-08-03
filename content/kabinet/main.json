@@ -4,31 +4,31 @@
   "filosofi_items": [
     {
       "id": "full",
-      "title": "Logo Utama Kabinet",
-      "subtitle": "Kesatuan & Visioner",
+      "title": "Warna & Filosofi Teal",
+      "subtitle": "Keseimbangan Karakter Organisasi",
       "image": "/image/kabinet-full-1.webp",
-      "description": "Simbol kepemimpinan Islam yang visioner, tangguh, dan berani seperti Sultan Iskandar Muda, memadukan seluruh elemen ukhuwah dan perjuangan dakwah JN UKMI UNS."
+      "description": "Warna teal (#02ACC1) merupakan perpaduan biru dan hijau. Biru merepresentasikan ketenangan, kepercayaan, dan profesionalisme dalam menjalankan amanah dakwah, sedangkan hijau merepresentasikan kehidupan, harapan, dan semangat pertumbuhan. Kombinasi keduanya mencerminkan karakter JN UKMI sebagai organisasi dakwah yang adaptif, kolaboratif, dan berorientasi pada kebermanfaatan, tanpa meninggalkan nilai-nilai Islam sebagai pondasi perjuangan."
     },
     {
       "id": "kelopak",
-      "title": "Kelopak Bunga Melati",
-      "subtitle": "Kesucian Akhlak & Keharuman Syiar",
+      "title": "Empat Kelopak",
+      "subtitle": "Nilai Utama Organisasi",
       "image": "/image/kabinet-kelopak-2.webp",
-      "description": "Melambangkan kesucian niat, kerendahan hati, dan keharuman akhlak para Aktivis Dakwah Kampus dalam menebarkan kebaikan di Universitas Sebelas Maret."
+      "description": "Empat kelopak merepresentasikan empat nilai inti JN UKMI: Inklusif, Transformatif, Kolaboratif, dan Harmonis. Meski memiliki peran dan makna yang berbeda, keempatnya bertemu pada satu titik pusat sebagai simbol arah perjuangan yang sama. Orientasi kelopak yang mengarah ke atas mencerminkan semangat ‘irtaqa’ yaitu komitmen untuk terus bertumbuh dan meningkatkan kualitas diri, organisasi, dan dakwah, dengan tetap berorientasi pada ridha Allah Swt. serta kebermanfaatan bagi umat."
     },
     {
       "id": "lingkaran",
-      "title": "Lingkaran Benteng Ukhuwah",
-      "subtitle": "Barisan Kokoh & Pelindung",
+      "title": "Dua Titik di Puncak Bunga",
+      "subtitle": "Ilmu dan Amal",
       "image": "/image/kabinet-lingkaran-3.webp",
-      "description": "Melambangkan persatuan barisan yang kokoh (QS. Ash-Shaff: 4), menjaga keharmonisan lembaga, serta membentengi nilai-nilai keislaman dari pengaruh luar."
+      "description": "Dua titik yang berada di posisi tertinggi melambangkan ilmu dan amal sebagai dua orientasi utama pembinaan kader JN UKMI. Keduanya bukan capaian yang berdiri sendiri, melainkan satu kesatuan proses. Ilmu menjadi landasan berpikir dan bertindak, sedangkan amal menjadi bentuk konkret dari ilmu tersebut dalam pengabdian dan pelayanan kepada umat. Posisinya di puncak menegaskan bahwa seluruh proses dakwah pada akhirnya bermuara pada lahirnya kader yang berilmu, berkarakter, dan berkontribusi nyata bagi sesama."
     },
     {
       "id": "daun",
-      "title": "Daun & Perisai Pertumbuhan",
-      "subtitle": "Kaderisasi & Gagasan Segar",
+      "title": "Dua Helai Daun",
+      "subtitle": "Al-Qur’an dan As-Sunnah",
       "image": "/image/kabinet-daun-4.webp",
-      "description": "Melambangkan proses kaderisasi yang terus tumbuh berkembang, ide-ide segar dalam syiar, serta perisai dakwah yang memberikan manfaat bagi civitas akademika."
+      "description": "Sebagaimana daun mengalirkan hidup bagi bunga, Al-Qur'an dan As-Sunnah mengalirkan hidup bagi dakwah. Dua helai daun melambangkan Al-Qur'an dan As-Sunnah sebagai dua sumber utama ajaran Islam yang menopang seluruh proses pembinaan kader. Kedua pedoman ini menjadi dasar bagi setiap nilai, budaya, dan arah gerak organisasi, memastikan setiap langkah JN UKMI tetap berada dalam koridor syariat islam."
     }
   ],
   "pengurus": [
