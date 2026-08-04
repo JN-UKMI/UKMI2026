@@ -12,6 +12,8 @@ import { AmbientBackground } from "@/components/ui/motion";
 import { BASE_URL, siteConfig } from "@/lib/seo";
 import { buildSiteJsonLd } from "@/lib/json-ld";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -195,6 +197,8 @@ export default async function RootLayout({
                 <Footer />
                 <MusicPlayer />
                 <BackToTop />
+                <Analytics />
+                <SpeedInsights />
               </MusicProvider>
             </LoadingProvider>
           </ThemeProvider>
