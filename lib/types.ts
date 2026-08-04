@@ -209,3 +209,48 @@ export interface AlKahfiSurah {
   ayat: AlKahfiAyat[];
 }
 
+export interface UkmiStoreItem {
+  name: string;
+  price: string;
+  price_detail: string;
+  unit: string;
+  category: string;
+  icon: string;
+}
+
+export interface UkmiStoreContact {
+  role?: string;
+  name: string;
+  phone: string;
+  avatar?: string;
+  whatsapp: string;
+}
+
+export interface UkmiStoreGuidelineRule {
+  title: string;
+  detail: string;
+}
+
+export interface UkmiStoreGuidelineProcedure {
+  step: string;
+  detail: string;
+}
+
+export interface UkmiStoreGuideline {
+  title: string;
+  description: string;
+  rules: UkmiStoreGuidelineRule[];
+  procedures: UkmiStoreGuidelineProcedure[];
+}
+
+export interface UkmiStoreContent {
+  title: string;
+  tagline: string;
+  description: string;
+  guideline_link: string;
+  items: UkmiStoreItem[];
+  guideline?: UkmiStoreGuideline;
+  contacts: UkmiStoreContact[];
+}
+
+

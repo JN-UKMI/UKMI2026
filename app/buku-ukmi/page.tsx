@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export const metadata = buildPageMetadata({
-  title: 'BUMI — Perpustakaan Mini',
+  title: 'BUMI - Perpustakaan Mini',
   description: 'BUMI (Buku UKMI) adalah perpustakaan mini JN-UKMI untuk peminjaman dan jariyah wakaf buku mahasiswa UNS.',
   path: '/buku-ukmi',
 });

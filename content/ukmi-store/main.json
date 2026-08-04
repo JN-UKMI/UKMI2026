@@ -1,0 +1,124 @@
+{
+  "title": "UKMI Store - Open Rent",
+  "tagline": "JN UKMI OPEN RENT Resmi Dibuka!",
+  "description": "Fasilitas sewa perlengkapan acara dan kegiatan untuk mahasiswa UNS. Budget mahasiswa, alat lengkap, dan siap membantu kelancaran kegiatanmu!",
+  "guideline_link": "https://uns.id/GuidelineUKMIRent",
+  "items": [
+    {
+      "name": "Galon",
+      "price": "Rp5.000",
+      "price_detail": "Rp5.000 / rent",
+      "unit": "rent",
+      "category": "Perlengkapan Konsumsi",
+      "icon": "Package"
+    },
+    {
+      "name": "Pompa Galon",
+      "price": "Rp7.000",
+      "price_detail": "Rp7.000 / rent",
+      "unit": "rent",
+      "category": "Perlengkapan Konsumsi",
+      "icon": "Droplets"
+    },
+    {
+      "name": "Dispenser",
+      "price": "Rp30.000",
+      "price_detail": "Rp30.000 / rent",
+      "unit": "rent",
+      "category": "Perlengkapan Konsumsi",
+      "icon": "Zap"
+    },
+    {
+      "name": "Tenda Camping",
+      "price": "Rp40.000",
+      "price_detail": "Rp40.000 / rent",
+      "unit": "rent",
+      "category": "Perlengkapan Outdoor",
+      "icon": "Tent"
+    },
+    {
+      "name": "Kipas Angin",
+      "price": "Rp35.000",
+      "price_detail": "Rp35.000 / rent",
+      "unit": "rent",
+      "category": "Elektronik & Pendingin",
+      "icon": "Fan"
+    },
+    {
+      "name": "Backdrop",
+      "price": "Rp30.000",
+      "price_detail": "Rp30.000 / rent",
+      "unit": "rent",
+      "category": "Perlengkapan Dekorasi",
+      "icon": "Image"
+    },
+    {
+      "name": "Kain Panjang",
+      "price": "Rp25.000",
+      "price_detail": "Rp25.000 / rent",
+      "unit": "rent",
+      "category": "Perlengkapan Dekorasi",
+      "icon": "Scissors"
+    },
+    {
+      "name": "Piring Kecil",
+      "price": "Rp5.000",
+      "price_detail": "Rp5.000 / 4 pcs",
+      "unit": "4 pcs",
+      "category": "Perlengkapan Konsumsi",
+      "icon": "Disc"
+    }
+  ],
+  "guideline": {
+    "title": "GUIDELINE JN UKMI RENT",
+    "description": "Panduan ini dibuat sebagai acuan resmi proses peminjaman dan penyewaan barang milik JN UKMI Universitas Sebelas Maret. Seluruh penyewa wajib membaca, memahami, dan mematuhi ketentuan yang berlaku.",
+    "rules": [
+      {
+        "title": "Batas Waktu Peminjaman",
+        "detail": "Batas maksimal waktu untuk sekali pinjam yaitu 3 hari."
+      },
+      {
+        "title": "Perhitungan Waktu Peminjaman",
+        "detail": "Masa sewa dihitung dan mulai berjalan sejak barang diambil oleh pihak penyewa."
+      },
+      {
+        "title": "Kondisi Barang",
+        "detail": "Barang yang disewa harus dikembalikan dalam keadaan yang sama (bersih, berfungsi, dan lengkap) seperti semula saat pertama kali diambil."
+      }
+    ],
+    "procedures": [
+      {
+        "step": "1. Pemesanan (Booking)",
+        "detail": "Penyewa menghubungi narahubung JN UKMI untuk mengecek ketersediaan barang pada tanggal yang diinginkan."
+      },
+      {
+        "step": "2. Pengambilan Barang",
+        "detail": "Barang diambil di tempat yang telah disepakati setelah menyelesaikan administrasi awal. Kondisi fisik barang akan dicek bersama sebelum dibawa."
+      },
+      {
+        "step": "3. Masa Sewa",
+        "detail": "Penyewa bertanggung jawab penuh atas keamanan dan perawatan barang selama maksimal 3 hari."
+      },
+      {
+        "step": "4. Pengembalian Barang",
+        "detail": "Penyewa wajib mengembalikan barang tepat waktu sesuai tenggat. Pihak JN UKMI akan melakukan pengecekan ulang terhadap kondisi barang yang dikembalikan."
+      }
+    ]
+  },
+  "contacts": [
+    {
+      "role": "Ikhwan",
+      "name": "Arfian",
+      "phone": "+62 821-3502-7335",
+      "avatar": "/image/laki-laki.png",
+      "whatsapp": "https://wa.me/6282135027335?text=Halo%20Arfian,%20saya%20ingin%20sewa%20alat%20di%20UKMI%20Store"
+    },
+    {
+      "role": "Akhwat",
+      "name": "Alifah",
+      "phone": "+62 882-0052-98614",
+      "avatar": "/image/perempuan.png",
+      "whatsapp": "https://wa.me/62882005298614?text=Halo%20Alifah,%20saya%20ingin%20sewa%20alat%20di%20UKMI%20Store"
+    }
+  ]
+}

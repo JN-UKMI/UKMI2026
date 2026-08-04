@@ -127,19 +127,22 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-forest-600/60 dark:border-forest-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white">
-          <span>
-            &copy; {new Date().getFullYear()} JN UKMI &mdash; Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret
-          </span>
+        <div className="border-t border-white/10 dark:border-forest-900/80 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/70">
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+            <span className="font-semibold text-white">JN UKMI UNS</span>
+            <span className="hidden sm:inline text-white/30">&bull;</span>
+            <span>Kabinet Iskandar Muda {new Date().getFullYear()}</span>
+          </div>
+
           <a
             href="https://syaikhasril.web.id"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-lime font-medium transition-colors cursor-pointer group flex items-center gap-1"
+            className="text-white/80 hover:text-lime font-medium transition-colors cursor-pointer group flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10"
             title="Kunjungi website portofolio Syaikhasril Maulana Firdaus"
           >
-            <span>Created by Syaikhasril Maulana Firdaus</span>
-            <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+            <span>Designed & Developed by Syaikhasril Maulana Firdaus</span>
+            <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
           </a>
         </div>
       </div>

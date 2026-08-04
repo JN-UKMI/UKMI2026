@@ -36,9 +36,6 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
       {/* Diagonal green-black overlay */}
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
 
-      {/* Ambient Glowing Orbs */}
-      <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-lime/10 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
 
       {/* Content */}
       <motion.div
@@ -47,11 +44,7 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
         transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
         className="relative z-10 flex flex-col items-center justify-center text-center text-white max-w-4xl mx-auto pt-[60px]"
       >
-        {badge && (
-          <span className="inline-block px-3 py-1 mb-3 rounded-full text-xs font-semibold bg-lime/20 text-lime border border-lime/30 backdrop-blur-xs">
-            {badge}
-          </span>
-        )}
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.9, scale: 1 }}

@@ -373,11 +373,13 @@ export function AmbientBackground() {
       {/* 3. Bottom Right Glowing Ambient Orb */}
       <div className="absolute -bottom-20 -right-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-teal/15 dark:bg-lime/15 blur-3xl" />
 
-      {/* 4. Subtle Clean Decorative Bubbles (Desktop only) */}
-      <div className="hidden lg:block absolute top-24 left-16 w-40 h-40 rounded-full border-2 border-forest-600/20 dark:border-lime/30 bg-gradient-to-tr from-forest-600/10 via-sage/5 to-transparent" />
-      <div className="hidden lg:block absolute top-1/3 right-16 w-52 h-52 rounded-full border-2 border-fresh-lime/20 dark:border-lime/30 bg-gradient-to-br from-fresh-lime/15 via-yellow-green/5 to-transparent" />
-      <div className="hidden lg:block absolute top-2/3 left-20 w-36 h-36 rounded-full border-2 border-teal/20 dark:border-lime/30 bg-gradient-to-bl from-teal/15 via-forest-400/10 to-transparent" />
-      <div className="hidden lg:block absolute bottom-28 right-1/4 w-44 h-44 rounded-full border-2 border-grass/20 dark:border-lime/30 bg-gradient-to-tr from-grass/15 via-sage/10 to-transparent" />
+      {/* 4. Subtle Clean Decorative Bubbles — Single Solid Color */}
+      <div className="hidden lg:block absolute top-24 left-16 w-40 h-40 rounded-full bg-forest-600/15 dark:bg-lime/25" />
+      <div className="hidden lg:block absolute top-1/3 right-16 w-52 h-52 rounded-full bg-fresh-lime/15 dark:bg-lime/25" />
+      <div className="hidden lg:block absolute top-[42%] left-[30%] w-32 h-32 rounded-full bg-forest-400/15 dark:bg-lime/20" />
+      <div className="hidden lg:block absolute top-[52%] right-[28%] w-48 h-48 rounded-full bg-sage/15 dark:bg-lime/25" />
+      <div className="hidden lg:block absolute top-2/3 left-20 w-36 h-36 rounded-full bg-teal/15 dark:bg-lime/25" />
+      <div className="hidden lg:block absolute bottom-28 right-1/4 w-44 h-44 rounded-full bg-grass/15 dark:bg-lime/25" />
 
       {/* 5. Decorative Plain Stars (Bintang Polos 4-Point & 8-Point Minimalis) */}
       {/* Star Top Right */}

@@ -31,6 +31,9 @@
   --color-grass: #276F27;
   --color-purple-600: #5E2D86;
   
+  /* Display font pairing for headings */
+  --font-display: var(--font-display), Georgia, serif;
+
   /* 📖 Teks Ayat Al-Qur'an (Surat Al-Kahfi): Amiri */
   --font-arabic: var(--font-amiri), "KFGQPCUthmanicScriptHAFS", serif;
 

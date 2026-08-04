@@ -12,11 +12,7 @@ export function PageHeader({ title, subtitle, badge, icon, children }: PageHeade
   return (
     <header className="bg-gradient-to-b from-forest-50/50 via-white to-white dark:from-forest-950/40 dark:via-gray-950 dark:to-gray-950 border-b border-gray-100 dark:border-gray-800 pt-10 pb-8 px-4 text-center transition-colors duration-300">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
-        {badge && (
-          <span className="inline-block px-3.5 py-1 mb-3 bg-forest-600/10 dark:bg-forest-900/40 border border-forest-600/20 dark:border-forest-700/50 text-forest-700 dark:text-lime rounded-full text-xs font-bold uppercase tracking-widest">
-            {badge}
-          </span>
-        )}
+
 
         <h1 className="text-3xl md:text-5xl font-black text-forest-900 dark:text-lime uppercase tracking-wider flex items-center justify-center gap-3">
           {icon && <span className="text-forest-600 dark:text-lime">{icon}</span>}

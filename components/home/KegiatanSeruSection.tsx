@@ -61,9 +61,6 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
 
   return (
     <section className="py-12 sm:py-20 px-3 sm:px-6 bg-transparent transition-colors duration-300 relative overflow-hidden">
-      {/* Background Decorative Glow Orbs */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-80 h-80 bg-forest-600/5 dark:bg-lime/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-teal/5 dark:bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}

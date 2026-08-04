@@ -48,6 +48,7 @@ const navItems: NavItem[] = [
       { label: "Al Kahfi", href: "/al-kahfi" },
       { label: "Al Masurat", href: "/al-masurat" },
       { label: "Buku UKMI", href: "/buku-ukmi" },
+      { label: "UKMI Store", href: "/ukmi-store" },
       { label: "BPO", href: "https://uns.id/BPOIskandarMuda_26", target: "_blank", rel: "noopener noreferrer" },
     ],
   },

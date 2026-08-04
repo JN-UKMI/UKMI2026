@@ -133,6 +133,14 @@ export async function loadBukuUkmi(): Promise<BukuUkmiContent> {
   return JSON.parse(file);
 }
 
+export async function loadUkmiStore(): Promise<import("./types").UkmiStoreContent> {
+  const file = await safeReadFile(
+    path.join(contentDir, "ukmi-store", "main.json"),
+    path.join(contentDir, "ukmi-store.json")
+  );
+  return JSON.parse(file);
+}
+
 export async function loadTestimoni(): Promise<import("./types").TestimonialItem[]> {
   const file = await safeReadFile(
     path.join(contentDir, "beranda", "testimoni.json"),
