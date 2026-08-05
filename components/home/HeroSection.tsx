@@ -31,7 +31,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[calc(100vh+88px)] sm:min-h-[calc(100vh+96px)] -mt-[88px] sm:-mt-[96px] overflow-hidden flex flex-col justify-center">
+    <section className="relative min-h-[calc(100vh+8px)] sm:min-h-[calc(100vh+16px)] -mt-[88px] sm:-mt-[96px] overflow-hidden flex flex-col justify-center">
       {/* Background image extended upwards — Optimized Next.js Image for top LCP */}
       <Parallax speed={-0.08} className="absolute -top-16 inset-x-0 bottom-0">
         <Image
