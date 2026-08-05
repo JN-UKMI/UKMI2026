@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 import contactData from "@/content/kontak/main.json";
 import { MapEmbed } from "./MapEmbed";
 import { RevealFade, StaggerContainer, StaggerItem } from "@/components/ui/motion";
@@ -134,7 +135,7 @@ export function Footer() {
           </StaggerItem>
         </StaggerContainer>
 
-        <RevealFade delay={0.15} className="border-t border-white/10 dark:border-forest-900/80 pt-8 mt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70">
+        <div className="border-t border-white/10 dark:border-forest-900/80 pt-8 mt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70">
           <div className="flex flex-col sm:flex-row items-center gap-1.5 text-center sm:text-left">
             <span className="font-semibold text-white">&copy; {new Date().getFullYear()} JN UKMI UNS</span>
             <span className="hidden sm:inline text-white/30">&bull;</span>
@@ -151,10 +152,10 @@ export function Footer() {
               title="Kunjungi website portofolio Syaikhasril Maulana Firdaus"
             >
               <span>Syaikhasril Maulana Firdaus</span>
-              <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
+              <ExternalLink className="w-3.5 h-3.5 text-lime/80 group-hover:text-lime transition-colors" />
             </a>
           </div>
-        </RevealFade>
+        </div>
       </div>
     </footer>
   );
