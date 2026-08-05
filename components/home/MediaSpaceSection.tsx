@@ -35,14 +35,27 @@ const SLOTS = [
 function MediaSpaceCell({
   item,
   isLarge,
+  isMobileActive,
+  onMobileToggle,
   className = "",
 }: {
   item: MediaSpaceItem;
   isLarge: boolean;
+  isMobileActive: boolean;
+  onMobileToggle: (id: string) => boolean;
   className?: string;
 }) {
   const [imageFailed, setImageFailed] = useState(false);
   const showImage = item.imageUrl && !imageFailed;
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (window.innerWidth < 768) {
+      const wasActive = onMobileToggle(item.id);
+      if (!wasActive) {
+        e.preventDefault();
+      }
+    }
+  };
 
   return (
     <a
@@ -50,6 +63,7 @@ function MediaSpaceCell({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Buka ${item.title} di Instagram`}
+      onClick={handleClick}
       className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/80 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-sm hover:shadow-xl hover:border-forest-600/50 dark:hover:border-lime/50 transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${className}`}
     >
       {showImage ? (
@@ -74,11 +88,23 @@ function MediaSpaceCell({
         </div>
       )}
 
-      {/* Overlay gradient — selalu tampil di mobile, muncul saat hover di desktop */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Overlay gradient — tersembunyi secara default di mobile, muncul saat isMobileActive atau hover di desktop */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-300 ${
+          isMobileActive
+            ? "opacity-100"
+            : "opacity-0 md:group-hover:opacity-100"
+        }`}
+      />
 
       {/* Konten overlay — judul & deskripsi */}
-      <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
+      <div
+        className={`absolute inset-x-0 bottom-0 p-3 sm:p-5 transition-all duration-300 ${
+          isMobileActive
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0"
+        }`}
+      >
         <div className="flex items-center gap-1.5 mb-1 text-[10px] sm:text-xs font-bold text-lime uppercase tracking-wider">
           <AtSign className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
           <span>{isLarge ? "Konten Unggulan" : "Instagram"}</span>
@@ -97,8 +123,9 @@ function MediaSpaceCell({
         >
           {item.description}
         </p>
-        <span className="inline-flex items-center gap-1 mt-1.5 sm:mt-2 text-[10px] sm:text-xs font-bold text-white/90 group-hover:text-lime transition-colors">
-          Buka di Instagram
+        <span className="inline-flex items-center gap-1 mt-1.5 sm:mt-2 text-[10px] sm:text-xs font-bold text-lime group-hover:text-lime transition-colors">
+          <span className="md:hidden font-semibold text-white/90">Klik lagi untuk buka</span>
+          <span className="hidden md:inline">Buka di Instagram</span>
           <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
         </span>
       </div>
@@ -107,7 +134,17 @@ function MediaSpaceCell({
 }
 
 export function MediaSpaceSection({ items }: MediaSpaceSectionProps) {
+  const [activeMobileId, setActiveMobileId] = useState<string | null>(null);
+
   if (!items || items.length === 0) return null;
+
+  const handleMobileToggle = (id: string) => {
+    if (activeMobileId === id) {
+      return true;
+    }
+    setActiveMobileId(id);
+    return false;
+  };
 
   // Bento menampilkan maksimal 6 item (sesuai layout Mosaic 6)
   const visible = items.slice(0, 6);
@@ -146,6 +183,8 @@ export function MediaSpaceSection({ items }: MediaSpaceSectionProps) {
                   key={item.id}
                   item={item}
                   isLarge={isLarge}
+                  isMobileActive={activeMobileId === item.id}
+                  onMobileToggle={handleMobileToggle}
                   className={slot.className}
                 />
               );
