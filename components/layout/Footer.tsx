@@ -1,14 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import contactData from "@/content/kontak/main.json";
 import { MapEmbed } from "./MapEmbed";
+import { RevealFade, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 export function Footer() {
   return (
-    <footer className="relative z-20 bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t dark:border-forest-900/60 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+    <footer className="relative z-20 bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t dark:border-forest-900/60 transition-colors duration-300 overflow-hidden">
+      {/* Decorative glow di pojok footer */}
+      <div className="pointer-events-none absolute -top-40 -left-32 w-[30rem] h-[30rem] rounded-full bg-forest-600/20 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -right-32 w-[30rem] h-[30rem] rounded-full bg-lime/10 blur-3xl" />
+
+      <div className="max-w-6xl mx-auto px-4 relative">
+        <StaggerContainer staggerChildren={0.12} className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Column 1: Logo + Brand */}
-          <div className="space-y-4">
+          <StaggerItem className="space-y-4">
             <div className="flex items-center gap-3">
               <Image
                 src="/image/logo-jnukmi.svg"
@@ -93,10 +100,10 @@ export function Footer() {
                 </svg>
               </a>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* Column 2: Address / Contact */}
-          <div className="space-y-4">
+          <StaggerItem className="space-y-4">
             <h4 className="text-sm font-semibold text-white/80 uppercase tracking-wider">Kontak</h4>
             <div className="space-y-3 text-sm">
               <div>
@@ -116,18 +123,18 @@ export function Footer() {
                 <p className="text-white/60 leading-relaxed mt-0.5">{contactData.address}</p>
               </div>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* Column 3: Map */}
-          <div className="space-y-4">
+          <StaggerItem className="space-y-4">
             <h4 className="text-sm font-semibold text-white/80 uppercase tracking-wider">Lokasi</h4>
-            <div className="rounded-lg overflow-hidden border border-white/10">
+            <div className="rounded-lg overflow-hidden border border-white/10 shadow-lg shadow-black/20 hover:shadow-lime/20 transition-shadow duration-300">
               <MapEmbed />
             </div>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
 
-        <div className="border-t border-white/10 dark:border-forest-900/80 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/70">
+        <RevealFade delay={0.15} className="border-t border-white/10 dark:border-forest-900/80 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/70">
           <div className="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
             <span className="font-semibold text-white">JN UKMI UNS</span>
             <span className="hidden sm:inline text-white/30">&bull;</span>
@@ -144,7 +151,7 @@ export function Footer() {
             <span>Designed & Developed by Syaikhasril Maulana Firdaus</span>
             <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
           </a>
-        </div>
+        </RevealFade>
       </div>
     </footer>
   );

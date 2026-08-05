@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Play,
   Pause,
@@ -29,6 +30,7 @@ export function MasuratAudioPlayer({
   const [isMuted, setIsMuted] = useState(false);
   const [playbackRate, setPlaybackRate] = useState<number>(1);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const SPEED_OPTIONS = [0.75, 1, 1.25, 1.5];
 
@@ -99,7 +101,12 @@ export function MasuratAudioPlayer({
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 transition-colors">
+    <motion.div
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className="w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 transition-colors"
+    >
       {/* HTML5 Audio Element */}
       <audio
         ref={audioRef}
@@ -114,9 +121,13 @@ export function MasuratAudioPlayer({
       <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
         {/* Left Column: Track Info */}
         <div className="flex items-center gap-3.5 w-full lg:w-auto">
-          <div className="w-12 h-12 rounded-xl bg-forest-50 dark:bg-gray-800 border border-forest-100 dark:border-gray-700 flex items-center justify-center shrink-0 text-forest-600 dark:text-lime">
+          <motion.div
+            animate={shouldReduceMotion || !isPlaying ? undefined : { rotate: [0, 4, -4, 0] }}
+            transition={shouldReduceMotion || !isPlaying ? undefined : { repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="w-12 h-12 rounded-xl bg-forest-50 dark:bg-gray-800 border border-forest-100 dark:border-gray-700 flex items-center justify-center shrink-0 text-forest-600 dark:text-lime"
+          >
             <Music className="w-6 h-6" />
-          </div>
+          </motion.div>
 
           <div className="overflow-hidden min-w-0 flex-1">
             <div className="flex items-center gap-2 mb-0.5">
@@ -145,6 +156,7 @@ export function MasuratAudioPlayer({
           <div className="flex items-center justify-center gap-1.5 shrink-0">
             {/* Rewind -10s */}
             <button
+              type="button"
               onClick={() => skip(-10)}
               className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
               title="Mundur 10 Detik"
@@ -154,8 +166,11 @@ export function MasuratAudioPlayer({
             </button>
 
             {/* Play / Pause Button */}
-            <button
+            <motion.button
+              type="button"
               onClick={togglePlay}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.06 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.92 }}
               className="w-10 h-10 rounded-xl bg-forest-600 hover:bg-forest-700 dark:bg-forest-700 dark:hover:bg-forest-600 text-white flex items-center justify-center shadow-xs transition-colors active:scale-95 cursor-pointer"
               title={isPlaying ? "Jeda Audio" : "Putar Audio Murottal"}
             >
@@ -164,10 +179,11 @@ export function MasuratAudioPlayer({
               ) : (
                 <Play className="w-5 h-5 fill-current ml-0.5" />
               )}
-            </button>
+            </motion.button>
 
             {/* FastForward +10s */}
             <button
+              type="button"
               onClick={() => skip(10)}
               className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
               title="Maju 10 Detik"
@@ -204,6 +220,7 @@ export function MasuratAudioPlayer({
           <div className="flex items-center gap-1.5 shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 sm:border-l border-gray-200 dark:border-gray-700 sm:pl-3">
             {/* Speed Button */}
             <button
+              type="button"
               onClick={cycleSpeed}
               className="px-2 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
               title="Kecepatan Putar Audio"
@@ -214,6 +231,7 @@ export function MasuratAudioPlayer({
 
             {/* Mute Button */}
             <button
+              type="button"
               onClick={toggleMute}
               className="p-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer active:scale-95 shadow-2xs"
               title={isMuted ? "Aktifkan Suara" : "Bisukan Suara"}
@@ -227,6 +245,6 @@ export function MasuratAudioPlayer({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

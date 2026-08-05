@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, RotateCcw, Copy } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type DoaCardProps = {
   index: number;
@@ -27,6 +27,7 @@ export function DoaCard({
 }: DoaCardProps) {
   const [count, setCount] = useState(0);
   const [copied, setCopied] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const increment = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -46,8 +47,9 @@ export function DoaCard({
   return (
     <motion.div
       onClick={increment}
-      whileTap={{ scale: 0.98 }}
-      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border transition-all duration-300 cursor-pointer select-none flex flex-col gap-4 border-l-4 ${
+      whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border transition-all duration-500 cursor-pointer select-none flex flex-col gap-4 border-l-4 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 ${
         isCompleted
           ? "border-l-lime border-gray-200 dark:border-gray-800 bg-lime/5 dark:bg-lime/10 shadow-lime/5"
           : count > 0

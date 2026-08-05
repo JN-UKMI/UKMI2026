@@ -60,9 +60,87 @@
   --font-masurat: "KFGQPCUthmanicScriptHAFS", var(--font-amiri), serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
   font-family: var(--font-geist-sans), Arial, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Premium UI Utilities ─────────────────────────────── */
+
+/* Glassmorphism surfaces.
+   NOTE: tanpa box-shadow — biarkan utility shadow Tailwind (shadow-md/xl) yang
+   mengontrol elevasi. CSS unlayered mengalahkan @layer utilities, jadi kalau
+   .glass punya box-shadow sendiri, shadow scrolled navbar tidak akan tampil. */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.dark .glass {
+  background: rgba(18, 29, 18, 0.85);
+  border: 1px solid rgba(73, 154, 19, 0.22);
+}
+
+/* Animated gradient text (dipakai GradientText) */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 6s ease infinite;
+}
+
+/* Text shadow glow untuk heading di hero gelap */
+.text-glow {
+  text-shadow: 0 0 24px rgba(139, 202, 60, 0.35);
+}
+
+/* Scroll margin agar anchor tidak ketutup navbar sticky */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Line clamp fallback (beberapa browser lama) */
+@supports not (display: -webkit-box) {
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
 }
 
 /* ── Global Dark Mode Surface & Text Overrides ── */

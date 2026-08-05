@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { ReactNode } from "react";
+import { WordReveal } from "@/components/ui/motion";
 
 interface PageHeroProps {
   title: string;
@@ -12,14 +13,14 @@ interface PageHeroProps {
   children?: ReactNode;
 }
 
-export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
+export function PageHero({ title, subtitle, children }: PageHeroProps) {
   return (
     <section className="relative min-h-[320px] md:min-h-[380px] -mt-[88px] sm:-mt-[96px] overflow-hidden flex items-center justify-center py-16 px-4">
-      {/* Background image */}
+      {/* Background image — parallax halus via scroll */}
       <motion.div
-        initial={{ scale: 1.05 }}
+        initial={{ scale: 1.08 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
         className="absolute -top-16 inset-x-0 bottom-0"
       >
         <Image
@@ -36,6 +37,10 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
       {/* Diagonal green-black overlay */}
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
 
+      {/* Glow ambient orbs */}
+      <div className="pointer-events-none absolute top-1/4 -right-20 w-72 h-72 rounded-full bg-lime/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-emerald-500/10 blur-3xl" />
+
 
       {/* Content */}
       <motion.div
@@ -44,12 +49,6 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
         transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
         className="relative z-10 flex flex-col items-center justify-center text-center text-white max-w-4xl mx-auto pt-[60px]"
       >
-
-        {badge && (
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-lime">
-            {badge}
-          </p>
-        )}
 
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -70,10 +69,10 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.5 }}
+          transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="text-3xl md:text-5xl font-black leading-tight tracking-wider uppercase drop-shadow-sm"
         >
-          {title}
+          <WordReveal text={title} delay={0.2} />
         </motion.h1>
 
         {subtitle && (

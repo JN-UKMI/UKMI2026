@@ -22,8 +22,8 @@ import {
   Scroll,
   Shield,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FadeIn } from "@/components/ui/motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { FadeIn, SpotlightCard } from "@/components/ui/motion";
 import aboutData from "@/content/tentang/main.json";
 
 type TabType = "perkenalan" | "sejarah" | "visi" | "misi" | "nilai";
@@ -32,6 +32,7 @@ export function TentangTabs() {
   const [activeTab, setActiveTab] = useState<TabType>("perkenalan");
   const [activeTimelineIdx, setActiveTimelineIdx] = useState<number>(0);
   const [timelineDirection, setTimelineDirection] = useState<number>(1); // 1 = down, -1 = up
+  const shouldReduceMotion = useReducedMotion();
 
   const tabItems = [
     { id: "perkenalan" as TabType, label: "Perkenalan", icon: Info },
@@ -49,15 +50,23 @@ export function TentangTabs() {
         delay={0.1}
         className="flex justify-center mb-12 max-w-full"
       >
-        <div className="bg-white rounded-2xl p-1.5 shadow-sm border border-gray-200/60 flex flex-nowrap md:flex-wrap gap-1 max-w-full overflow-x-auto scrollbar-none">
+        <div role="tablist" aria-label="Navigasi informasi tentang JN UKMI" className="glass rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-gray-800 flex flex-nowrap md:flex-wrap gap-1 max-w-full overflow-x-auto scrollbar-none">
           {tabItems.map((tab) => {
             const isActive = activeTab === tab.id;
             const TabIcon = tab.icon;
             return (
-              <button
+              <motion.button
                 key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`about-panel-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex items-center justify-center gap-2 px-3.5 md:px-5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer ${
+                whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 360, damping: 24 }}
+                id={`about-tab-${tab.id}`}
+                className={`relative flex items-center justify-center gap-2 px-3.5 md:px-5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
                   isActive
                     ? "text-white"
                     : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50"
@@ -65,16 +74,16 @@ export function TentangTabs() {
               >
                 {isActive && (
                   <motion.div
-                    layoutId="activeAboutTab"
+                    layoutId={shouldReduceMotion ? undefined : "activeAboutTab"}
                     className="absolute inset-0 bg-forest-600 rounded-xl shadow-md shadow-forest-600/20"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
                 <TabIcon
                   className={`relative z-10 w-4 h-4 ${isActive ? "text-white" : "text-gray-400 dark:text-gray-500"}`}
                 />
                 <span className="relative z-10">{tab.label}</span>
-              </button>
+              </motion.button>
             );
           })}
         </div>
@@ -85,11 +94,14 @@ export function TentangTabs() {
         <AnimatePresence mode="wait">
           {activeTab === "perkenalan" && (
             <motion.div
+              id="about-panel-perkenalan"
+              role="tabpanel"
+              aria-labelledby="about-tab-perkenalan"
               key="perkenalan"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeInOut" }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
             >
               {/* Left Side: Logo & Badges */}
@@ -129,8 +141,7 @@ export function TentangTabs() {
               </div>
 
               {/* Right Side: Introduction Card */}
-              <div className="lg:col-span-7">
-                <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 md:p-8 flex flex-col gap-6 transition-colors">
+              <div className="lg:col-span-7">                  <SpotlightCard className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md hover:shadow-xl p-6 md:p-8 flex flex-col gap-6 transition-all duration-500">
                   {/* Header info */}
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-2xl bg-forest-600 text-white flex items-center justify-center shadow-sm">
@@ -215,7 +226,7 @@ export function TentangTabs() {
                       </span>
                     </div>
                   </div>
-                </div>
+                </SpotlightCard>
               </div>
             </motion.div>
           )}
@@ -226,11 +237,14 @@ export function TentangTabs() {
               const activeMilestone = aboutData.timeline[activeTimelineIdx];
               return (
                 <motion.div
+                  id="about-panel-sejarah"
+                  role="tabpanel"
+                  aria-labelledby="about-tab-sejarah"
                   key="sejarah"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeInOut" }}
                   className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
                 >
                   {/* Left Side: Sejarah Text Card */}
@@ -246,7 +260,7 @@ export function TentangTabs() {
                         initial={{ opacity: 0, y: timelineDirection * 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: timelineDirection * -20 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3, ease: "easeInOut" }}
                         className="flex flex-col gap-4"
                       >
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white relative pb-3 border-b border-gray-150/60 flex items-center gap-3">
@@ -281,7 +295,7 @@ export function TentangTabs() {
                       <div
                         className="absolute w-full h-24 bg-gradient-to-b from-transparent via-forest-650 dark:via-lime to-transparent"
                         style={{
-                          animation: "flowDot 4s linear infinite",
+                          animation: shouldReduceMotion ? "none" : "flowDot 4s linear infinite",
                           willChange: "transform",
                         }}
                       />
@@ -345,8 +359,8 @@ export function TentangTabs() {
                           <div
                             key={idx}
                             className="flex gap-4 items-start w-full relative"
-                          >
-                            <button
+                          >                              <button
+                              type="button"
                               onClick={() => {
                                 setTimelineDirection(
                                   idx > activeTimelineIdx ? 1 : -1,
@@ -410,11 +424,14 @@ export function TentangTabs() {
           {/* TAB 3: VISI */}
           {activeTab === "visi" && (
             <motion.div
+              id="about-panel-visi"
+              role="tabpanel"
+              aria-labelledby="about-tab-visi"
               key="visi"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeInOut" }}
               className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-8 text-center flex flex-col items-center gap-6 transition-colors"
             >
               <div className="w-14 h-14 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shadow-inner">
@@ -432,11 +449,14 @@ export function TentangTabs() {
           {/* TAB 4: MISI */}
           {activeTab === "misi" && (
             <motion.div
+              id="about-panel-misi"
+              role="tabpanel"
+              aria-labelledby="about-tab-misi"
               key="misi"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeInOut" }}
               className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 md:p-8 transition-colors"
             >
               <div className="flex items-center gap-3.5 pb-4 border-b border-gray-150/60 dark:border-gray-800 mb-8 justify-center">
@@ -468,11 +488,14 @@ export function TentangTabs() {
           {/* TAB 5: NILAI */}
           {activeTab === "nilai" && (
             <motion.div
+              id="about-panel-nilai"
+              role="tabpanel"
+              aria-labelledby="about-tab-nilai"
               key="nilai"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeInOut" }}
               className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 md:p-8 transition-colors"
             >
               <div className="flex items-center gap-3.5 pb-4 border-b border-gray-150/60 dark:border-gray-800 mb-8 justify-center">

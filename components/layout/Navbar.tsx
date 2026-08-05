@@ -69,7 +69,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <TransitionLink
       href={href}
-      className={`relative px-3.5 py-1.5 text-sm transition-colors duration-200 rounded-lg cursor-pointer flex items-center justify-center font-semibold
+      className={`relative px-3.5 py-1.5 text-sm transition-colors duration-200 rounded-lg cursor-pointer flex items-center justify-center font-semibold group
         ${
           isActive
             ? "text-white font-bold"
@@ -84,7 +84,13 @@ function NavLink({ href, label }: { href: string; label: string }) {
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}
-      <span>{label}</span>
+      <span className="relative">
+        {label}
+        {/* Underline reveal saat hover (non-aktif) */}
+        {!isActive && (
+          <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-all duration-300 group-hover:w-full" />
+        )}
+      </span>
     </TransitionLink>
   );
 }
@@ -103,7 +109,12 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 py-3 px-4 transition-all duration-300">
+    <motion.nav
+      initial={{ y: -64, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      className="sticky top-0 z-50 py-3 px-4 transition-all duration-300"
+    >
       {/* Skip to Main Content Link for Keyboard Accessibility */}
       <a
         href="#main-content"
@@ -116,13 +127,13 @@ export function Navbar() {
         <motion.div
           animate={{
             y: 0,
-            scale: scrolled ? 0.99 : 1,
+            scale: scrolled ? 0.985 : 1,
           }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className={`relative flex items-center justify-between rounded-2xl px-5 py-2.5 transition-all duration-300 ${
             scrolled
-              ? "bg-white/90 dark:bg-gray-900/95 backdrop-blur-md shadow-xl border border-gray-200/90 dark:border-lime/50 dark:ring-1 dark:ring-lime/30"
-              : "bg-white/95 dark:bg-gray-900/90 backdrop-blur-sm shadow-md border border-gray-200/60 dark:border-lime/30"
+              ? "glass shadow-xl border border-gray-200/90 dark:border-lime/50 dark:ring-1 dark:ring-lime/30"
+              : "glass shadow-md border border-gray-200/60 dark:border-lime/30"
           }`}
         >
           {/* KIRI: Logo + Nama */}
@@ -153,9 +164,10 @@ export function Navbar() {
             <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.96 }}>
               <TransitionLink
                 href="/kontak"
-                className="hidden md:inline-flex items-center gap-1.5 bg-forest-600 hover:bg-forest-800 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all shadow-sm hover:shadow-md cursor-pointer"
+                className="hidden md:inline-flex items-center gap-1.5 bg-forest-600 hover:bg-forest-700 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-forest-600/30 hover:scale-[1.03] cursor-pointer active:scale-95"
               >
                 Kontak
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
               </TransitionLink>
             </motion.div>
 
@@ -174,6 +186,6 @@ export function Navbar() {
           {mobileOpen && <MobileMenu items={navItems} onClose={close} />}
         </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

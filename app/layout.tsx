@@ -8,7 +8,7 @@ import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { MusicProvider } from "@/components/ui/MusicContext";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
-import { AmbientBackground } from "@/components/ui/motion";
+import { AmbientBackground, GrainOverlay } from "@/components/ui/motion";
 import { BASE_URL, siteConfig } from "@/lib/seo";
 import { buildSiteJsonLd } from "@/lib/json-ld";
 import { AuthProvider } from "@/components/providers/AuthProvider";
@@ -164,6 +164,8 @@ export default async function RootLayout({
             <LoadingProvider>
               <MusicProvider>
                 <AmbientBackground />
+                {/* Grain halus global — dekoratif, pointer-events-none, z di bawah konten utama */}
+                <GrainOverlay />
                 <Navbar />
                 <main id="main-content" tabIndex={-1} className="flex-1 outline-none relative z-10">{children}</main>
                 <Footer />

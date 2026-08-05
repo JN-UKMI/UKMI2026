@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar, Target, Sparkles } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { FadeIn } from "@/components/ui/motion";
 
@@ -12,6 +13,7 @@ interface ProgramKerjaCarouselProps {
 export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
+  const shouldReduceMotion = useReducedMotion();
 
   const itemsToShow = program_kerja || [];
 
@@ -98,17 +100,21 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
-            <div 
-              className="flex transition-transform duration-500 ease-out gap-6"
-              style={{ transform: `translateX(calc(-${currentIndex * (100 / visibleCards)}% - ${currentIndex * (24 / visibleCards)}px))` }}
+            <motion.div
+              className="flex gap-6"
+              animate={{ x: `calc(-${currentIndex * (100 / visibleCards)}% - ${currentIndex * (24 / visibleCards)}px)` }}
+              transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 110, damping: 24 }}
             >
               {itemsToShow.map((prog, i) => {
                 const tanggal = prog.tanggal || fallbackTarget(i);
                 const target = prog.target || "Program Kerja Bidang";
                 return (
-                  <div
+                  <motion.div
                     key={i}
-                    className="w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-colors"
+                    whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.015 }}
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+                    transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                    className="w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-colors"
                   >
                     <div>
                       {/* Top Bar: Number & Icon */}
@@ -138,10 +144,10 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                         {target}
                       </span>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
           </div>
 
           {/* Navigation Buttons */}

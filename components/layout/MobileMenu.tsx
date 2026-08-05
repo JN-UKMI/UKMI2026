@@ -24,17 +24,21 @@ export function MobileMenu({
     <motion.div
       initial={{ opacity: 0, y: -12, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -12, scale: 0.98 }}
-      transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="md:hidden absolute top-full left-4 right-4 z-50 mt-2 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20 overflow-hidden p-3 transition-colors"
+      exit={{ opacity: 0, y: -12, scale: 0.98, transition: { duration: 0.18 } }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className="md:hidden absolute top-full left-4 right-4 z-50 mt-2 glass rounded-2xl shadow-2xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20 overflow-hidden p-3"
     >
       <div className="flex flex-col gap-1">
         {items.map((item, index) => (
           <motion.div
             key={item.label}
-            initial={{ opacity: 0, x: -10 }}
+            initial={{ opacity: 0, x: -14 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.04, duration: 0.2 }}
+            transition={{
+              delay: 0.06 + index * 0.05,
+              duration: 0.32,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
             {item.items ? (
               <MobileSubMenu item={item} onClose={onClose} />
@@ -52,16 +56,21 @@ export function MobileMenu({
       </div>
 
       {/* Kontak button at bottom */}
-      <div className="pt-3 mt-2 border-t border-gray-100 dark:border-gray-800 px-1">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.06 + items.length * 0.05, duration: 0.3 }}
+        className="pt-3 mt-2 border-t border-gray-100 dark:border-gray-800 px-1"
+      >
         <TransitionLink
           href="/kontak"
           onClick={onClose}
-          className="flex items-center justify-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer"
+          className="flex items-center justify-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-forest-600/30 active:scale-95 cursor-pointer"
         >
           <Phone className="w-4 h-4" />
           Kontak
         </TransitionLink>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -93,10 +102,10 @@ function MobileSubMenu({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, height: 0, y: -6 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -6, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="bg-gray-50/80 dark:bg-gray-800/60 rounded-xl p-2 my-1 space-y-1 border border-gray-100 dark:border-gray-800 overflow-hidden"
           >
             {item.items?.map((sub) =>

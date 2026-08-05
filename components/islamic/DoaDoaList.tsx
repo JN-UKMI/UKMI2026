@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Search, Copy, Check, BookOpen, Sparkles, Eye, EyeOff } from "lucide-react";
 import type { DoaItem } from "@/lib/types";
 
@@ -13,6 +14,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showLatin, setShowLatin] = useState(true);
   const [showTerjemahan, setShowTerjemahan] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
 
   const filteredList = initialList.filter(
     (item) =>
@@ -22,21 +24,43 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
       (item.latin || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
+  const handleCopy = async (id: string, text: string) => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        textArea.remove();
+      }
+      setCopiedId(id);
+      window.setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      setCopiedId(null);
+    }
   };
 
   return (
     <div className="flex flex-col gap-8">
       {/* Top Controls Bar: Search & Visibility Toggles */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-4 sm:p-5 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm transition-colors">
+      <motion.div
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+        animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
+        className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-4 sm:p-5 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm transition-colors"
+      >
         {/* Search Input Bar */}
         <div className="relative w-full sm:max-w-md">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
           <input
+            id="doa-search"
             type="text"
+            aria-label="Cari doa"
             placeholder="Cari doa (misal: Pembuka Majelis, Belajar)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -46,7 +70,10 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
 
         {/* Toggle Buttons (Hide/Show Latin & Terjemahan) */}
         <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-          <button
+          <motion.button
+            type="button"
+            whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             onClick={() => setShowLatin(!showLatin)}
             className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer active:scale-95 ${
               showLatin
@@ -56,9 +83,12 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
           >
             {showLatin ? <Eye className="w-3.5 h-3.5 text-forest-600 dark:text-lime" /> : <EyeOff className="w-3.5 h-3.5" />}
             <span>Latin</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            type="button"
+            whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             onClick={() => setShowTerjemahan(!showTerjemahan)}
             className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer active:scale-95 ${
               showTerjemahan
@@ -68,9 +98,9 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
           >
             {showTerjemahan ? <Eye className="w-3.5 h-3.5 text-forest-600 dark:text-lime" /> : <EyeOff className="w-3.5 h-3.5" />}
             <span>Terjemahan</span>
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Doa Cards Grid */}
       <div className="flex flex-col gap-6">
@@ -80,7 +110,8 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             <p className="text-gray-500 dark:text-gray-400 font-semibold text-sm">Doa yang Anda cari tidak ditemukan.</p>
           </div>
         ) : (
-          filteredList.map((item, idx) => {
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filteredList.map((item, idx) => {
             const itemId = item.id || `doa-${idx}`;
             let copyText = `${item.judul || "Doa"}\n\n${item.arabic}`;
             if (showLatin) copyText += `\n\nLatin:\n${item.latin}`;
@@ -89,8 +120,13 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             const isCopied = copiedId === itemId;
 
             return (
-              <div
+              <motion.div
                 key={itemId}
+                layout={!shouldReduceMotion}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 12, scale: 0.985 }}
+                animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8, scale: 0.985 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
                 className="bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 border-l-forest-600 dark:border-l-lime border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-gray-200 dark:hover:border-gray-700 transition-all duration-300 flex flex-col gap-4 relative"
               >
                 {/* Card Header: Category & Title & Copy Button */}
@@ -108,6 +144,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                   </div>
 
                   <button
+                    type="button"
                     onClick={() => handleCopy(itemId, copyText)}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 shrink-0 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer active:scale-95"
                     title="Salin Doa Lengkap"
@@ -157,9 +194,10 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                     “{item.terjemahan}”
                   </div>
                 )}
-              </div>
+              </motion.div>
             );
-          })
+            })}
+          </AnimatePresence>
         )}
       </div>
     </div>

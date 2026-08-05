@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import homeData from "@/content/beranda/main.json";
+import { WordReveal, GradientText, MagneticButton, Parallax } from "@/components/ui/motion";
 
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -33,7 +33,7 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[calc(100vh+88px)] sm:min-h-[calc(100vh+96px)] -mt-[88px] sm:-mt-[96px] overflow-hidden flex flex-col justify-center">
       {/* Background image extended upwards — Optimized Next.js Image for top LCP */}
-      <div className="absolute -top-16 inset-x-0 bottom-0">
+      <Parallax speed={-0.08} className="absolute -top-16 inset-x-0 bottom-0">
         <Image
           src="/image/ukmi-hero.jpg"
           alt="Hero JN UKMI UNS"
@@ -41,12 +41,16 @@ export function HeroSection() {
           priority
           quality={85}
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-center scale-110"
         />
-      </div>
+      </Parallax>
 
       {/* Diagonal green-black overlay 80% extended upwards */}
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/80 via-forest-900/80 to-black/80" />
+
+      {/* Glow ambient orbs */}
+      <div className="pointer-events-none absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-lime/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-10 -right-20 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl" />
 
       {/* Main Hero Content */}
       <motion.div 
@@ -80,25 +84,38 @@ export function HeroSection() {
 
         <motion.p 
           variants={itemVariants}
-          className="text-4xl font-bold leading-tight md:text-6xl lg:text-7xl"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight"
         >
-          {homeData.titleLine1 || "Jamaah Nurul Huda"}
+          {shouldReduceMotion ? (
+            homeData.titleLine1 || "Jamaah Nurul Huda"
+          ) : (
+            <WordReveal text={homeData.titleLine1 || "Jamaah Nurul Huda"} />
+          )}
         </motion.p>
         <motion.p 
           variants={itemVariants}
-          className="text-4xl font-bold leading-tight md:text-6xl lg:text-7xl mt-2"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mt-1 sm:mt-2"
         >
-          {homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"}
+          {shouldReduceMotion ? (
+            homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"
+          ) : (
+            <WordReveal text={homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"} delay={0.15} />
+          )}
         </motion.p>
-        <motion.div variants={itemVariants}>
-          <Link
+
+        <motion.div variants={itemVariants} className="mt-10">
+          <MagneticButton
+            as="a"
             href={homeData.universityUrl || "https://uns.ac.id"}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-10 inline-block rounded-full bg-white/10 backdrop-blur-sm border border-white/30 px-8 py-3 text-sm font-medium text-white/90 transition-all duration-300 hover:bg-white/20 hover:border-white/50 hover:scale-105 active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/30 px-7 py-3 text-sm font-semibold text-white/95 transition-colors duration-300 hover:bg-white/20 hover:border-white/50 cursor-pointer"
           >
-            {homeData.university || "Universitas Sebelas Maret"}
-          </Link>
+            <GradientText colors="from-lime via-fresh-lime to-white" className="font-bold">
+              {homeData.university || "Universitas Sebelas Maret"}
+            </GradientText>
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+          </MagneticButton>
         </motion.div>
       </motion.div>
 

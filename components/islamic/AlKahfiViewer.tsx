@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { AyatCard } from "./AyatCard";
 import { ArrowUp, Eye, EyeOff } from "lucide-react";
-import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 interface Ayat {
   nomorAyat: number;
@@ -21,6 +21,7 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
   const [showGlobalLatin, setShowGlobalLatin] = useState(true);
   const [showGlobalTranslation, setShowGlobalTranslation] = useState(true);
   const [bookmarkedAyat, setBookmarkedAyat] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Read saved bookmark on mount
   useEffect(() => {
@@ -61,16 +62,25 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
   }, []);
 
   const handleBackToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: shouldReduceMotion ? "auto" : "smooth" });
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6 relative">
       {/* Global Toggle Toolbar */}
-      <div className="flex flex-wrap items-center justify-end gap-3 pr-2">
+      <motion.div
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
+        className="flex flex-wrap items-center justify-end gap-3 pr-2"
+      >
         {/* Toggle Latin */}
-        <button
+        <motion.button
+          type="button"
+          whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+          whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
           onClick={() => setShowGlobalLatin(!showGlobalLatin)}
+          aria-pressed={showGlobalLatin}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border cursor-pointer active:scale-95 ${
             showGlobalLatin
               ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-750 text-white border-forest-600 dark:border-forest-700"
@@ -88,11 +98,15 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
               Tampilkan Latin
             </>
           )}
-        </button>
+        </motion.button>
 
         {/* Toggle Terjemahan */}
-        <button
+        <motion.button
+          type="button"
+          whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+          whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
           onClick={() => setShowGlobalTranslation(!showGlobalTranslation)}
+          aria-pressed={showGlobalTranslation}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border cursor-pointer active:scale-95 ${
             showGlobalTranslation
               ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-750 text-white border-forest-600 dark:border-forest-700"
@@ -110,13 +124,13 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
               Tampilkan Terjemahan
             </>
           )}
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       {/* Verses List — Renders all 110 verses directly */}
-      <StaggerContainer className="space-y-6">
+      <div className="space-y-6">
         {ayatList.map((ayat) => (
-          <StaggerItem key={ayat.nomorAyat}>
+          <div key={ayat.nomorAyat}>
             <AyatCard
               nomorAyat={ayat.nomorAyat}
               teksArab={ayat.teksArab}
@@ -127,20 +141,25 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
               isBookmarked={bookmarkedAyat === ayat.nomorAyat}
               onToggleBookmark={() => toggleBookmark(ayat.nomorAyat)}
             />
-          </StaggerItem>
+          </div>
         ))}
-      </StaggerContainer>
+      </div>
 
       {/* Floating Action Button (FAB) Back to Top */}
-      <button
+      <motion.button
+        type="button"
         onClick={handleBackToTop}
+        whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.05 }}
+        whileTap={shouldReduceMotion ? undefined : { scale: 0.92 }}
+        transition={{ type: "spring", stiffness: 320, damping: 22 }}
+        tabIndex={showBackToTop ? 0 : -1}
         className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-forest-600 hover:bg-forest-800 text-white shadow-lg flex items-center justify-center transition-all duration-300 transform cursor-pointer active:scale-95 ${
           showBackToTop ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0 pointer-events-none"
         }`}
         aria-label="Kembali ke atas"
       >
         <ArrowUp className="w-5 h-5" />
-      </button>
+      </motion.button>
     </div>
   );
 }

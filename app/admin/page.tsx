@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArticleBody } from "@/components/article/ArticleBody";
+import { ArticleCard } from "@/components/article/ArticleCard";
+import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 import {
   ArrowLeft,
@@ -32,7 +34,7 @@ interface DraftArticle {
   _id: string;
   title: string;
   slug: string;
-  category: string;
+  category: ArticleListItem["category"];
   excerpt: string;
   content: any; // Can be portable text or string
   publishedAt: string;
@@ -116,6 +118,7 @@ export default function AdminPage() {
   const [eventTitle, setEventTitle] = useState("");
   const [eventDate, setEventDate] = useState(""); // Format tampilan: "Jumat, 24 Juli 2026"
   const [eventDateIso, setEventDateIso] = useState(""); // Value input kalender: "2026-07-24"
+  const eventDateInputRef = useRef<HTMLInputElement>(null);
   const [eventDayBadge, setEventDayBadge] = useState("");
   const [eventMonthBadge, setEventMonthBadge] = useState("");
   const [eventLocation, setEventLocation] = useState("");
@@ -148,6 +151,13 @@ export default function AdminPage() {
     fetchKegiatan();
     fetchMediaSpace();
   }, []);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(publishedArticles.length / 6));
+    // Keep the current page valid after deletion or a refreshed article list.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- clamp pagination after list size changes
+    setPublishedPage((currentPage) => Math.min(currentPage, totalPages));
+  }, [publishedArticles.length]);
 
   async function fetchKegiatan() {
     try {
@@ -194,6 +204,23 @@ export default function AdminPage() {
     setEventPosterFile(null);
     setEventPosterPreview(null);
     setEventPosterDragOver(false);
+  };
+
+  // Buka popup kalender native saat tombol kalender ditekan. Browser modern
+  // mendukung showPicker(); fallback focus tetap membantu browser yang belum
+  // mengimplementasikan API tersebut.
+  const openEventDatePicker = () => {
+    const input = eventDateInputRef.current;
+    if (!input) return;
+
+    input.focus();
+    if (typeof input.showPicker === "function") {
+      try {
+        input.showPicker();
+      } catch {
+        // showPicker dapat menolak jika dipanggil di luar user gesture.
+      }
+    }
   };
 
   // Tanggal dipilih dari kalender → otomatis isi badge (angka hari + bulan) & teks tampil
@@ -915,14 +942,14 @@ export default function AdminPage() {
 
         {/* Tab 2: Artikel Terbit (Manage/Edit/Delete) */}
         {activeTab === "terbit" && (() => {
-          const ITEMS_PER_PAGE = 10;
+          const ITEMS_PER_PAGE = 6;
           const totalPages = Math.ceil(publishedArticles.length / ITEMS_PER_PAGE) || 1;
           const currentPage = Math.min(publishedPage, totalPages);
           const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
           const currentArticles = publishedArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
           return (
-            <div className="space-y-6">
+            <div className="space-y-8">
               {publishedArticles.length === 0 ? (
                 <div className="bg-white dark:bg-gray-900 rounded-3xl p-16 shadow-md border border-gray-100 dark:border-gray-800 text-center flex flex-col items-center justify-center transition-colors">
                   <span className="text-5xl mb-4">📚</span>
@@ -935,78 +962,35 @@ export default function AdminPage() {
                 </div>
               ) : (
                 <>
-                  {currentArticles.map((article) => (
-                    <div
-                      key={article._id}
-                      className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-md border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
-                    >
-                      <div className="flex-1 space-y-3.5">
-                        {/* Category Badge & Date */}
-                        <div className="flex items-center gap-3">
-                          <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 rounded text-[10px] font-bold text-forest-600 uppercase tracking-wide">
-                            {article.category}
-                          </span>
-                          <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5 text-forest-600" />
-                            {new Date(article.publishedAt).toLocaleDateString("id-ID", {
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                            })}
-                          </span>
-                          {article.author && (
-                            <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
-                              <User className="w-3.5 h-3.5 text-forest-600" />
-                              oleh {article.author}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Title */}
-                        <div>
-                          <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
-                            {article.title}
-                          </h3>
-                          <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed line-clamp-2">
-                            {article.excerpt}
-                          </p>
-                        </div>
-
-                        {/* Detail / Preview Link */}
-                        <div className="flex gap-4">
-                          <a
-                            href={`/artikel/${article.slug}?preview=true`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-forest-600 font-bold hover:underline inline-flex items-center gap-1.5 cursor-pointer"
-                          >
-                            <Eye className="w-3.5 h-3.5" />
-                            Lihat Isi & Detail (Halaman Baru)
-                          </a>
-                        </div>
-                      </div>
-
-                      {/* Actions Toolbar */}
-                      <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
-                        <TransitionLink
-                          href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
-                          className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
-                        >
-                          <Edit className="w-3.5 h-3.5" />
-                          Edit Artikel
-                        </TransitionLink>
-
-                        <button
-                          disabled={actionLoadingId !== null}
-                          onClick={() => handleDeletePublished(article._id)}
-                          className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 hover:text-red-600 dark:hover:text-red-400 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                          Hapus Terbitan
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 items-stretch">
+                    {currentArticles.map((article) => (
+                      <ArticleCard
+                        key={article._id}
+                        article={article}
+                        actions={
+                          <div className="flex items-center gap-2">
+                            <TransitionLink
+                              href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
+                              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95"
+                            >
+                              <Edit className="w-3.5 h-3.5" />
+                              Edit
+                            </TransitionLink>
+                            <button
+                              type="button"
+                              disabled={actionLoadingId !== null}
+                              onClick={() => handleDeletePublished(article._id)}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 rounded-xl text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 cursor-pointer active:scale-95 disabled:opacity-50"
+                              aria-label={`Hapus artikel ${article.title}`}
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                              Hapus
+                            </button>
+                          </div>
+                        }
+                      />
+                    ))}
+                  </div>
 
                   {/* Pagination Controls */}
                   {totalPages > 1 && (
@@ -1076,40 +1060,52 @@ export default function AdminPage() {
 
               <form onSubmit={handleAddKegiatan} className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {/* Judul Kegiatan */}
-                  <div className="flex flex-col gap-1.5 md:col-span-2">
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-                      Judul Kegiatan <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="mis. Kuliah Kerja Dakwah (KKD)"
-                      value={eventTitle}
-                      onChange={(e) => setEventTitle(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold dark:bg-gray-950 dark:text-white"
-                    />
-                  </div>
+                  {/* Judul & Hari/Tanggal Kegiatan */}
+                  <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.7fr)_minmax(220px,0.8fr)] gap-5 md:col-span-2">
+                    {/* Judul Kegiatan — area lebih lebar */}
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="event-title" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                        Judul Kegiatan <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="event-title"
+                        type="text"
+                        required
+                        placeholder="mis. Kuliah Kerja Dakwah (KKD)"
+                        value={eventTitle}
+                        onChange={(e) => setEventTitle(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold dark:bg-gray-950 dark:text-white"
+                      />
+                    </div>
 
-                  {/* Hari & Tanggal Kegiatan — pilih via kalender, badge & teks otomatis */}
-                  <div className="flex flex-col gap-1.5 md:col-span-2">
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-                      Hari & Tanggal Kegiatan <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="date"
-                      value={eventDateIso}
-                      onChange={(e) => handleEventDateChange(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium dark:bg-gray-950 dark:text-white dark:[color-scheme:dark]"
-                    />
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-forest-50 dark:bg-forest-950/60 border border-forest-150 dark:border-forest-800 text-forest-700 dark:text-lime text-xs font-bold">
-                        <Calendar className="w-3.5 h-3.5" />
-                        Badge: {eventDayBadge || "--"} {eventMonthBadge || "---"}
-                      </span>
-                      <span className="text-[11px] text-gray-400 dark:text-gray-500 font-semibold">
-                        Tampil: {eventDate || "Pilih tanggal di kalender"}
-                      </span>
+                    {/* Hari & Tanggal Kegiatan — area lebih kecil */}
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="event-date" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                        Hari & Tanggal <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative flex items-center">
+                        <input
+                          ref={eventDateInputRef}
+                          id="event-date"
+                          type="date"
+                          value={eventDateIso}
+                          onChange={(e) => handleEventDateChange(e.target.value)}
+                          aria-describedby="event-date-help"
+                          className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none focus:ring-2 focus:ring-forest-600/15 transition-all font-medium dark:bg-gray-950 dark:text-white dark:[color-scheme:dark]"
+                        />
+                        <button
+                          type="button"
+                          onClick={openEventDatePicker}
+                          aria-label="Buka kalender untuk memilih tanggal kegiatan"
+                          title="Buka kalender"
+                          className="absolute right-2 inline-flex h-9 w-9 items-center justify-center rounded-lg text-forest-600 hover:bg-forest-50 dark:text-lime dark:hover:bg-forest-950/60 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
+                        >
+                          <Calendar className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p id="event-date-help" className="text-[11px] text-gray-400 dark:text-gray-500">
+                        Klik untuk membuka kalender sistem.
+                      </p>
                     </div>
                   </div>
 

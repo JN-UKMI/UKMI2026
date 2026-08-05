@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { UkmiStoreContent, UkmiStoreItem } from "@/lib/types";
 import {
@@ -45,6 +46,7 @@ interface UkmiStoreClientProps {
 
 export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
   const [selectedItems, setSelectedItems] = useState<UkmiStoreItem[]>([]);
+  const shouldReduceMotion = useReducedMotion();
 
   const toggleSelectItem = (item: UkmiStoreItem) => {
     setSelectedItems((prev) => {
@@ -118,6 +120,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
           {selectedItems.length > 0 && (
             <div className="flex justify-center sm:justify-end -mt-6 mb-6">
               <button
+                type="button"
                 onClick={clearSelection}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-red-100 dark:bg-red-950/60 hover:bg-red-200 dark:hover:bg-red-900/80 text-red-700 dark:text-red-300 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer shadow-xs"
               >
@@ -133,9 +136,22 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
             const iconElement = iconMap[item.icon] || <Package className="w-5 h-5 sm:w-6 sm:h-6" />;
 
             return (
-              <div
+              <motion.div
                 key={index}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isSelected}
+                aria-label={`${isSelected ? "Batalkan pilihan" : "Pilih"} ${item.name}`}
                 onClick={() => toggleSelectItem(item)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    toggleSelectItem(item);
+                  }
+                }}
+                whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 320, damping: 24 }}
                 className={`group cursor-pointer rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border transition-all duration-300 flex flex-col justify-between relative ${
                   isSelected
                     ? "bg-forest-50/60 dark:bg-forest-950/50 border-forest-600 dark:border-lime ring-2 ring-forest-600/30 dark:ring-lime/30 shadow-md"
@@ -179,9 +195,11 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  className={`inline-flex items-center justify-center gap-1.5 w-full py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95 ${
+                <motion.div
+                  aria-hidden="true"
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
+                  className={`inline-flex items-center justify-center gap-1.5 w-full py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-xs font-bold transition-all shadow-xs ${
                     isSelected
                       ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
                       : "bg-forest-50 dark:bg-gray-800 group-hover:bg-forest-600 dark:group-hover:bg-lime text-forest-800 dark:text-gray-200 group-hover:text-white dark:group-hover:text-forest-950 border border-forest-200 dark:border-gray-700"
@@ -198,8 +216,8 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                       <span>Pilih</span>
                     </>
                   )}
-                </button>
-              </div>
+                </motion.div>
+              </motion.div>
             );
           })}
         </div>
@@ -285,6 +303,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                     <ShoppingBag className="w-4 h-4" /> Daftar Barang Yang Kamu Pilih ({selectedItems.length}):
                   </span>
                   <button
+                    type="button"
                     onClick={clearSelection}
                     className="text-[11px] font-bold text-red-600 dark:text-red-400 hover:underline cursor-pointer"
                   >
@@ -299,6 +318,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                     >
                       {item.name} ({item.price})
                       <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleSelectItem(item);

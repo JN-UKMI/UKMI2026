@@ -1,6 +1,6 @@
 "use client";
 
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { FadeIn, StaggerContainer, StaggerItem, SpotlightCard } from "@/components/ui/motion";
 import type { TentangCard } from "@/lib/types";
 import {
   Target,
@@ -94,7 +94,7 @@ export function DeskripsiSection({ deskripsi, tentangCards }: DeskripsiSectionPr
             const Icon = getIcon(card.icon);
             return (
               <StaggerItem key={i}>
-                <div className="group/card h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/60 dark:border-gray-800 shadow-sm hover:shadow-xl dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.15)] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-forest-600/30 dark:hover:border-lime/30 flex flex-col gap-4">
+                <SpotlightCard className="group/card h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/60 dark:border-gray-800 shadow-sm hover:shadow-xl dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.15)] p-6 md:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-forest-600/30 dark:hover:border-lime/30 flex flex-col gap-4">
                   {/* Icon circle */}
                   <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-forest-600/10 dark:bg-lime/10 group-hover/card:bg-forest-600/15 dark:group-hover/card:bg-lime/20 transition-colors shrink-0">
                     <Icon className="w-6 h-6 text-forest-600 dark:text-lime" />
@@ -108,7 +108,7 @@ export function DeskripsiSection({ deskripsi, tentangCards }: DeskripsiSectionPr
                       {card.description}
                     </p>
                   </div>
-                </div>
+                </SpotlightCard>
               </StaggerItem>
             );
           })}

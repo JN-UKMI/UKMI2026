@@ -20,7 +20,7 @@ export function LdfCard({ ldf }: LdfCardProps) {
       whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.01 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-4 hover:border-lime transition-all duration-300 overflow-hidden"
+      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:ring-2 hover:ring-lime/80 transition-all duration-500 overflow-hidden"
     >
       {/* ── Mobile: Horizontal layout (image left, text right) ── */}
       {/* ── sm+: Vertical layout (image top, text bottom) ── */}
@@ -61,7 +61,7 @@ export function LdfCard({ ldf }: LdfCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Kunjungi Instagram ${ldf.nama}`}
-              className="flex items-center justify-center gap-1 sm:gap-2 w-full py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-[11px] sm:text-xs font-bold transition-all shadow-sm hover:shadow-md cursor-pointer active:scale-95"
+              className="flex items-center justify-center gap-1 sm:gap-2 w-full py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-[11px] sm:text-xs font-bold transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
             >
               <span className="hidden sm:inline">Kunjungi Instagram</span>
               <span className="sm:hidden">Instagram</span>

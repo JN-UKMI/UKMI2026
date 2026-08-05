@@ -63,8 +63,11 @@ export function MemberCard({ member }: MemberCardProps) {
       whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.01 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-4 hover:border-lime group select-none shrink-0 cursor-pointer"
+      className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:ring-2 hover:ring-lime/80 group select-none shrink-0 cursor-pointer"
     >
+      {/* Ambient spotlight for hover depth */}
+      <div className="pointer-events-none absolute -top-20 -right-20 w-48 h-48 rounded-full bg-lime/0 group-hover:bg-lime/10 blur-3xl transition-colors duration-700" />
+
       {/* 1. TOP HEADER: LOGO + KARTU TANDA PENGURUS & TOP-RIGHT ROLE */}
       <div className="relative z-10 w-full flex items-center justify-between pb-2 border-b border-gray-100 dark:border-gray-800">
         {/* Top Left: JN UKMI Logo & Title */}

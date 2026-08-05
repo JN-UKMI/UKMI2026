@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import sughraData from "@/content/al-masurat/sughra.json";
 import kubraData from "@/content/al-masurat/kubra.json";
 import { DoaCard } from "./DoaCard";
@@ -51,6 +52,7 @@ export function DoaTabs() {
   const [time, setTime] = useState<"morning" | "evening">("morning");
   const [showGlobalLatin, setShowGlobalLatin] = useState(true);
   const [showGlobalTranslation, setShowGlobalTranslation] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
 
   // Mendapatkan data aktif berdasarkan pilihan user — O(1) lookup dari index
   // yang dibangun saat module load, tidak ada re-scan per render.
@@ -64,9 +66,14 @@ export function DoaTabs() {
   const activeItems = activeSection ? activeSection.items : EMPTY_ITEMS;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 pb-16 w-full flex flex-col gap-6">
+    <div className="max-w-5xl mx-auto px-4 pt-8 pb-16 w-full flex flex-col gap-6">
       {/* Control Panel Toolbar */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-md border border-gray-100 dark:border-gray-800 -mt-10 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-4 transition-colors">
+      <motion.div
+        initial={shouldReduceMotion ? false : { y: -12, scale: 0.98 }}
+        animate={shouldReduceMotion ? undefined : { y: 0, scale: 1 }}
+        transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 180, damping: 22 }}
+        className="glass rounded-2xl p-4 shadow-md border border-gray-100 dark:border-gray-800 flex flex-col lg:flex-row items-center justify-between gap-4"
+      >
         {/* Selector 1: Versi (Sughra vs Kubra) */}
         <div className="flex flex-col gap-1.5 w-full lg:flex-1">
           <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider px-1 flex items-center gap-1">
@@ -74,8 +81,11 @@ export function DoaTabs() {
             Pilih Versi
           </span>
           <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex w-full">
-            <button
+            <motion.button
+              type="button"
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setVersion("sughra")}
+              aria-pressed={version === "sughra"}
               className={`flex-1 px-3 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap text-center ${
                 version === "sughra"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
@@ -83,9 +93,12 @@ export function DoaTabs() {
               }`}
             >
               Sughra (Ringkas)
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              type="button"
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setVersion("kubra")}
+              aria-pressed={version === "kubra"}
               className={`flex-1 px-3 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap text-center ${
                 version === "kubra"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
@@ -93,7 +106,7 @@ export function DoaTabs() {
               }`}
             >
               Kubra (Lengkap)
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -107,8 +120,11 @@ export function DoaTabs() {
             Waktu Dzikir
           </span>
           <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex w-full">
-            <button
+            <motion.button
+              type="button"
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setTime("morning")}
+              aria-pressed={time === "morning"}
               className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
                 time === "morning"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
@@ -117,9 +133,12 @@ export function DoaTabs() {
             >
               <Sun className={`w-3.5 h-3.5 ${time === "morning" ? "animate-spin-slow" : ""}`} />
               Pagi
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              type="button"
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setTime("evening")}
+              aria-pressed={time === "evening"}
               className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
                 time === "evening"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
@@ -128,7 +147,7 @@ export function DoaTabs() {
             >
               <Moon className="w-3.5 h-3.5" />
               Sore
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -143,8 +162,11 @@ export function DoaTabs() {
           </span>
           <div className="flex gap-2">
             {/* Toggle Latin */}
-            <button
+            <motion.button
+              type="button"
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setShowGlobalLatin(!showGlobalLatin)}
+              aria-pressed={showGlobalLatin}
               className={`flex-1 px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm border flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                 showGlobalLatin
                   ? "bg-forest-600 dark:bg-forest-700 text-white border-forest-600 dark:border-forest-700 hover:bg-forest-750"
@@ -153,11 +175,14 @@ export function DoaTabs() {
             >
               {showGlobalLatin ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
               Latin
-            </button>
+            </motion.button>
 
             {/* Toggle Terjemahan */}
-            <button
+            <motion.button
+              type="button"
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setShowGlobalTranslation(!showGlobalTranslation)}
+              aria-pressed={showGlobalTranslation}
               className={`flex-1 px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm border flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                 showGlobalTranslation
                   ? "bg-forest-600 dark:bg-forest-700 text-white border-forest-600 dark:border-forest-700 hover:bg-forest-750"
@@ -166,10 +191,10 @@ export function DoaTabs() {
             >
               {showGlobalTranslation ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
               Terjemah
-            </button>
+            </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Audio Murottal Player for Al-Ma'tsurat (Hanan Attaki) */}
       <MasuratAudioPlayer />

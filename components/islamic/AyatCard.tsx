@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, Bookmark } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type AyatCardProps = {
   nomorAyat: number;
@@ -24,6 +24,7 @@ export function AyatCard({
   onToggleBookmark,
 }: AyatCardProps) {
   const [copied, setCopied] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const handleCopy = () => {
     let copyText = `Surat Al-Kahfi Ayat ${nomorAyat}\n\n${teksArab}`;
@@ -38,7 +39,10 @@ export function AyatCard({
   return (
     <motion.div
       id={`ayat-${nomorAyat}`}
-      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 transition-all duration-300 flex flex-col gap-4 ${
+      whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
+      transition={{ type: "spring", stiffness: 280, damping: 24 }}
+      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 transition-all duration-500 flex flex-col gap-4 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 ${
         isBookmarked
           ? "border-l-amber-500 border-amber-200 dark:border-amber-900/60 bg-amber-50/20 dark:bg-amber-950/20"
           : "border-l-forest-600 dark:border-l-lime border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-gray-200 dark:hover:border-gray-700"

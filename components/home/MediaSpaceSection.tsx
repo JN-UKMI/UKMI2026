@@ -131,7 +131,7 @@ export function MediaSpaceSection({ items }: MediaSpaceSectionProps) {
               <Images className="w-5 h-5 sm:w-6 sm:h-6 text-forest-600 dark:text-lime" />
             }
             title="Media Space"
-            subtitle="Dokumentasi kegiatan & momen dakwah JN UKMI — klik untuk melihat postingan di Instagram"
+            subtitle="Dokumentasi kegiatan & momen dakwah JN UKMI"
           />
         </FadeIn>
 
