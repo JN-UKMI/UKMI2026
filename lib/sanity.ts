@@ -1,5 +1,5 @@
 // Sanity client & GROQ query utilities
-import { createClient } from "next-sanity"
+import { createClient, defineQuery } from "next-sanity"
 import { createImageUrlBuilder } from "@sanity/image-url"
 import type { SanityImageSource } from "@sanity/image-url"
 
@@ -9,7 +9,8 @@ export const client = createClient({
   projectId: "ksc63oa8",
   dataset: "production",
   apiVersion: "2024-01-01",
-  useCdn: false,
+  useCdn: true,
+  perspective: "published",
 })
 
 // Write client for mutations (create, update, delete)
@@ -30,7 +31,7 @@ export function urlFor(source: SanityImageSource) {
 // ── GROQ Queries ──────────────────────────────────────────────
 
 /** Fetch all articles, newest first. Omits `content` for list views. */
-export const ARTICLES_LIST_QUERY = /* groq */ `*[_type == "article"] | order(publishedAt desc) {
+export const ARTICLES_LIST_QUERY = defineQuery(/* groq */ `*[_type == "article" && defined(slug.current)] | order(publishedAt desc) {
   title,
   "slug": slug.current,
   category,
@@ -39,11 +40,14 @@ export const ARTICLES_LIST_QUERY = /* groq */ `*[_type == "article"] | order(pub
   publishedAt,
   author,
   tags,
-  featured
-}`
+  featured,
+  seoTitle,
+  seoDescription,
+  seoNoIndex
+}`)
 
 /** Fetch a single article by its slug (includes `content`). */
-export const ARTICLE_BY_SLUG_QUERY = /* groq */ `*[_type == "article" && slug.current == $slug][0] {
+export const ARTICLE_BY_SLUG_QUERY = defineQuery(/* groq */ `*[_type == "article" && slug.current == $slug][0] {
   title,
   "slug": slug.current,
   category,
@@ -53,11 +57,14 @@ export const ARTICLE_BY_SLUG_QUERY = /* groq */ `*[_type == "article" && slug.cu
   publishedAt,
   author,
   tags,
-  featured
-}`
+  featured,
+  seoTitle,
+  seoDescription,
+  seoNoIndex
+}`)
 
 /** Fetch featured articles, newest first. */
-export const FEATURED_ARTICLES_QUERY = /* groq */ `*[_type == "article" && featured == true] | order(publishedAt desc) {
+export const FEATURED_ARTICLES_QUERY = defineQuery(/* groq */ `*[_type == "article" && featured == true && defined(slug.current)] | order(publishedAt desc) {
   title,
   "slug": slug.current,
   category,
@@ -66,11 +73,14 @@ export const FEATURED_ARTICLES_QUERY = /* groq */ `*[_type == "article" && featu
   publishedAt,
   author,
   tags,
-  featured
-}`
+  featured,
+  seoTitle,
+  seoDescription,
+  seoNoIndex
+}`)
 
 /** Fetch articles by category, newest first. */
-export const ARTICLES_BY_CATEGORY_QUERY = /* groq */ `*[_type == "article" && category == $category] | order(publishedAt desc) {
+export const ARTICLES_BY_CATEGORY_QUERY = defineQuery(/* groq */ `*[_type == "article" && category == $category && defined(slug.current)] | order(publishedAt desc) {
   title,
   "slug": slug.current,
   category,
@@ -79,8 +89,11 @@ export const ARTICLES_BY_CATEGORY_QUERY = /* groq */ `*[_type == "article" && ca
   publishedAt,
   author,
   tags,
-  featured
-}`
+  featured,
+  seoTitle,
+  seoDescription,
+  seoNoIndex
+}`)
 
 // ── Typed Results ─────────────────────────────────────────────
 
@@ -125,7 +138,7 @@ export async function getArticlesByCategory(
 
 // ── Kegiatan Seru (Event Terdekat) Queries ──────────────────────
 
-export const KEGIATAN_LIST_QUERY = /* groq */ `*[_type == "kegiatan"] | order(createdAt desc) {
+export const KEGIATAN_LIST_QUERY = defineQuery(/* groq */ `*[_type == "kegiatan"] | order(createdAt desc) {
   "id": _id,
   title,
   date,
@@ -136,7 +149,7 @@ export const KEGIATAN_LIST_QUERY = /* groq */ `*[_type == "kegiatan"] | order(cr
   "posterUrl": poster.asset->url,
   instagramUrl,
   createdAt
-}`
+}`)
 
 export async function getKegiatanSeruFromSanity(): Promise<import("./types").KegiatanSeruItem[]> {
   try {
@@ -145,4 +158,3 @@ export async function getKegiatanSeruFromSanity(): Promise<import("./types").Keg
     return [];
   }
 }
-

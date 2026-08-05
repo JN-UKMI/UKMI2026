@@ -17,7 +17,7 @@ export function TimSection({ staff }: TimSectionProps) {
   const leaders = staff.slice(0, 2);
   const remaining = staff.slice(2);
 
-  // Separate Dept Leaders (Kadep & Kasekdep) and Staf
+  // Separate Dept Leaders (Kadep & Sekdep) and Staf
   const deptLeaders = remaining.filter((m) =>
     m.role.includes("Kepala Departemen") || m.role.includes("Sekretaris Departemen")
   );

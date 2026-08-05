@@ -7,6 +7,7 @@ import {
   apiServerError,
   apiServiceUnavailable,
   apiUnauthorized,
+  apiRateLimited,
 } from "@/lib/api-response";
 import { ContentType, ALLOWED_IMAGE_MIME_TYPES } from "@/lib/schemas";
 
@@ -63,6 +64,9 @@ export async function POST(request: Request) {
 
   const auth = await authorizeAdminOrPasscode(request, passcodeStr);
   if (!auth.authorized) {
+    if (auth.reason === "rate_limited") {
+      return apiRateLimited("Terlalu banyak percobaan kode akses.", auth.retryAfter ?? 900);
+    }
     if (auth.reason === "not_configured") {
       return apiServiceUnavailable(
         "Login admin atau kode akses pengurus belum dikonfigurasi di server."
@@ -92,11 +96,7 @@ export async function POST(request: Request) {
 
   const token = process.env.SANITY_WRITE_TOKEN;
   if (!token) {
-    // Fallback: base64 data URL for local dev. Embed only the validated MIME.
-    const base64 = buffer.toString("base64");
-    return apiOk("Unggah lokal (tanpa Sanity).", {
-      url: `data:${file.type};base64,${base64}`,
-    });
+    return apiServiceUnavailable("SANITY_WRITE_TOKEN belum dikonfigurasi.");
   }
 
   try {

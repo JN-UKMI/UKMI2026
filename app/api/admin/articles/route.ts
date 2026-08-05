@@ -27,7 +27,10 @@ export async function GET() {
   try {
     const token = process.env.SANITY_WRITE_TOKEN;
     if (!token) {
-      return NextResponse.json({ articles: [], fallback: true });
+      return NextResponse.json(
+        { message: "SANITY_WRITE_TOKEN belum dikonfigurasi." },
+        { status: 503, headers: { "Cache-Control": "no-store" } },
+      );
     }
 
     const writeClient = getWriteClient(token);
@@ -45,7 +48,7 @@ export async function GET() {
       }`
     );
 
-    return NextResponse.json({ articles, fallback: false });
+    return NextResponse.json({ articles }, { headers: { "Cache-Control": "no-store" } });
   } catch (err: any) {
     return NextResponse.json(
       { message: `Gagal membaca artikel terpublikasi: ${err.message}` },

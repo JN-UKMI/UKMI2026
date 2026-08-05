@@ -19,7 +19,7 @@ interface MasuratAudioPlayerProps {
 }
 
 export function MasuratAudioPlayer({
-  src = "/music/Al-Masurat-Hanan_Attaki.mp3",
+  src = "/music/Al-Masurat-Hanan_Attaki-64k.mp3",
   title = "Al-Ma'surat (Pagi & Petang)",
   artist = "Ustadz Hanan Attaki",
 }: MasuratAudioPlayerProps) {

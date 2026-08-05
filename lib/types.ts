@@ -155,6 +155,9 @@ export interface Article extends ArticleListItem {
   content?: PortableTextBlock[];
   tags?: string[];
   featured?: boolean;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoNoIndex?: boolean;
 }
 
 export interface BukuUkmiContent {
@@ -252,5 +255,4 @@ export interface UkmiStoreContent {
   guideline?: UkmiStoreGuideline;
   contacts: UkmiStoreContact[];
 }
-
 

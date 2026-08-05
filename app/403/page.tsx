@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ShieldAlert, ArrowLeft, Home } from "lucide-react";
+import { ShieldAlert, Home } from "lucide-react";
 import { auth, signOut } from "@/lib/auth";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 

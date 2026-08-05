@@ -16,6 +16,21 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Scheherazade New";
+  src: url("/fonts/ScheherazadeNew-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --font-geist-sans: Arial, Helvetica, sans-serif;
+  --font-geist-mono: "Courier New", monospace;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-amiri: "Scheherazade New", "Traditional Arabic", serif;
+  --font-amiri-quran: "KFGQPCUthmanicScriptHAFS", serif;
+  --font-noto-naskh: "Scheherazade New", serif;
+}
+
 @theme inline {
   --color-forest-900: #18230F;
   --color-forest-800: #27391C;
@@ -134,5 +149,4 @@ body {
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #499A13;
 }
-
 

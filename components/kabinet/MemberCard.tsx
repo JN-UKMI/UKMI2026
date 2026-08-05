@@ -14,9 +14,9 @@ export function MemberCard({ member }: MemberCardProps) {
   const getShortRole = (role: string) => {
     if (role.includes("Ketua Umum")) return "KETUA";
     if (role.includes("Koordinator")) return "KORWAT";
-    if (role.includes("Sekretaris Bidang")) return "KASEKBID";
+    if (role.includes("Sekretaris Bidang")) return "SEKBID";
     if (role.includes("Kepala Bidang")) return "KABID";
-    if (role.includes("Sekretaris Departemen")) return "KASEKDEP";
+    if (role.includes("Sekretaris Departemen")) return "SEKDEP";
     if (role.includes("Kepala Departemen")) return "KADEP";
     if (role.includes("Wakil")) return "WAKABID";
     if (role.includes("Sekretaris")) return "SEKRETARIS";

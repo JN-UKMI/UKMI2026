@@ -43,13 +43,7 @@ export default function EditArtikelPage() {
     }
   }, []);
 
-  useEffect(() => {
-    if (isVerified && slug) {
-      fetchArticle();
-    }
-  }, [isVerified, slug]);
-
-  const fetchArticle = async () => {
+  async function fetchArticle() {
     setFetchLoading(true);
     try {
       const res = await fetch(`/api/artikel/${slug}`);
@@ -73,7 +67,14 @@ export default function EditArtikelPage() {
     } finally {
       setFetchLoading(false);
     }
-  };
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- fetch populates the edit form after verification
+    if (isVerified && slug) void fetchArticle();
+    // fetchArticle only depends on the route slug and stable state setters.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVerified, slug]);
 
   const handleVerifyGate = async (e: React.FormEvent) => {
     e.preventDefault();

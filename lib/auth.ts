@@ -1,6 +1,11 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
+const authSecret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
+if (process.env.NODE_ENV === "production" && !authSecret) {
+  throw new Error("AUTH_SECRET harus dikonfigurasi pada production.");
+}
+
 /**
  * Parses and returns the list of allowed admin email addresses from process.env.ADMIN_EMAILS.
  */
@@ -23,7 +28,7 @@ export function isEmailAdmin(email?: string | null): boolean {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
-  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "default-fallback-auth-secret-jnukmi-2026",
+  secret: authSecret,
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,

@@ -1,15 +1,15 @@
 import Image from "next/image";
-import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react";
 
 export interface ArticleBodyProps {
-  content: any;
+  content: string | PortableTextBlock[];
 }
 
 const components: PortableTextComponents = {
   types: {
-    image: ({ value }: { value: any }) => (
+    image: ({ value }: { value: { asset?: { url?: string }; src?: string; alt?: string; caption?: string } }) => (
       <figure className="my-10">
-        <div className="relative w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 shadow-sm">
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 shadow-sm">
           <Image
             src={value.asset?.url || value.src || ""}
             alt={value.alt || ""}

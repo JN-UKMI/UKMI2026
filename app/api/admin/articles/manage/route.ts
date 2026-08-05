@@ -7,12 +7,14 @@ import {
   apiUnauthorized,
   apiServerError,
   apiNotFound,
+  apiServiceUnavailable,
 } from "@/lib/api-response";
 import {
   ManageGetQuerySchema,
   ArticleUpdateSchema,
   ArticleDeleteSchema,
 } from "@/lib/schemas";
+import { sanitizeArticleContent } from "@/lib/sanitize-content";
 
 function getWriteClient(token: string) {
   return createClient({
@@ -37,21 +39,7 @@ export async function GET(request: Request) {
 
   const token = process.env.SANITY_WRITE_TOKEN;
   if (!token) {
-    return NextResponse.json({
-      article: {
-        _id: parsed.data.id,
-        title: "[Simulasi] Artikel Demo",
-        slug: "artikel-demo",
-        category: "Artikel Islami",
-        excerpt:
-          "Ini adalah mode simulasi — token Sanity tidak tersedia.",
-        content:
-          "<p>Konten artikel simulasi. Token SANITY_WRITE_TOKEN tidak ditemukan.</p>",
-        coverImage: null,
-        publishedAt: new Date().toISOString(),
-        author: "Admin",
-      },
-    });
+    return apiServiceUnavailable("SANITY_WRITE_TOKEN belum dikonfigurasi.");
   }
 
   try {
@@ -99,13 +87,17 @@ export async function PUT(request: Request) {
 
   const token = process.env.SANITY_WRITE_TOKEN;
   if (!token) {
-    // Simulation mode — surface intent clearly so callers don't mistake it for success.
-    return apiOk("Mode Simulasi: Artikel berhasil diedit (Simulasi, tidak tersimpan).");
+    return apiServiceUnavailable("SANITY_WRITE_TOKEN belum dikonfigurasi.");
   }
 
   try {
     const writeClient = getWriteClient(token);
-    const patchData: Record<string, unknown> = { title, category, excerpt, content };
+    const patchData: Record<string, unknown> = {
+      title,
+      category,
+      excerpt,
+      content: sanitizeArticleContent(content),
+    };
     if (author !== undefined) patchData.author = author;
     if (publishedAt !== undefined) patchData.publishedAt = publishedAt;
 
@@ -158,7 +150,7 @@ export async function DELETE(request: Request) {
 
   const token = process.env.SANITY_WRITE_TOKEN;
   if (!token) {
-    return apiOk("Mode Simulasi: Artikel berhasil dihapus (Simulasi, tidak tersimpan).");
+    return apiServiceUnavailable("SANITY_WRITE_TOKEN belum dikonfigurasi.");
   }
 
   try {

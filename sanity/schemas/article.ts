@@ -117,6 +117,25 @@ export const article = defineType({
       description: "Tandai sebagai artikel unggulan (tampil di hero/section utama)",
       initialValue: false,
     }),
+    defineField({
+      name: "seoTitle",
+      title: "SEO Title",
+      type: "string",
+      description: "Opsional; gunakan judul utama jika kosong.",
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "SEO Description",
+      type: "text",
+      rows: 3,
+      description: "Opsional; gunakan excerpt jika kosong.",
+    }),
+    defineField({
+      name: "seoNoIndex",
+      title: "Jangan indeks di mesin pencari",
+      type: "boolean",
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {

@@ -1,5 +1,5 @@
-import sanitizeHtml from "sanitize-html";
 import { createClient } from "next-sanity";
+import { sanitizeArticleContent } from "@/lib/sanitize-content";
 import {
   apiOk,
   apiCreated,
@@ -12,7 +12,6 @@ import {
 import {
   ArticleCreateSchema,
   ArticlePatchSchema,
-  ContentType,
 } from "@/lib/schemas";
 import {
   ALLOWED_IMAGE_MIME_TYPES,
@@ -37,32 +36,6 @@ function slugify(text: string): string {
     .replace(/&/g, "-dan-")
     .replace(/[^\w\-]+/g, "")
     .replace(/\-\-+/g, "-");
-}
-
-function sanitizeContent(input: string): string {
-  // Allow formatting tags that the Novel editor commonly emits, but strip
-  // event handlers / scripts / unknown protocols as a defence in depth.
-  return sanitizeHtml(input, {
-    allowedTags: [
-      "p", "br", "strong", "em", "b", "i", "u", "a", "ul", "ol", "li",
-      "blockquote", "code", "pre", "h1", "h2", "h3", "h4", "img",
-      "figure", "figcaption", "span", "div", "hr",
-    ],
-    allowedAttributes: {
-      a: ["href", "title", "target", "rel"],
-      img: ["src", "alt", "title", "width", "height"],
-      span: ["class"],
-      div: ["class"],
-      code: ["class"],
-      pre: ["class"],
-    },
-    allowedSchemes: ["http", "https", "mailto", "data"],
-    allowedSchemesByTag: { img: ["http", "https", "data"] },
-    transformTags: {
-      a: sanitizeHtml.simpleTransform("a", { rel: "noopener noreferrer" }),
-    },
-    disallowedTagsMode: "discard",
-  });
 }
 
 function parseImagePayload(imageBase64: string): { mime: string; buffer: Buffer } | null {
@@ -190,7 +163,7 @@ export async function POST(request: Request) {
   const writeClient = getWriteClient(token);
 
   const slug = `${slugify(parsed.data.title)}-${Date.now().toString().slice(-4)}`;
-  const cleanContent = sanitizeContent(parsed.data.content);
+  const cleanContent = sanitizeArticleContent(parsed.data.content);
 
   const document = {
     _type: "article",
@@ -293,7 +266,7 @@ export async function PATCH(request: Request) {
 
   try {
     const writeClient = getWriteClient(token);
-    const cleanContent = sanitizeContent(parsed.data.content);
+    const cleanContent = sanitizeArticleContent(parsed.data.content);
     const updatePayload: Record<string, unknown> = {
       title: parsed.data.title,
       author: parsed.data.author,

@@ -11,7 +11,6 @@ import {
   apiBadRequest,
   apiUnauthorized,
   apiServerError,
-  apiServiceUnavailable,
   apiNotFound,
 } from "@/lib/api-response";
 import {
@@ -23,6 +22,7 @@ import {
   type KegiatanCreatePayload,
 } from "@/lib/schemas";
 import type { KegiatanSeruItem } from "@/lib/types";
+import { getKegiatanSeruFromSanity } from "@/lib/sanity";
 
 const eventsFilePath = path.join(process.cwd(), "content", "kegiatan-seru", "events.json");
 const uploadDir = path.join(process.cwd(), "public", "events");
@@ -99,23 +99,9 @@ function sanitizeLocalEvent(input: KegiatanCreatePayload): KegiatanCreatePayload
 
 // ── GET: Fetch all active events (admin or passcode gated? — read-only public) ──
 export async function GET() {
-  const sanityClient = getSanityWriteClient();
-  if (sanityClient) {
-    try {
-      const sanityEvents = await sanityClient.fetch(`*[_type == "kegiatan"] | order(createdAt desc) {
-        "id": _id,
-        title,
-        date,
-        dayBadge,
-        monthBadge,
-        location,
-        description,
-        "posterUrl": poster.asset->url,
-        instagramUrl,
-        createdAt
-      }`);
-      return NextResponse.json({ events: sanityEvents });
-    } catch {}
+  const sanityEvents = await getKegiatanSeruFromSanity();
+  if (sanityEvents.length > 0) {
+    return NextResponse.json({ events: sanityEvents }, { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" } });
   }
   const events = await readEvents();
   return NextResponse.json({ events });
@@ -260,7 +246,8 @@ export async function PUT(req: Request) {
       "Validasi gagal: " + parsed.error.issues.map((i) => i.message).join("; ")
     );
   }
-  const { id: _ignoreId, ...eventFields } = parsed.data;
+  const { id: eventId, ...eventFields } = parsed.data;
+  void eventId;
   const clean = sanitizeLocalEvent(eventFields);
 
   const posterFile = formData.get("poster");

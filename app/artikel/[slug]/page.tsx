@@ -11,8 +11,7 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArrowLeft, Calendar, Tag, Pencil } from "lucide-react";
 import { notFound } from "next/navigation";
 import { FadeIn } from "@/components/ui/motion";
-
-export const dynamic = "force-dynamic";
+import { requireAdmin } from "@/lib/auth";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -50,6 +49,8 @@ export async function generateMetadata({
   }
 
   const isPreview = query.preview === "true" || query.draft === "true";
+  const metadataTitle = article.seoTitle || article.title;
+  const metadataDescription = article.seoDescription || article.excerpt;
 
   const url = `${BASE_URL}/artikel/${article.slug}`;
   const coverImageUrl =
@@ -67,16 +68,16 @@ export async function generateMetadata({
         : undefined;
 
   return {
-    title: article.title,
-    description: article.excerpt,
+    title: metadataTitle,
+    description: metadataDescription,
     authors: article.author ? [{ name: article.author }] : undefined,
     keywords: Array.isArray(article.tags) ? article.tags : undefined,
     alternates: { canonical: url },
     openGraph: {
       type: "article",
       url,
-      title: article.title,
-      description: article.excerpt,
+      title: metadataTitle,
+      description: metadataDescription,
       siteName: siteConfig.name,
       locale: "id_ID",
       images: [{ url: coverImageUrl, width: 1200, height: 630, alt: article.title }],
@@ -86,11 +87,11 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
-      description: article.excerpt,
+      title: metadataTitle,
+      description: metadataDescription,
       images: [coverImageUrl],
     },
-    robots: isPreview
+    robots: isPreview || article.seoNoIndex
       ? { index: false, follow: false, noarchive: true }
       : { index: true, follow: true },
   };
@@ -103,6 +104,8 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
 
   // If preview and draft are set, we fetch from the draft collection
   if (preview === "true" && draft === "true" && draftId) {
+    if (!(await requireAdmin())) notFound();
+
     try {
       const token = process.env.SANITY_WRITE_TOKEN;
       if (token) {
@@ -129,32 +132,6 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
       }
     } catch {}
 
-    // Mock drafts fallback if sanity token is missing
-    if (!article) {
-      const mockDrafts = [
-        {
-          _id: "drafts.kajian-aqidah-remaja-1234",
-          title: "[Kajian] Pentingnya Aqidah Kokoh bagi Remaja Masjid",
-          slug: "kajian-aqidah-remaja",
-          excerpt: "Draf kajian mengenai tantangan pemikiran modern and cara membentengi akidah para remaja di lingkungan pengurus masjid.",
-          content: "Aqidah merupakan pondasi dasar yang menopang seluruh keislaman seseorang. Di era modern, tantangan pemikiran baik dari materialisme, sekularisme, hingga tren digital yang instan membutuhkan benteng iman yang tangguh bagi para pemuda Muslim khususnya remaja masjid. Pembinaan berkala melalui kajian-kajian terstruktur menjadi salah satu solusi kunci.",
-          category: "Kajian",
-          author: "Kaderisasi",
-          publishedAt: new Date().toISOString(),
-        },
-        {
-          _id: "drafts.bantuan-kemanusiaan-bencana-5678",
-          title: "[Kegiatan] Aksi Cepat Tanggap JN UKMI Peduli Bencana Banjir",
-          slug: "aksi-peduli-bencana-banjir",
-          excerpt: "Laporan penyaluran logistik makanan dan bantuan pakaian layak pakai bagi korban banjir bandang di Solo Raya.",
-          content: "Musibah banjir bandang melanda sebagian besar wilayah Solo Raya menyisakan duka mendalam. Merespon kondisi tersebut, bidang Eksternal JN UKMI menyelenggarakan penggalangan bantuan logistik makanan, pakaian layak, dan obat-obatan. Tim relawan terjun langsung ke posko pengungsian untuk mendistribusikan bantuan secara tertib dan adil.",
-          category: "Kegiatan",
-          author: "Eksternal",
-          publishedAt: new Date().toISOString(),
-        }
-      ];
-      article = mockDrafts.find((d) => d._id === draftId || d.slug === slug);
-    }
   } else {
     try {
       article = await getArticleBySlug(slug);

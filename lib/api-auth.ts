@@ -1,4 +1,5 @@
 import { auth, isEmailAdmin } from "./auth";
+import { timingSafeEqual } from "node:crypto";
 
 /**
  * Shared admin + passcode authentication helpers.
@@ -10,9 +11,8 @@ import { auth, isEmailAdmin } from "./auth";
 const MAX_FAILED_ATTEMPTS = 5;
 const BLOCK_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
-// Single in-memory rate-limit state shared across all routes that need it.
-// Periodically pruned (NOT grown unbounded). Suitable for single-instance
-// production; for multi-instance fallback use a KV store (Redis/Upstash).
+// ponytail: per-instance limit; replace with Vercel Firewall/KV when passcode
+// traffic is large enough to justify shared state across serverless instances.
 const rateLimitMap = new Map<string, { count: number; blockedUntil: number }>();
 
 function pruneRateLimitMap(now: number) {
@@ -82,7 +82,9 @@ export function verifyPasscode(passcode: string | null | undefined): boolean {
   if (typeof passcode !== "string") return false;
   const expected = process.env.KODE_AKSES_PENGURUS;
   if (typeof expected !== "string" || expected.length === 0) return false;
-  return passcode === expected;
+  const input = Buffer.from(passcode);
+  const secret = Buffer.from(expected);
+  return input.length === secret.length && timingSafeEqual(input, secret);
 }
 
 /** Have an env but want to know if it's configured (use for 503). */
@@ -101,7 +103,7 @@ export async function authorizeAdminOrPasscode(
   providedPasscode: string | null | undefined
 ): Promise<
   | { authorized: true; isAdmin: boolean }
-  | { authorized: false; reason: "unauthorized" | "not_configured" }
+  | { authorized: false; reason: "unauthorized" | "not_configured" | "rate_limited"; retryAfter?: number }
 > {
   const session = await auth();
   const userEmail = session?.user?.email as string | undefined;
@@ -111,8 +113,18 @@ export async function authorizeAdminOrPasscode(
   if (!isPasscodeConfigured()) {
     return { authorized: false, reason: "not_configured" };
   }
+  const ip = getClientIp(request);
+  const limit = checkRateLimit(ip);
+  if (limit.blocked) {
+    return { authorized: false, reason: "rate_limited", retryAfter: limit.minutesLeft * 60 };
+  }
   if (verifyPasscode(providedPasscode)) {
+    clearAttempts(ip);
     return { authorized: true, isAdmin: false };
+  }
+  const failed = recordFailedAttempt(ip);
+  if (failed.blocked) {
+    return { authorized: false, reason: "rate_limited", retryAfter: failed.minutesLeft * 60 };
   }
   return { authorized: false, reason: "unauthorized" };
 }

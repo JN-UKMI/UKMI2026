@@ -12,25 +12,9 @@ interface KegiatanSeruSectionProps {
 }
 
 export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionProps) {
-  const [events, setEvents] = useState<KegiatanSeruItem[]>(initialEvents);
+  const events = initialEvents;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
-
-  const fetchEvents = async () => {
-    try {
-      const res = await fetch("/api/admin/kegiatan");
-      if (res.ok) {
-        const data = await res.json();
-        if (data.events) setEvents(data.events);
-      }
-    } catch {}
-  };
-
-  useEffect(() => {
-    if (initialEvents.length === 0) {
-      fetchEvents();
-    }
-  }, [initialEvents]);
 
   // Responsive visible card counts (2 on desktop lg, 1 on mobile/tablet)
   useEffect(() => {
@@ -187,4 +171,3 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
     </section>
   );
 }
-

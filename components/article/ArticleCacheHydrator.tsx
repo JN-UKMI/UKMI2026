@@ -16,8 +16,7 @@ interface ArticleCacheHydratorProps {
    */
   fresh: boolean;
   /**
-   * Fallback shown when both server and cache are empty —
-   * typically the built-in dummy article list.
+   * Fallback shown when both server and cache are empty.
    */
   fallbackArticles: ArticleListItem[];
   initialCategory?: string;
@@ -31,7 +30,7 @@ interface ArticleCacheHydratorProps {
  *    (only when `fresh === true` to avoid caching dummy fallback data).
  * 2. Falls back to cached articles when the server returns empty
  *    (Sanity unreachable / ISR miss).
- * 3. Falls back to the provided dummy list if cache is also empty.
+ * 3. Falls back to the provided list if cache is also empty.
  *
  * The cache survives hard refreshes and tab closes, giving the user
  * instant content while the ISR revalidation runs in the background.

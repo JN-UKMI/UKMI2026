@@ -149,76 +149,18 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     }
   }, [currentTrackIndex, isPlaying, isAllowedPage, currentTrack.src, pathname]);
 
-  // Attempt Autoplay on Mount & Handle Browser Autoplay Policy on First User Interaction
+  // Prepare audio; playback starts only after the user uses the player.
   useEffect(() => {
     if (typeof window === "undefined" || !isAllowedPage) return;
 
-    // /bidang/syiar is unique: NO AUTOPLAY on page load
-    if (pathname === "/bidang/syiar") {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-      setIsPlaying(false);
-      return;
-    }
-
     if (!audioRef.current) {
-      const audio = new Audio(PLAYLIST[0].src);
-      audioRef.current = audio;
+      audioRef.current = new Audio(currentTrack.src);
     }
 
     const audio = audioRef.current;
     audio.muted = isMuted;
     audio.loop = isSingleLoop;
-
-    const startAudio = () => {
-      if (!audioRef.current) return;
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => {
-          // If browser blocks un-muted autoplay, try muted play then unmute on interaction
-          if (audioRef.current) {
-            audioRef.current.muted = true;
-            audioRef.current
-              .play()
-              .then(() => setIsPlaying(true))
-              .catch(() => setIsPlaying(false));
-          }
-        });
-    };
-
-    // 1. Immediate Autoplay Attempt
-    startAudio();
-
-    // 2. Fallback: Listen for any user gesture (click, scroll, keypress, touch) to force play
-    const handleFirstUserInteraction = () => {
-      if (audioRef.current) {
-        audioRef.current.muted = false;
-        setIsMuted(false);
-        audioRef.current
-          .play()
-          .then(() => setIsPlaying(true))
-          .catch(() => {});
-      }
-      window.removeEventListener("click", handleFirstUserInteraction);
-      window.removeEventListener("keydown", handleFirstUserInteraction);
-      window.removeEventListener("touchstart", handleFirstUserInteraction);
-      window.removeEventListener("scroll", handleFirstUserInteraction);
-    };
-
-    window.addEventListener("click", handleFirstUserInteraction, { once: true });
-    window.addEventListener("keydown", handleFirstUserInteraction, { once: true });
-    window.addEventListener("touchstart", handleFirstUserInteraction, { once: true });
-    window.addEventListener("scroll", handleFirstUserInteraction, { once: true });
-
-    return () => {
-      window.removeEventListener("click", handleFirstUserInteraction);
-      window.removeEventListener("keydown", handleFirstUserInteraction);
-      window.removeEventListener("touchstart", handleFirstUserInteraction);
-      window.removeEventListener("scroll", handleFirstUserInteraction);
-    };
-  }, [isAllowedPage]);
+  }, [currentTrack.src, isAllowedPage, isMuted, isSingleLoop]);
 
   // Sync mute state
   useEffect(() => {

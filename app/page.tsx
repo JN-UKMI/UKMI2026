@@ -6,7 +6,6 @@ import { ArtikelTerbaruSection } from "@/components/home/ArtikelTerbaruSection";
 import { loadTestimoni, loadKegiatanSeru } from "@/lib/content";
 import { getArticles, type ArticlesListResult } from "@/lib/sanity";
 import { buildPageMetadata } from "@/lib/page-metadata";
-import { Analytics } from '@vercel/analytics/next';
 
 // Dynamic imports for below-the-fold heavy components (Code Splitting)
 const KalenderSection = dynamicImport(
@@ -15,9 +14,6 @@ const KalenderSection = dynamicImport(
 const TestimonialSection = dynamicImport(
   () => import("@/components/home/TestimonialSection").then((m) => m.TestimonialSection)
 );
-
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 export const metadata = buildPageMetadata({
   title: "Beranda",
@@ -46,7 +42,6 @@ export default async function Home() {
       <ArtikelTerbaruSection articles={articles} />
       <KalenderSection />
       <TestimonialSection testimonials={testimonials} />
-      <Analytics />
     </>
   );
 }

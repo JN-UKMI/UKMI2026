@@ -45,6 +45,12 @@ export function PageHero({ title, subtitle, badge, children }: PageHeroProps) {
         className="relative z-10 flex flex-col items-center justify-center text-center text-white max-w-4xl mx-auto pt-[60px]"
       >
 
+        {badge && (
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-lime">
+            {badge}
+          </p>
+        )}
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.9, scale: 1 }}

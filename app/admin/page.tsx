@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { TransitionLink } from "@/components/ui/TransitionLink";
@@ -15,10 +14,8 @@ import {
   Calendar,
   User,
   Tag,
-  AlertCircle,
   FileText,
   Edit,
-  ExternalLink,
   Save,
   Pencil,
   X,
@@ -53,7 +50,6 @@ export default function AdminPage() {
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
-  const [isFallbackMode, setIsFallbackMode] = useState(false);
 
   // Detail & Edit Modals State
   const [selectedArticle, setSelectedArticle] = useState<DraftArticle | null>(null);
@@ -83,7 +79,7 @@ export default function AdminPage() {
     fetchKegiatan();
   }, []);
 
-  const fetchKegiatan = async () => {
+  async function fetchKegiatan() {
     try {
       const res = await fetch("/api/admin/kegiatan");
       if (res.ok) {
@@ -91,7 +87,7 @@ export default function AdminPage() {
         setKegiatanList(data.events || []);
       }
     } catch {}
-  };
+  }
 
   const startEditKegiatan = (item: any) => {
     setEditingEventId(item.id);
@@ -188,7 +184,7 @@ export default function AdminPage() {
     }
   };
 
-  const fetchDrafts = async () => {
+  async function fetchDrafts() {
     setLoading(true);
     setError("");
     try {
@@ -200,23 +196,22 @@ export default function AdminPage() {
       }
 
       setDrafts(data.drafts || []);
-      setIsFallbackMode(!!data.fallback);
     } catch (err: any) {
       setError(err.message || "Gagal memproses data draf.");
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const fetchPublishedArticles = async () => {
+  async function fetchPublishedArticles() {
     try {
       const res = await fetch("/api/admin/articles");
       const data = await res.json();
       if (res.ok) {
         setPublishedArticles(data.articles || []);
       }
-    } catch (err) {}
-  };
+    } catch {}
+  }
 
   const handleApprove = async (draftId: string) => {
     setError("");
@@ -302,6 +297,7 @@ export default function AdminPage() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- legacy modal retained until admin UI consolidation
   const openEditModal = (article: DraftArticle) => {
     setEditArticle(article);
     setEditTitle(article.title);
@@ -370,6 +366,7 @@ export default function AdminPage() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- legacy modal renderer retained with the modal
   const renderContentText = (content: any) => {
     if (typeof content === "string") return content;
     if (Array.isArray(content)) {
@@ -403,6 +400,7 @@ export default function AdminPage() {
           {session?.user && (
             <div className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-2 pl-3.5 shadow-xs">
               {session.user.image && (
+                // eslint-disable-next-line @next/next/no-img-element -- OAuth avatar URL is runtime data
                 <img
                   src={session.user.image}
                   alt={session.user.name || "Avatar"}
@@ -479,16 +477,6 @@ export default function AdminPage() {
             Event Terdekat ({kegiatanList.length})
           </button>
         </div>
-
-        {/* Fallback Banner Alert */}
-        {isFallbackMode && (
-          <div className="mb-6 p-4 bg-lime/10 border border-lime/30 rounded-2xl flex gap-3 text-forest-900 text-xs font-bold leading-relaxed items-center">
-            <AlertCircle className="w-5 h-5 text-forest-600 shrink-0" />
-            <span>
-              Mode Simulasi Aktif: Server belum terhubung ke database live Sanity (SANITY_WRITE_TOKEN kosong). Menampilkan data dummy antrean. Klik {`"Setujui" or "Tolak"`} akan mensimulasikan aksi secara instan.
-            </span>
-          </div>
-        )}
 
         {/* Notification alerts */}
         {successMsg && (
@@ -864,6 +852,7 @@ export default function AdminPage() {
                   />
                   {eventPosterPreview && (
                     <div className="mt-2 relative w-32 aspect-[3/4] rounded-xl overflow-hidden border border-gray-200 shadow-md">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- blob preview is not supported by next/image */}
                       <img src={eventPosterPreview} alt="Preview Poster" className="w-full h-full object-cover" />
                     </div>
                   )}
@@ -936,6 +925,7 @@ export default function AdminPage() {
                     >
                       <div className="flex items-center gap-3 overflow-hidden">
                         <div className="relative w-16 aspect-[3/4] rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element -- poster may be a local or runtime URL */}
                           <img src={item.posterUrl || "/placeholder.png"} alt={item.title} className="w-full h-full object-cover" />
                         </div>
                         <div className="overflow-hidden">

@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import { Geist, Geist_Mono, Amiri, Amiri_Quran, Noto_Naskh_Arabic, Playfair_Display } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
@@ -15,45 +14,6 @@ import { AuthProvider } from "@/components/providers/AuthProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const playfairDisplay = Playfair_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const amiri = Amiri({
-  weight: ["400", "700"],
-  subsets: ["arabic"],
-  variable: "--font-amiri",
-  display: "swap",
-});
-
-const amiriQuran = Amiri_Quran({
-  weight: "400",
-  subsets: ["arabic"],
-  variable: "--font-amiri-quran",
-  display: "swap",
-});
-
-const notoNaskh = Noto_Naskh_Arabic({
-  weight: ["400", "700"],
-  subsets: ["arabic"],
-  variable: "--font-noto-naskh",
-  display: "swap",
-});
 
 /**
  * Root metadata — applied to every page unless overridden by a more specific
@@ -168,7 +128,7 @@ export default async function RootLayout({
   return (
     <html
       lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} ${amiri.variable} ${amiriQuran.variable} ${notoNaskh.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
       <head>
         <script

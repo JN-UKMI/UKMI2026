@@ -6,6 +6,7 @@ import {
   apiUnauthorized,
   apiNotFound,
   apiServerError,
+  apiServiceUnavailable,
 } from "@/lib/api-response";
 import { ApproveSchema, RejectSchema, SanityDocumentIdSchema } from "@/lib/schemas";
 
@@ -51,10 +52,7 @@ export async function POST(request: Request) {
 
   const token = process.env.SANITY_WRITE_TOKEN;
   if (!token) {
-    return apiOk(
-      "Simulasi: Artikel berhasil disetujui dan dipublikasikan (Mode Fallback).",
-      { publishedId: parsed.data.draftId.replace(/^drafts\./, "") }
-    );
+    return apiServiceUnavailable("SANITY_WRITE_TOKEN belum dikonfigurasi.");
   }
 
   try {
@@ -94,7 +92,7 @@ export async function DELETE(request: Request) {
 
   const token = process.env.SANITY_WRITE_TOKEN;
   if (!token) {
-    return apiOk("Simulasi: Artikel berhasil ditolak dan dihapus (Mode Fallback).");
+    return apiServiceUnavailable("SANITY_WRITE_TOKEN belum dikonfigurasi.");
   }
 
   try {
