@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Phone } from "lucide-react";
+import { ChevronDown, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 
@@ -67,7 +67,7 @@ export function MobileMenu({
           onClick={onClose}
           className="flex items-center justify-center gap-2 w-full bg-forest-600 hover:bg-forest-800 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-forest-600/30 active:scale-95 cursor-pointer"
         >
-          <Phone className="w-4 h-4" />
+          <Mail className="w-4 h-4" />
           Kontak
         </TransitionLink>
       </motion.div>

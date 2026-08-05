@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavDropdown } from "./NavDropdown";
 import { MobileMenu } from "./MobileMenu";
@@ -166,8 +166,8 @@ export function Navbar() {
                 href="/kontak"
                 className="hidden md:inline-flex items-center gap-1.5 bg-forest-600 hover:bg-forest-700 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-forest-600/30 hover:scale-[1.03] cursor-pointer active:scale-95"
               >
-                Kontak
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+                <Mail className="w-3.5 h-3.5" />
+                <span>Kontak</span>
               </TransitionLink>
             </motion.div>
 
