@@ -11,24 +11,9 @@ export interface Song {
 
 export const PLAYLIST: Song[] = [
   {
-    title: "Mars Pemuda Islam",
+    title: "Doa Rabithah",
     artist: "JN UKMI UNS",
-    src: "/music/all-1.mp3",
-  },
-  {
-    title: "Harmoni Ukhuwah",
-    artist: "JN UKMI UNS",
-    src: "/music/all-2.mp3",
-  },
-  {
-    title: "Teruslah Bergerak",
-    artist: "Azzam Haroki",
-    src: "/music/TeruslahBergerak-AzzamHaroki.mp3",
-  },
-  {
-    title: "Kabinet Iskandar Muda",
-    artist: "JN UKMI UNS",
-    src: "/music/kabinet.mp3",
+    src: "/music/Rabithah.mp3",
   },
 ];
 
@@ -53,11 +38,10 @@ const MusicContext = createContext<MusicContextType | undefined>(undefined);
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Music plays on Home (/), Tentang (/tentang), Bidang Syiar (/bidang/syiar), and Kabinet (/kabinet)
+  // Music plays on Home (/), Tentang (/tentang), and Kabinet (/kabinet)
   const isAllowedPage =
     pathname === "/" ||
     pathname === "/tentang" ||
-    pathname === "/bidang/syiar" ||
     pathname === "/kabinet";
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -117,22 +101,10 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Switch track automatically based on active page route
+  // Keep track index at 0 (Rabithah.mp3) across all pages
   useEffect(() => {
-    if (pathname === "/") {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- switch track based on active route
-      setCurrentTrackIndex(0);
-    } else if (pathname === "/tentang") {
-      setCurrentTrackIndex(1);
-    } else if (pathname === "/bidang/syiar") {
-      setCurrentTrackIndex(2);
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-      setIsPlaying(false);
-    } else if (pathname === "/kabinet") {
-      setCurrentTrackIndex(3);
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- keep track index valid
+    setCurrentTrackIndex(0);
   }, [pathname]);
 
   // Update track src when index changes
@@ -143,11 +115,11 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     const isDifferentSrc = !audio.src.endsWith(currentTrack.src);
     if (isDifferentSrc) {
       audio.src = currentTrack.src;
-      if (isPlaying && isAllowedPage && pathname !== "/bidang/syiar") {
+      if (isPlaying && isAllowedPage) {
         audio.play().catch(() => {});
       }
     }
-  }, [currentTrackIndex, isPlaying, isAllowedPage, currentTrack.src, pathname]);
+  }, [currentTrackIndex, isPlaying, isAllowedPage, currentTrack.src]);
 
   // Prepare audio; playback starts only after the user uses the player.
   useEffect(() => {
