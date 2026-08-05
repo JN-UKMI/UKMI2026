@@ -28,6 +28,11 @@ import {
   Upload,
   GalleryVertical,
   ImagePlus,
+  ChevronUp,
+  ChevronDown,
+  Sparkles,
+  Star,
+  LayoutGrid,
 } from "lucide-react";
 
 interface DraftArticle {
@@ -133,6 +138,8 @@ export default function AdminPage() {
 
   // Form State for Media Space
   const [mediaList, setMediaList] = useState<any[]>([]);
+  const [isOrderChanged, setIsOrderChanged] = useState(false);
+  const [orderSaving, setOrderSaving] = useState(false);
   const [editingMediaId, setEditingMediaId] = useState<string | null>(null);
   const [mediaTitle, setMediaTitle] = useState("");
   const [mediaDescription, setMediaDescription] = useState("");
@@ -380,7 +387,13 @@ export default function AdminPage() {
       const res = await fetch("/api/admin/media-space");
       if (res.ok) {
         const data = await res.json();
-        setMediaList(data.items || []);
+        const list = Array.isArray(data.items)
+          ? data.items
+          : Array.isArray(data.data)
+            ? data.data
+            : [];
+        setMediaList(list);
+        setIsOrderChanged(false);
       }
     } catch {}
   }
@@ -396,6 +409,8 @@ export default function AdminPage() {
     setMediaImageOriginalUrl(item.imageUrl || null);
     setMediaImagePreview(item.imageUrl || null);
     setMediaImageDragOver(false);
+    const input = document.getElementById("mediaImageInput") as HTMLInputElement | null;
+    if (input) input.value = "";
   };
 
   const cancelEditMedia = () => {
@@ -409,6 +424,8 @@ export default function AdminPage() {
     setMediaImageFile(null);
     setMediaImagePreview(null);
     setMediaImageDragOver(false);
+    const input = document.getElementById("mediaImageInput") as HTMLInputElement | null;
+    if (input) input.value = "";
   };
 
   const validateMediaImage = (file: File): string | null => {
@@ -448,6 +465,8 @@ export default function AdminPage() {
   };
 
   const removeMediaImage = () => {
+    const input = document.getElementById("mediaImageInput") as HTMLInputElement | null;
+    if (input) input.value = "";
     if (mediaImageObjectUrl) {
       URL.revokeObjectURL(mediaImageObjectUrl);
       setMediaImageObjectUrl(null);
@@ -462,7 +481,12 @@ export default function AdminPage() {
     setSuccessMsg("");
 
     if (!mediaTitle.trim()) {
-      setError("Judul konten wajib diisi.");
+      setError("Judul konten Media Space wajib diisi.");
+      return;
+    }
+
+    if (!editingMediaId && !mediaImageFile) {
+      setError("Foto postingan wajib diunggah untuk konten baru.");
       return;
     }
 
@@ -473,9 +497,9 @@ export default function AdminPage() {
       if (editingMediaId) {
         formData.append("id", editingMediaId);
       }
-      formData.append("title", mediaTitle);
-      formData.append("description", mediaDescription);
-      formData.append("instagramUrl", mediaInstagramUrl);
+      formData.append("title", mediaTitle.trim());
+      formData.append("description", mediaDescription.trim());
+      formData.append("instagramUrl", mediaInstagramUrl.trim());
       if (mediaImageFile) {
         formData.append("image", mediaImageFile);
       }
@@ -525,6 +549,70 @@ export default function AdminPage() {
     } finally {
       setActionLoadingId(null);
     }
+  };
+
+  const handleSaveOrder = async () => {
+    setError("");
+    setSuccessMsg("");
+    setOrderSaving(true);
+    try {
+      const itemIds = mediaList.map((item) => item.id);
+      const res = await fetch("/api/admin/media-space", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemIds }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Gagal menyimpan urutan Media Space.");
+      }
+
+      setSuccessMsg("Urutan 6 konten Media Space berhasil disimpan ke beranda!");
+      const list = Array.isArray(data.items)
+        ? data.items
+        : Array.isArray(data.data)
+          ? data.data
+          : [];
+      if (list.length > 0) {
+        setMediaList(list);
+      }
+      setIsOrderChanged(false);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setOrderSaving(false);
+    }
+  };
+
+  const handleCancelOrder = () => {
+    fetchMediaSpace();
+    setIsOrderChanged(false);
+  };
+
+  const handleMoveMediaSlot = (mediaId: string, targetSlotIndex: number) => {
+    const currentIndex = mediaList.findIndex((item) => item.id === mediaId);
+    if (currentIndex === -1 || currentIndex === targetSlotIndex) return;
+
+    const listCopy = [...mediaList];
+    const [movedItem] = listCopy.splice(currentIndex, 1);
+    listCopy.splice(targetSlotIndex, 0, movedItem);
+
+    setMediaList(listCopy);
+    setIsOrderChanged(true);
+  };
+
+  const handleMoveMediaStep = (currentIndex: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= mediaList.length) return;
+
+    const listCopy = [...mediaList];
+    const temp = listCopy[currentIndex];
+    listCopy[currentIndex] = listCopy[targetIndex];
+    listCopy[targetIndex] = temp;
+
+    setMediaList(listCopy);
+    setIsOrderChanged(true);
   };
 
   async function fetchDrafts() {
@@ -1532,54 +1620,215 @@ export default function AdminPage() {
               </form>
             </div>
 
-            {/* List Konten Media Space */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <GalleryVertical className="w-5 h-5 text-forest-600 dark:text-lime" />
-                Daftar Konten Media Space ({mediaList.length})
-              </h3>
+            {/* List Konten Media Space & Reorder Management */}
+            <div className="space-y-6">
+              <div className={`p-4.5 sm:p-6 rounded-3xl border transition-all ${
+                isOrderChanged
+                  ? "bg-amber-50/80 dark:bg-amber-950/30 border-amber-300 dark:border-amber-700 shadow-md"
+                  : "bg-forest-50/60 dark:bg-forest-950/40 border-forest-100 dark:border-forest-900/60 shadow-xs"
+              }`}>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="space-y-1 max-w-2xl">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-forest-600 dark:text-lime" />
+                      <h3 className="text-base font-bold text-forest-950 dark:text-lime">
+                        Manajemen Posisi & Urutan Tampilan Beranda (#1 - #6)
+                      </h3>
+                      {isOrderChanged && (
+                        <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-black uppercase tracking-wider animate-pulse">
+                          Ada Perubahan Belum Disimpan
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                      Atur posisi sesukamu dengan dropdown atau tombol panah. Posisi <strong>#1 (Besar Utama)</strong> dan <strong>#2 (Besar Sekunder)</strong> mengisi 2 sel kartu bento paling besar di beranda. Klik <strong>Simpan Urutan</strong> jika sudah sesuai.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    {isOrderChanged && (
+                      <button
+                        type="button"
+                        onClick={handleCancelOrder}
+                        disabled={orderSaving}
+                        className="px-4 py-2.5 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-xs font-bold transition-all cursor-pointer disabled:opacity-50"
+                      >
+                        Reset / Batal
+                      </button>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={handleSaveOrder}
+                      disabled={orderSaving || !isOrderChanged}
+                      className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all inline-flex items-center gap-2 shadow-md cursor-pointer active:scale-95 disabled:opacity-50 ${
+                        isOrderChanged
+                          ? "bg-forest-600 hover:bg-forest-800 dark:bg-lime dark:hover:bg-lime/90 dark:text-forest-950 text-white animate-pulse"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                      }`}
+                    >
+                      {orderSaving ? (
+                        <>
+                          <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                          <span>Menyimpan Urutan...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-4 h-4" />
+                          <span>{isOrderChanged ? "Simpan Urutan Beranda" : "Urutan Tersimpan"}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               {mediaList.length === 0 ? (
                 <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
                   <p className="text-sm font-semibold text-gray-400 dark:text-gray-500">Belum ada konten Media Space.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {mediaList.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-4 shadow-sm flex gap-4 items-center justify-between"
-                    >
-                      <div className="flex items-center gap-3 overflow-hidden">
-                        <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
-                          {/* eslint-disable-next-line @next/next/no-img-element -- image may be a local or runtime URL */}
-                          <img src={item.imageUrl || "/placeholder.png"} alt={item.title} className="w-full h-full object-cover" />
-                        </div>
-                        <div className="overflow-hidden">
-                          <h4 className="text-sm font-bold text-gray-900 dark:text-white truncate">{item.title}</h4>
-                          <p className="text-xs text-gray-400 dark:text-gray-500 line-clamp-2 mt-0.5">{item.description}</p>
-                        </div>
-                      </div>
+                <div className="space-y-3">
+                  {mediaList.map((item, idx) => {
+                    const isSlot1 = idx === 0;
+                    const isSlot2 = idx === 1;
+                    const isDisplayedOnHome = idx < 6;
 
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <button
-                          onClick={() => startEditMedia(item)}
-                          className="p-2.5 bg-forest-50 hover:bg-forest-100 text-forest-700 dark:bg-forest-950 dark:hover:bg-forest-900 dark:text-lime rounded-xl transition-colors cursor-pointer"
-                          title="Edit Konten"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteMedia(item.id)}
-                          disabled={actionLoadingId === item.id}
-                          className="p-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors cursor-pointer"
-                          title="Hapus Konten"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                    return (
+                      <div
+                        key={item.id}
+                        className={`bg-white dark:bg-gray-900 rounded-2xl border p-4 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all ${
+                          isSlot1
+                            ? "border-forest-600 dark:border-lime ring-2 ring-forest-600/20 dark:ring-lime/20 bg-forest-50/30 dark:bg-forest-950/20"
+                            : isSlot2
+                              ? "border-emerald-500 dark:border-emerald-400 ring-2 ring-emerald-500/20 dark:ring-emerald-400/20 bg-emerald-50/20 dark:bg-emerald-950/10"
+                              : isDisplayedOnHome
+                                ? "border-gray-200 dark:border-gray-800"
+                                : "border-gray-200/60 dark:border-gray-800/60 opacity-80"
+                        }`}
+                      >
+                        {/* Info & Thumbnail */}
+                        <div className="flex items-center gap-3.5 min-w-0">
+                          {/* Badge Number */}
+                          <div className="flex flex-col items-center justify-center shrink-0">
+                            <span
+                              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs font-black shadow-xs ${
+                                isSlot1
+                                  ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950"
+                                  : isSlot2
+                                    ? "bg-emerald-600 text-white dark:bg-emerald-400 dark:text-gray-950"
+                                    : isDisplayedOnHome
+                                      ? "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                                      : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500"
+                              }`}
+                            >
+                              #{idx + 1}
+                            </span>
+                          </div>
+
+                          <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0 border border-gray-200 dark:border-gray-700">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={item.imageUrl || "/placeholder.png"} alt={item.title} className="w-full h-full object-cover" />
+                          </div>
+
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                              {isSlot1 && (
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-forest-600 text-white dark:bg-lime dark:text-forest-950 uppercase tracking-wide">
+                                  <Star className="w-3 h-3 fill-current" /> #1 Besar Utama
+                                </span>
+                              )}
+                              {isSlot2 && (
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-600 text-white dark:bg-emerald-400 dark:text-gray-950 uppercase tracking-wide">
+                                  <Sparkles className="w-3 h-3" /> #2 Besar Sekunder
+                                </span>
+                              )}
+                              {isDisplayedOnHome && !isSlot1 && !isSlot2 && (
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-forest-50 text-forest-700 dark:bg-forest-950/60 dark:text-lime border border-forest-200 dark:border-forest-800 uppercase tracking-wide">
+                                  Beranda (Standar)
+                                </span>
+                              )}
+                              {!isDisplayedOnHome && (
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 uppercase tracking-wide">
+                                  Arsip (Tidak Tampil)
+                                </span>
+                              )}
+                            </div>
+
+                            <h4 className="text-sm font-bold text-gray-900 dark:text-white truncate">{item.title}</h4>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">{item.description || "Tanpa deskripsi"}</p>
+                          </div>
+                        </div>
+
+                        {/* Controls & Actions */}
+                        <div className="flex items-center justify-between md:justify-end gap-2 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-gray-100 dark:border-gray-800">
+                          {/* Slot Selector Dropdown */}
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[11px] font-semibold text-gray-500 dark:text-gray-400 hidden lg:inline">Set Posisi:</span>
+                            <select
+                              value={idx < 6 ? idx : "other"}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                if (val !== "other") {
+                                  handleMoveMediaSlot(item.id, parseInt(val, 10));
+                                }
+                              }}
+                              className="px-3 py-1.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 text-xs font-bold text-gray-800 dark:text-gray-200 focus:border-forest-600 focus:outline-none cursor-pointer"
+                            >
+                              <option value={0}>🌟 Posisi #1 (Besar Utama)</option>
+                              <option value={1}>⭐ Posisi #2 (Besar Sekunder)</option>
+                              <option value={2}>📌 Posisi #3 (Kartu Standar)</option>
+                              <option value={3}>📌 Posisi #4 (Kartu Standar)</option>
+                              <option value={4}>📌 Posisi #5 (Kartu Standar)</option>
+                              <option value={5}>📌 Posisi #6 (Kartu Standar)</option>
+                              {idx >= 6 && <option value="other">📁 Arsip (#{idx + 1})</option>}
+                            </select>
+                          </div>
+
+                          {/* Up & Down Reorder Buttons */}
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              onClick={() => handleMoveMediaStep(idx, "up")}
+                              disabled={idx === 0}
+                              className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-forest-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                              title="Pindahkan Ke Atas"
+                            >
+                              <ChevronUp className="w-4 h-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleMoveMediaStep(idx, "down")}
+                              disabled={idx === mediaList.length - 1}
+                              className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-forest-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                              title="Pindahkan Ke Bawah"
+                            >
+                              <ChevronDown className="w-4 h-4" />
+                            </button>
+                          </div>
+
+                          {/* Edit & Delete Buttons */}
+                          <div className="flex items-center gap-1 border-l border-gray-200 dark:border-gray-800 pl-2">
+                            <button
+                              onClick={() => startEditMedia(item)}
+                              className="p-2 bg-forest-50 hover:bg-forest-100 text-forest-700 dark:bg-forest-950 dark:hover:bg-forest-900 dark:text-lime rounded-xl transition-colors cursor-pointer"
+                              title="Edit Konten"
+                            >
+                              <Edit className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteMedia(item.id)}
+                              disabled={actionLoadingId === item.id}
+                              className="p-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors cursor-pointer"
+                              title="Hapus Konten"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>

@@ -86,17 +86,14 @@ function sanitizeLocalItem(input: MediaSpaceCreatePayload): MediaSpaceCreatePayl
   };
 }
 
-// ── GET: ambil semua konten Media Space (publik — untuk section beranda) ──
+// ── GET: ambil semua konten Media Space (prioritas Sanity CMS) ──
 export async function GET() {
   const sanityItems = await getMediaSpaceFromSanity();
   if (sanityItems.length > 0) {
-    return NextResponse.json(
-      { items: sanityItems },
-      { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" } }
-    );
+    return NextResponse.json({ ok: true, items: sanityItems, data: sanityItems });
   }
-  const items = await readItems();
-  return NextResponse.json({ items });
+  const localItems = await readItems();
+  return NextResponse.json({ ok: true, items: localItems, data: localItems });
 }
 
 // ── POST: tambah konten baru (admin gated, opsional upload gambar) ──
@@ -191,7 +188,12 @@ export async function POST(req: Request) {
   items.unshift(newItem);
   await writeItems(items);
 
-  return apiOk("Konten Media Space berhasil ditambahkan!", newItem);
+  return NextResponse.json({
+    ok: true,
+    message: "Konten Media Space berhasil ditambahkan!",
+    items,
+    data: items,
+  });
 }
 
 // ── PUT: edit konten (admin gated, opsional ganti gambar) ──
@@ -292,7 +294,12 @@ export async function PUT(req: Request) {
   };
   await writeItems(items);
 
-  return apiOk("Konten Media Space berhasil diperbarui!", items[idx]);
+  return NextResponse.json({
+    ok: true,
+    message: "Konten Media Space berhasil diperbarui!",
+    items,
+    data: items,
+  });
 }
 
 // ── DELETE: hapus konten (admin gated) ──
@@ -328,6 +335,81 @@ export async function DELETE(req: Request) {
     } catch {}
   }
 
-  await writeItems(items.filter((i) => i.id !== parsed.data.id));
-  return apiOk("Konten Media Space berhasil dihapus.");
+  const updatedItems = items.filter((i) => i.id !== parsed.data.id);
+  await writeItems(updatedItems);
+  return NextResponse.json({
+    ok: true,
+    message: "Konten Media Space berhasil dihapus.",
+    items: updatedItems,
+    data: updatedItems,
+  });
+}
+
+// ── PATCH: atur ulang urutan / posisi konten Media Space ──
+export async function PATCH(req: Request) {
+  const admin = await requireAdmin();
+  if (!admin) return apiUnauthorized();
+
+  try {
+    const body = await req.json();
+    const { itemIds } = body;
+    if (!Array.isArray(itemIds) || itemIds.length === 0) {
+      return apiBadRequest("Daftar ID (itemIds) wajib diberikan dalam format array.");
+    }
+
+    const sanityClient = getSanityWriteClient();
+    const hasSanityItems = itemIds.some((id: string) => !id.startsWith("media-space-"));
+
+    if (sanityClient && hasSanityItems) {
+      try {
+        const now = Date.now();
+        const transaction = sanityClient.transaction();
+        itemIds.forEach((id: string, index: number) => {
+          if (!id.startsWith("media-space-")) {
+            const isoDate = new Date(now - index * 1000).toISOString();
+            transaction.patch(id, (p) => p.set({ createdAt: isoDate }));
+          }
+        });
+        await transaction.commit();
+        const updatedSanity = await getMediaSpaceFromSanity();
+        if (updatedSanity.length > 0) {
+          return NextResponse.json({
+            ok: true,
+            message: "Urutan Sanity CMS Media Space berhasil disimpan!",
+            items: updatedSanity,
+            data: updatedSanity,
+          });
+        }
+      } catch (err) {
+        console.error("Sanity reorder failed", err);
+      }
+    }
+
+    // Local JSON reorder
+    const items = await readItems();
+    const itemMap = new Map(items.map((item) => [item.id, item]));
+
+    const reordered: MediaSpaceItem[] = [];
+    for (const id of itemIds) {
+      const found = itemMap.get(id);
+      if (found) {
+        reordered.push(found);
+        itemMap.delete(id);
+      }
+    }
+    // Sisa item yang tidak dimasukkan secara eksplisit ditaruh di bagian bawah
+    for (const remainingItem of itemMap.values()) {
+      reordered.push(remainingItem);
+    }
+
+    await writeItems(reordered);
+    return NextResponse.json({
+      ok: true,
+      message: "Urutan tampilan Media Space berhasil diperbarui!",
+      items: reordered,
+      data: reordered,
+    });
+  } catch (err: any) {
+    return apiServerError("Gagal mengatur urutan Media Space: " + (err?.message ?? "unknown"));
+  }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Sparkles, ChevronLeft, ChevronRight, ArrowRight, MapPin, Calendar, X, ZoomIn } from "lucide-react";
@@ -17,7 +18,12 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
   const [lightbox, setLightbox] = useState<KegiatanSeruItem | null>(null);
+  const [mounted, setMounted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Kunci scroll body & tutup lightbox dengan tombol Escape saat terbuka
   useEffect(() => {
@@ -212,69 +218,73 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
       </div>
     </section>
 
-    {/* ── Lightbox Poster Modal ── */}
-    <AnimatePresence>
-      {lightbox && (
-        <motion.div
-          key="poster-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Poster ${lightbox.title}`}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }
-          }
-          onClick={() => setLightbox(null)}
-        >
-          <motion.div
-            className="relative"
-            initial={
-              shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9, y: 24 }
-            }
-            animate={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }
-            }
-            exit={
-              shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 12 }
-            }
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { type: "spring", stiffness: 300, damping: 26 }
-            }
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative max-h-[85vh] max-w-[92vw] sm:max-w-4xl">
-              <Image
-                src={lightbox.posterUrl || "/placeholder.png"}
-                alt={lightbox.title}
-                width={900}
-                height={1200}
-                loading="lazy"
-                className="w-auto h-auto max-h-[85vh] max-w-[92vw] sm:max-w-4xl object-contain rounded-2xl shadow-2xl ring-1 ring-white/10"
-                unoptimized
-              />
-            </div>
-
-            {/* Tombol tutup */}
-            <button
-              type="button"
-              autoFocus
+    {/* ── Lightbox Poster Modal (Mounted on document.body to stay above Navbar & Music FAB) ── */}
+    {mounted &&
+      createPortal(
+        <AnimatePresence>
+          {lightbox && (
+            <motion.div
+              key="poster-lightbox"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Poster ${lightbox.title}`}
+              className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/92 backdrop-blur-md p-4 sm:p-8 overflow-hidden select-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }
+              }
               onClick={() => setLightbox(null)}
-              aria-label="Tutup poster"
-              className="absolute -top-3.5 -right-3.5 p-2 bg-white text-gray-800 rounded-full shadow-lg hover:bg-gray-100 hover:scale-110 active:scale-95 transition-all cursor-pointer z-10"
             >
-              <X className="w-5 h-5" />
-            </button>
-          </motion.div>
-        </motion.div>
+              <motion.div
+                className="relative"
+                initial={
+                  shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9, y: 20 }
+                }
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }
+                }
+                exit={
+                  shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 10 }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 320, damping: 25 }
+                }
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="relative max-h-[85vh] max-w-[92vw] sm:max-w-4xl flex items-center justify-center">
+                  <Image
+                    src={lightbox.posterUrl || "/placeholder.png"}
+                    alt={lightbox.title}
+                    width={900}
+                    height={1200}
+                    loading="lazy"
+                    className="w-auto h-auto max-h-[85vh] max-w-[92vw] sm:max-w-4xl object-contain rounded-2xl shadow-2xl ring-1 ring-white/20"
+                    unoptimized
+                  />
+                </div>
+
+                {/* Tombol silang kecil di kanan atas poster */}
+                <button
+                  type="button"
+                  autoFocus
+                  onClick={() => setLightbox(null)}
+                  aria-label="Tutup poster"
+                  className="absolute -top-3.5 -right-3.5 sm:-top-4 sm:-right-4 w-9 h-9 sm:w-10 sm:h-10 bg-white text-gray-900 dark:bg-gray-900 dark:text-white rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer z-50 flex items-center justify-center border border-white/20"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
       )}
-    </AnimatePresence>
     </>
   );
 }
