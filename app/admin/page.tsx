@@ -22,7 +22,10 @@ import {
   LogOut,
   Eye,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Upload,
+  GalleryVertical,
+  ImagePlus,
 } from "lucide-react";
 
 interface DraftArticle {
@@ -37,9 +40,58 @@ interface DraftArticle {
   coverImage?: any;
 }
 
+// ── Kegiatan date helpers ───────────────────────────────────────────
+const MAX_POSTER_MB = 2;
+const ALLOWED_POSTER_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+];
+
+const MONTHS_ID = [
+  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+  "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+];
+
+/** Format ISO (2026-07-24) → tampilan Indonesia ("Jumat, 24 Juli 2026"). */
+function formatIsoToDisplay(iso: string): string {
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+/** Parse tampilan Indonesia ("Jumat, 24 Juli 2026") → ISO (2026-07-24). */
+function parseDisplayDateToIso(display: string): string {
+  const match = display.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if (!match) return "";
+  const day = match[1].padStart(2, "0");
+  const monthName = match[2].toLowerCase();
+  const monthIdx = MONTHS_ID.findIndex(
+    (m) =>
+      m.toLowerCase() === monthName ||
+      m.toLowerCase().slice(0, 3) === monthName.slice(0, 3)
+  );
+  if (monthIdx === -1) return "";
+  return `${match[3]}-${String(monthIdx + 1).padStart(2, "0")}-${day}`;
+}
+
+/** Terima tampilan Indonesia ATAU ISO langsung (untuk mode edit). */
+function toIsoFromDisplayOrIso(value: string): string {
+  if (!value) return "";
+  if (/^\d{4}-\d{2}-\d{2}/.test(value.trim())) return value.trim().slice(0, 10);
+  return parseDisplayDateToIso(value);
+}
+
 export default function AdminPage() {
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState<"moderasi" | "terbit" | "kegiatan">("moderasi");
+  const [activeTab, setActiveTab] = useState<"moderasi" | "terbit" | "kegiatan" | "media">("moderasi");
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
   const [publishedArticles, setPublishedArticles] = useState<DraftArticle[]>([]);
@@ -62,7 +114,8 @@ export default function AdminPage() {
   // Form State for Kegiatan Seru
   const [editingEventId, setEditingEventId] = useState<string | null>(null);
   const [eventTitle, setEventTitle] = useState("");
-  const [eventDate, setEventDate] = useState("");
+  const [eventDate, setEventDate] = useState(""); // Format tampilan: "Jumat, 24 Juli 2026"
+  const [eventDateIso, setEventDateIso] = useState(""); // Value input kalender: "2026-07-24"
   const [eventDayBadge, setEventDayBadge] = useState("");
   const [eventMonthBadge, setEventMonthBadge] = useState("");
   const [eventLocation, setEventLocation] = useState("");
@@ -70,13 +123,30 @@ export default function AdminPage() {
   const [eventInstagramUrl, setEventInstagramUrl] = useState("");
   const [eventPosterFile, setEventPosterFile] = useState<File | null>(null);
   const [eventPosterPreview, setEventPosterPreview] = useState<string | null>(null);
+  const [eventPosterOriginalUrl, setEventPosterOriginalUrl] = useState<string | null>(null);
+  const [eventPosterObjectUrl, setEventPosterObjectUrl] = useState<string | null>(null);
+  const [eventPosterDragOver, setEventPosterDragOver] = useState(false);
   const [eventSubmitting, setEventSubmitting] = useState(false);
 
-  // Fetch drafts, published articles, and kegiatan on mount
+  // Form State for Media Space
+  const [mediaList, setMediaList] = useState<any[]>([]);
+  const [editingMediaId, setEditingMediaId] = useState<string | null>(null);
+  const [mediaTitle, setMediaTitle] = useState("");
+  const [mediaDescription, setMediaDescription] = useState("");
+  const [mediaInstagramUrl, setMediaInstagramUrl] = useState("");
+  const [mediaImageFile, setMediaImageFile] = useState<File | null>(null);
+  const [mediaImagePreview, setMediaImagePreview] = useState<string | null>(null);
+  const [mediaImageOriginalUrl, setMediaImageOriginalUrl] = useState<string | null>(null);
+  const [mediaImageObjectUrl, setMediaImageObjectUrl] = useState<string | null>(null);
+  const [mediaImageDragOver, setMediaImageDragOver] = useState(false);
+  const [mediaSubmitting, setMediaSubmitting] = useState(false);
+
+  // Fetch drafts, published articles, kegiatan, and media space on mount
   useEffect(() => {
     fetchDrafts();
     fetchPublishedArticles();
     fetchKegiatan();
+    fetchMediaSpace();
   }, []);
 
   async function fetchKegiatan() {
@@ -93,32 +163,125 @@ export default function AdminPage() {
     setEditingEventId(item.id);
     setEventTitle(item.title || "");
     setEventDate(item.date || "");
+    setEventDateIso(toIsoFromDisplayOrIso(item.date || ""));
     setEventDayBadge(item.dayBadge || "");
     setEventMonthBadge(item.monthBadge || "");
     setEventLocation(item.location || "");
     setEventDescription(item.description || "");
     setEventInstagramUrl(item.instagramUrl || "");
+    // Reset poster state; simpan poster lama agar bisa dikembalikan saat Hapus
+    if (eventPosterObjectUrl) URL.revokeObjectURL(eventPosterObjectUrl);
+    setEventPosterObjectUrl(null);
     setEventPosterFile(null);
+    setEventPosterOriginalUrl(item.posterUrl || null);
     setEventPosterPreview(item.posterUrl || null);
+    setEventPosterDragOver(false);
   };
 
   const cancelEditKegiatan = () => {
     setEditingEventId(null);
     setEventTitle("");
     setEventDate("");
+    setEventDateIso("");
     setEventDayBadge("");
     setEventMonthBadge("");
     setEventLocation("");
     setEventDescription("");
     setEventInstagramUrl("");
+    if (eventPosterObjectUrl) URL.revokeObjectURL(eventPosterObjectUrl);
+    setEventPosterObjectUrl(null);
+    setEventPosterOriginalUrl(null);
     setEventPosterFile(null);
     setEventPosterPreview(null);
+    setEventPosterDragOver(false);
+  };
+
+  // Tanggal dipilih dari kalender → otomatis isi badge (angka hari + bulan) & teks tampil
+  const handleEventDateChange = (iso: string) => {
+    setEventDateIso(iso);
+    if (!iso) {
+      setEventDate("");
+      setEventDayBadge("");
+      setEventMonthBadge("");
+      return;
+    }
+    const d = new Date(`${iso}T00:00:00`);
+    if (Number.isNaN(d.getTime())) {
+      setEventDate("");
+      setEventDayBadge("");
+      setEventMonthBadge("");
+      return;
+    }
+    setEventDate(formatIsoToDisplay(iso));
+    setEventDayBadge(String(d.getDate()));
+    setEventMonthBadge(
+      d.toLocaleDateString("en-US", { month: "short" }).toUpperCase()
+    );
+  };
+
+  // ── Poster upload (drag & drop / klik) ────────────────────────────
+  const validatePosterFile = (file: File): string | null => {
+    // Sama dengan daftar MIME di server (ALLOWED_IMAGE_MIME_TYPES) — drag & drop
+    // melewati atribut accept, jadi validasi di sini harus tegas.
+    if (!ALLOWED_POSTER_TYPES.includes(file.type)) {
+      return "Format file tidak didukung. Gunakan JPG, PNG, WEBP, atau GIF.";
+    }
+    if (file.size > MAX_POSTER_MB * 1024 * 1024) {
+      return `Ukuran poster maksimal ${MAX_POSTER_MB}MB.`;
+    }
+    return null;
+  };
+
+  const handlePosterFile = (file: File) => {
+    const err = validatePosterFile(file);
+    if (err) {
+      setError(err);
+      return;
+    }
+    setError("");
+    // Revoke blob URL lama (kalau ada) agar tidak bocor memori
+    if (eventPosterObjectUrl) URL.revokeObjectURL(eventPosterObjectUrl);
+    const url = URL.createObjectURL(file);
+    setEventPosterObjectUrl(url);
+    setEventPosterFile(file);
+    setEventPosterPreview(url);
+  };
+
+  const handlePosterDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setEventPosterDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) handlePosterFile(file);
+  };
+
+  const handlePosterFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handlePosterFile(file);
+  };
+
+  const removePosterFile = () => {
+    // Revoke blob baru & kembalikan preview ke poster lama (mode edit) agar
+    // UI tidak tampak kosong padahal server masih menyimpan poster lama.
+    if (eventPosterObjectUrl) {
+      URL.revokeObjectURL(eventPosterObjectUrl);
+      setEventPosterObjectUrl(null);
+    }
+    setEventPosterFile(null);
+    setEventPosterPreview(eventPosterOriginalUrl);
   };
 
   const handleAddKegiatan = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccessMsg("");
+
+    // Tanggal wajib diisi. `eventDate` (bukan eventDateIso) agar data legacy
+    // yang formatnya tak ter-parse tetap bisa disimpan tanpa mengubah tanggalnya.
+    if (!eventDate) {
+      setError("Silakan pilih Hari & Tanggal kegiatan terlebih dahulu.");
+      return;
+    }
+
     setEventSubmitting(true);
 
     try {
@@ -177,6 +340,159 @@ export default function AdminPage() {
 
       setSuccessMsg(data.message || "Kegiatan berhasil dihapus.");
       setKegiatanList((prev) => prev.filter((item) => item.id !== eventId));
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
+
+  // ── Media Space handlers ──────────────────────────────────────────
+  async function fetchMediaSpace() {
+    try {
+      const res = await fetch("/api/admin/media-space");
+      if (res.ok) {
+        const data = await res.json();
+        setMediaList(data.items || []);
+      }
+    } catch {}
+  }
+
+  const startEditMedia = (item: any) => {
+    setEditingMediaId(item.id);
+    setMediaTitle(item.title || "");
+    setMediaDescription(item.description || "");
+    setMediaInstagramUrl(item.instagramUrl || "");
+    if (mediaImageObjectUrl) URL.revokeObjectURL(mediaImageObjectUrl);
+    setMediaImageObjectUrl(null);
+    setMediaImageFile(null);
+    setMediaImageOriginalUrl(item.imageUrl || null);
+    setMediaImagePreview(item.imageUrl || null);
+    setMediaImageDragOver(false);
+  };
+
+  const cancelEditMedia = () => {
+    setEditingMediaId(null);
+    setMediaTitle("");
+    setMediaDescription("");
+    setMediaInstagramUrl("");
+    if (mediaImageObjectUrl) URL.revokeObjectURL(mediaImageObjectUrl);
+    setMediaImageObjectUrl(null);
+    setMediaImageOriginalUrl(null);
+    setMediaImageFile(null);
+    setMediaImagePreview(null);
+    setMediaImageDragOver(false);
+  };
+
+  const validateMediaImage = (file: File): string | null => {
+    if (!ALLOWED_POSTER_TYPES.includes(file.type)) {
+      return "Format gambar tidak didukung. Gunakan JPG, PNG, WEBP, atau GIF.";
+    }
+    if (file.size > MAX_POSTER_MB * 1024 * 1024) {
+      return `Ukuran gambar maksimal ${MAX_POSTER_MB}MB.`;
+    }
+    return null;
+  };
+
+  const handleMediaImageFile = (file: File) => {
+    const err = validateMediaImage(file);
+    if (err) {
+      setError(err);
+      return;
+    }
+    setError("");
+    if (mediaImageObjectUrl) URL.revokeObjectURL(mediaImageObjectUrl);
+    const url = URL.createObjectURL(file);
+    setMediaImageObjectUrl(url);
+    setMediaImageFile(file);
+    setMediaImagePreview(url);
+  };
+
+  const handleMediaImageDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setMediaImageDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleMediaImageFile(file);
+  };
+
+  const handleMediaImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleMediaImageFile(file);
+  };
+
+  const removeMediaImage = () => {
+    if (mediaImageObjectUrl) {
+      URL.revokeObjectURL(mediaImageObjectUrl);
+      setMediaImageObjectUrl(null);
+    }
+    setMediaImageFile(null);
+    setMediaImagePreview(mediaImageOriginalUrl);
+  };
+
+  const handleAddMedia = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccessMsg("");
+
+    if (!mediaTitle.trim()) {
+      setError("Judul konten wajib diisi.");
+      return;
+    }
+
+    setMediaSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      if (editingMediaId) {
+        formData.append("id", editingMediaId);
+      }
+      formData.append("title", mediaTitle);
+      formData.append("description", mediaDescription);
+      formData.append("instagramUrl", mediaInstagramUrl);
+      if (mediaImageFile) {
+        formData.append("image", mediaImageFile);
+      }
+
+      const res = await fetch("/api/admin/media-space", {
+        method: editingMediaId ? "PUT" : "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Gagal menyimpan konten Media Space.");
+      }
+
+      setSuccessMsg(data.message || (editingMediaId ? "Konten Media Space berhasil diperbarui!" : "Konten Media Space berhasil ditambahkan!"));
+      cancelEditMedia();
+      fetchMediaSpace();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setMediaSubmitting(false);
+    }
+  };
+
+  const handleDeleteMedia = async (mediaId: string) => {
+    if (!confirm("Apakah Anda yakin ingin menghapus konten Media Space ini?")) return;
+    setError("");
+    setSuccessMsg("");
+    setActionLoadingId(mediaId);
+
+    try {
+      const res = await fetch(`/api/admin/media-space?id=${mediaId}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Gagal menghapus konten Media Space.");
+      }
+
+      setSuccessMsg(data.message || "Konten Media Space berhasil dihapus.");
+      setMediaList((prev) => prev.filter((item) => item.id !== mediaId));
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -442,7 +758,7 @@ export default function AdminPage() {
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex gap-2 border-b border-gray-200 dark:border-gray-800 mb-8">
+        <div className="flex flex-wrap gap-x-2 gap-y-1 border-b border-gray-200 dark:border-gray-800 mb-8">
           <button
             onClick={() => setActiveTab("moderasi")}
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
@@ -475,6 +791,17 @@ export default function AdminPage() {
           >
             <Calendar className="w-4 h-4" />
             Event Terdekat ({kegiatanList.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("media")}
+            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+              activeTab === "media"
+                ? "border-forest-600 text-forest-900 dark:text-lime dark:border-lime"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+            }`}
+          >
+            <GalleryVertical className="w-4 h-4" />
+            Media Space ({mediaList.length})
           </button>
         </div>
 
@@ -764,44 +1091,26 @@ export default function AdminPage() {
                     />
                   </div>
 
-                  {/* Badge Tanggal & Bulan */}
-                  <div className="flex flex-col gap-1.5">
+                  {/* Hari & Tanggal Kegiatan — pilih via kalender, badge & teks otomatis */}
+                  <div className="flex flex-col gap-1.5 md:col-span-2">
                     <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-                      Tgl Badge (Angka) & Bulan <span className="text-red-500">*</span>
-                    </label>
-                    <div className="flex gap-3">
-                      <input
-                        type="text"
-                        required
-                        placeholder="Tgl (mis. 17)"
-                        value={eventDayBadge}
-                        onChange={(e) => setEventDayBadge(e.target.value)}
-                        className="w-1/2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold dark:bg-gray-950 dark:text-white"
-                      />
-                      <input
-                        type="text"
-                        required
-                        placeholder="Bulan (mis. JUL)"
-                        value={eventMonthBadge}
-                        onChange={(e) => setEventMonthBadge(e.target.value.toUpperCase())}
-                        className="w-1/2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-bold uppercase dark:bg-gray-950 dark:text-white"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Tanggal Lengkap Teks */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-                      Hari & Tanggal Lengkap <span className="text-red-500">*</span>
+                      Hari & Tanggal Kegiatan <span className="text-red-500">*</span>
                     </label>
                     <input
-                      type="text"
-                      required
-                      placeholder="mis. Jumat, 17 Juli 2026"
-                      value={eventDate}
-                      onChange={(e) => setEventDate(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium dark:bg-gray-950 dark:text-white"
+                      type="date"
+                      value={eventDateIso}
+                      onChange={(e) => handleEventDateChange(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium dark:bg-gray-950 dark:text-white dark:[color-scheme:dark]"
                     />
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-forest-50 dark:bg-forest-950/60 border border-forest-150 dark:border-forest-800 text-forest-700 dark:text-lime text-xs font-bold">
+                        <Calendar className="w-3.5 h-3.5" />
+                        Badge: {eventDayBadge || "--"} {eventMonthBadge || "---"}
+                      </span>
+                      <span className="text-[11px] text-gray-400 dark:text-gray-500 font-semibold">
+                        Tampil: {eventDate || "Pilih tanggal di kalender"}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Lokasi */}
@@ -833,29 +1142,104 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* Poster Image File Upload */}
+                {/* Poster Image File Upload — drag & drop / klik */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-                    Upload Poster Event (Portrait 3:4 / 4:5)
+                    Upload Poster Event <span className="text-gray-400 dark:text-gray-500 normal-case">(Portrait 3:4 / 4:5)</span>
                   </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setEventPosterFile(file);
-                        setEventPosterPreview(URL.createObjectURL(file));
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setEventPosterDragOver(true);
+                    }}
+                    onDragLeave={(e) => {
+                      // Hindari flicker saat kursor melewati elemen anak (preview, tombol)
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                        setEventPosterDragOver(false);
                       }
                     }}
-                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-forest-50 file:text-forest-700 hover:file:bg-forest-100 dark:file:bg-gray-800 dark:file:text-lime cursor-pointer"
-                  />
-                  {eventPosterPreview && (
-                    <div className="mt-2 relative w-32 aspect-[3/4] rounded-xl overflow-hidden border border-gray-200 shadow-md">
-                      {/* eslint-disable-next-line @next/next/no-img-element -- blob preview is not supported by next/image */}
-                      <img src={eventPosterPreview} alt="Preview Poster" className="w-full h-full object-cover" />
-                    </div>
-                  )}
+                    onDrop={handlePosterDrop}
+                    onClick={() => document.getElementById("eventPosterInput")?.click()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        document.getElementById("eventPosterInput")?.click();
+                      }
+                    }}
+                    className={`relative border-2 border-dashed rounded-2xl p-5 text-center cursor-pointer transition-all group outline-none ${
+                      eventPosterDragOver
+                        ? "border-forest-600 bg-forest-50/70 dark:border-lime dark:bg-forest-950/40"
+                        : eventPosterPreview
+                          ? "border-forest-600 bg-forest-50/30 dark:border-lime dark:bg-forest-950/30"
+                          : "border-gray-300 hover:border-forest-600 dark:border-gray-700 dark:hover:border-lime focus-visible:ring-2 focus-visible:ring-forest-600/40"
+                    }`}
+                  >
+                    <input
+                      id="eventPosterInput"
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                      onChange={handlePosterFileInput}
+                      className="hidden"
+                    />
+
+                    {eventPosterPreview ? (
+                      <div className="flex items-center justify-center gap-5 flex-wrap">
+                        <div className="relative w-28 aspect-[3/4] rounded-xl overflow-hidden border border-gray-200 shadow-md shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element -- blob preview is not supported by next/image */}
+                          <img src={eventPosterPreview} alt="Preview Poster" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="text-left space-y-2 min-w-0">
+                          <p className="text-xs font-bold text-forest-700 dark:text-lime">
+                            {eventPosterFile ? "Poster baru dipilih" : "Poster saat ini"}
+                          </p>
+                          {eventPosterFile && (
+                            <p className="text-[11px] text-gray-500 dark:text-gray-400 max-w-[220px] break-all">
+                              {eventPosterFile.name} ({(eventPosterFile.size / 1024 / 1024).toFixed(1)} MB)
+                            </p>
+                          )}
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                document.getElementById("eventPosterInput")?.click();
+                              }}
+                              className="px-3.5 py-1.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-[11px] font-bold transition-all cursor-pointer active:scale-95"
+                            >
+                              Ganti
+                            </button>
+                            {eventPosterFile && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  removePosterFile();
+                                }}
+                                className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-full text-[11px] font-bold transition-all cursor-pointer active:scale-95"
+                              >
+                                Hapus
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 py-4">
+                        <div className="w-12 h-12 rounded-2xl bg-forest-50 dark:bg-gray-800 border border-forest-100 dark:border-gray-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                          <Upload className="w-6 h-6 text-forest-600 dark:text-lime" />
+                        </div>
+                        <p className="text-sm font-bold text-gray-800 dark:text-gray-100">
+                          Klik untuk pilih atau{" "}
+                          <span className="text-forest-600 dark:text-lime">seret & lepas</span> poster di sini
+                        </p>
+                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">
+                          JPG, PNG, WEBP · Maks {MAX_POSTER_MB}MB · Portrait 3:4 / 4:5
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Deskripsi */}
@@ -948,6 +1332,252 @@ export default function AdminPage() {
                           disabled={actionLoadingId === item.id}
                           className="p-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors cursor-pointer"
                           title="Hapus Kegiatan"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Tab 4: Media Space Management */}
+        {activeTab === "media" && (
+          <div className="space-y-10">
+            {/* Form Tambah Konten Media Space */}
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-800 space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-lime flex items-center gap-2">
+                  <GalleryVertical className="w-5 h-5 text-forest-600 dark:text-lime" />
+                  {editingMediaId ? "Edit Konten Media Space" : "Tambah Konten Media Space"}
+                </h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">
+                  Konten tampil sebagai grid bento di beranda — klik foto membuka postingan Instagram.
+                </p>
+              </div>
+
+              <form onSubmit={handleAddMedia} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {/* Judul */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                      Judul Konten <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="mis. Kajian Pekanan Rabu"
+                      value={mediaTitle}
+                      onChange={(e) => setMediaTitle(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-semibold dark:bg-gray-950 dark:text-white"
+                    />
+                  </div>
+
+                  {/* Link Instagram */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                      Link Postingan Instagram
+                    </label>
+                    <input
+                      type="url"
+                      placeholder="https://www.instagram.com/p/..."
+                      value={mediaInstagramUrl}
+                      onChange={(e) => setMediaInstagramUrl(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-medium dark:bg-gray-950 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                {/* Gambar — drag & drop / klik */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                    Foto Postingan <span className="text-gray-400 dark:text-gray-500 normal-case">(disarankan persegi / landscape)</span>
+                  </label>
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setMediaImageDragOver(true);
+                    }}
+                    onDragLeave={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                        setMediaImageDragOver(false);
+                      }
+                    }}
+                    onDrop={handleMediaImageDrop}
+                    onClick={() => document.getElementById("mediaImageInput")?.click()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        document.getElementById("mediaImageInput")?.click();
+                      }
+                    }}
+                    className={`relative border-2 border-dashed rounded-2xl p-5 text-center cursor-pointer transition-all group outline-none ${
+                      mediaImageDragOver
+                        ? "border-forest-600 bg-forest-50/70 dark:border-lime dark:bg-forest-950/40"
+                        : mediaImagePreview
+                          ? "border-forest-600 bg-forest-50/30 dark:border-lime dark:bg-forest-950/30"
+                          : "border-gray-300 hover:border-forest-600 dark:border-gray-700 dark:hover:border-lime focus-visible:ring-2 focus-visible:ring-forest-600/40"
+                    }`}
+                  >
+                    <input
+                      id="mediaImageInput"
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                      onChange={handleMediaImageInput}
+                      className="hidden"
+                    />
+
+                    {mediaImagePreview ? (
+                      <div className="flex items-center justify-center gap-5 flex-wrap">
+                        <div className="relative w-28 h-28 rounded-xl overflow-hidden border border-gray-200 shadow-md shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element -- blob preview is not supported by next/image */}
+                          <img src={mediaImagePreview} alt="Preview Konten Media Space" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="text-left space-y-2 min-w-0">
+                          <p className="text-xs font-bold text-forest-700 dark:text-lime">
+                            {mediaImageFile ? "Foto baru dipilih" : "Foto saat ini"}
+                          </p>
+                          {mediaImageFile && (
+                            <p className="text-[11px] text-gray-500 dark:text-gray-400 max-w-[220px] break-all">
+                              {mediaImageFile.name} ({(mediaImageFile.size / 1024 / 1024).toFixed(1)} MB)
+                            </p>
+                          )}
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                document.getElementById("mediaImageInput")?.click();
+                              }}
+                              className="px-3.5 py-1.5 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-[11px] font-bold transition-all cursor-pointer active:scale-95"
+                            >
+                              Ganti
+                            </button>
+                            {mediaImageFile && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  removeMediaImage();
+                                }}
+                                className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-full text-[11px] font-bold transition-all cursor-pointer active:scale-95"
+                              >
+                                Hapus
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 py-4">
+                        <div className="w-12 h-12 rounded-2xl bg-forest-50 dark:bg-gray-800 border border-forest-100 dark:border-gray-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                          <ImagePlus className="w-6 h-6 text-forest-600 dark:text-lime" />
+                        </div>
+                        <p className="text-sm font-bold text-gray-800 dark:text-gray-100">
+                          Klik untuk pilih atau{" "}
+                          <span className="text-forest-600 dark:text-lime">seret & lepas</span> foto di sini
+                        </p>
+                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">
+                          JPG, PNG, WEBP · Maks {MAX_POSTER_MB}MB
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Deskripsi */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                    Deskripsi Singkat
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder="Deskripsi singkat yang tampil saat hover di grid bento..."
+                    value={mediaDescription}
+                    onChange={(e) => setMediaDescription(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 text-sm focus:border-forest-600 focus:outline-none transition-all font-normal leading-relaxed dark:bg-gray-950 dark:text-white"
+                  />
+                </div>
+
+                {/* Submit / Cancel Buttons */}
+                <div className="pt-2 flex justify-end gap-3">
+                  {editingMediaId && (
+                    <button
+                      type="button"
+                      onClick={cancelEditMedia}
+                      className="px-5 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-bold transition-all cursor-pointer"
+                    >
+                      Batal Edit
+                    </button>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={mediaSubmitting}
+                    className="px-6 py-3 bg-forest-600 hover:bg-forest-800 dark:bg-lime dark:hover:bg-lime/90 dark:text-forest-950 text-white rounded-full text-xs font-bold transition-all inline-flex items-center gap-2 shadow-md cursor-pointer active:scale-95 disabled:opacity-50"
+                  >
+                    {mediaSubmitting ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        {editingMediaId ? "Memperbarui Konten..." : "Menyimpan Konten..."}
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-4 h-4" />
+                        {editingMediaId ? "Simpan Perubahan" : "Tambah Konten"}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* List Konten Media Space */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <GalleryVertical className="w-5 h-5 text-forest-600 dark:text-lime" />
+                Daftar Konten Media Space ({mediaList.length})
+              </h3>
+
+              {mediaList.length === 0 ? (
+                <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                  <p className="text-sm font-semibold text-gray-400 dark:text-gray-500">Belum ada konten Media Space.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {mediaList.map((item) => (
+                    <div
+                      key={item.id}
+                      className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-4 shadow-sm flex gap-4 items-center justify-between"
+                    >
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element -- image may be a local or runtime URL */}
+                          <img src={item.imageUrl || "/placeholder.png"} alt={item.title} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="overflow-hidden">
+                          <h4 className="text-sm font-bold text-gray-900 dark:text-white truncate">{item.title}</h4>
+                          <p className="text-xs text-gray-400 dark:text-gray-500 line-clamp-2 mt-0.5">{item.description}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button
+                          onClick={() => startEditMedia(item)}
+                          className="p-2.5 bg-forest-50 hover:bg-forest-100 text-forest-700 dark:bg-forest-950 dark:hover:bg-forest-900 dark:text-lime rounded-xl transition-colors cursor-pointer"
+                          title="Edit Konten"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteMedia(item.id)}
+                          disabled={actionLoadingId === item.id}
+                          className="p-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors cursor-pointer"
+                          title="Hapus Konten"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>

@@ -168,6 +168,27 @@ export async function loadKegiatanSeru(): Promise<import("./types").KegiatanSeru
 }
 
 /**
+ * Media Space (bento grid) — ambil dari Sanity dulu, fallback ke JSON lokal.
+ */
+export async function loadMediaSpace(): Promise<import("./types").MediaSpaceItem[]> {
+  try {
+    const { getMediaSpaceFromSanity } = await import("./sanity");
+    const sanityItems = await getMediaSpaceFromSanity();
+    if (sanityItems && sanityItems.length > 0) {
+      return sanityItems;
+    }
+  } catch {}
+
+  try {
+    const filePath = path.join(contentDir, "media-space", "main.json");
+    const raw = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+/**
  * Load Surah Al-Kahfi from local JSON file at content/al-kahfi/al-kahfi.json.
  *
  * JSON source format (equran.id v3 web-style schema):

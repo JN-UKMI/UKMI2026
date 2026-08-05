@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
@@ -103,6 +104,21 @@ export const metadata: Metadata = {
  * Viewport is a separate export in Next 16 — `themeColor` was moved out of
  * `metadata` so it can adapt per scheme.
  */
+// Geist Sans + Geist Mono (same fonts the site used before the font swap).
+// `next/font/google` self-hosts the woff2 files at build time, so there is
+// NO runtime request to Google — fonts ship from our own origin.
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -128,7 +144,7 @@ export default async function RootLayout({
   return (
     <html
       lang="id"
-      className="h-full antialiased"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <script

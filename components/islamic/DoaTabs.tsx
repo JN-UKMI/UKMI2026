@@ -171,7 +171,7 @@ export function DoaTabs() {
         </div>
       </div>
 
-      {/* Audio Murottal Player for Al-Masurat (Hanan Attaki) */}
+      {/* Audio Murottal Player for Al-Ma'tsurat (Hanan Attaki) */}
       <MasuratAudioPlayer />
 
       {/* Info Status Bacaan Aktif */}

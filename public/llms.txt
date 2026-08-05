@@ -32,5 +32,5 @@
 ## Layanan & Konten Digital Website
 - **Profil & Kabinet**: Struktur pengurus Kabinet Iskandar Muda 2026 dan program kerja.
 - **Artikel & Kajian**: Artikel islami, opini mahasiswa, serta rilis kegiatan terbaru dari Sanity CMS.
-- **Fitur Islami**: Bacaan Al-Kahfi digital, Al-Masurat (zikir pagi & petang), dan database Doa Harian.
+- **Fitur Islami**: Bacaan Al-Kahfi digital, Al-Ma'tsurat (zikir pagi & petang), dan database Doa Harian.
 - **Direktori LDF**: Kontak dan informasi lengkap seluruh LDF di UNS.

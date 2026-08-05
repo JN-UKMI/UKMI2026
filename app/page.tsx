@@ -3,7 +3,8 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { QuoteSection } from "@/components/home/QuoteSection";
 import { KegiatanSeruSection } from "@/components/home/KegiatanSeruSection";
 import { ArtikelTerbaruSection } from "@/components/home/ArtikelTerbaruSection";
-import { loadTestimoni, loadKegiatanSeru } from "@/lib/content";
+import { loadTestimoni, loadKegiatanSeru, loadMediaSpace } from "@/lib/content";
+import { MediaSpaceSection } from "@/components/home/MediaSpaceSection";
 import { getArticles, type ArticlesListResult } from "@/lib/sanity";
 import { buildPageMetadata } from "@/lib/page-metadata";
 
@@ -26,6 +27,7 @@ export const metadata = buildPageMetadata({
 export default async function Home() {
   const testimonials = await loadTestimoni();
   const kegiatanSeruList = await loadKegiatanSeru();
+  const mediaSpaceItems = await loadMediaSpace();
 
   let articles: ArticlesListResult = [];
   try {
@@ -41,6 +43,7 @@ export default async function Home() {
       <KegiatanSeruSection initialEvents={kegiatanSeruList} />
       <ArtikelTerbaruSection articles={articles} />
       <KalenderSection />
+      <MediaSpaceSection items={mediaSpaceItems} />
       <TestimonialSection testimonials={testimonials} />
     </>
   );

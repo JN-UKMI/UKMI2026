@@ -73,7 +73,7 @@ function extFromMime(mime: string): string {
 // (because the caller treats `undefined`/empty as legitimate), `true` if the
 // file is valid (correct MIME + ≤ 5MB), and `false` if the file is present but
 // invalid. Callers should reject on `false`.
-const MAX_POSTER_BYTES = 5 * 1024 * 1024;
+const MAX_POSTER_BYTES = 2 * 1024 * 1024; // 2MB — sinkron dengan penjelasan & validasi client di form admin
 function validatePosterFile(value: FormDataEntryValue | null): boolean {
   if (!(value instanceof File) || value.size === 0) return true;
   if (!ALLOWED_IMAGE_MIME_TYPES.includes(value.type)) return false;
@@ -141,7 +141,7 @@ export async function POST(req: Request) {
   const posterFile = formData.get("poster");
   if (!validatePosterFile(posterFile)) {
     return apiBadRequest(
-      "Poster tidak valid: format harus JPG/PNG/WEBP/GIF dan ukuran maksimal 5MB."
+      "Poster tidak valid: format harus JPG/PNG/WEBP/GIF dan ukuran maksimal 2MB."
     );
   }
 
@@ -253,7 +253,7 @@ export async function PUT(req: Request) {
   const posterFile = formData.get("poster");
   if (!validatePosterFile(posterFile)) {
     return apiBadRequest(
-      "Poster tidak valid: format harus JPG/PNG/WEBP/GIF dan ukuran maksimal 5MB."
+      "Poster tidak valid: format harus JPG/PNG/WEBP/GIF dan ukuran maksimal 2MB."
     );
   }
 

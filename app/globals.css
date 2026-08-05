@@ -23,8 +23,11 @@
 }
 
 :root {
-  --font-geist-sans: Arial, Helvetica, sans-serif;
-  --font-geist-mono: "Courier New", monospace;
+  /* NOTE: --font-geist-sans & --font-geist-mono are NOT defined here — they
+     are injected by next/font/google on the <html> element (app/layout.tsx).
+     Defining them here would override the class-based rules (same specificity,
+     later in the bundle) and silently fall back to Arial. body{} keeps an
+     explicit Arial fallback for when the font class is absent. */
   --font-display: Georgia, "Times New Roman", serif;
   --font-amiri: "Scheherazade New", "Traditional Arabic", serif;
   --font-amiri-quran: "KFGQPCUthmanicScriptHAFS", serif;
@@ -52,7 +55,7 @@
   /* 📖 Teks Ayat Al-Qur'an (Surat Al-Kahfi): Amiri */
   --font-arabic: var(--font-amiri), "KFGQPCUthmanicScriptHAFS", serif;
 
-  /* 📿 Database Doa-Doa & Al-Ma'surat: KFGQPC Uthmanic Script HAFS */
+  /* 📿 Database Doa-Doa & Al-Ma'tsurat: KFGQPC Uthmanic Script HAFS */
   --font-uthmanic: "KFGQPCUthmanicScriptHAFS", var(--font-amiri), serif;
   --font-masurat: "KFGQPCUthmanicScriptHAFS", var(--font-amiri), serif;
 }

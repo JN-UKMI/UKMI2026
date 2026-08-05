@@ -112,7 +112,13 @@ const BadgeFields = {
   dayBadge: z.string().min(1).max(8).regex(/^\d{1,2}$/, "Day badge harus angka 1-2 digit"),
   monthBadge: z.string().min(1).max(12),
   title: z.string().min(1).max(200),
-  date: IsoDateSchema,
+  // Tanggal disimpan sebagai teks tampilan Indonesia (mis. "Jumat, 24 Juli 2026")
+  // agar konsisten dengan data existing. Badge angka/bulan terpisah (dayBadge/monthBadge).
+  // Regex longgar tetap membatasi karakter (huruf/angka/tanda baca umum).
+  date: z.string().min(1).max(120).regex(
+    /^[A-Za-z0-9,·\s.\-:/]+$/,
+    "Format tanggal tidak valid"
+  ),
   location: z.string().max(200).optional(),
   description: z.string().min(1).max(2000),
   instagramUrl: z.string().url().optional().or(z.literal("")),
@@ -127,6 +133,38 @@ export const KegiatanUpdateSchema = z.object({
 export const KegiatanDeleteQuerySchema = z.object({
   id: z.string().min(1).max(200),
 });
+
+// ── Media Space (bento grid beranda) ────────────────────────────────
+export const MediaSpaceCreateSchema = z.object({
+  title: z.string().min(1).max(200),
+  description: z.string().max(1000).optional(),
+  instagramUrl: z
+    .string()
+    .refine(
+      (v) => {
+        if (v === "") return true;
+        try {
+          const u = new URL(v);
+          return u.protocol === "http:" || u.protocol === "https:";
+        } catch {
+          return false;
+        }
+      },
+      "URL Instagram harus http/https yang valid"
+    )
+    .optional()
+    .or(z.literal("")),
+});
+
+export const MediaSpaceUpdateSchema = MediaSpaceCreateSchema.extend({
+  id: z.string().min(1).max(200),
+});
+
+export const MediaSpaceDeleteQuerySchema = z.object({
+  id: z.string().min(1).max(200),
+});
+
+export type MediaSpaceCreatePayload = z.infer<typeof MediaSpaceCreateSchema>;
 
 // ── Image upload (metadata only — file body checked server-side) ──
 export const ImageUploadMetaSchema = z.object({

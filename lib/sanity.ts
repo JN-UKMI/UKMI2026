@@ -158,3 +158,22 @@ export async function getKegiatanSeruFromSanity(): Promise<import("./types").Keg
     return [];
   }
 }
+
+// ── Media Space (Bento Grid Beranda) Queries ────────────────────────
+
+export const MEDIA_SPACE_LIST_QUERY = defineQuery(/* groq */ `*[_type == "mediaPost"] | order(createdAt desc) {
+  "id": _id,
+  title,
+  description,
+  "imageUrl": image.asset->url,
+  instagramUrl,
+  createdAt
+}`)
+
+export async function getMediaSpaceFromSanity(): Promise<import("./types").MediaSpaceItem[]> {
+  try {
+    return await client.fetch(MEDIA_SPACE_LIST_QUERY);
+  } catch {
+    return [];
+  }
+}

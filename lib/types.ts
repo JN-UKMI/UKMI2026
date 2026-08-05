@@ -256,3 +256,12 @@ export interface UkmiStoreContent {
   contacts: UkmiStoreContact[];
 }
 
+export interface MediaSpaceItem {
+  id: string;
+  title: string;
+  description: string;
+  instagramUrl: string;
+  imageUrl: string;
+  createdAt: string;
+}
+

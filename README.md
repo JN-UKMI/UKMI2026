@@ -8,7 +8,7 @@
 
 Selamat datang di repositori resmi **Website Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam (JN UKMI)** Universitas Sebelas Maret (UNS) untuk **Kabinet Iskandar Muda (2026)**.
 
-Platform ini tidak hanya berfungsi sebagai profil organisasi, namun juga sebagai pusat informasi dakwah kampus, direktori lembaga mitra, publikasi artikel kajian, serta menyediakan layanan islami (seperti Al-Kahfi dan Al-Masurat) bagi seluruh mahasiswa muslim di UNS.
+Platform ini tidak hanya berfungsi sebagai profil organisasi, namun juga sebagai pusat informasi dakwah kampus, direktori lembaga mitra, publikasi artikel kajian, serta menyediakan layanan islami (seperti Al-Kahfi dan Al-Ma'tsurat) bagi seluruh mahasiswa muslim di UNS.
 
 ---
 
@@ -19,7 +19,7 @@ Platform ini tidak hanya berfungsi sebagai profil organisasi, namun juga sebagai
 - **Direktori Lembaga Mitra**: Menampilkan jejaring dakwah kampus termasuk **LDF (Lembaga Dakwah Fakultas)**, **OKI (Ormawa Kerohanian Islam)**, dan **Partner** eksternal.
 - **Layanan Islami Digital**:
   - **Al-Kahfi**: Bacaan Surat Al-Kahfi lengkap dengan terjemahan.
-  - **Al-Masurat**: Doa zikir pagi dan petang digital yang praktis.
+  - **Al-Ma'tsurat**: Doa zikir pagi dan petang digital yang praktis.
   - **Doa Harian**: Kumpulan doa sehari-hari untuk mahasiswa.
 - **UI/UX Modern & Performa Tinggi**: Animasi transisi yang *smooth* dan responsif di berbagai perangkat (dioptimasi penuh untuk *mobile* menggunakan *hardware acceleration*).
 

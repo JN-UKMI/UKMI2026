@@ -1,0 +1,50 @@
+[
+  {
+    "id": "media-space-1",
+    "title": "Kajian Pekanan Rabu",
+    "description": "Suasana kajian pekanan JN UKMI di Masjid Nurul Huda UNS — dari konten ini, lihat dokumentasi lengkapnya di Instagram kami.",
+    "instagramUrl": "https://www.instagram.com/jnukmiuns/",
+    "imageUrl": "/placeholder.png",
+    "createdAt": "2026-08-01T08:00:00.000Z"
+  },
+  {
+    "id": "media-space-2",
+    "title": "KKD 2026",
+    "description": "Dokumentasi Kuliah Kerja Dakwah 2026 — pembinaan kader dakwah di berbagai pelosok.",
+    "instagramUrl": "https://www.instagram.com/jnukmiuns/",
+    "imageUrl": "/placeholder.png",
+    "createdAt": "2026-07-25T08:00:00.000Z"
+  },
+  {
+    "id": "media-space-3",
+    "title": "Open Recruitment",
+    "description": "Rangkaian Open Recruitment panitia SIFT 2026.",
+    "instagramUrl": "https://www.instagram.com/jnukmiuns/",
+    "imageUrl": "/placeholder.png",
+    "createdAt": "2026-07-20T08:00:00.000Z"
+  },
+  {
+    "id": "media-space-4",
+    "title": "SIFT 2026",
+    "description": "Sebelas Maret Islamic Festival — festival Islam terbesar di UNS.",
+    "instagramUrl": "https://www.instagram.com/jnukmiuns/",
+    "imageUrl": "/placeholder.png",
+    "createdAt": "2026-07-15T08:00:00.000Z"
+  },
+  {
+    "id": "media-space-5",
+    "title": "Mabit Ramadhan",
+    "description": "Malam bina iman dan taqwa bersama keluarga besar JN UKMI.",
+    "instagramUrl": "https://www.instagram.com/jnukmiuns/",
+    "imageUrl": "/placeholder.png",
+    "createdAt": "2026-07-10T08:00:00.000Z"
+  },
+  {
+    "id": "media-space-6",
+    "title": "Aksi Sosial",
+    "description": "Kegiatan sosial JN UKMI bersama masyarakat sekitar kampus.",
+    "instagramUrl": "https://www.instagram.com/jnukmiuns/",
+    "imageUrl": "/placeholder.png",
+    "createdAt": "2026-07-05T08:00:00.000Z"
+  }
+]
