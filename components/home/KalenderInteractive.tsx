@@ -388,7 +388,7 @@ export function KalenderInteractive({
                         return (
                           <div
                             key={`prev-${i}`}
-                            className="aspect-square flex items-center justify-center text-xs text-gray-400/40 dark:text-gray-600 pointer-events-none bg-gray-50/40 dark:bg-gray-800/20 rounded-2xl min-w-[38px] min-h-[38px]"
+                            className="aspect-square flex items-center justify-center text-xs font-medium text-gray-400/40 dark:text-gray-600 pointer-events-none bg-gray-50/30 dark:bg-gray-900/30 rounded-2xl border border-dashed border-gray-200/60 dark:border-gray-800/80 min-w-[38px] min-h-[38px]"
                           >
                             {dayNum}
                           </div>
@@ -410,18 +410,18 @@ export function KalenderInteractive({
                           <button
                             key={`curr-${dayNum}`}
                             onClick={() => setSelectedDateStr(isSelected ? null : dateString)}
-                            className={`relative aspect-square flex flex-col items-center justify-center text-xs sm:text-sm font-bold rounded-2xl transition-all border cursor-pointer active:scale-95 min-w-[38px] min-h-[38px] ${
+                            className={`relative aspect-square flex flex-col items-center justify-center text-xs sm:text-sm font-bold rounded-2xl transition-all border-2 cursor-pointer active:scale-95 min-w-[38px] min-h-[38px] shadow-2xs ${
                               isSelected
-                                ? "bg-forest-900 dark:bg-forest-600 text-white border-forest-900 dark:border-lime shadow-md ring-2 ring-lime/50"
+                                ? "bg-forest-900 dark:bg-forest-600 text-white border-forest-900 dark:border-lime shadow-lg ring-4 ring-forest-600/30 dark:ring-lime/40 scale-[1.03]"
                                 : isToday
-                                ? "bg-forest-900 dark:bg-gray-800 text-white dark:text-lime border-forest-900 dark:border-lime font-black shadow-md ring-2 ring-lime ring-offset-2 dark:ring-offset-gray-900"
+                                ? "bg-forest-900 dark:bg-gray-800 text-white dark:text-lime border-forest-900 dark:border-lime font-black shadow-md ring-4 ring-forest-500/20 dark:ring-lime/30"
                                 : hasPuasa && hasUkmiEvent
-                                ? "bg-emerald-50/90 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-200 border-emerald-300 dark:border-emerald-700 font-black hover:bg-emerald-100 dark:hover:bg-emerald-900/60"
+                                ? "bg-white dark:bg-gray-800 text-forest-950 dark:text-lime border-2 border-emerald-500 dark:border-emerald-400 font-black hover:border-emerald-600 dark:hover:border-emerald-300 hover:shadow-xs"
                                 : hasPuasa
-                                ? "bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 font-bold hover:bg-emerald-100/80 dark:hover:bg-emerald-900/40"
+                                ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-2 border-emerald-500 dark:border-emerald-400 font-bold hover:border-emerald-600 dark:hover:border-emerald-300 hover:shadow-xs"
                                 : hasUkmiEvent
-                                ? "bg-forest-50/80 dark:bg-forest-950/50 text-forest-900 dark:text-lime border-forest-200 dark:border-forest-800 font-bold hover:bg-forest-100 dark:hover:bg-forest-900/50"
-                                : "bg-white dark:bg-gray-800/80 text-gray-700 dark:text-gray-200 border-gray-100 dark:border-gray-700/60 hover:bg-gray-50 dark:hover:bg-gray-750"
+                                ? "bg-forest-50/80 dark:bg-forest-950/50 text-forest-900 dark:text-lime border-forest-300 dark:border-forest-700 font-bold hover:border-forest-600 dark:hover:border-lime hover:shadow-xs"
+                                : "bg-white dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-forest-600 dark:hover:border-lime hover:shadow-xs"
                             }`}
                           >
                             <span className="leading-none">{dayNum}</span>
