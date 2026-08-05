@@ -59,7 +59,9 @@ export function buildPageMetadata(
   const fullTitle = `${opts.title} | ${siteConfig.shortName}`;
 
   return {
-    title: fullTitle,
+    // Keep the page title unsuffixed here; the root layout's title template
+    // appends "| JN UKMI" exactly once.
+    title: opts.title,
     description: opts.description,
     authors: opts.authors?.map((name) => ({ name })),
     keywords: opts.tags,

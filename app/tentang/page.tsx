@@ -6,9 +6,9 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 export const metadata = buildPageMetadata({
   title: "Tentang Kami",
   description:
-    "Visi, misi, tujuan, dan sejarah perjalanan dakwah Jamaah Nurul Hada UKMI UNS \u2014 organisasi kemahasiswaan Islam yang konsisten membina generasi Qur'ani.",
+    "Profil, visi, misi, dan sejarah JN UKMI UNS sejak 1991 sebagai organisasi Islam resmi Universitas Sebelas Maret.",
   path: "/tentang",
-  tags: ["tentang JN UKMI", "visi misi", "sejarah", "nilai luhur"],
+  tags: ["JN UKMI", "sejarah JN UKMI", "organisasi Islam UNS", "Nurul Huda UNS"],
 });
 
 export default function TentangPage() {

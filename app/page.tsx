@@ -22,8 +22,9 @@ export const revalidate = 0;
 export const metadata = buildPageMetadata({
   title: "Beranda",
   description:
-    "Website resmi Jamaah Nurul Huda UKMI Universitas Sebelas Maret. Organisasi kemahasiswaan Islam yang berkomitmen membina generasi Qur'ani melalui dakwah, kajian, dan pengabdian.",
+    "Website resmi JN UKMI UNS, organisasi Islam Universitas Sebelas Maret sejak 1991 untuk pembinaan mahasiswa, dakwah kampus, dan pengabdian.",
   path: "/",
+  tags: ["JN UKMI", "JN UKMI UNS", "Rohis UNS", "Organisasi Islam UNS", "Nurul Huda UNS"],
 });
 
 export default async function Home() {

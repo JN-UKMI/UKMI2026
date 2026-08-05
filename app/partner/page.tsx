@@ -8,7 +8,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 export const metadata = buildPageMetadata({
   title: 'Partner Dakwah',
   description: 'Direktori Partner Dakwah di kampus UNS',
-  path: '/partnership',
+  path: '/partner',
 });
 
 export default async function PartnerPage() {

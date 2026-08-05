@@ -55,6 +55,21 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.jnukmi.com" }],
+        destination: "https://jnukmi.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/partnership",
+        destination: "/partner",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

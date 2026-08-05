@@ -40,12 +40,20 @@ export function getAbsoluteUrl(path: string): string {
  * with the JSON-LD Organization schema.
  */
 export const siteConfig = {
-  name: "Jamaah Nurul Huda UKMI",
+  name: "Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
   shortName: "JN UKMI",
   description:
-    "Website resmi Jamaah Nurul Huda UKMI Universitas Sebelas Maret. Organisasi kemahasiswaan Islam yang berkomitmen membina generasi Qur'ani melalui dakwah, kajian, dan pengabdian.",
+    "Website resmi JN UKMI UNS, organisasi Islam Universitas Sebelas Maret sejak 1991 yang bergerak dalam pembinaan, dakwah kampus, dan pengabdian.",
   url: BASE_URL,
   locale: "id_ID",
+  foundingDate: "1991-03-12",
+  email: "jnukmi@gmail.com",
+  address: {
+    name: "Sekretariat OKI JN UKMI UNS",
+    locality: "Surakarta",
+    region: "Jawa Tengah",
+    country: "ID",
+  },
   /** Default Open Graph image — overridden by app/opengraph-image.tsx (dynamic). */
   defaultOgImage: "/opengraph-image",
   /** Theme colours (browser chrome + manifest). Forest green is the org's primary. */

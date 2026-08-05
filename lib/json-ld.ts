@@ -29,6 +29,21 @@ export function buildSiteJsonLd(): string {
       alternateName: siteConfig.shortName,
       url: BASE_URL,
       description: siteConfig.description,
+      foundingDate: siteConfig.foundingDate,
+      email: siteConfig.email,
+      address: {
+        "@type": "PostalAddress",
+        name: siteConfig.address.name,
+        addressLocality: siteConfig.address.locality,
+        addressRegion: siteConfig.address.region,
+        addressCountry: siteConfig.address.country,
+      },
+      parentOrganization: {
+        "@type": "CollegeOrUniversity",
+        name: "Universitas Sebelas Maret",
+        alternateName: "UNS",
+        url: "https://uns.ac.id",
+      },
       logo: {
         "@type": "ImageObject",
         url: getAbsoluteUrl("/favicon_io/android-chrome-512x512.png"),
@@ -89,6 +104,7 @@ export function buildArticleJsonLd(opts: ArticleJsonLdOptions): string {
       },
     },
     articleSection: opts.category,
+    isPartOf: { "@id": SITE_ID },
     inLanguage: "id-ID",
   });
 }

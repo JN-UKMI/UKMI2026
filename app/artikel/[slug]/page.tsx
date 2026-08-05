@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { headers } from "next/headers";
-import { BASE_URL } from "@/lib/seo";
+import { BASE_URL, getAbsoluteUrl, siteConfig } from "@/lib/seo";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd } from "@/lib/json-ld";
 import { getArticles, getArticleBySlug, urlFor } from "@/lib/sanity";
 import { createClient } from "next-sanity";
@@ -18,208 +18,29 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// Dummy articles list with PortableText body contents
-const dummyArticlesDetail = [
-  {
-    title: "[Kajian] Membangun Karakter Pemuda Muslim di Era Milenial",
-    slug: "membangun-karakter-pemuda-muslim",
-    excerpt: "Rangkuman kajian pekanan mengenai pilar-pilar karakter yang harus dimiliki pemuda Muslim untuk menghadapi tantangan zaman agar tetap istiqomah di tengah arus modernisasi global.",
-    publishedAt: new Date().toISOString(),
-    category: "Kajian",
-    author: "Humas JN UKMI",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Pemuda Muslim di era milenial saat ini menghadapi tantangan yang sangat besar, baik dari segi pemikiran, gaya hidup, maupun arus digitalisasi global yang masif. Membangun fondasi spiritual yang kokoh adalah langkah pertama yang tidak dapat ditawar." }]
-      },
-      {
-        _type: "block",
-        style: "h2",
-        children: [{ _type: "span", text: "Tiga Pilar Karakter Utama" }]
-      },
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Untuk teguh berdiri di atas nilai-nilai Islam, pemuda perlu memiliki tiga karakteristik fundamental:" }]
-      },
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "1. Salimul Aqidah (Aqidah yang bersih) - Keyakinan mutlak kepada Allah tanpa syirik." }]
-      },
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "2. Shahihul Ibadah (Ibadah yang benar) - Melaksanakan syariat sesuai ajaran Nabi Muhammad SAW." }]
-      },
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "3. Matinul Khuluq (Akhlak yang kokoh) - Berperilaku terpuji kepada sesama makhluk hidup." }]
-      }
-    ]
-  },
-  {
-    title: "[Kegiatan] Dokumentasi Rapat Kerja Kabinet Iskandar Muda",
-    slug: "dokumentasi-raker-iskandar-muda",
-    excerpt: "Laporan pelaksanaan rapat kerja kepengurusan JN UKMI untuk merumuskan program dakwah strategis selama satu periode ke depan, menyelaraskan visi misi bersama seluruh pengurus.",
-    publishedAt: new Date().toISOString(),
-    category: "Kegiatan",
-    author: "Sekretariat",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "JN UKMI UNS Periode Kabinet Iskandar Muda telah sukses menyelenggarakan Rapat Kerja (Raker) perdana. Rapat ini dihadiri oleh jajaran BPH, pengurus harian, serta perwakilan pengurus bidang." }]
-      },
-      {
-        _type: "block",
-        style: "h2",
-        children: [{ _type: "span", text: "Fokus Program Kerja Strategis" }]
-      },
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Melalui diskusi intensif antar-bidang, dihasilkan berbagai usulan program dakwah kreatif berbasis digital serta penguatan pembinaan internal organisasi. Hal ini ditujukan agar syiar islam di lingkungan universitas dapat tersampaikan secara harmonis, modern, dan inklusif." }]
-      }
-    ]
-  },
-  {
-    title: "[Isu] Peran Strategis Aktivis Dakwah Kampus di Universitas Sebelas Maret",
-    slug: "peran-strategis-dakwah-campurs",
-    excerpt: "Opini mengenai kontribusi nyata yang dapat diberikan mahasiswa Muslim terhadap dinamika sosial-kemasyarakatan di kampus serta pentingnya dakwah yang santun dan inklusif.",
-    publishedAt: new Date().toISOString(),
-    category: "Isu",
-    author: "Kastrat JN UKMI",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Aktivis dakwah kampus bukan hanya sekadar penyelenggara acara kajian keagamaan, melainkan pilar perubahan sosial yang berperan aktif menyebarkan pesan kedamaian, toleransi, and nilai luhur islami di dalam kampus." }]
-      },
-      {
-        _type: "block",
-        style: "h2",
-        children: [{ _type: "span", text: "Dakwah Kreatif dan Inovatif" }]
-      },
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Melihat dinamika kampus masa kini, penyampaian dakwah perlu disesuaikan dengan tren mahasiswa terkini, salah satunya dengan pemanfaatan media seni, teknologi, and riset ilmiah secara terukur." }]
-      }
-    ]
-  },
-  {
-    title: "[Kajian] Tafsir Al-Quran Aktual: Surah Al-Kahfi di Tengah Fitnah Akhir Zaman",
-    slug: "tafsir-al-kahfi-akhir-zaman",
-    excerpt: "Ulasan mendalam mengenai pelajaran berharga dari kisah-kisah Surah Al-Kahfi serta tips praktis membentengi diri dari pengaruh negatif moral di masa sekarang.",
-    publishedAt: new Date().toISOString(),
-    category: "Kajian",
-    author: "Kaderisasi",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Membaca Surah Al-Kahfi di hari Jumat bukan sekadar ritual mingguan tanpa makna. Di dalam surah mulia ini, Allah SWT menyisipkan empat buah kisah luar biasa yang sarat akan pelajaran hidup tentang fitnah keyakinan, harta, ilmu, dan kekuasaan." }]
-      }
-    ]
-  },
-  {
-    title: "[Kegiatan] Semarak Ramadhan Kampus: Tebar Takjil & Ifthar Jam'i",
-    slug: "semarak-ramadhan-ifthar-jami",
-    excerpt: "Dokumentasi kebersamaan pengurus JN UKMI dalam berbagi keberkahan Ramadhan dengan pembagian makanan berbuka puasa gratis bagi civitas akademika UNS.",
-    publishedAt: new Date().toISOString(),
-    category: "Kegiatan",
-    author: "Syiar",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Dalam menyambut kemuliaan bulan suci Ramadhan, bidang Syiar JN UKMI mengadakan rangkaian pembagian takjil gratis bagi mahasiswa UNS di sekitar gerbang utama kampus." }]
-      }
-    ]
-  },
-  {
-    title: "[Isu] Menatap Masa Depan Dakwah Kampus Melalui Media Kreatif",
-    slug: "masa-depan-dakwah-media-kreatif",
-    excerpt: "Analisis peluang dan tantangan penyampaian pesan-pesan moral keislaman melalui infografis, video pendek, dan konten audio di kalangan mahasiswa saat ini.",
-    publishedAt: new Date().toISOString(),
-    category: "Isu",
-    author: "Media",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Di era digital saat ini, platform video pendek dan konten visual yang menarik merupakan ujung tombak syiar dakwah. Konten islami harus dikemas secara estetis dan ringkas agar mampu bersaing dengan arus hiburan masa kini." }]
-      }
-    ]
-  },
-  {
-    title: "[Kajian] Pentingnya Menjaga Ukhuwah Islamiyah di Lingkungan Kampus",
-    slug: "menjaga-ukhuwah-islamiyah-kampus",
-    excerpt: "Pembahasan mendalam tentang esensi persaudaraan sesama Muslim serta langkah konkret meminimalkan gesekan pendapat di era informasi digital.",
-    publishedAt: new Date().toISOString(),
-    category: "Kajian",
-    author: "Internal",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Menjaga persatuan dan ikatan ukhuwah (persaudaraan) antar mahasiswa Muslim di lingkungan universitas adalah kunci sukses tegaknya dakwah syiar islam. Perbedaan pemikiran fikih atau golongan semestinya tidak memecah belah kekuatan dakwah bersama." }]
-      }
-    ]
-  },
-  {
-    title: "[Kegiatan] Bakti Sosial Akbar JN UKMI di Desa Mitra Karanganyar",
-    slug: "bakti-sosial-karanganyar",
-    excerpt: "Catatan pengabdian masyarakat berupa pemeriksaan kesehatan gratis dan pembagian sembako yang diinisiasi oleh Bidang Eksternal JN UKMI.",
-    publishedAt: new Date().toISOString(),
-    category: "Kegiatan",
-    author: "Eksternal",
-    coverImage: "/placeholder.png",
-    content: [
-      {
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "Pengabdian kepada masyarakat luar merupakan wujud nyata Tridharma Perguruan Tinggi. Bidang Eksternal JN UKMI bekerja sama dengan tim medis menyelenggarakan pemeriksaan kesehatan gratis serta santunan anak yatim di Karanganyar." }]
-      }
-    ]
-  }
-];
-
 export async function generateStaticParams() {
   let articles: any[] = [];
   try {
     articles = await getArticles();
   } catch {}
 
-  if (articles.length === 0) {
-    articles = dummyArticlesDetail;
-  }
-
   return articles.map((article: { slug: string }) => ({
     slug: article.slug,
   }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PageProps & {
+  searchParams: Promise<{ preview?: string; draft?: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
+  const query = await searchParams;
   let article: any = null;
   try {
     article = await getArticleBySlug(slug);
   } catch {}
-
-  if (!article) {
-    article = dummyArticlesDetail.find((a) => a.slug === slug);
-  }
 
   if (!article) {
     return {
@@ -227,6 +48,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       robots: { index: false, follow: false },
     };
   }
+
+  const isPreview = query.preview === "true" || query.draft === "true";
 
   const url = `${BASE_URL}/artikel/${article.slug}`;
   const coverImageUrl =
@@ -254,7 +77,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url,
       title: article.title,
       description: article.excerpt,
-      siteName: "Jamaah Nurul Hada UKMI",
+      siteName: siteConfig.name,
       locale: "id_ID",
       images: [{ url: coverImageUrl, width: 1200, height: 630, alt: article.title }],
       ...(publishedTime ? { publishedTime } : {}),
@@ -267,6 +90,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: article.excerpt,
       images: [coverImageUrl],
     },
+    robots: isPreview
+      ? { index: false, follow: false, noarchive: true }
+      : { index: true, follow: true },
   };
 }
 export default async function ArtikelDetailPage({ params, searchParams }: PageProps & { searchParams: Promise<{ preview?: string; draft?: string; draftId?: string }> }) {
@@ -334,10 +160,6 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
       article = await getArticleBySlug(slug);
     } catch {}
 
-    // Fallback to local dummy article if not found in Sanity database
-    if (!article) {
-      article = dummyArticlesDetail.find((a) => a.slug === slug);
-    }
   }
 
   if (!article) {
@@ -366,7 +188,9 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
     slug: article.slug,
     title: article.title,
     description: article.excerpt,
-    image: getCoverImageUrl(),
+    image: getCoverImageUrl().startsWith("http")
+      ? getCoverImageUrl()
+      : getAbsoluteUrl(getCoverImageUrl()),
     publishedAt:
       typeof article.publishedAt === "string"
         ? article.publishedAt

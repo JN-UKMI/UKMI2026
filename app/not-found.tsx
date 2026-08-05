@@ -6,6 +6,7 @@ export const metadata = buildPageMetadata({
   title: 'Halaman Tidak Ditemukan',
   description: '',
   path: '/404',
+  noindex: true,
 });
 
 export default function NotFound() {

@@ -12,7 +12,7 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: "/tentang", priority: 0.8 },
   { path: "/kabinet", priority: 0.8 },
   { path: "/ldf", priority: 0.7 },
-  { path: "/partnership", priority: 0.7 },
+  { path: "/partner", priority: 0.7 },
   { path: "/artikel", priority: 0.7 },
   { path: "/doa-doa", priority: 0.6 },
   { path: "/al-kahfi", priority: 0.6 },
@@ -26,6 +26,8 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: "/bidang/kemuslimahan", priority: 0.5 },
   { path: "/kontak", priority: 0.8 },
   { path: "/buku-ukmi", priority: 0.6 },
+  { path: "/oki", priority: 0.6 },
+  { path: "/ukmi-store", priority: 0.6 },
 ];
 
 /**
@@ -39,7 +41,6 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
     url: getAbsoluteUrl(r.path),
-    lastModified: new Date(),
     changeFrequency: r.path === "/" ? "weekly" : "monthly",
     priority: r.priority,
   }));
@@ -51,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((a) => typeof a?.slug === "string" && a.slug.length > 0)
       .map((a) => ({
         url: getAbsoluteUrl(`/artikel/${a.slug}`),
-        lastModified: a.publishedAt ? new Date(a.publishedAt) : new Date(),
+        ...(a.publishedAt ? { lastModified: new Date(a.publishedAt) } : {}),
         changeFrequency: "weekly",
         priority: 0.6,
       }));

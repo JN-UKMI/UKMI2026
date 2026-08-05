@@ -71,15 +71,12 @@ export const metadata: Metadata = {
   applicationName: siteConfig.name,
   generator: "Next.js",
   keywords: [
-    "UKMI",
     "JN UKMI",
-    "Jamaah Nurul Huda",
-    "Universitas Sebelas Maret",
-    "UNS",
-    "kemahasiswaan Islam",
-    "dakwah kampus",
-    "kajian Islam",
-    "Surakarta",
+    "JN UKMI UNS",
+    "Rohis UNS",
+    "Organisasi Islam UNS",
+    "Nurul Huda UNS",
+    "Remaja Masjid UNS",
   ],
   authors: [{ name: siteConfig.name, url: BASE_URL }],
   creator: siteConfig.shortName,
@@ -174,7 +171,6 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} ${amiri.variable} ${amiriQuran.variable} ${notoNaskh.variable} h-full antialiased`}
     >
       <head>
-        <link rel="canonical" href={BASE_URL} />
         <script
           type="application/ld+json"
           nonce={nonce}
