@@ -17,11 +17,7 @@
  * Trailing slashes are stripped so callers can safely concatenate paths.
  */
 export function resolveBaseUrl(): string {
-  const raw =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
-    "https://jnukmi.com";
+  const raw = process.env.NEXT_PUBLIC_BASE_URL || "https://jnukmi.com";
   return raw.replace(/\/+$/, "");
 }
 
