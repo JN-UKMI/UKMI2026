@@ -17,7 +17,10 @@
  * Trailing slashes are stripped so callers can safely concatenate paths.
  */
 export function resolveBaseUrl(): string {
-  const raw = process.env.NEXT_PUBLIC_BASE_URL || "https://jnukmi.com";
+  let raw = process.env.NEXT_PUBLIC_BASE_URL || "https://jnukmi.com";
+  if (raw.includes("jnukmiuns.com")) {
+    raw = raw.replace(/jnukmiuns\.com/g, "jnukmi.com");
+  }
   return raw.replace(/\/+$/, "");
 }
 

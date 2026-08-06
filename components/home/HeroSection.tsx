@@ -36,7 +36,7 @@ export function HeroSection() {
       <Parallax speed={-0.08} className="absolute -top-16 inset-x-0 bottom-0">
         <Image
           src="/image/ukmi-hero.jpg"
-          alt="Hero JN UKMI UNS"
+          alt="Hero JN UKMI UNS — Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret"
           fill
           priority
           quality={85}
@@ -74,7 +74,7 @@ export function HeroSection() {
         >
           <Image
             src="/image/logo-jnukmi.svg"
-            alt="JN UKMI Logo"
+            alt="Logo Resmi JN UKMI UNS Surakarta"
             width={112}
             height={112}
             className="mb-8 h-auto w-24 md:w-28 opacity-75"

@@ -60,6 +60,14 @@ export function buildSiteJsonLd(): string {
       description: siteConfig.description,
       publisher: { "@id": ORG_ID },
       inLanguage: "id-ID",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${BASE_URL}/artikel?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
   ];
   return JSON.stringify({ "@context": "https://schema.org", "@graph": graph });

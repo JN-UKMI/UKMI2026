@@ -69,7 +69,7 @@ function MediaSpaceCell({
       {showImage ? (
         <Image
           src={item.imageUrl}
-          alt={item.title}
+          alt={`Dokumentasi ${item.title} — JN UKMI UNS Solo`}
           fill
           sizes={
             isLarge

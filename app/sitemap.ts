@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getAbsoluteUrl } from "@/lib/seo";
 import { getArticles } from "@/lib/sanity";
 
+export const revalidate = 0;
+
 /**
  * Static routes that have semantic priority for SEO crawlers.
  * Dynamic routes (artikel, kegiatan events) are appended at build time
