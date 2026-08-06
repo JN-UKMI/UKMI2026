@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import contactData from "@/content/kontak/main.json";
 import { MapEmbed } from "./MapEmbed";
-import { RevealFade, StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 export function Footer() {
   return (
@@ -36,7 +36,7 @@ export function Footer() {
                 href="https://instagram.com/jnukmiuns"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white transition-all duration-300 shadow-xs hover:shadow-md hover:scale-110 active:scale-95"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white transition-all duration-300 shadow-xs hover:shadow-md motion-safe:hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime/70"
                 aria-label="Instagram JN UKMI"
                 title="Instagram JN UKMI"
               >
@@ -50,7 +50,7 @@ export function Footer() {
                 href="https://www.youtube.com/@jnukmiuns"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-red-600 hover:text-white transition-all duration-300 shadow-xs hover:shadow-md hover:scale-110 active:scale-95"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-red-600 hover:text-white transition-all duration-300 shadow-xs hover:shadow-md motion-safe:hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime/70"
                 aria-label="YouTube JN UKMI UNS"
                 title="YouTube JN UKMI UNS"
               >
@@ -64,7 +64,7 @@ export function Footer() {
                 href="https://open.spotify.com/show/5PSDOR33zWFxnl2AOu8Rx8?si=f206341bc5114af8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#1DB954] hover:text-white transition-all duration-300 shadow-xs hover:shadow-md hover:scale-110 active:scale-95"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#1DB954] hover:text-white transition-all duration-300 shadow-xs hover:shadow-md motion-safe:hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime/70"
                 aria-label="Spotify HEARME UKMI"
                 title="Spotify HEARME UKMI"
               >
@@ -78,7 +78,7 @@ export function Footer() {
                 href="https://www.tiktok.com/@jnukmiuns"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-black hover:text-white hover:border hover:border-white/40 transition-all duration-300 shadow-xs hover:shadow-md hover:scale-110 active:scale-95"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-black hover:text-white hover:border hover:border-white/40 transition-all duration-300 shadow-xs hover:shadow-md motion-safe:hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime/70"
                 aria-label="TikTok JN UKMI UNS"
                 title="TikTok JN UKMI UNS"
               >
@@ -92,7 +92,7 @@ export function Footer() {
                 href="https://t.me/WejanganGrafisJNUKMI"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#229ED9] hover:text-white transition-all duration-300 shadow-xs hover:shadow-md hover:scale-110 active:scale-95"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#229ED9] hover:text-white transition-all duration-300 shadow-xs hover:shadow-md motion-safe:hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime/70"
                 aria-label="Telegram Wejangan Grafis JN UKMI"
                 title="Telegram Wejangan Grafis JN UKMI"
               >
@@ -109,13 +109,13 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <div>
                 <p className="text-forest-400 dark:text-lime text-xs font-medium">Email</p>
-                <a href={`mailto:${contactData.email}`} className="text-white/60 hover:text-white transition-colors mt-0.5 block">
+                <a href={`mailto:${contactData.email}`} className="group inline-flex items-center gap-1 text-white/60 hover:text-white transition-all duration-200 mt-0.5 motion-safe:hover:translate-x-1 focus-visible:outline-none focus-visible:text-lime">
                   {contactData.email}
                 </a>
               </div>
               <div>
                 <p className="text-forest-400 dark:text-lime text-xs font-medium">Telepon</p>
-                <a href={`tel:${contactData.phone}`} className="text-white/60 hover:text-white transition-colors mt-0.5 block">
+                <a href={`tel:${contactData.phone}`} className="group inline-flex items-center gap-1 text-white/60 hover:text-white transition-all duration-200 mt-0.5 motion-safe:hover:translate-x-1 focus-visible:outline-none focus-visible:text-lime">
                   {contactData.phone}
                 </a>
               </div>
@@ -148,7 +148,7 @@ export function Footer() {
               href="https://syaikhasril.web.id"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/90 hover:text-lime font-semibold transition-colors cursor-pointer group flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10"
+              className="text-white/90 hover:text-lime font-semibold transition-all duration-200 cursor-pointer group flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10 hover:border-lime/40 motion-safe:hover:-translate-y-0.5 hover:shadow-lg hover:shadow-lime/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime/70"
               title="Kunjungi website portofolio Syaikhasril Maulana Firdaus"
             >
               <span>Syaikhasril Maulana Firdaus</span>

@@ -32,9 +32,9 @@ export function BackToTop() {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          exit={{ scale: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
           whileHover={{ scale: 1.15, y: -4 }}
           whileTap={{ scale: 0.9 }}
           transition={{ type: "spring", stiffness: 350, damping: 20 }}

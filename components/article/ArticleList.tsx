@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import type { ArticleListItem } from "@/lib/sanity";
 import { ArticleGrid } from "./ArticleGrid";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const CATEGORY_OPTIONS = [
   { key: "", label: "Semua", short: "Semua" },
@@ -35,6 +36,7 @@ export function ArticleList({
   const [query, setQuery] = useState<string>(initialQuery);
   const [page, setPage] = useState<number>(Math.max(1, Number(initialPage) || 1));
   const [searchInput, setSearchInput] = useState<string>(initialQuery);
+  const shouldReduceMotion = useReducedMotion();
 
   // ── Sync state → URL natively (history.replaceState avoids Next.js server roundtrip) ──
   useEffect(() => {
@@ -136,7 +138,7 @@ export function ArticleList({
             <Search className="w-4 h-4 text-gray-400 dark:text-gray-500 absolute left-4 pointer-events-none" />
             <button
               type="submit"
-              className="absolute right-1.5 px-4 py-1.5 bg-forest-600 hover:bg-forest-800 text-white text-xs font-bold rounded-full transition-all cursor-pointer"
+              className="absolute right-1.5 px-4 py-1.5 bg-forest-600 hover:bg-forest-800 text-white text-xs font-bold rounded-full transition-all cursor-pointer shadow-sm hover:shadow-md hover:shadow-forest-900/20 motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
             >
               Cari
             </button>
@@ -179,14 +181,38 @@ export function ArticleList({
                   e.preventDefault();
                   handleCategoryClick(opt.key);
                 }}
-                className={`shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
+                className={`group/filter relative isolate shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
                   isActive
-                    ? "bg-forest-600 text-white border-forest-600"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-200 dark:hover:bg-gray-700"
+                    ? "text-white border-forest-600"
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-200 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
                 }`}
               >
-                <span className="sm:hidden">{opt.short || opt.label}</span>
-                <span className="hidden sm:inline">{opt.label}</span>
+                {isActive && (
+                  <motion.span
+                    layoutId={shouldReduceMotion ? undefined : "article-category-pill"}
+                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                    className="absolute inset-0 z-0 rounded-full bg-forest-600"
+                    aria-hidden
+                  />
+                )}
+                <span className="relative z-10 sm:hidden">
+                  {opt.short || opt.label}
+                  {!isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/filter:w-full group-focus-visible/filter:w-full"
+                    />
+                  )}
+                </span>
+                <span className="relative z-10 hidden sm:inline">
+                  {opt.label}
+                  {!isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/filter:w-full group-focus-visible/filter:w-full"
+                    />
+                  )}
+                </span>
               </a>
             );
           })}
@@ -201,7 +227,7 @@ export function ArticleList({
           <button
             type="button"
             onClick={handleResetSearch}
-            className="ml-2 text-xs underline text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer"
+            className="ml-2 text-xs underline underline-offset-2 text-gray-400 dark:text-gray-500 hover:text-forest-600 dark:hover:text-lime cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 rounded-sm"
           >
             Reset Pencarian
           </button>
@@ -233,7 +259,7 @@ export function ArticleList({
                 className={`flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                   safePage === 1
                     ? "opacity-40 cursor-not-allowed border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600"
-                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer active:scale-95"
+                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-forest-300 dark:hover:border-lime/60 hover:shadow-sm cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5"
                 }`}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -253,7 +279,7 @@ export function ArticleList({
                       className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all cursor-pointer ${
                         isActive
                           ? "bg-forest-600 text-white shadow-sm"
-                          : "bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          : "bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-forest-700 dark:hover:text-lime hover:shadow-sm motion-safe:hover:-translate-y-0.5"
                       }`}
                     >
                       {pageNum}
@@ -270,7 +296,7 @@ export function ArticleList({
                 className={`flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                   safePage === totalPages
                     ? "opacity-40 cursor-not-allowed border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600"
-                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer active:scale-95"
+                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-forest-300 dark:hover:border-lime/60 hover:shadow-sm cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5"
                 }`}
               >
                 Selanjutnya

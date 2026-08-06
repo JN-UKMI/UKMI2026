@@ -383,7 +383,7 @@ function SlashCommandContent() {
   if (!editor) return null;
 
   return (
-    <EditorCommand className="z-50 h-auto max-h-[360px] w-72 overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl shadow-black/5 animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150">
+    <EditorCommand className="z-50 h-auto max-h-[360px] w-72 overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl shadow-black/5 animate-in fade-in slide-in-from-top-2 duration-150">
       <EditorCommandEmpty className="px-3 py-3 text-sm text-gray-400 dark:text-gray-500 text-center">
         <span className="block text-lg mb-1">🔍</span>
         Tidak ada hasil untuk perintah ini

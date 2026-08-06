@@ -147,8 +147,8 @@ export function KalenderInteractive({
 
   return (
     <motion.div 
-      initial={{ scale: 0.9, y: 40, opacity: 1 }}
-      whileInView={{ scale: 1, y: 0, opacity: 1 }}
+      initial={{ y: 40, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ type: "spring", stiffness: 60, damping: 15 }}
       className="flex flex-col gap-8 w-full max-w-6xl mx-auto"
@@ -164,7 +164,7 @@ export function KalenderInteractive({
               setMonthPage([monthPage, 0]);
               setActiveCategory("all");
             }}
-            className={`relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-colors cursor-pointer z-10 ${
+            className={`group/tab relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50 dark:focus-visible:ring-lime/60 motion-safe:hover:-translate-y-0.5 ${
               activeCategory === "all"
                 ? "text-forest-900 dark:text-lime"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
@@ -177,14 +177,17 @@ export function KalenderInteractive({
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
-            Semua ({events.length})
+            <span className="relative z-10 inline-block">
+              Semua ({events.length})
+              <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+            </span>
           </button>
           <button
             onClick={() => {
               setMonthPage([monthPage, 0]);
               setActiveCategory("kegiatan");
             }}
-            className={`relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-colors cursor-pointer z-10 ${
+            className={`group/tab relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50 dark:focus-visible:ring-lime/60 motion-safe:hover:-translate-y-0.5 ${
               activeCategory === "kegiatan"
                 ? "text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
@@ -197,14 +200,17 @@ export function KalenderInteractive({
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
-            Agenda UKMI
+            <span className="relative z-10 inline-block">
+              Agenda UKMI
+              <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+            </span>
           </button>
           <button
             onClick={() => {
               setMonthPage([monthPage, 0]);
               setActiveCategory("puasa");
             }}
-            className={`relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-colors cursor-pointer z-10 ${
+            className={`group/tab relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50 dark:focus-visible:ring-lime/60 motion-safe:hover:-translate-y-0.5 ${
               activeCategory === "puasa"
                 ? "text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
@@ -217,17 +223,26 @@ export function KalenderInteractive({
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
-            🌙 Puasa Sunnah
+            <span className="relative z-10 inline-block">
+              Puasa Sunnah
+              <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-emerald-700 dark:bg-emerald-300 transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+            </span>
           </button>
         </div>
 
         {/* Right: Quick Jump Today Button */}
         <button
           onClick={jumpToToday}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-forest-50 dark:bg-forest-950/60 hover:bg-forest-100 dark:hover:bg-forest-900/80 text-forest-800 dark:text-lime border border-forest-200/80 dark:border-forest-800 rounded-2xl text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95 w-full sm:w-auto justify-center"
+          className="group/today relative isolate inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-2xl border border-forest-600 dark:border-lime bg-transparent px-4 py-2.5 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
         >
-          <CalendarIcon className="w-4 h-4 text-forest-600 dark:text-lime" />
-          <span>Ke Tanggal Hari Ini</span>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/today:translate-x-0"
+          />
+          <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/today:text-white dark:group-hover/today:text-forest-950">
+            <CalendarIcon className="w-4 h-4 text-forest-600 dark:text-lime transition-colors duration-300 motion-reduce:transition-none group-hover/today:text-white dark:group-hover/today:text-forest-950" />
+            <span>Ke Tanggal Hari Ini</span>
+          </span>
         </button>
       </div>
 
@@ -257,7 +272,7 @@ export function KalenderInteractive({
                   <button
                     onClick={handlePrevMonth}
                     disabled={isMinMonth}
-                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all ${
+                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 ${
                       isMinMonth
                         ? "opacity-30 cursor-not-allowed text-gray-400 dark:text-gray-600"
                         : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
@@ -269,7 +284,7 @@ export function KalenderInteractive({
                   <button
                     onClick={handleNextMonth}
                     disabled={isMaxMonth}
-                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all ${
+                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 ${
                       isMaxMonth
                         ? "opacity-30 cursor-not-allowed text-gray-400 dark:text-gray-600"
                         : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
@@ -421,7 +436,7 @@ export function KalenderInteractive({
                                 ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-2 border-emerald-500 dark:border-emerald-400 font-bold hover:border-emerald-600 dark:hover:border-emerald-300 hover:shadow-xs"
                                 : hasUkmiEvent
                                 ? "bg-forest-50/80 dark:bg-forest-950/50 text-forest-900 dark:text-lime border-forest-300 dark:border-forest-700 font-bold hover:border-forest-600 dark:hover:border-lime hover:shadow-xs"
-                                : "bg-white dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-forest-600 dark:hover:border-lime hover:shadow-xs"
+                                : "bg-white dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-forest-600 dark:hover:border-lime hover:shadow-md hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-0.5"
                             }`}
                           >
                             <span className="leading-none">{dayNum}</span>
@@ -517,7 +532,7 @@ export function KalenderInteractive({
               {selectedDateStr && (
                 <button
                   onClick={() => setSelectedDateStr(null)}
-                  className="text-xs font-bold text-forest-600 dark:text-lime hover:text-forest-800 transition-colors cursor-pointer bg-forest-50 dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-forest-100 dark:border-gray-700 shrink-0"
+                  className="text-xs font-bold text-forest-600 dark:text-lime hover:text-forest-800 dark:hover:text-white transition-all motion-safe:hover:-translate-y-0.5 hover:shadow-sm cursor-pointer bg-forest-50 dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-forest-100 dark:border-gray-700 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
                 >
                   Tampilkan Bulan Ini Saja
                 </button>

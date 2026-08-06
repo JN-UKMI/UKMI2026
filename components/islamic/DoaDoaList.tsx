@@ -123,11 +123,11 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
               <motion.div
                 key={itemId}
                 layout={!shouldReduceMotion}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 12, scale: 0.985 }}
-                animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8, scale: 0.985 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, x: 24 }}
+                animate={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, x: -24 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
-                className="bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 border-l-forest-600 dark:border-l-lime border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-gray-200 dark:hover:border-gray-700 transition-all duration-300 flex flex-col gap-4 relative"
+                className="group bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 border-l-forest-600 dark:border-l-lime border-gray-100 dark:border-gray-800 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 hover:border-gray-300 dark:hover:border-gray-700 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 relative"
               >
                 {/* Card Header: Category & Title & Copy Button */}
                 <div className="flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 pb-4">
@@ -146,7 +146,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                   <button
                     type="button"
                     onClick={() => handleCopy(itemId, copyText)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 shrink-0 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 hover:shadow-sm shrink-0 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
                     title="Salin Doa Lengkap"
                   >
                     {isCopied ? (

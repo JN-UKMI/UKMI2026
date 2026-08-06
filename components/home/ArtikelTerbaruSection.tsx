@@ -78,9 +78,16 @@ export function ArtikelTerbaruSection({ articles = [] }: ArtikelTerbaruSectionPr
         <div className="mt-10 text-center">
           <TransitionLink
             href="/artikel"
-            className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-forest-50 hover:bg-forest-100 text-forest-700 border border-forest-200 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95 hover:shadow-md hover:gap-2 group"
+            className="group/all-articles relative isolate inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full border border-forest-600 dark:border-lime bg-transparent px-6 py-2.5 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 hover:shadow-md motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
           >
-            Lihat Semua Artikel <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/all-articles:translate-x-0"
+            />
+            <span className="relative z-10 inline-flex items-center gap-1.5 transition-colors duration-300 motion-reduce:transition-none group-hover/all-articles:text-white dark:group-hover/all-articles:text-forest-950">
+              <span>Lihat Semua Artikel</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 motion-safe:group-hover/all-articles:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" />
+            </span>
           </TransitionLink>
         </div>
       </div>

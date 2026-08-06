@@ -55,7 +55,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                   onClick={goToPrev}
                   disabled={currentIndex === 0}
                   aria-label="Testimoni sebelumnya"
-                  className={`p-2.5 rounded-full border transition-all cursor-pointer ${
+                  className={`p-2.5 rounded-full border transition-all cursor-pointer hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 ${
                     currentIndex === 0
                       ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 opacity-40"
                       : "border-forest-600/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
@@ -71,7 +71,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                       key={i}
                       onClick={() => goToIndex(i)}
                       aria-label={`Testimoni ${i + 1}`}
-                      className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer group"
+                      className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 rounded-full"
                     >
                       <span
                         className={`block rounded-full transition-all ${
@@ -88,7 +88,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                   onClick={goToNext}
                   disabled={currentIndex >= maxIndex}
                   aria-label="Testimoni berikutnya"
-                  className={`p-2.5 rounded-full border transition-all cursor-pointer ${
+                  className={`p-2.5 rounded-full border transition-all cursor-pointer hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 ${
                     currentIndex >= maxIndex
                       ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 opacity-40"
                       : "border-forest-600/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
@@ -119,7 +119,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
 /** Reusable testimonial card — used by both carousel (mobile) and grid (desktop) */
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
-    <div className="group relative bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border border-gray-200/80 dark:border-gray-800 shadow-sm hover:border-forest-600/40 dark:hover:border-lime/40 flex flex-col justify-between h-full">
+    <div className="group relative bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border border-gray-200/80 dark:border-gray-800 shadow-sm hover:border-forest-600/50 dark:hover:border-lime/50 hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">
       {/* Decorative Quote Watermark */}
       <div className="absolute top-6 right-6 text-forest-600/10 dark:text-lime/10 group-hover:text-forest-600/25 dark:group-hover:text-lime/25 transition-colors">
         <QuoteIcon className="w-12 h-12 rotate-180" />

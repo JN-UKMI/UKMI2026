@@ -48,7 +48,7 @@ function PaginationLink({
     <Button
       variant={isActive ? "outline" : "ghost"}
       size={size}
-      className={cn(className)}
+      className={cn("hover:shadow-md hover:shadow-forest-900/10 motion-safe:hover:-translate-y-0.5", className)}
       nativeButton={false}
       render={
         <a

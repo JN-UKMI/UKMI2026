@@ -16,8 +16,8 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={`flex flex-col items-center text-center mb-10 ${className}`}
@@ -25,11 +25,12 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
       {/* 1. Top Icon Container — double-bezel premium */}
       {icon && (
         <motion.div
-          initial={{ scale: 0.6, rotate: -12 }}
-          whileInView={{ scale: 1, rotate: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
-          whileHover={{ scale: 1.12, rotate: 8 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={shouldReduceMotion ? undefined : { scale: 1.12, rotate: 8 }}
+          whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
           className="w-14 h-14 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-4 border border-forest-600/20 dark:border-forest-800 shadow-sm transition-colors relative group"
         >
           {/* Glow halo saat hover */}
@@ -50,8 +51,8 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
       {/* 3. Subtitle */}
       {subtitle && (
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto font-medium leading-relaxed mt-2"
@@ -62,8 +63,8 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
 
       {/* 4. Bottom Lime Accent Bar */}
       <motion.div
-        initial={{ width: 0 }}
-        whileInView={{ width: "3.5rem" }}
+        initial={shouldReduceMotion ? false : { opacity: 0, x: -18 }}
+        whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.2 }}
         className="h-1 bg-lime rounded-full mt-3 shadow-sm opacity-90"

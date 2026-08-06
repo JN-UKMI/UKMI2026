@@ -30,8 +30,8 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
     <section className="relative bg-transparent transition-colors overflow-hidden">
       <div className="py-16 px-2 sm:px-4">
         <motion.div
-          initial={{ scale: 0.95 }}
-          whileInView={{ scale: 1 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ type: "spring", stiffness: 60, damping: 15 }}
           className="mx-auto bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white rounded-2xl shadow-xl sm:mx-4 md:mx-8 lg:mx-20 overflow-hidden relative"
@@ -45,8 +45,8 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
+                initial={{ x: 24, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.5 }}
                 className="flex flex-col items-center gap-4 text-center max-w-3xl mx-auto"

@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { ArticleListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 import { TransitionLink } from "@/components/ui/TransitionLink";
-import { SpotlightCard } from "@/components/ui/motion";
+import { ShimmerOverlay, SpotlightCard } from "@/components/ui/motion";
 
 export interface ArticleCardProps {
   article: ArticleListItem;
@@ -40,7 +40,8 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
       className="h-full flex flex-col flex-1"
     >
-      <SpotlightCard className="group flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-100 dark:border-gray-800 hover:border-forest-600 dark:hover:border-lime shadow-sm hover:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)] transition-all duration-500 overflow-hidden">
+      <SpotlightCard className="group/card flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-100 dark:border-gray-800 hover:border-forest-600 dark:hover:border-lime shadow-sm hover:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)] transition-all duration-500 overflow-hidden">
+      <ShimmerOverlay />
       <div className="flex flex-col h-full flex-1">
       <TransitionLink
         href={`/artikel/${article.slug}`}
@@ -52,11 +53,11 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
             src={getCoverImageUrl()}
             alt={article.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover transition-transform duration-500 motion-safe:group-hover/card:scale-110 motion-reduce:transform-none motion-reduce:transition-none"
             unoptimized
           />
           {/* Subtle Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 motion-safe:group-hover/card:opacity-40 transition-opacity motion-reduce:transition-none" />
 
           {/* Category Badge on top of image */}
           <span className="absolute top-3.5 left-3.5 z-10 inline-block px-3 py-1 bg-forest-600/90 dark:bg-forest-600/90 text-white dark:text-lime text-xs font-bold rounded-lg shadow-md backdrop-blur-xs border border-white/10">
@@ -66,7 +67,7 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
 
         <div className="flex flex-col flex-1 p-6 justify-between">
           <div>
-            <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover:text-forest-600 dark:group-hover:text-lime transition-colors mb-2.5 line-clamp-2 leading-snug">
+            <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover/card:text-forest-600 dark:group-hover/card:text-lime transition-colors mb-2.5 line-clamp-2 leading-snug">
               {article.title}
             </h3>
             <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">
@@ -89,10 +90,16 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
               </span>
             </div>
 
-            {/* Center Pill Button with Icon Hover Animation */}
-            <div className="w-full text-center py-2.5 px-4 rounded-full bg-forest-600 group-hover:bg-forest-800 dark:bg-lime dark:group-hover:bg-lime/90 text-white dark:text-forest-950 text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm group-hover:shadow-forest-600/25">
-              <span>Baca Selengkapnya</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1.5" />
+            {/* Outline CTA with a left-to-right fill reveal on button hover */}
+            <div className="group/cta relative isolate w-full overflow-hidden rounded-full border border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime text-xs font-bold transition-colors duration-300 motion-reduce:transition-none focus-within:ring-2 focus-within:ring-forest-600/40 dark:focus-within:ring-lime/50">
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out group-hover/cta:translate-x-0"
+              />
+              <span className="relative z-10 flex items-center justify-center gap-1.5 px-4 py-2.5 transition-colors duration-300 motion-reduce:transition-none group-hover/cta:text-white dark:group-hover/cta:text-forest-950">
+                <span>Baca Selengkapnya</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 motion-safe:group-hover/cta:translate-x-1.5 motion-reduce:transform-none motion-reduce:transition-none" />
+              </span>
             </div>
           </div>
         </div>

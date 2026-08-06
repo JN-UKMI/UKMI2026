@@ -50,7 +50,7 @@ export default async function BukuUkmiPage() {
               href={data.links.daftar_buku}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -64,9 +64,12 @@ export default async function BukuUkmiPage() {
                 </p>
               </div>
 
-              <div className="inline-flex items-center justify-between w-full pt-4 border-t border-gray-100 dark:border-gray-800 text-xs font-bold text-forest-700 dark:text-lime">
-                <span>Cek Daftar Buku</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="group/action relative isolate inline-flex w-full items-center justify-between gap-2 overflow-hidden rounded-xl border border-forest-600 dark:border-lime bg-transparent px-3 py-2.5 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-reduce:transition-none">
+                  <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/action:translate-x-0" />
+                  <span className="relative z-10 transition-colors duration-300 motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950">Cek Daftar Buku</span>
+                  <ExternalLink className="relative z-10 h-4 w-4 transition-transform duration-300 motion-safe:group-hover/action:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950" />
+                </div>
               </div>
             </a>
 
@@ -75,7 +78,7 @@ export default async function BukuUkmiPage() {
               href={data.links.peminjaman}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -89,9 +92,12 @@ export default async function BukuUkmiPage() {
                 </p>
               </div>
 
-              <div className="inline-flex items-center justify-between w-full pt-4 border-t border-gray-100 dark:border-gray-800 text-xs font-bold text-forest-700 dark:text-lime">
-                <span>Isi Form Pinjam</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="group/action relative isolate inline-flex w-full items-center justify-between gap-2 overflow-hidden rounded-xl border border-forest-600 dark:border-lime bg-transparent px-3 py-2.5 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-reduce:transition-none">
+                  <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/action:translate-x-0" />
+                  <span className="relative z-10 transition-colors duration-300 motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950">Isi Form Pinjam</span>
+                  <ExternalLink className="relative z-10 h-4 w-4 transition-transform duration-300 motion-safe:group-hover/action:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950" />
+                </div>
               </div>
             </a>
 
@@ -100,7 +106,7 @@ export default async function BukuUkmiPage() {
               href={data.links.pengembalian}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -114,9 +120,12 @@ export default async function BukuUkmiPage() {
                 </p>
               </div>
 
-              <div className="inline-flex items-center justify-between w-full pt-4 border-t border-gray-100 dark:border-gray-800 text-xs font-bold text-forest-700 dark:text-lime">
-                <span>Form Pengembalian</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="group/action relative isolate inline-flex w-full items-center justify-between gap-2 overflow-hidden rounded-xl border border-forest-600 dark:border-lime bg-transparent px-3 py-2.5 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-reduce:transition-none">
+                  <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/action:translate-x-0" />
+                  <span className="relative z-10 transition-colors duration-300 motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950">Form Pengembalian</span>
+                  <ExternalLink className="relative z-10 h-4 w-4 transition-transform duration-300 motion-safe:group-hover/action:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950" />
+                </div>
               </div>
             </a>
 
@@ -125,7 +134,7 @@ export default async function BukuUkmiPage() {
               href={data.links.jariyah_bumi}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -139,9 +148,12 @@ export default async function BukuUkmiPage() {
                 </p>
               </div>
 
-              <div className="inline-flex items-center justify-between w-full pt-4 border-t border-gray-100 dark:border-gray-800 text-xs font-bold text-forest-700 dark:text-lime">
-                <span>Info Jariyah BUMI</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="group/action relative isolate inline-flex w-full items-center justify-between gap-2 overflow-hidden rounded-xl border border-forest-600 dark:border-lime bg-transparent px-3 py-2.5 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-reduce:transition-none">
+                  <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/action:translate-x-0" />
+                  <span className="relative z-10 transition-colors duration-300 motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950">Info Jariyah BUMI</span>
+                  <ExternalLink className="relative z-10 h-4 w-4 transition-transform duration-300 motion-safe:group-hover/action:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950" />
+                </div>
               </div>
             </a>
 
@@ -194,9 +206,10 @@ export default async function BukuUkmiPage() {
               href={data.links.jariyah_bumi}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2 bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 dark:hover:bg-forest-600 text-white rounded-full text-xs font-bold transition-all shadow-sm shrink-0"
+              className="group/jariyah relative isolate inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-forest-600 dark:border-lime bg-transparent px-5 py-2 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
             >
-              Ikut Jariyah Buku
+              <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/jariyah:translate-x-0" />
+              <span className="relative z-10 transition-colors duration-300 motion-reduce:transition-none group-hover/jariyah:text-white dark:group-hover/jariyah:text-forest-950">Ikut Jariyah Buku</span>
             </a>
           </div>
         </section>
@@ -225,9 +238,10 @@ export default async function BukuUkmiPage() {
               href={data.links.lokasi_maps}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full py-3 bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 dark:hover:bg-forest-600 text-white rounded-2xl text-xs font-bold transition-all shadow-md"
+              className="group/maps relative isolate inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl border border-forest-600 dark:border-lime bg-transparent py-3 text-xs font-bold text-forest-700 dark:text-lime shadow-md transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
             >
-              <MapPin className="w-4 h-4" /> Buka Google Maps Lokasi
+              <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/maps:translate-x-0" />
+              <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/maps:text-white dark:group-hover/maps:text-forest-950"><MapPin className="h-4 w-4" /> Buka Google Maps Lokasi</span>
             </a>
           </div>
 
@@ -255,10 +269,10 @@ export default async function BukuUkmiPage() {
                   href={contact.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-3 bg-forest-50 dark:bg-gray-800 hover:bg-forest-100 dark:hover:bg-gray-700 border border-forest-200 dark:border-gray-700 text-forest-900 dark:text-gray-200 rounded-xl text-xs font-bold transition-all"
+                  className="group/whatsapp relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-forest-600 dark:border-lime bg-transparent p-3 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
                 >
-                  <MessageCircle className="w-4 h-4 text-forest-600 dark:text-lime" />
-                  <span>WhatsApp {contact.nama}</span>
+                  <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/whatsapp:translate-x-0" />
+                  <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/whatsapp:text-white dark:group-hover/whatsapp:text-forest-950"><MessageCircle className="h-4 w-4" /> <span>WhatsApp {contact.nama}</span></span>
                 </a>
               ))}
             </div>

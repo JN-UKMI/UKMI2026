@@ -69,8 +69,8 @@ export function DoaTabs() {
     <div className="max-w-5xl mx-auto px-4 pt-8 pb-16 w-full flex flex-col gap-6">
       {/* Control Panel Toolbar */}
       <motion.div
-        initial={shouldReduceMotion ? false : { y: -12, scale: 0.98 }}
-        animate={shouldReduceMotion ? undefined : { y: 0, scale: 1 }}
+        initial={shouldReduceMotion ? false : { y: -20, opacity: 0 }}
+        animate={shouldReduceMotion ? undefined : { y: 0, opacity: 1 }}
         transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 180, damping: 22 }}
         className="glass rounded-2xl p-4 shadow-md border border-gray-100 dark:border-gray-800 flex flex-col lg:flex-row items-center justify-between gap-4"
       >
@@ -89,7 +89,7 @@ export function DoaTabs() {
               className={`flex-1 px-3 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap text-center ${
                 version === "sughra"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
               }`}
             >
               Sughra (Ringkas)
@@ -102,7 +102,7 @@ export function DoaTabs() {
               className={`flex-1 px-3 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap text-center ${
                 version === "kubra"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
               }`}
             >
               Kubra (Lengkap)
@@ -128,7 +128,7 @@ export function DoaTabs() {
               className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
                 time === "morning"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
               }`}
             >
               <Sun className={`w-3.5 h-3.5 ${time === "morning" ? "animate-spin-slow" : ""}`} />
@@ -142,7 +142,7 @@ export function DoaTabs() {
               className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
                 time === "evening"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
               }`}
             >
               <Moon className="w-3.5 h-3.5" />
@@ -169,7 +169,7 @@ export function DoaTabs() {
               aria-pressed={showGlobalLatin}
               className={`flex-1 px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm border flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                 showGlobalLatin
-                  ? "bg-forest-600 dark:bg-forest-700 text-white border-forest-600 dark:border-forest-700 hover:bg-forest-750"
+                  ? "bg-forest-600 dark:bg-forest-700 text-white border-forest-600 dark:border-forest-700 hover:bg-forest-750 hover:shadow-md hover:shadow-forest-900/20 motion-safe:hover:-translate-y-0.5"
                   : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-850 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
               }`}
             >
@@ -185,7 +185,7 @@ export function DoaTabs() {
               aria-pressed={showGlobalTranslation}
               className={`flex-1 px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm border flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                 showGlobalTranslation
-                  ? "bg-forest-600 dark:bg-forest-700 text-white border-forest-600 dark:border-forest-700 hover:bg-forest-750"
+                  ? "bg-forest-600 dark:bg-forest-700 text-white border-forest-600 dark:border-forest-700 hover:bg-forest-750 hover:shadow-md hover:shadow-forest-900/20 motion-safe:hover:-translate-y-0.5"
                   : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-850 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
               }`}
             >

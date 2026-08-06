@@ -39,7 +39,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
     <DropdownMenu>
       <DropdownMenuTrigger
         aria-label={`Menu dropdown ${item.label}`}
-        className={`flex items-center gap-1 px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-default outline-none
+        className={`group flex items-center gap-1 px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-default outline-none
           ${
             isAnyChildActive
               ? "bg-forest-600 dark:bg-forest-600 text-white font-bold border-forest-600 dark:border-forest-500 shadow-md"
@@ -48,12 +48,12 @@ export function NavDropdown({ item }: { item: NavItem }) {
         `}
       >
         {item.label}
-        <ChevronDown className="w-4 h-4" />
+        <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[popup-open]:rotate-180" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
         sideOffset={8}
-        className="w-auto min-w-0 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-lime dark:ring-1 dark:ring-lime/30 p-1.5 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-open:slide-in-from-top-2 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:slide-out-to-top-2 duration-200"
+        className="w-auto min-w-0 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-lime dark:ring-1 dark:ring-lime/30 p-1.5 data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-2 data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-top-2 duration-200"
       >
         {item.items?.map((sub) =>
           sub.items ? (
@@ -62,7 +62,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
                 onClick={() => toggle(sub.label)}
                 aria-expanded={!!openSections[sub.label]}
                 aria-controls={`sub-menu-${sub.label}`}
-                className="w-full flex items-center justify-between pl-3 pr-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-forest-600 dark:hover:text-lime transition-colors"
+                className="w-full flex items-center justify-between pl-3 pr-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-forest-600 dark:hover:text-lime hover:bg-forest-50/60 dark:hover:bg-gray-800 rounded-md transition-all duration-200 motion-safe:hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
               >
                 &nbsp;&nbsp;{sub.label}
                 <ChevronRight
@@ -82,7 +82,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
                         href={leaf.href || "#"}
                         target={leaf.target}
                         rel={leaf.rel}
-                        className="block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
+                        className="group/leaf block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
                       >
                         {leaf.label}
                       </TransitionLink>
@@ -97,7 +97,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
                 href={sub.href || "#"}
                 target={sub.target}
                 rel={sub.rel}
-                className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 transition-all duration-150"
+                className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
               >
                 {sub.label}
               </TransitionLink>

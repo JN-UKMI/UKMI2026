@@ -105,7 +105,7 @@ export function MasuratAudioPlayer({
       initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
       animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 transition-colors"
+      className="group w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-forest-300 dark:hover:border-lime/50 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 transition-all duration-300"
     >
       {/* HTML5 Audio Element */}
       <audio
@@ -124,7 +124,7 @@ export function MasuratAudioPlayer({
           <motion.div
             animate={shouldReduceMotion || !isPlaying ? undefined : { rotate: [0, 4, -4, 0] }}
             transition={shouldReduceMotion || !isPlaying ? undefined : { repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="w-12 h-12 rounded-xl bg-forest-50 dark:bg-gray-800 border border-forest-100 dark:border-gray-700 flex items-center justify-center shrink-0 text-forest-600 dark:text-lime"
+            className="w-12 h-12 rounded-xl bg-forest-50 dark:bg-gray-800 border border-forest-100 dark:border-gray-700 flex items-center justify-center shrink-0 text-forest-600 dark:text-lime transition-all duration-300 motion-safe:group-hover:scale-105 motion-safe:group-hover:rotate-2 group-hover:shadow-md group-hover:shadow-forest-900/10"
           >
             <Music className="w-6 h-6" />
           </motion.div>
@@ -158,7 +158,7 @@ export function MasuratAudioPlayer({
             <button
               type="button"
               onClick={() => skip(-10)}
-              className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+              className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-forest-300 dark:hover:border-lime/50 hover:shadow-sm rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
               title="Mundur 10 Detik"
             >
               <Rewind className="w-3.5 h-3.5" />
@@ -171,7 +171,7 @@ export function MasuratAudioPlayer({
               onClick={togglePlay}
               whileHover={shouldReduceMotion ? undefined : { scale: 1.06 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.92 }}
-              className="w-10 h-10 rounded-xl bg-forest-600 hover:bg-forest-700 dark:bg-forest-700 dark:hover:bg-forest-600 text-white flex items-center justify-center shadow-xs transition-colors active:scale-95 cursor-pointer"
+              className="w-10 h-10 rounded-xl bg-forest-600 hover:bg-forest-700 dark:bg-forest-700 dark:hover:bg-forest-600 text-white flex items-center justify-center shadow-xs hover:shadow-lg hover:shadow-forest-900/20 motion-safe:hover:-translate-y-0.5 transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
               title={isPlaying ? "Jeda Audio" : "Putar Audio Murottal"}
             >
               {isPlaying ? (
@@ -185,7 +185,7 @@ export function MasuratAudioPlayer({
             <button
               type="button"
               onClick={() => skip(10)}
-              className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+              className="px-2 py-1.5 bg-white dark:bg-gray-700 border border-gray-200/80 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-forest-300 dark:hover:border-lime/50 hover:shadow-sm rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
               title="Maju 10 Detik"
             >
               <span className="text-[10px] font-bold">+10s</span>

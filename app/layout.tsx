@@ -8,6 +8,7 @@ import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { MusicProvider } from "@/components/ui/MusicContext";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 import { AmbientBackground, GrainOverlay } from "@/components/ui/motion";
 import { BASE_URL, siteConfig } from "@/lib/seo";
 import { buildSiteJsonLd } from "@/lib/json-ld";
@@ -161,7 +162,8 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
         <AuthProvider>
           <ThemeProvider>
-            <LoadingProvider>
+            <MotionProvider>
+              <LoadingProvider>
               <MusicProvider>
                 <AmbientBackground />
                 {/* Grain halus global — dekoratif, pointer-events-none, z di bawah konten utama */}
@@ -174,7 +176,8 @@ export default async function RootLayout({
                 <Analytics />
                 <SpeedInsights />
               </MusicProvider>
-            </LoadingProvider>
+              </LoadingProvider>
+            </MotionProvider>
           </ThemeProvider>
         </AuthProvider>
       </body>

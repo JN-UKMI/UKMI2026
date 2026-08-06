@@ -11,8 +11,8 @@ export async function KalenderSection() {
       <div className="relative z-10 max-w-6xl mx-auto">
         <SectionHeader
           icon={<Calendar className="w-6 h-6" />}
-          title="Kalender UKMI & Puasa Sunnah"
-          subtitle="Jadwal kegiatan kepengurusan JN UKMI dan kalender puasa sunnah bulanan"
+          title="Kalender UKMI"
+          subtitle="Jadwal kegiatan kepengurusan JN UKMI dan puasa sunnah"
         />
 
         <KalenderInteractive

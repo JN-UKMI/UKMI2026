@@ -68,7 +68,7 @@ export function AyatCard({
               className={`p-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer active:scale-95 ${
                 isBookmarked
                   ? "bg-amber-500 text-white border-amber-600 shadow-sm"
-                  : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-forest-700 dark:hover:text-lime hover:border-forest-300 dark:hover:border-lime/60 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
               }`}
               title={isBookmarked ? "Hapus penanda bacaan" : "Tandai batas bacaan"}
             >
@@ -78,7 +78,7 @@ export function AyatCard({
 
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 rounded-xl text-xs font-bold transition-all cursor-pointer active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 rounded-xl text-xs font-bold transition-all cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
             title="Salin Ayat Lengkap"
           >
             {copied ? (

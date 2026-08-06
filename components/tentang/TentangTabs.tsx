@@ -66,7 +66,7 @@ export function TentangTabs() {
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 360, damping: 24 }}
                 id={`about-tab-${tab.id}`}
-                className={`relative flex items-center justify-center gap-2 px-3.5 md:px-5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
+                className={`group/tab relative flex items-center justify-center gap-2 px-3.5 md:px-5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
                   isActive
                     ? "text-white"
                     : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50"
@@ -82,7 +82,15 @@ export function TentangTabs() {
                 <TabIcon
                   className={`relative z-10 w-4 h-4 ${isActive ? "text-white" : "text-gray-400 dark:text-gray-500"}`}
                 />
-                <span className="relative z-10">{tab.label}</span>
+                <span className="relative z-10">
+                  {tab.label}
+                  {!isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full"
+                    />
+                  )}
+                </span>
               </motion.button>
             );
           })}

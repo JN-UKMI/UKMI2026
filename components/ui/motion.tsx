@@ -15,11 +15,32 @@ import {
   useScroll,
   useTransform,
   useSpring,
+  useMotionValue,
 } from "framer-motion";
+import { useIsTouchDevice } from "@/lib/hooks";
 
 // ── 0. Shared Easing Curves ──────────────────────────────────────────
 export const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 export const EASE_SOFT = [0.21, 0.47, 0.32, 0.98] as const;
+
+/** Shared motion presets keep the large motion layer coherent across pages. */
+export const MOTION_PRESETS = {
+  reveal: {
+    duration: 0.55,
+    ease: EASE_SOFT,
+  },
+  card: {
+    type: "spring",
+    stiffness: 320,
+    damping: 24,
+  },
+  interactive: {
+    type: "spring",
+    stiffness: 220,
+    damping: 18,
+    mass: 0.6,
+  },
+} as const;
 
 // ── 1. FadeIn Scroll / Mount Component ──────────────────────────────
 export interface FadeInProps extends HTMLMotionProps<"div"> {
@@ -68,8 +89,8 @@ export function FadeIn({
 
   return (
     <motion.div
-      initial={initial}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      initial={shouldReduceMotion ? false : initial}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0, y: 0 }}
       viewport={
         shouldReduceMotion
           ? undefined
@@ -88,13 +109,13 @@ export function FadeIn({
   );
 }
 
-// ── 1b. RevealFade (blur-in entry — lebih "mahal" dari fade biasa) ──
+// ── 1b. RevealFade (slide-in premium entry) ──────────────────────────
 export function RevealFade({
   children,
   delay = 0,
   duration = 0.7,
   y = 40,
-  blur = 8,
+  blur: _blur = 0,
   className = "",
   ...props
 }: {
@@ -102,19 +123,17 @@ export function RevealFade({
   delay?: number;
   duration?: number;
   y?: number;
+  /** @deprecated Blur is ignored; entrance motion is slide-only. */
   blur?: number;
   className?: string;
 } & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
+  void _blur;
 
   return (
     <motion.div
-      initial={
-        shouldReduceMotion
-          ? { opacity: 0 }
-          : { opacity: 0, y, filter: `blur(${blur}px)` }
-      }
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={shouldReduceMotion ? undefined : { once: true, margin: "-60px" }}
       transition={{
         duration: shouldReduceMotion ? 0.15 : duration,
@@ -241,12 +260,14 @@ function getInitialPosition(
   }
 }
 
-// ── 3. ScaleIn Component ────────────────────────────────────────────
+// ── 3. SlideIn Component ────────────────────────────────────────────
+// ScaleIn remains as a compatibility export; entrance motion is now slide-based.
 export function ScaleIn({
   children,
   delay = 0,
   duration = 0.5,
-  initialScale = 0.94,
+  slideDistance = 24,
+  initialScale,
   className = "",
   viewportOnce = true,
   ...props
@@ -254,19 +275,21 @@ export function ScaleIn({
   children: ReactNode;
   delay?: number;
   duration?: number;
+  slideDistance?: number;
+  /** @deprecated Use slideDistance. Kept for backwards compatibility. */
   initialScale?: number;
   className?: string;
   viewportOnce?: boolean;
 } & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
+  const resolvedSlideDistance = initialScale === undefined
+    ? slideDistance
+    : Math.max(16, (1 - initialScale) * 100);
 
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-        scale: shouldReduceMotion ? 1 : initialScale,
-      }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: resolvedSlideDistance }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={
         shouldReduceMotion
           ? undefined
@@ -284,6 +307,9 @@ export function ScaleIn({
     </motion.div>
   );
 }
+
+/** Semantic name for slide-based entrance animation. */
+export const SlideIn = ScaleIn;
 
 // ── 4. TextReveal (Word-by-word reveal for titles) ──────────────────
 export function TextReveal({
@@ -344,7 +370,7 @@ export function TextReveal({
   );
 }
 
-// ── 4b. WordReveal (blur + rise per word — lebih sinematik) ─────────
+// ── 4b. WordReveal (slide-up per word — lebih sinematik) ────────────
 export function WordReveal({
   text,
   className = "",
@@ -376,11 +402,10 @@ export function WordReveal({
   };
 
   const wordVariants: Variants = {
-    hidden: { opacity: 0, y: 22, filter: "blur(6px)" },
+    hidden: { opacity: 0, y: 22 },
     show: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         duration: 0.55,
         ease: EASE_PREMIUM,
@@ -487,35 +512,49 @@ export function MagneticButton({
 } & Record<string, unknown>) {
   const shouldReduceMotion = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, MOTION_PRESETS.interactive);
+  const springY = useSpring(y, MOTION_PRESETS.interactive);
 
   const handleMove = useCallback(
     (e: React.MouseEvent) => {
       if (shouldReduceMotion || !ref.current) return;
       const rect = ref.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * strength;
-      const y = (e.clientY - rect.top - rect.height / 2) * strength;
-      setOffset({ x, y });
+      x.set((e.clientX - rect.left - rect.width / 2) * strength);
+      y.set((e.clientY - rect.top - rect.height / 2) * strength);
     },
-    [shouldReduceMotion, strength]
+    [shouldReduceMotion, strength, x, y]
   );
 
   const handleLeave = useCallback(() => {
-    setOffset({ x: 0, y: 0 });
-  }, []);
+    x.set(0);
+    y.set(0);
+  }, [x, y]);
 
   const motionProps = {
     ref,
     onMouseMove: handleMove,
     onMouseLeave: handleLeave,
-    animate: shouldReduceMotion ? undefined : { x: offset.x, y: offset.y },
+    style: shouldReduceMotion ? undefined : { x: springX, y: springY },
     whileTap: shouldReduceMotion ? undefined : { scale: 0.94 },
-    transition: { type: "spring", stiffness: 200, damping: 16, mass: 0.6 },
+    transition: MOTION_PRESETS.interactive,
     className,
   };
 
   const Comp = motion[as] as React.ElementType;
   return <Comp {...motionProps} {...props}>{children}</Comp>;
+}
+
+// ── 5c. ShimmerOverlay (Aceternity-inspired hover light sweep) ──────
+// Lightweight CSS-driven feedback: no pointer listeners and no React state.
+export function ShimmerOverlay({ className = "" }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={`pointer-events-none absolute inset-y-0 -left-1/2 z-0 w-1/3 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition-[transform,opacity] duration-700 ease-out group-hover/card:translate-x-[430%] group-hover/card:opacity-100 motion-reduce:!translate-x-0 motion-reduce:!opacity-0 motion-reduce:transition-none ${className}`}
+    />
+  );
 }
 
 // ── 6. CardMotion (Interactive Card Wrapper) ─────────────────────────
@@ -572,10 +611,20 @@ export function TiltCard({
 }) {
   const shouldReduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState(
-    "perspective(900px) rotateX(0deg) rotateY(0deg)"
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const glareX = useMotionValue(50);
+  const glareY = useMotionValue(50);
+  const glareOpacity = useMotionValue(0);
+  const springRotateX = useSpring(rotateX, { stiffness: 220, damping: 22 });
+  const springRotateY = useSpring(rotateY, { stiffness: 220, damping: 22 });
+  const springGlareX = useSpring(glareX, { stiffness: 260, damping: 24 });
+  const springGlareY = useSpring(glareY, { stiffness: 260, damping: 24 });
+  const springGlareOpacity = useSpring(glareOpacity, { stiffness: 280, damping: 26 });
+  const glareBackground = useTransform(
+    [springGlareX, springGlareY],
+    ([x, y]) => `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.22), transparent 55%)`
   );
-  const [glarePos, setGlarePos] = useState({ x: 50, y: 50, opacity: 0 });
 
   const handleMove = useCallback(
     (e: React.MouseEvent) => {
@@ -583,31 +632,37 @@ export function TiltCard({
       const rect = ref.current.getBoundingClientRect();
       const px = (e.clientX - rect.left) / rect.width;
       const py = (e.clientY - rect.top) / rect.height;
-      const rx = (0.5 - py) * maxTilt;
-      const ry = (px - 0.5) * maxTilt;
-      setTransform(`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`);
-      setGlarePos({ x: px * 100, y: py * 100, opacity: 1 });
+      rotateX.set((0.5 - py) * maxTilt);
+      rotateY.set((px - 0.5) * maxTilt);
+      glareX.set(px * 100);
+      glareY.set(py * 100);
+      glareOpacity.set(1);
     },
-    [shouldReduceMotion, maxTilt]
+    [glareOpacity, glareX, glareY, maxTilt, rotateX, rotateY, shouldReduceMotion]
   );
 
   const handleLeave = useCallback(() => {
     if (shouldReduceMotion) return;
-    setTransform("perspective(900px) rotateX(0deg) rotateY(0deg)");
-    setGlarePos((p) => ({ ...p, opacity: 0 }));
-  }, [shouldReduceMotion]);
+    rotateX.set(0);
+    rotateY.set(0);
+    glareOpacity.set(0);
+  }, [glareOpacity, rotateX, rotateY, shouldReduceMotion]);
 
   return (
-    <div
+    <motion.div
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      style={{
-        transform: shouldReduceMotion ? undefined : transform,
-        transition: "transform 0.25s cubic-bezier(0.16,1,0.3,1)",
-        transformStyle: "preserve-3d",
-        willChange: "transform",
-      }}
+      style={
+        shouldReduceMotion
+          ? undefined
+          : {
+              rotateX: springRotateX,
+              rotateY: springRotateY,
+              transformPerspective: 900,
+              transformStyle: "preserve-3d",
+            }
+      }
       className={`relative ${className}`}
     >
       {children}
@@ -616,16 +671,16 @@ export function TiltCard({
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden"
         >
-          <div
-            className="absolute inset-0 transition-opacity duration-300"
+          <motion.div
+            className="absolute inset-0"
             style={{
-              opacity: glarePos.opacity,
-              background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.22), transparent 55%)`,
+              opacity: springGlareOpacity,
+              background: glareBackground,
             }}
           />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -640,22 +695,31 @@ export function SpotlightCard({
   spotlightColor?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: -200, y: -200, opacity: 0 });
+  const spotlightX = useMotionValue(-200);
+  const spotlightY = useMotionValue(-200);
+  const spotlightOpacity = useMotionValue(0);
+  const springX = useSpring(spotlightX, { stiffness: 260, damping: 24 });
+  const springY = useSpring(spotlightY, { stiffness: 260, damping: 24 });
+  const springOpacity = useSpring(spotlightOpacity, { stiffness: 280, damping: 26 });
   const shouldReduceMotion = useReducedMotion();
+  const isTouchDevice = useIsTouchDevice();
+  const spotlightDisabled = shouldReduceMotion || isTouchDevice;
+  const spotlightBackground = useTransform(
+    [springX, springY],
+    ([x, y]) => `radial-gradient(320px circle at ${x}px ${y}px, ${spotlightColor}, transparent 65%)`
+  );
 
   const handleMove = useCallback((e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (spotlightDisabled || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    setPos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      opacity: 1,
-    });
-  }, []);
+    spotlightX.set(e.clientX - rect.left);
+    spotlightY.set(e.clientY - rect.top);
+    spotlightOpacity.set(1);
+  }, [spotlightDisabled, spotlightOpacity, spotlightX, spotlightY]);
 
   const handleLeave = useCallback(() => {
-    setPos((p) => ({ ...p, opacity: 0 }));
-  }, []);
+    spotlightOpacity.set(0);
+  }, [spotlightOpacity]);
 
   return (
     <div
@@ -664,13 +728,13 @@ export function SpotlightCard({
       onMouseLeave={handleLeave}
       className={`relative overflow-hidden ${className}`}
     >
-      {!shouldReduceMotion && (
+      {!spotlightDisabled && (
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
           style={{
-            opacity: pos.opacity,
-            background: `radial-gradient(320px circle at ${pos.x}px ${pos.y}px, ${spotlightColor}, transparent 65%)`,
+            opacity: springOpacity as unknown as number,
+            background: spotlightBackground as unknown as string,
           }}
         />
       )}

@@ -20,8 +20,8 @@ export function ThemeToggle() {
     >
       <motion.div
         key={theme}
-        initial={shouldReduceMotion ? false : { rotate: -90, opacity: 0, scale: 0.6 }}
-        animate={shouldReduceMotion ? undefined : { rotate: 0, opacity: 1, scale: 1 }}
+        initial={shouldReduceMotion ? false : { x: -10, opacity: 0 }}
+        animate={shouldReduceMotion ? undefined : { x: 0, opacity: 1 }}
         transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3, ease: "easeOut" }}
       >
         {theme === "dark" ? (

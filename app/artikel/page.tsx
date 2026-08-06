@@ -47,10 +47,16 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
       >
         <TransitionLink
           href="/artikel/tulis"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-forest-600 hover:bg-forest-700 dark:bg-lime dark:hover:bg-lime/90 text-white dark:text-forest-950 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95 border border-white/20 dark:border-lime/30"
+          className="group/new-article relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-lime bg-transparent px-5 py-2.5 text-xs font-bold text-white shadow-md transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime/70"
         >
-          <Pencil className="w-3.5 h-3.5" />
-          Tulis Artikel Baru
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/new-article:translate-x-0"
+          />
+          <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/new-article:text-forest-950">
+            <Pencil className="h-3.5 w-3.5 transition-transform duration-300 motion-safe:group-hover/new-article:-rotate-6 motion-safe:group-hover/new-article:scale-110 motion-reduce:transform-none motion-reduce:transition-none" />
+            <span>Tulis Artikel Baru</span>
+          </span>
         </TransitionLink>
       </PageHero>
 

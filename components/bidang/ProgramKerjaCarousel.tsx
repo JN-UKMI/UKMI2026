@@ -114,15 +114,15 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                     whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.015 }}
                     whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
                     transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                    className="w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-colors"
+                    className="group w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 hover:border-forest-300 dark:hover:border-lime/50 border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-all duration-300"
                   >
                     <div>
                       {/* Top Bar: Number & Icon */}
                       <div className="flex items-center justify-between mb-4">
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono text-xs font-bold border border-forest-600/20 dark:border-forest-800">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono text-xs font-bold border border-forest-600/20 dark:border-forest-800 transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-3">
                           {(i + 1).toString().padStart(2, "0")}
                         </span>
-                        <Target className="w-5 h-5 text-lime" />
+                        <Target className="w-5 h-5 text-lime transition-transform duration-300 motion-safe:group-hover:rotate-12 motion-safe:group-hover:scale-110" />
                       </div>
 
                       <h3 className="font-black text-xl text-forest-900 dark:text-lime mb-3 leading-snug line-clamp-2">
@@ -155,7 +155,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             onClick={prevSlide}
             disabled={currentIndex === 0}
             aria-label="Previous Slide"
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 transition-all z-10"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 hover:shadow-lg motion-safe:hover:-translate-y-[calc(50%_+_0.125rem)] transition-all z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -164,7 +164,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             onClick={nextSlide}
             disabled={currentIndex >= maxIndex}
             aria-label="Next Slide"
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 transition-all z-10"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 hover:shadow-lg motion-safe:hover:-translate-y-[calc(50%_+_0.125rem)] transition-all z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -178,7 +178,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
               key={index}
               onClick={() => setCurrentIndex(index)}
               aria-label={`Go to slide ${index + 1}`}
-              className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer group"
+              className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer group rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50 dark:focus-visible:ring-lime/60"
             >
               <span
                 className={`h-2.5 rounded-full transition-all duration-300 ${

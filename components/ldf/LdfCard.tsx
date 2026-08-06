@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import type { LDF } from "@/lib/types";
-import { useIsTouchDevice } from "@/lib/hooks";
 
 export interface LdfCardProps {
   ldf: LDF;
@@ -11,9 +10,9 @@ export interface LdfCardProps {
 
 export function LdfCard({ ldf }: LdfCardProps) {
   const shouldReduceMotion = useReducedMotion();
-  const isTouchDevice = useIsTouchDevice();
   const rawUrl = ldf.instagram_url || ldf.instagram || "#";
-  const igUrl = rawUrl.startsWith("http") ? rawUrl : rawUrl !== "#" ? `https://www.instagram.com/${rawUrl.replace(/^@/, "")}/` : "#";
+  const hasInstagramUrl = rawUrl !== "#" && rawUrl.trim() !== "";
+  const igUrl = rawUrl.startsWith("http") ? rawUrl : hasInstagramUrl ? `https://www.instagram.com/${rawUrl.replace(/^@/, "")}/` : "#";
 
   return (
     <motion.div
@@ -53,7 +52,8 @@ export function LdfCard({ ldf }: LdfCardProps) {
           </div>
 
           {/* 4. Tombol Menuju Instagram */}
-          <div className="pt-1.5 sm:pt-4 mt-auto">
+          {hasInstagramUrl && (
+            <div className="pt-1.5 sm:pt-4 mt-auto">
             <motion.a
               whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
@@ -61,19 +61,22 @@ export function LdfCard({ ldf }: LdfCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Kunjungi Instagram ${ldf.nama}`}
-              className="flex items-center justify-center gap-1 sm:gap-2 w-full py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-[11px] sm:text-xs font-bold transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
+              className="group/instagram relative isolate flex w-full items-center justify-center gap-1 sm:gap-2 overflow-hidden rounded-xl border border-pink-500 dark:border-pink-400 bg-transparent text-white px-2 py-2 sm:px-4 sm:py-2.5 text-[11px] sm:text-xs font-bold shadow-sm transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none sm:text-pink-600 dark:sm:text-pink-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
             >
-              <span className="hidden sm:inline">Kunjungi Instagram</span>
-              <span className="sm:hidden">Instagram</span>
-              <motion.span
-                animate={shouldReduceMotion || isTouchDevice ? undefined : { x: [0, 3, 0] }}
-                transition={shouldReduceMotion || isTouchDevice ? undefined : { repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                className="text-xs sm:text-sm"
-              >
-                ↗
-              </motion.span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 z-0 translate-x-0 bg-gradient-to-r from-purple-700 via-pink-700 to-orange-600 motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out sm:-translate-x-full sm:motion-safe:group-hover/instagram:translate-x-0 motion-reduce:transition-none"
+              />
+              <span className="relative z-10 inline-flex items-center justify-center gap-1 sm:gap-2 text-white transition-colors duration-300 motion-reduce:transition-none sm:text-pink-600 dark:sm:text-pink-300 sm:group-hover/instagram:text-white">
+                <span className="hidden sm:inline">Kunjungi Instagram</span>
+                <span className="sm:hidden">Instagram</span>
+                <span className="text-xs sm:text-sm transition-transform duration-300 motion-safe:group-hover/instagram:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none">
+                  ↗
+                </span>
+              </span>
             </motion.a>
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </motion.div>

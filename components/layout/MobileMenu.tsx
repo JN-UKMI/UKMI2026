@@ -22,9 +22,9 @@ export function MobileMenu({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: -12, scale: 0.98 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -12, scale: 0.98, transition: { duration: 0.18 } }}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20, transition: { duration: 0.18 } }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className="md:hidden absolute top-full left-4 right-4 z-50 mt-2 glass rounded-2xl shadow-2xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20 overflow-hidden p-3"
     >
