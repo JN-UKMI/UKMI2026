@@ -33,7 +33,7 @@ export function ContentColumns() {
     <section className="bg-white dark:bg-transparent px-4 py-20 transition-colors">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-forest-900 dark:text-lime md:text-4xl">
+          <h2 className="section-title-hover text-3xl font-bold text-forest-900 dark:text-lime md:text-4xl">
             Jelajahi Lebih Lanjut
           </h2>
           <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">

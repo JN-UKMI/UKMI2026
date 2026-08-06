@@ -76,7 +76,7 @@ export function DeskripsiSection({ deskripsi, tentangCards }: DeskripsiSectionPr
               <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-forest-600/10 dark:bg-lime/10">
                 <Info className="w-5 h-5 text-forest-600 dark:text-lime" />
               </div>
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white">
+              <h2 className="section-title-hover text-2xl md:text-3xl font-black text-gray-900 dark:text-white">
                 Tentang Bidang
               </h2>
             </div>

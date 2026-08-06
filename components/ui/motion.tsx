@@ -361,10 +361,13 @@ export function TextReveal({
       viewport={{ once: true, margin: "-40px" }}
       className={`inline-block ${className}`}
     >
-      {words.map((word, i) => (
-        <motion.span key={`${word}-${i}`} variants={wordVariants} className="inline-block mr-[0.25em]">
-          {word}
-        </motion.span>
+      {words.map((word, i) => (          <motion.span
+            key={`${word}-${i}`}
+            variants={wordVariants}
+            className={`inline-block ${i < words.length - 1 ? "mr-[0.25em]" : ""}`}
+          >
+            {word}
+          </motion.span>
       ))}
     </motion.span>
   );

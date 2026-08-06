@@ -67,7 +67,7 @@ export function LogoKabinetSection({ items = DEFAULT_ITEMS }: LogoKabinetSection
           <Sparkles className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
           Filosofi Logo Kabinet
         </div>
-        <h2 className="text-2xl sm:text-4xl font-black text-forest-900 dark:text-white tracking-tight">
+        <h2 className="section-title-hover text-2xl sm:text-4xl font-black text-forest-900 dark:text-white tracking-tight">
           Makna Elemen Logo Iskandar Muda
         </h2>
         <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">

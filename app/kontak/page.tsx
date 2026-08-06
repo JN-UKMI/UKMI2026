@@ -87,7 +87,7 @@ export default function KontakPage() {
         >
           {/* Header & Description — animates per tab */}
           <div className="text-center max-w-xl mx-auto space-y-3">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+            <h2 className="section-title-hover text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
               Kirim Pesan & Pengajuan
             </h2>
             <AnimatePresence mode="wait">

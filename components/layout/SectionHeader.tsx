@@ -41,11 +41,13 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
 
       {/* 2. Main Title — reveal per kata */}
       <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-forest-900 dark:text-lime uppercase tracking-wider">
-        {shouldReduceMotion ? (
-          title
-        ) : (
-          <TextReveal text={title} stagger={0.035} />
-        )}
+        <span className="section-title-hover">
+          {shouldReduceMotion ? (
+            title
+          ) : (
+            <TextReveal text={title} stagger={0.035} />
+          )}
+        </span>
       </h2>
 
       {/* 3. Subtitle */}

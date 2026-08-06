@@ -25,7 +25,7 @@ export default function TentangPage() {
         {/* Top Header Title & Subtitle (Centered Layout) */}
         <FadeIn direction="up" className="mb-12 max-w-3xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight">
+            <h2 className="section-title-hover text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight">
               JN UKMI{" "}
               <span className="text-forest-600 relative inline-block">
                 Universitas Sebelas Maret

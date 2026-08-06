@@ -29,7 +29,7 @@ export function LogoPhilosophySection({
             />
           </FadeIn>
           <FadeIn direction="right" delay={0.15} className="w-1/2">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Filosofi Logo</h2>
+            <h2 className="section-title-hover text-2xl font-bold text-gray-900 dark:text-white mb-4">Filosofi Logo</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
               {filosofi}
             </p>

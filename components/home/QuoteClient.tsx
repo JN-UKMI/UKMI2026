@@ -78,15 +78,10 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
 
           {/* 30 Seconds Duration Loading Indicator Bar */}
           <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-black/40 z-20">
-            <motion.div
+            <div
               key={index}
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{
-                duration: 30,
-                ease: "linear",
-              }}
-              className="h-full bg-gradient-to-r from-forest-400 via-lime to-emerald-400 shadow-[0_0_12px_rgba(163,230,53,0.8)]"
+              aria-hidden="true"
+              className="quote-progress h-full w-full bg-gradient-to-r from-forest-400 via-lime to-emerald-400 shadow-[0_0_12px_rgba(163,230,53,0.8)]"
             />
           </div>
         </motion.div>

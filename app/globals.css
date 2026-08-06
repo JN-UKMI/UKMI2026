@@ -117,6 +117,57 @@ body {
   animation: gradient-x 6s ease infinite;
 }
 
+/* Section heading underline — stays exactly as wide as the title text. */
+.section-title-hover {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.section-title-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 0;
+  height: 0.2rem;
+  border-radius: 9999px;
+  background: #499A13;
+  transition: width 300ms ease-out;
+}
+
+.section-title-hover:hover::after,
+.section-title-hover:focus-visible::after {
+  width: 100%;
+}
+
+.dark .section-title-hover::after {
+  background: #BBDC12;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-title-hover::after {
+    transition: none;
+  }
+}
+
+/* Quote rotation progress indicator. The element is remounted with each
+   quote index, so the 30-second fill starts from zero on every quote. */
+@keyframes quote-progress-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.quote-progress {
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: quote-progress-fill 30s linear forwards;
+}
+
 /* Text shadow glow untuk heading di hero gelap */
 .text-glow {
   text-shadow: 0 0 24px rgba(139, 202, 60, 0.35);

@@ -47,7 +47,7 @@ export function FeatureCards() {
           className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200/80 dark:border-gray-800 pb-6"
         >
           <div>
-            <h2 className="text-3xl font-black text-forest-900 dark:text-lime md:text-4xl tracking-tight">
+            <h2 className="section-title-hover text-3xl font-black text-forest-900 dark:text-lime md:text-4xl tracking-tight">
               Layanan & Pembinaan
             </h2>
             <p className="mt-2 text-base text-gray-600 dark:text-gray-300 max-w-xl">

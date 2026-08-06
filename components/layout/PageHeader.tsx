@@ -16,7 +16,7 @@ export function PageHeader({ title, subtitle, badge, icon, children }: PageHeade
 
         <h1 className="text-3xl md:text-5xl font-black text-forest-900 dark:text-lime uppercase tracking-wider flex items-center justify-center gap-3">
           {icon && <span className="text-forest-600 dark:text-lime">{icon}</span>}
-          {title}
+          <span className="section-title-hover">{title}</span>
         </h1>
 
         {subtitle && (

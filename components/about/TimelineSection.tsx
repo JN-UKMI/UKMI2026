@@ -30,7 +30,7 @@ export function TimelineSection({ timeline }: TimelineSectionProps) {
     <section className="py-16 px-4 bg-transparent">
       <div className="max-w-4xl mx-auto">
         <FadeIn className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-forest-900">
+          <h2 className="section-title-hover text-3xl font-bold text-forest-900">
             Sejarah
           </h2>
         </FadeIn>
