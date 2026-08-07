@@ -101,7 +101,7 @@ export function DeskripsiSection({ deskripsi, tentangCards }: DeskripsiSectionPr
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover/card:text-forest-600 dark:group-hover/card:text-lime transition-colors leading-snug">
+                    <h3 className="card-title-underline font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover/card:text-forest-600 dark:group-hover/card:text-lime transition-colors leading-[1.75]">
                       {card.title}
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">

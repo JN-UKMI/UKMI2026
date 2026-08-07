@@ -53,8 +53,10 @@ export const siteConfig = {
     region: "Jawa Tengah",
     country: "ID",
   },
-  /** Default Open Graph image — overridden by app/opengraph-image.tsx (dynamic). */
-  defaultOgImage: "/opengraph-image",
+  /** Default Open Graph image — static brand thumbnail served from public/thumbnail.png
+   *  for every page that doesn't supply its own custom image (e.g. article covers).
+   *  Kept as a stable URL so social platforms can cache it. */
+  defaultOgImage: "/thumbnail.png",
   /** Theme colours (browser chrome + manifest). Forest green is the org's primary. */
   themeColorLight: "#ffffff",
   themeColorDark: "#0a0a0a",

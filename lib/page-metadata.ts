@@ -35,6 +35,14 @@ interface BuildPageMetadataOptions {
   locale?: string;
   /** Set `true` to mark noindex for this page (e.g. preview-as-draft). */
   noindex?: boolean;
+  /**
+   * Set `true` to bypass the root layout title template ("%s | JN UKMI").
+   * Used on the homepage so the brand name leads the title tag instead of
+   * the generic page name (e.g. "JN UKMI UNS — ...").
+   */
+  titleAbsolute?: boolean;
+  /** Override the alt text for the OG/Twitter image (defaults to `title`). */
+  imageAlt?: string;
 }
 
 /**
@@ -56,12 +64,22 @@ export function buildPageMetadata(
   const url = getAbsoluteUrl(opts.path);
   const image = opts.image ?? siteConfig.defaultOgImage;
   const isArticle = opts.type === "article";
-  const fullTitle = `${opts.title} | ${siteConfig.shortName}`;
+  // Title WITHOUT the template suffix. The root layout already defines
+  // `openGraph.title.template` / `twitter.title.template` ("%s | JN UKMI"),
+  // so a plain string here would get the suffix applied TWICE (known bug:
+  // "X | JN UKMI | JN UKMI"). Using { absolute } bypasses the template.
+  // titleAbsolute pages (home) keep the raw brand title — no suffix at all.
+  const fullTitle = opts.titleAbsolute
+    ? opts.title
+    : `${opts.title} | ${siteConfig.shortName}`;
 
   return {
     // Keep the page title unsuffixed here; the root layout's title template
-    // appends "| JN UKMI" exactly once.
-    title: opts.title,
+    // appends "| JN UKMI" exactly once — unless the page opts into an
+    // absolute title (homepage brand title) that bypasses the template.
+    title: opts.titleAbsolute
+      ? { absolute: opts.title }
+      : opts.title,
     description: opts.description,
     authors: opts.authors?.map((name) => ({ name })),
     keywords: opts.tags,
@@ -69,7 +87,7 @@ export function buildPageMetadata(
     openGraph: {
       type: opts.type ?? "website",
       url,
-      title: fullTitle,
+      title: { absolute: fullTitle },
       description: opts.description,
       siteName: siteConfig.name,
       locale: opts.locale ?? siteConfig.locale,
@@ -78,7 +96,7 @@ export function buildPageMetadata(
           url: image,
           width: DEFAULT_OG.width,
           height: DEFAULT_OG.height,
-          alt: opts.title,
+          alt: opts.imageAlt ?? opts.title,
         },
       ],
       ...(isArticle && opts.publishedTime
@@ -92,7 +110,7 @@ export function buildPageMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: fullTitle,
+      title: { absolute: fullTitle },
       description: opts.description,
       images: [image],
       ...(opts.authors?.length ? { creator: `@${opts.authors[0]}` } : {}),

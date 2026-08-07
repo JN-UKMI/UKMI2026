@@ -5,7 +5,7 @@ import { DoaDoaList } from "@/components/islamic/DoaDoaList";
 
 export const metadata = buildPageMetadata({
   title: 'Database Doa & Zikir',
-  description: 'Kumpulan doa-doa pilihan dan doa pembuka majelis untuk diamalkan dalam kehidupan sehari-hari.',
+  description: 'Kumpulan doa-doa pilihan dari Al-Qur\u2019an dan hadits shahih: doa harian, doa pembuka majelis, dan amalan untuk penuntut ilmu.',
   path: '/doa-doa',
 });
 

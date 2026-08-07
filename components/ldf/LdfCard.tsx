@@ -41,7 +41,7 @@ export function LdfCard({ ldf }: LdfCardProps) {
         <div className="flex-1 p-3 sm:p-5 flex flex-col justify-between min-w-0">
           <div>
             {/* 2. Nama */}
-            <h3 className="text-sm sm:text-lg font-bold text-forest-900 dark:text-lime leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors line-clamp-2 sm:line-clamp-none">
+            <h3 className="card-title-underline text-sm sm:text-lg font-bold text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
               {ldf.nama}
             </h3>
 

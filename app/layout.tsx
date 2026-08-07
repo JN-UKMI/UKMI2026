@@ -26,7 +26,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: `${siteConfig.name} | ${siteConfig.shortName}`,
+    // Brand-first default (used when a page ships no title): leads with the
+    // short brand so "jnukmi" queries match the title tag directly.
+    default: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
@@ -63,13 +65,18 @@ export const metadata: Metadata = {
     url: BASE_URL,
     siteName: siteConfig.name,
     title: {
-      default: `${siteConfig.name} | ${siteConfig.shortName}`,
+      // Brand-first default so "jnukmi" matches the OG title on social shares.
+      // NOTE: every public page sets its og:title as { absolute } via
+      // buildPageMetadata (to avoid the double-suffix bug), so this template
+      // is a safety net for pages without an explicit og:title.
+      default: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
       template: `%s | ${siteConfig.shortName}`,
     },
     description: siteConfig.description,
     images: [
       {
-        url: "/thumbnail.png",
+        // Absolute URL — some crawlers (WhatsApp/Telegram) ignore relative og:image
+        url: `${BASE_URL}/thumbnail.png`,
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} — Organisasi Kemahasiswaan Islam UNS`,
@@ -79,11 +86,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: {
-      default: `${siteConfig.name} | ${siteConfig.shortName}`,
+      default: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
       template: `%s | ${siteConfig.shortName}`,
     },
     description: siteConfig.description,
-    images: ["/thumbnail.png"],
+    images: [`${BASE_URL}/thumbnail.png`],
   },
   robots: {
     index: true,

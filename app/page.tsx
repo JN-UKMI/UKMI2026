@@ -16,12 +16,25 @@ const TestimonialSection = dynamicImport(
   () => import("@/components/home/TestimonialSection").then((m) => m.TestimonialSection)
 );
 
+// Brand-first absolute title: for the brand query "jnukmi" the homepage
+// title tag must lead with the brand name (bypassing the "| JN UKMI"
+// template so it doesn't repeat). Description stays ≤ ~155 chars.
 export const metadata = buildPageMetadata({
-  title: "Beranda",
+  title: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
+  titleAbsolute: true,
   description:
-    "Website resmi JN UKMI UNS, organisasi Islam Universitas Sebelas Maret sejak 1991 untuk pembinaan mahasiswa, dakwah kampus, dan pengabdian.",
+    "Website resmi JN UKMI UNS, Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret sejak 1991: profil, kabinet, kajian, artikel, dan layanan islami.",
   path: "/",
-  tags: ["JN UKMI", "JN UKMI UNS", "Rohis UNS", "Organisasi Islam UNS", "Nurul Huda UNS"],
+  imageAlt: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
+  tags: [
+    "JN UKMI",
+    "JN UKMI UNS",
+    "Rohis UNS",
+    "Organisasi Islam UNS",
+    "Nurul Huda UNS",
+    "UKM Islam UNS",
+    "LDK UNS Surakarta",
+  ],
 });
 
 export default async function Home() {

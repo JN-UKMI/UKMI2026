@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = buildPageMetadata({
   title: 'Kabinet Iskandar Muda',
-  description: 'Struktur kepengurusan Jamaah Nurul Huda UKMI',
+  description: 'Kenali Kabinet Iskandar Muda JN UKMI UNS: struktur pengurus, filosofi logo, dan visi kepengurusan Unit Kegiatan Mahasiswa Islam UNS.',
   path: '/kabinet',
 });
 

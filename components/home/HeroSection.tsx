@@ -82,26 +82,33 @@ export function HeroSection() {
           />
         </motion.div>
 
-        <motion.p 
-          variants={itemVariants}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight"
-        >
-          {shouldReduceMotion ? (
-            homeData.titleLine1 || "Jamaah Nurul Huda"
-          ) : (
-            <WordReveal text={homeData.titleLine1 || "Jamaah Nurul Huda"} />
-          )}
-        </motion.p>
-        <motion.p 
-          variants={itemVariants}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mt-1 sm:mt-2"
-        >
-          {shouldReduceMotion ? (
-            homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"
-          ) : (
-            <WordReveal text={homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"} delay={0.15} />
-          )}
-        </motion.p>
+        {/* Semantic single <h1> — full org name in one heading for the brand query "jnukmi".
+            Two motion.spans preserve the staggered word-reveal entrance. */}
+        <motion.h1 variants={itemVariants} className="text-center">
+          <motion.span
+            variants={itemVariants}
+            className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight"
+          >
+            {shouldReduceMotion ? (
+              homeData.titleLine1 || "Jamaah Nurul Huda"
+            ) : (
+              <WordReveal text={homeData.titleLine1 || "Jamaah Nurul Huda"} />
+            )}
+          </motion.span>
+          <motion.span
+            variants={itemVariants}
+            // Preserve the original line-by-line entrance: line 2 starts 0.15s
+            // after line 1 (stagger no longer applies across the nested spans).
+            transition={{ duration: 0.5, ease: "easeOut" as const, delay: 0.15 }}
+            className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mt-1 sm:mt-2"
+          >
+            {shouldReduceMotion ? (
+              homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"
+            ) : (
+              <WordReveal text={homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"} delay={0.15} />
+            )}
+          </motion.span>
+        </motion.h1>
 
         <motion.div variants={itemVariants} className="mt-10">
           <MagneticButton

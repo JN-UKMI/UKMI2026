@@ -246,7 +246,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                     <div className="p-3.5 sm:p-7 flex flex-col justify-between flex-1 gap-2.5 sm:gap-5 min-w-0">
                       <div className="space-y-2 sm:space-y-3.5">
                         {/* Event Title */}
-                        <h3 className="text-sm sm:text-xl font-black text-gray-900 dark:text-white leading-tight sm:leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors line-clamp-2">
+                        <h3 className="card-title-underline text-sm sm:text-xl font-black text-gray-900 dark:text-white leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                           {item.title}
                         </h3>
 

@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = buildPageMetadata({
   title: 'Ormawa Kerohanian Islam',
-  description: 'Direktori Ormawa Kerohanian Islam di kampus UNS',
+  description: 'Direktori Ormawa Kerohanian Islam (OKI) di UNS: profil organisasi mahasiswa Islam fakultas, media sosial, dan kontak masing-masing.',
   path: '/oki',
 });
 

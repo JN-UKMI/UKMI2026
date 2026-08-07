@@ -56,7 +56,7 @@ export default async function BukuUkmiPage() {
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                   <BookOpen className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-black text-forest-900 dark:text-lime mb-2 group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
+                <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                   Katalog Koleksi Buku
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
@@ -84,7 +84,7 @@ export default async function BukuUkmiPage() {
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                   <FileCheck className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-black text-forest-900 dark:text-lime mb-2 group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
+                <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                   Pinjam Buku
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
@@ -112,7 +112,7 @@ export default async function BukuUkmiPage() {
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                   <RotateCcw className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-black text-forest-900 dark:text-lime mb-2 group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
+                <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                   Kembalikan Buku
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
@@ -140,7 +140,7 @@ export default async function BukuUkmiPage() {
                 <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                   <HeartHandshake className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-black text-forest-900 dark:text-lime mb-2 group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
+                <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                   Jariyah BUMI
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">

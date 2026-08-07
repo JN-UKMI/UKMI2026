@@ -7,7 +7,7 @@ import { Pencil } from "lucide-react";
 
 export const metadata = buildPageMetadata({
   title: 'Artikel',
-  description: 'Baca artikel tentang kegiatan, kajian, dan isu-isu terbaru dari JN UKMI',
+  description: 'Baca artikel islami, kajian, liputan kegiatan, dan konten syiar terbaru dari JN UKMI UNS. Tulis dan bagikan artikelmu di sini.',
   path: '/artikel',
 });
 

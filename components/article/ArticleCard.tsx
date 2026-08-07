@@ -67,7 +67,7 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
 
         <div className="flex flex-col flex-1 p-6 justify-between">
           <div>
-            <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover/card:text-forest-600 dark:group-hover/card:text-lime transition-colors mb-2.5 line-clamp-2 leading-snug">
+            <h3 className="card-title-underline font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover/card:text-forest-600 dark:group-hover/card:text-lime transition-colors mb-2.5 leading-[1.75]">
               {article.title}
             </h3>
             <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">

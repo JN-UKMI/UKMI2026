@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = buildPageMetadata({
   title: 'Partner Dakwah',
-  description: 'Direktori Partner Dakwah di kampus UNS',
+  description: 'Direktori partner dakwah JN UKMI UNS: lembaga, UKM, dan organisasi mitra yang bersinergi dalam syiar islami di kampus Universitas Sebelas Maret.',
   path: '/partner',
 });
 

@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = buildPageMetadata({
   title: 'Lembaga Dakwah Fakultas',
-  description: 'Direktori Lembaga Dakwah Fakultas di kampus UNS',
+  description: 'Direktori 12 Lembaga Dakwah Fakultas (LDF) di lingkungan UNS: profil, media sosial, dan kontak dakwah fakultas se-Surakarta.',
   path: '/ldf',
 });
 

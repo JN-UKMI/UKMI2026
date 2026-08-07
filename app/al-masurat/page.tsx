@@ -4,7 +4,7 @@ import { PageHero } from "@/components/layout/PageHero";
 
 export const metadata = buildPageMetadata({
   title: 'Al-Ma’tsurat',
-  description: 'Dzikir pagi & petang sesuai sunnah (Sughra & Kubra)',
+  description: 'Baca dan dengarkan Al-Ma\u2019tsurat Sughra & Kubra: dzikir pagi dan petang sesuai sunnah lengkap dengan audio murottal dari JN UKMI UNS.',
   path: '/al-masurat',
 });
 

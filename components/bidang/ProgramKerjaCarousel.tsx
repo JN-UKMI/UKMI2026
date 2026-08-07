@@ -125,7 +125,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                         <Target className="w-5 h-5 text-lime transition-transform duration-300 motion-safe:group-hover:rotate-12 motion-safe:group-hover:scale-110" />
                       </div>
 
-                      <h3 className="font-black text-xl text-forest-900 dark:text-lime mb-3 leading-snug line-clamp-2">
+                      <h3 className="card-title-underline font-black text-xl text-forest-900 dark:text-lime mb-3 leading-[1.75]">
                         {prog.title}
                       </h3>
                       <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-4">

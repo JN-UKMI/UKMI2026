@@ -181,7 +181,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                     {iconElement}
                   </div>
 
-                  <h3 className="text-base sm:text-xl font-bold text-forest-900 dark:text-white mb-0.5 sm:mb-1 group-hover:text-forest-600 dark:group-hover:text-lime transition-colors leading-snug">
+                  <h3 className="card-title-underline text-base sm:text-xl font-bold text-forest-900 dark:text-white mb-0.5 sm:mb-1 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                     {item.name}
                   </h3>
 

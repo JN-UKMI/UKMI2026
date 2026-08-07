@@ -224,7 +224,7 @@ export function LogoKabinetSection({ items = DEFAULT_ITEMS }: LogoKabinetSection
               </div>
 
               {/* Card Title Only */}
-              <h4 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-forest-600 dark:group-hover:text-lime transition-colors line-clamp-1 px-1 pt-1">
+              <h4 className="card-title-underline text-sm font-bold text-gray-900 dark:text-white group-hover:text-forest-600 dark:group-hover:text-lime transition-colors leading-[1.75] px-1 pt-1">
                 {item.title}
               </h4>
             </div>
