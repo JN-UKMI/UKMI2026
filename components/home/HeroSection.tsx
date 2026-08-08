@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import homeData from "@/content/beranda/main.json";
-import { WordReveal, GradientText, MagneticButton, Parallax } from "@/components/ui/motion";
+import { GradientText, MagneticButton, Parallax } from "@/components/ui/motion";
+import { StrokeText } from "@/components/ui/StrokeText";
 
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -82,32 +84,56 @@ export function HeroSection() {
           />
         </motion.div>
 
-        {/* Semantic single <h1> — full org name in one heading for the brand query "jnukmi".
-            Two motion.spans preserve the staggered word-reveal entrance. */}
-        <motion.h1 variants={itemVariants} className="text-center">
-          <motion.span
-            variants={itemVariants}
-            className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight"
-          >
-            {shouldReduceMotion ? (
-              homeData.titleLine1 || "Jamaah Nurul Huda"
-            ) : (
-              <WordReveal text={homeData.titleLine1 || "Jamaah Nurul Huda"} />
-            )}
-          </motion.span>
-          <motion.span
-            variants={itemVariants}
-            // Preserve the original line-by-line entrance: line 2 starts 0.15s
-            // after line 1 (stagger no longer applies across the nested spans).
-            transition={{ duration: 0.5, ease: "easeOut" as const, delay: 0.15 }}
-            className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mt-1 sm:mt-2"
-          >
-            {shouldReduceMotion ? (
-              homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"
-            ) : (
-              <WordReveal text={homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"} delay={0.15} />
-            )}
-          </motion.span>
+        {/* Semantic single <h1> — keep a real text name for assistive technology;
+            the SVG lettering is the visual treatment layered on top. */}
+        <motion.h1 variants={itemVariants} className="w-full max-w-6xl text-center">
+          <span className="sr-only">
+            {homeData.titleLine1 || "Jamaah Nurul Huda"} {homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"}
+          </span>
+          <StrokeText
+            decorative
+            startDelay={0.45}
+            text={homeData.titleLine1 || "Jamaah Nurul Huda"}
+            strokeColor="#FFFFFF"
+            fillColor="#F8FAFC"
+            strokeWidth={1.8}
+            drawDuration={1.5}
+            fillDelay={0.08}
+            stagger={0.045}
+            ease="power2.out"
+            trigger="mount"
+            fillMode="wipe"
+            fontSize={128}
+            fontWeight={800}
+            letterSpacing={-4}
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
+            style={{
+              "--stroke-text-height": "clamp(3.25rem, 12vw, 8rem)",
+            } as CSSProperties}
+          />
+          <span className="mt-0 block sm:mt-1">
+            <StrokeText
+              decorative
+              startDelay={0.65}
+              text={homeData.titleLine2 || "Unit Kegiatan Mahasiswa Islam"}
+              strokeColor="#FFFFFF"
+              fillColor="#F8FAFC"
+              strokeWidth={1.8}
+              drawDuration={1.8}
+              fillDelay={0.12}
+              stagger={0.04}
+              ease="power2.out"
+              trigger="mount"
+              fillMode="wipe"
+              fontSize={128}
+              fontWeight={800}
+              letterSpacing={-4}
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
+              style={{
+                "--stroke-text-height": "clamp(3.25rem, 12vw, 8rem)",
+                } as CSSProperties}
+            />
+          </span>
         </motion.h1>
 
         <motion.div variants={itemVariants} className="mt-10">

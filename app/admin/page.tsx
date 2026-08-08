@@ -32,7 +32,6 @@ import {
   ChevronDown,
   Sparkles,
   Star,
-  LayoutGrid,
 } from "lucide-react";
 
 interface DraftArticle {

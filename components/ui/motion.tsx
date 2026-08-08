@@ -429,7 +429,7 @@ export function WordReveal({
           key={`${word}-${i}`}
           variants={wordVariants}
           className="inline-block will-change-transform"
-          style={{ marginRight: "0.22em" }}
+          style={{ marginRight: i < words.length - 1 ? "0.22em" : undefined }}
         >
           {word}
         </motion.span>

@@ -25,12 +25,8 @@ export default function TentangPage() {
         {/* Top Header Title & Subtitle (Centered Layout) */}
         <FadeIn direction="up" className="mb-12 max-w-3xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center">
-            <h2 className="section-title-hover text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight">
-              JN UKMI{" "}
-              <span className="text-forest-600 relative inline-block">
-                Universitas Sebelas Maret
-                <span className="absolute bottom-1 left-0 w-full h-[4px] bg-lime/30 rounded-full" />
-              </span>
+            <h2 className="section-title-hover whitespace-nowrap text-3xl md:text-5xl font-extrabold text-black dark:text-black tracking-tight leading-tight">
+              JN UKMI UNS
             </h2>
             <p className="mt-3 text-sm md:text-base text-gray-500 dark:text-gray-400 font-medium max-w-2xl">
               Mengenal lebih dalam profil, arah gerak, sejarah, dan nilai-nilai

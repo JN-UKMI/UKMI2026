@@ -10,6 +10,11 @@ const eslintConfig = defineConfig([
     // Runtime validation remains enforced with Zod at every API boundary.
     rules: { "@typescript-eslint/no-explicit-any": "off" },
   },
+  {
+    // These standalone skill utilities intentionally use Node's CommonJS API.
+    files: [".agents/**/*.cjs"],
+    rules: { "@typescript-eslint/no-require-imports": "off" },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
