@@ -48,7 +48,7 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
         className="flex flex-col h-full flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-forest-600 dark:focus-visible:ring-lime"
       >
         {/* Thumbnail Image with Category Badge overlay */}
-        <div className="relative w-full h-52 bg-gray-100 dark:bg-gray-800 overflow-hidden shrink-0">
+        <div className="relative w-full h-48 sm:h-52 bg-gray-100 dark:bg-gray-800 overflow-hidden shrink-0">
           <Image
             src={getCoverImageUrl()}
             alt={article.title}
@@ -65,17 +65,17 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
           </span>
         </div>
 
-        <div className="flex flex-col flex-1 p-6 justify-between">
-          <div>
-            <h3 className="card-title-underline font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover/card:text-forest-600 dark:group-hover/card:text-lime transition-colors mb-2.5 leading-[1.75]">
-              {article.title}
+        <div className="flex flex-col flex-1 p-5 sm:p-6 justify-between">
+          <div className="flex flex-col flex-1 mb-4">
+            <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white group-hover/card:text-forest-600 dark:group-hover/card:text-lime transition-colors mb-2.5 leading-snug sm:leading-relaxed line-clamp-2">
+              <span className="card-title-underline">{article.title}</span>
             </h3>
-            <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">
+            <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 line-clamp-3 leading-relaxed mt-auto">
               {article.excerpt}
             </p>
           </div>
 
-          <div>
+          <div className="shrink-0 mt-auto">
             {/* Article Metadata info bar */}
             <div className="flex flex-wrap items-center gap-4 text-xs text-gray-400 dark:text-gray-500 pt-3 border-t border-gray-100 dark:border-gray-800 mb-4">
               <span className="flex items-center gap-1.5 font-medium">

@@ -3,8 +3,6 @@
 import React, {
   ReactNode,
   useRef,
-  useState,
-  useEffect,
   useCallback,
 } from "react";
 import {
@@ -20,20 +18,10 @@ import {
 import { useIsTouchDevice } from "@/lib/hooks";
 
 // ── 0. Shared Easing Curves ──────────────────────────────────────────
-export const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
-export const EASE_SOFT = [0.21, 0.47, 0.32, 0.98] as const;
+const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+const EASE_SOFT = [0.21, 0.47, 0.32, 0.98] as const;
 
-/** Shared motion presets keep the large motion layer coherent across pages. */
-export const MOTION_PRESETS = {
-  reveal: {
-    duration: 0.55,
-    ease: EASE_SOFT,
-  },
-  card: {
-    type: "spring",
-    stiffness: 320,
-    damping: 24,
-  },
+const MOTION_PRESETS = {
   interactive: {
     type: "spring",
     stiffness: 220,
@@ -43,16 +31,6 @@ export const MOTION_PRESETS = {
 } as const;
 
 // ── 1. FadeIn Scroll / Mount Component ──────────────────────────────
-export interface FadeInProps extends HTMLMotionProps<"div"> {
-  children: ReactNode;
-  direction?: "up" | "down" | "left" | "right" | "none";
-  delay?: number;
-  duration?: number;
-  distance?: number;
-  viewportOnce?: boolean;
-  className?: string;
-}
-
 export function FadeIn({
   children,
   direction = "up",
@@ -62,7 +40,15 @@ export function FadeIn({
   viewportOnce = true,
   className = "",
   ...props
-}: FadeInProps) {
+}: {
+  children: ReactNode;
+  direction?: "up" | "down" | "left" | "right" | "none";
+  delay?: number;
+  duration?: number;
+  distance?: number;
+  viewportOnce?: boolean;
+  className?: string;
+} & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
   const distance = shouldReduceMotion ? 0 : distanceProp;
 
@@ -109,54 +95,7 @@ export function FadeIn({
   );
 }
 
-// ── 1b. RevealFade (slide-in premium entry) ──────────────────────────
-export function RevealFade({
-  children,
-  delay = 0,
-  duration = 0.7,
-  y = 40,
-  blur: _blur = 0,
-  className = "",
-  ...props
-}: {
-  children: ReactNode;
-  delay?: number;
-  duration?: number;
-  y?: number;
-  /** @deprecated Blur is ignored; entrance motion is slide-only. */
-  blur?: number;
-  className?: string;
-} & HTMLMotionProps<"div">) {
-  const shouldReduceMotion = useReducedMotion();
-  void _blur;
-
-  return (
-    <motion.div
-      initial={shouldReduceMotion ? false : { opacity: 0, y }}
-      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={shouldReduceMotion ? undefined : { once: true, margin: "-60px" }}
-      transition={{
-        duration: shouldReduceMotion ? 0.15 : duration,
-        delay,
-        ease: EASE_PREMIUM,
-      }}
-      className={className}
-      {...props}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 // ── 2. StaggerContainer & StaggerItem ───────────────────────────────
-export interface StaggerContainerProps extends HTMLMotionProps<"div"> {
-  children: ReactNode;
-  staggerChildren?: number;
-  delayChildren?: number;
-  className?: string;
-  viewportOnce?: boolean;
-}
-
 export function StaggerContainer({
   children,
   staggerChildren = 0.08,
@@ -164,7 +103,13 @@ export function StaggerContainer({
   className = "",
   viewportOnce = true,
   ...props
-}: StaggerContainerProps) {
+}: {
+  children: ReactNode;
+  staggerChildren?: number;
+  delayChildren?: number;
+  className?: string;
+  viewportOnce?: boolean;
+} & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
 
   const containerVariants: Variants = shouldReduceMotion
@@ -199,20 +144,18 @@ export function StaggerContainer({
   );
 }
 
-export interface StaggerItemProps extends HTMLMotionProps<"div"> {
-  children: ReactNode;
-  direction?: "up" | "down" | "left" | "right" | "none";
-  distance?: number;
-  className?: string;
-}
-
 export function StaggerItem({
   children,
   direction = "up",
   distance: distanceProp = 20,
   className = "",
   ...props
-}: StaggerItemProps) {
+}: {
+  children: ReactNode;
+  direction?: "up" | "down" | "left" | "right" | "none";
+  distance?: number;
+  className?: string;
+} & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
   const distance = shouldReduceMotion ? 0 : distanceProp;
 
@@ -242,7 +185,7 @@ export function StaggerItem({
 }
 
 function getInitialPosition(
-  direction: StaggerItemProps["direction"],
+  direction: "up" | "down" | "left" | "right" | "none" | undefined,
   distance: number
 ) {
   switch (direction) {
@@ -260,120 +203,7 @@ function getInitialPosition(
   }
 }
 
-// ── 3. SlideIn Component ────────────────────────────────────────────
-// ScaleIn remains as a compatibility export; entrance motion is now slide-based.
-export function ScaleIn({
-  children,
-  delay = 0,
-  duration = 0.5,
-  slideDistance = 24,
-  initialScale,
-  className = "",
-  viewportOnce = true,
-  ...props
-}: {
-  children: ReactNode;
-  delay?: number;
-  duration?: number;
-  slideDistance?: number;
-  /** @deprecated Use slideDistance. Kept for backwards compatibility. */
-  initialScale?: number;
-  className?: string;
-  viewportOnce?: boolean;
-} & HTMLMotionProps<"div">) {
-  const shouldReduceMotion = useReducedMotion();
-  const resolvedSlideDistance = initialScale === undefined
-    ? slideDistance
-    : Math.max(16, (1 - initialScale) * 100);
-
-  return (
-    <motion.div
-      initial={shouldReduceMotion ? false : { opacity: 0, y: resolvedSlideDistance }}
-      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={
-        shouldReduceMotion
-          ? undefined
-          : { once: viewportOnce, margin: "-60px" }
-      }
-      transition={{
-        duration: shouldReduceMotion ? 0.15 : duration,
-        delay,
-        ease: EASE_SOFT,
-      }}
-      className={className}
-      {...props}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/** Semantic name for slide-based entrance animation. */
-export const SlideIn = ScaleIn;
-
-// ── 4. TextReveal (Word-by-word reveal for titles) ──────────────────
-export function TextReveal({
-  text,
-  className = "",
-  delay = 0,
-  stagger = 0.04,
-}: {
-  text: string;
-  className?: string;
-  delay?: number;
-  stagger?: number;
-}) {
-  const shouldReduceMotion = useReducedMotion();
-  const words = text.split(" ");
-
-  if (shouldReduceMotion) {
-    return <span className={className}>{text}</span>;
-  }
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: stagger,
-        delayChildren: delay,
-      },
-    },
-  };
-
-  const wordVariants: Variants = {
-    hidden: { opacity: 0, y: 12 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: EASE_SOFT,
-      },
-    },
-  };
-
-  return (
-    <motion.span
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
-      className={`inline-block ${className}`}
-    >
-      {words.map((word, i) => (          <motion.span
-            key={`${word}-${i}`}
-            variants={wordVariants}
-            className={`inline-block ${i < words.length - 1 ? "mr-[0.25em]" : ""}`}
-          >
-            {word}
-          </motion.span>
-      ))}
-    </motion.span>
-  );
-}
-
-// ── 4b. WordReveal (slide-up per word — lebih sinematik) ────────────
+// ── 3. WordReveal (slide-up per word — lebih sinematik) ────────────
 export function WordReveal({
   text,
   className = "",
@@ -438,7 +268,7 @@ export function WordReveal({
   );
 }
 
-// ── 4c. GradientText (teks dengan gradient animated) ────────────────
+// ── 4. GradientText (teks dengan gradient animated) ────────────────
 export function GradientText({
   children,
   className = "",
@@ -465,42 +295,7 @@ export function GradientText({
   );
 }
 
-// ── 5. ButtonMotion & Micro-Interaction Wrapper ─────────────────────
-export function ButtonMotion({
-  children,
-  className = "",
-  hoverLift = true,
-  onClick,
-  ...props
-}: {
-  children: ReactNode;
-  className?: string;
-  hoverLift?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-} & HTMLMotionProps<"button">) {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <motion.button
-      whileHover={
-        shouldReduceMotion
-          ? undefined
-          : hoverLift
-          ? { y: -2, scale: 1.01 }
-          : { scale: 1.01 }
-      }
-      whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className={className}
-      onClick={onClick}
-      {...props}
-    >
-      {children}
-    </motion.button>
-  );
-}
-
-// ── 5b. MagneticButton (tombol "menarik" kursor saat hover) ─────────
+// ── 5. MagneticButton (tombol "menarik" kursor saat hover) ─────────
 export function MagneticButton({
   children,
   className = "",
@@ -549,7 +344,7 @@ export function MagneticButton({
   return <Comp {...motionProps} {...props}>{children}</Comp>;
 }
 
-// ── 5c. ShimmerOverlay (Aceternity-inspired hover light sweep) ──────
+// ── 6. ShimmerOverlay (Aceternity-inspired hover light sweep) ──────
 // Lightweight CSS-driven feedback: no pointer listeners and no React state.
 export function ShimmerOverlay({ className = "" }: { className?: string }) {
   return (
@@ -560,7 +355,7 @@ export function ShimmerOverlay({ className = "" }: { className?: string }) {
   );
 }
 
-// ── 6. CardMotion (Interactive Card Wrapper) ─────────────────────────
+// ── 7. CardMotion (Interactive Card Wrapper) ─────────────────────────
 export function CardMotion({
   children,
   className = "",
@@ -600,94 +395,7 @@ export function CardMotion({
   );
 }
 
-// ── 6b. TiltCard (efek 3D tilt mengikuti kursor) ────────────────────
-export function TiltCard({
-  children,
-  className = "",
-  maxTilt = 8,
-  glare = true,
-}: {
-  children: ReactNode;
-  className?: string;
-  maxTilt?: number;
-  glare?: boolean;
-}) {
-  const shouldReduceMotion = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
-  const glareX = useMotionValue(50);
-  const glareY = useMotionValue(50);
-  const glareOpacity = useMotionValue(0);
-  const springRotateX = useSpring(rotateX, { stiffness: 220, damping: 22 });
-  const springRotateY = useSpring(rotateY, { stiffness: 220, damping: 22 });
-  const springGlareX = useSpring(glareX, { stiffness: 260, damping: 24 });
-  const springGlareY = useSpring(glareY, { stiffness: 260, damping: 24 });
-  const springGlareOpacity = useSpring(glareOpacity, { stiffness: 280, damping: 26 });
-  const glareBackground = useTransform(
-    [springGlareX, springGlareY],
-    ([x, y]) => `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.22), transparent 55%)`
-  );
-
-  const handleMove = useCallback(
-    (e: React.MouseEvent) => {
-      if (shouldReduceMotion || !ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width;
-      const py = (e.clientY - rect.top) / rect.height;
-      rotateX.set((0.5 - py) * maxTilt);
-      rotateY.set((px - 0.5) * maxTilt);
-      glareX.set(px * 100);
-      glareY.set(py * 100);
-      glareOpacity.set(1);
-    },
-    [glareOpacity, glareX, glareY, maxTilt, rotateX, rotateY, shouldReduceMotion]
-  );
-
-  const handleLeave = useCallback(() => {
-    if (shouldReduceMotion) return;
-    rotateX.set(0);
-    rotateY.set(0);
-    glareOpacity.set(0);
-  }, [glareOpacity, rotateX, rotateY, shouldReduceMotion]);
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      style={
-        shouldReduceMotion
-          ? undefined
-          : {
-              rotateX: springRotateX,
-              rotateY: springRotateY,
-              transformPerspective: 900,
-              transformStyle: "preserve-3d",
-            }
-      }
-      className={`relative ${className}`}
-    >
-      {children}
-      {glare && !shouldReduceMotion && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden"
-        >
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              opacity: springGlareOpacity,
-              background: glareBackground,
-            }}
-          />
-        </div>
-      )}
-    </motion.div>
-  );
-}
-
-// ── 6c. SpotlightCard (border menyala mengikuti kursor) ─────────────
+// ── 8. SpotlightCard (border menyala mengikuti kursor) ─────────────
 export function SpotlightCard({
   children,
   className = "",
@@ -741,12 +449,12 @@ export function SpotlightCard({
           }}
         />
       )}
-      <div className="relative z-[1] h-full">{children}</div>
+      <div className="relative z-[1] h-full flex flex-col flex-1 w-full">{children}</div>
     </div>
   );
 }
 
-// ── 7. Parallax (elemen bergerak halus saat scroll) ─────────────────
+// ── 9. Parallax (elemen bergerak halus saat scroll) ─────────────────
 export function Parallax({
   children,
   className = "",
@@ -786,7 +494,7 @@ export function Parallax({
   );
 }
 
-// ── 8. AmbientBackground (Global Static Ambient Mesh, Stars & Clean Orbs) ──────────
+// ── 10. AmbientBackground (Global Static Ambient Mesh, Stars & Clean Orbs) ──────────
 export function AmbientBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -853,17 +561,7 @@ export function AmbientBackground() {
   );
 }
 
-// ── 9. SectionDivider (Elegant Soft Line & Glow Separator) ───────────
-export function SectionDivider({ className = "" }: { className?: string }) {
-  return (
-    <div className={`relative w-full max-w-6xl mx-auto my-12 sm:my-16 px-4 ${className}`}>
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-800 to-transparent" />
-      <div className="absolute left-1/2 -translate-x-1/2 -top-1 w-12 h-2 rounded-full bg-lime/20 blur-sm pointer-events-none" />
-    </div>
-  );
-}
-
-// ── 10. GrainOverlay (tekstur grain halus di seluruh halaman) ───────
+// ── 11. GrainOverlay (tekstur grain halus di seluruh halaman) ───────
 export function GrainOverlay() {
   return (
     <div
@@ -873,58 +571,5 @@ export function GrainOverlay() {
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
       }}
     />
-  );
-}
-
-// ── 11. NumberTicker (angka menghitung naik saat terlihat) ──────────
-export function NumberTicker({
-  value,
-  duration = 1.6,
-  className = "",
-}: {
-  value: number;
-  duration?: number;
-  className?: string;
-}) {
-  const shouldReduceMotion = useReducedMotion();
-  const ref = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const el = ref.current;
-    if (!el) return;
-
-    let raf = 0;
-    let start: number | null = null;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const step = (ts: number) => {
-            if (start === null) start = ts;
-            const progress = Math.min((ts - start) / (duration * 1000), 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setDisplay(Math.round(eased * value));
-            if (progress < 1) raf = requestAnimationFrame(step);
-          };
-          raf = requestAnimationFrame(step);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.4 }
-    );
-
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, [value, duration, shouldReduceMotion]);
-
-  return (
-    <span ref={ref} className={`tabular-nums ${className}`}>
-      {(shouldReduceMotion ? value : display).toLocaleString("id-ID")}
-    </span>
   );
 }

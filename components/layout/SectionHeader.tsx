@@ -2,7 +2,7 @@
 
 import { ReactNode, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ScrollFloat } from "@/components/ui/ScrollFloat";
+import { WordReveal } from "@/components/ui/motion";
 
 const DESKTOP_MOTION_QUERY =
   "(min-width: 1024px) and (hover: hover) and (pointer: fine)";
@@ -66,19 +66,7 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
       {/* 2. Main Title — reveal per kata */}
       <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-forest-900 dark:text-lime uppercase tracking-wider">
         <span className="section-title-hover">
-          <ScrollFloat
-            animationDuration={0.55}
-            ease="backOut"
-            stagger={0.045}
-            delay={0.04}
-            distance={18}
-            amount={0.25}
-            margin="0px 0px -80px 0px"
-            once={false}
-            desktopOnly
-          >
-            {title}
-          </ScrollFloat>
+          <WordReveal text={title} delay={0.04} stagger={0.045} />
         </span>
       </h2>
 

@@ -2,7 +2,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 import { getArticles, type ArticleListItem } from "@/lib/sanity";
 import { PageHero } from "@/components/layout/PageHero";
 import { TransitionLink } from "@/components/ui/TransitionLink";
-import { ArticleCacheHydrator } from "@/components/article/ArticleCacheHydrator";
+import { ArticleList } from "@/components/article/ArticleList";
 import { Pencil } from "lucide-react";
 
 export const metadata = buildPageMetadata({
@@ -11,10 +11,7 @@ export const metadata = buildPageMetadata({
   path: '/artikel',
 });
 
-// 1 hour revalidate — articles rarely change between sessions, so caching the
-// full list here keeps tab switches / pagination purely client-side without
-// hitting Sanity on every navigation. Next.js Router Cache additionally keeps
-// the rendered Server Component warm in the browser for back/forward nav.
+// 1 hour revalidate — Next.js ISR keeps the article list warm server-side.
 export const revalidate = 3600;
 
 interface PageProps {
@@ -25,18 +22,11 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
   const { category, page, q } = await searchParams;
 
   let articles: ArticleListItem[] = [];
-  let fresh = false;
   try {
     articles = await getArticles();
-    fresh = articles.length > 0;
   } catch {
     articles = [];
   }
-  // When Sanity returns empty or throws, leave articles as [] so the
-  // ArticleCacheHydrator client can resolve via localStorage cache →
-  // fallback Articles chain. This way a hard refresh during a Sanity
-  // outage shows the user their previously-cached real articles, not
-  // the made-up dummy list.
 
   return (
     <div className="bg-transparent pb-16">
@@ -61,10 +51,8 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
       </PageHero>
 
       <div className="max-w-7xl mx-auto px-4 pt-10">
-        <ArticleCacheHydrator
-          serverArticles={articles}
-          fallbackArticles={[]}
-          fresh={fresh}
+        <ArticleList
+          articles={articles}
           initialCategory={category}
           initialQuery={q}
           initialPage={page}

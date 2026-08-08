@@ -9,13 +9,8 @@ import {
   useState,
   type CSSProperties,
 } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useInView } from "framer-motion";
 import "./StrokeText.css";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const DEFAULT_TEXT = "Draw Attention";
 
@@ -37,13 +32,17 @@ export interface StrokeTextProps {
   fontWeight?: number | string;
   letterSpacing?: number | string;
   reverse?: boolean;
-  /** Delay the first draw, useful when coordinating with a parent entrance animation. */
   startDelay?: number;
-  /** Render as decorative artwork while the surrounding heading provides the accessible text. */
   decorative?: boolean;
   className?: string;
   style?: CSSProperties;
 }
+
+const easeMap: Record<string, string> = {
+  "power2.out": "cubic-bezier(0, 0, 0.2, 1)",
+  "power2.inOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+  "power2.in": "cubic-bezier(0.4, 0, 1, 1)",
+};
 
 export function StrokeText({
   text = DEFAULT_TEXT,
@@ -67,7 +66,6 @@ export function StrokeText({
 }: StrokeTextProps) {
   const rootRef = useRef<HTMLSpanElement>(null);
   const strokeTextRef = useRef<SVGTextElement>(null);
-  const wipeRectRef = useRef<SVGRectElement>(null);
   const [box, setBox] = useState<{
     x: number;
     y: number;
@@ -92,6 +90,7 @@ export function StrokeText({
     }),
     [fontSizeValue, fontWeight, letterSpacingValue]
   );
+
   useLayoutEffect(() => {
     const node = strokeTextRef.current;
     if (!node) return undefined;
@@ -139,148 +138,74 @@ export function StrokeText({
     };
   }, [characters, numericFontSize, fontSize, fontWeight, letterSpacing, strokeWidth]);
 
+  const isInView = useInView(rootRef, { once: trigger !== "loop", margin: "0px 0px -18% 0px" });
+  const [playCount, setPlayCount] = useState(1);
+  const [hoverCount, setHoverCount] = useState(0);
+
+  const fillDuration = Math.max(0.4, drawDuration * 0.5);
+
   useEffect(() => {
-    const root = rootRef.current;
-    if (typeof window === "undefined" || !root || !box) return undefined;
-
-    const strokes = Array.from(root.querySelectorAll<SVGTSpanElement>("[data-stroke-char]"));
-    const fills = Array.from(root.querySelectorAll<SVGTSpanElement>("[data-fill-char]"));
-    const wipe = wipeRectRef.current;
-    if (!strokes.length) return undefined;
-
-    const fillEnabled = fillMode !== "none";
-    const useWipe = fillEnabled && fillMode === "wipe";
-    const fillDuration = Math.max(0.4, drawDuration * 0.5);
-    const staggerConfig = reverse ? { each: stagger, from: "end" as const } : stagger;
-    const targets = [...strokes, ...fills, ...(wipe ? [wipe] : [])];
-
-    const setStart = () => {
-      gsap.killTweensOf(targets);
-      gsap.set(strokes, { strokeDasharray: dash, strokeDashoffset: dash });
-      gsap.set(fills, { opacity: useWipe ? 1 : 0 });
-      if (wipe) gsap.set(wipe, { attr: { width: 0 } });
-    };
-
-    const setEnd = () => {
-      gsap.killTweensOf(targets);
-      gsap.set(strokes, { strokeDasharray: dash, strokeDashoffset: 0 });
-      gsap.set(fills, { opacity: fillEnabled ? 1 : 0 });
-      if (wipe) gsap.set(wipe, { attr: { width: fillEnabled ? box.width : 0 } });
-    };
-
-    const prefersReducedMotion = window.matchMedia?.(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReducedMotion) {
-      setEnd();
-      return () => gsap.killTweensOf(targets);
+    if (trigger === "loop") {
+      const totalTime =
+        (startDelay + characters.length * stagger + drawDuration + fillDelay + fillDuration + 0.9) *
+        1000;
+      const interval = setInterval(() => {
+        setPlayCount((p) => p + 1);
+      }, totalTime);
+      return () => clearInterval(interval);
     }
+  }, [trigger, startDelay, characters.length, stagger, drawDuration, fillDelay, fillDuration]);
 
-    const build = () => {
-      setStart();
-      const timeline = gsap.timeline({
-        paused: true,
-        repeat: trigger === "loop" ? -1 : 0,
-        repeatDelay: trigger === "loop" ? 0.9 : 0,
-        defaults: { overwrite: "auto" },
-      });
+  let isAnimating = false;
+  let isFinished = false;
 
-      timeline.to(
-        strokes,
-        {
-          strokeDashoffset: 0,
-          duration: drawDuration,
-          ease,
-          stagger: staggerConfig,
-        },
-        0
-      );
-
-      if (useWipe && wipe) {
-        timeline.to(
-          wipe,
-          {
-            attr: { width: box.width },
-            duration: fillDuration,
-            ease: "power2.inOut",
-          },
-          drawDuration + fillDelay
-        );
-      } else if (fillEnabled) {
-        timeline.to(
-          fills,
-          {
-            opacity: 1,
-            duration: fillDuration,
-            ease: "power2.out",
-            stagger: staggerConfig,
-          },
-          drawDuration + fillDelay
-        );
-      }
-
-      return timeline;
-    };
-
-    let timeline: gsap.core.Timeline | null = null;
-    let startCall: gsap.core.Tween | null = null;
-    let scrollTrigger: ScrollTrigger | null = null;
-    let removeHover: (() => void) | null = null;
-
-    const play = () => {
-      startCall?.kill();
-      startCall = gsap.delayedCall(Math.max(0, startDelay), () => timeline?.play(0));
-    };
-
-    if (trigger === "hover") {
-      setEnd();
-      const replay = () => {
-        timeline?.kill();
-        timeline = build();
-        play();
-      };
-      root.addEventListener("pointerenter", replay);
-      removeHover = () => root.removeEventListener("pointerenter", replay);
+  if (trigger === "hover") {
+    if (hoverCount === 0) {
+      isFinished = true;
     } else {
-      timeline = build();
-      if (trigger === "scroll") {
-        scrollTrigger = ScrollTrigger.create({
-          trigger: root,
-          start: "top 82%",
-          once: true,
-          onEnter: play,
-        });
-      } else {
-        play();
-      }
+      isAnimating = true;
     }
+  } else if (trigger === "scroll") {
+    isAnimating = isInView;
+  } else if (trigger === "mount") {
+    isAnimating = true;
+  } else if (trigger === "loop") {
+    isAnimating = true;
+  }
 
-    return () => {
-      removeHover?.();
-      scrollTrigger?.kill();
-      startCall?.kill();
-      timeline?.kill();
-      gsap.killTweensOf(targets);
-    };
-  }, [box, dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse, startDelay]);
+  const animClass = isAnimating ? "is-animating" : isFinished ? "is-finished" : "";
+  const keyToUse = trigger === "loop" ? playCount : trigger === "hover" ? hoverCount : 1;
 
   const viewBox = box
     ? `${box.x} ${box.y} ${box.width} ${box.height}`
     : `0 ${-numericFontSize} 600 ${numericFontSize * 1.3}`;
 
+  const cssEase = easeMap[ease as string] || "cubic-bezier(0, 0, 0.2, 1)";
+
+  const getStaggerDelay = (index: number) => {
+    const i = reverse ? characters.length - 1 - index : index;
+    return startDelay + i * stagger;
+  };
+
+  const handlePointerEnter = () => {
+    if (trigger === "hover") setHoverCount((c) => c + 1);
+  };
+
   return (
     <span
       ref={rootRef}
       className={`stroke-text ${trigger === "hover" ? "stroke-text--hover" : ""} ${className}`.trim()}
-      style={{
-        "--stroke-text-height": `${Math.round(numericFontSize * 1.3)}px`,
-        ...style,
-      } as CSSProperties}
-      {...(decorative
-        ? { "aria-hidden": true }
-        : { role: "img", "aria-label": String(text ?? "") })}
+      style={
+        {
+          "--stroke-text-height": `${Math.round(numericFontSize * 1.3)}px`,
+          ...style,
+        } as CSSProperties
+      }
+      onPointerEnter={handlePointerEnter}
+      {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": String(text ?? "") })}
     >
       <svg
+        key={keyToUse}
         className="stroke-text__svg"
         viewBox={viewBox}
         preserveAspectRatio="xMidYMid meet"
@@ -290,11 +215,18 @@ export function StrokeText({
           <defs>
             <clipPath id={wipeId} clipPathUnits="userSpaceOnUse">
               <rect
-                ref={wipeRectRef}
+                className={`stroke-text__wipe-rect ${animClass}`}
                 x={box.x}
                 y={box.y}
                 width="0"
                 height={box.height}
+                style={
+                  {
+                    "--wipe-width": `${box.width}px`,
+                    "--delay": `${startDelay + drawDuration + fillDelay}s`,
+                    "--fill-duration": `${fillDuration}s`,
+                  } as CSSProperties
+                }
               />
             </clipPath>
           </defs>
@@ -313,23 +245,48 @@ export function StrokeText({
           style={fontStyle}
         >
           {characters.map((character, index) => (
-            <tspan data-stroke-char key={`stroke-${index}`}>
+            <tspan
+              data-stroke-char
+              key={`stroke-${index}`}
+              className={`stroke-text__stroke-char ${animClass}`}
+              style={
+                {
+                  "--dash": dash,
+                  "--delay": `${getStaggerDelay(index)}s`,
+                  "--draw-duration": `${drawDuration}s`,
+                  "--ease": cssEase,
+                } as CSSProperties
+              }
+            >
               {character}
             </tspan>
           ))}
         </text>
 
         <text
-          className="stroke-text__fill"
+          className={`stroke-text__fill ${fillMode === "none" ? "opacity-0" : ""}`}
           x="0"
           y="0"
           fill={fillColor}
           stroke="none"
-          style={fontStyle}
+          style={{ ...fontStyle, opacity: fillMode === "none" ? 0 : 1 }}
           clipPath={fillMode === "wipe" && box ? `url(#${wipeId})` : undefined}
         >
           {characters.map((character, index) => (
-            <tspan data-fill-char key={`fill-${index}`}>
+            <tspan
+              data-fill-char
+              key={`fill-${index}`}
+              className={fillMode === "fade" ? `stroke-text__fill-char--fade ${animClass}` : ""}
+              style={
+                fillMode === "fade"
+                  ? ({
+                      "--delay": `${getStaggerDelay(index) + drawDuration + fillDelay}s`,
+                      "--fill-duration": `${fillDuration}s`,
+                      "--ease": cssEase,
+                    } as CSSProperties)
+                  : undefined
+              }
+            >
               {character}
             </tspan>
           ))}

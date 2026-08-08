@@ -16,9 +16,88 @@
   user-select: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .stroke-text__stroke,
-  .stroke-text__fill {
-    transition: none;
+/* Base state for stroke: hidden by default unless reduced motion or overridden */
+.stroke-text__stroke-char {
+  stroke-dasharray: var(--dash);
+  stroke-dashoffset: var(--dash);
+}
+
+/* Animating state */
+.stroke-text__stroke-char.is-animating {
+  animation: strokeDraw var(--draw-duration, 1.6s) var(--ease, ease-out) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+/* End state (used for hover when not hovered, or prefers-reduced-motion) */
+.stroke-text__stroke-char.is-finished,
+.stroke-text__wipe-rect.is-finished {
+  stroke-dashoffset: 0;
+}
+
+/* Wipe rect base */
+.stroke-text__wipe-rect {
+  width: 0;
+}
+
+.stroke-text__wipe-rect.is-animating {
+  animation: wipeIn var(--fill-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.stroke-text__wipe-rect.is-finished {
+  width: var(--wipe-width, 100%);
+}
+
+/* Fill fade base */
+.stroke-text__fill-char--fade {
+  opacity: 0;
+}
+
+.stroke-text__fill-char--fade.is-animating {
+  animation: fillFade var(--fill-duration, 0.4s) var(--ease, ease-out) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.stroke-text__fill-char--fade.is-finished {
+  opacity: 1;
+}
+
+@keyframes strokeDraw {
+  from {
+    stroke-dashoffset: var(--dash);
   }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fillFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wipeIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--wipe-width, 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stroke-text__stroke-char,
+  .stroke-text__fill-char--fade,
+  .stroke-text__wipe-rect {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .stroke-text__stroke-char { stroke-dashoffset: 0 !important; }
+  .stroke-text__fill-char--fade { opacity: 1 !important; }
+  .stroke-text__wipe-rect { width: var(--wipe-width, 100%) !important; }
 }

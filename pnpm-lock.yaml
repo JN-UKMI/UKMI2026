@@ -32,15 +32,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      cmdk:
-        specifier: ^1.0.4
-        version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       framer-motion:
         specifier: ^12.42.2
         version: 12.42.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      gsap:
-        specifier: ^3.15.0
-        version: 3.15.0
       lucide-react:
         specifier: ^1.25.0
         version: 1.25.0(react@19.2.4)
@@ -4866,9 +4860,6 @@ packages:
   groq@6.5.0:
     resolution: {integrity: sha512-z2A5bRvvalegLLJ2FaJOUCmyOibl8rmPIv0DDJYlZS/LxArVtdgoItgC4+jG6AGit1pTixdPdVKJTdkE0i2T4Q==}
     engines: {node: '>=22.12'}
-
-  gsap@3.15.0:
-    resolution: {integrity: sha512-dMW4CWBTUK1AEEDeZc1g4xpPGIrSf9fJF960qbTZmN/QwZIWY5wgliS6JWl9/25fpTGJrMRtSjGtOmPnfjZB+A==}
 
   gunzip-maybe@1.4.2:
     resolution: {integrity: sha512-4haO1M4mLO91PW57BMsDFf75UmwoRX0GkdD+Faw+Lr+r/OZrOCS0pIBwOL1xCKQqnQzbNFGgK2V2CpBUPeFNTw==}
@@ -12930,8 +12921,6 @@ snapshots:
   groq@3.88.1-typegen-experimental.0: {}
 
   groq@6.5.0: {}
-
-  gsap@3.15.0: {}
 
   gunzip-maybe@1.4.2:
     dependencies:
