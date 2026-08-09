@@ -150,7 +150,7 @@ export function ArticleList({
           className="flex justify-center"
         >
           <div
-            className="glass rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-gray-800 flex flex-nowrap gap-1 overflow-x-auto scrollbar-none"
+            className="glass rounded-2xl p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime flex flex-nowrap gap-1 overflow-x-auto scrollbar-none"
             role="group"
             aria-label="Filter kategori artikel"
           >
@@ -226,7 +226,7 @@ export function ArticleList({
 
       {/* Grid or empty state */}
       {paginatedArticles.length === 0 ? (
-        <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/60 border border-gray-200/50 dark:border-gray-800 rounded-2xl max-w-xl mx-auto">
+        <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/60 border border-forest-600/30 dark:border-lime/30 rounded-2xl max-w-xl mx-auto">
           <p className="text-gray-500 dark:text-gray-400 font-semibold text-sm">
             Tidak ditemukan artikel yang sesuai.
           </p>

@@ -200,14 +200,14 @@ export function TentangTabs() {
                       Lambang Unit JN UKMI UNS mempunyai kombinasi warna yang terdiri atas:
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-200/60 dark:border-gray-700/60">
+                      <div className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700/50">
                         <div className="w-8 h-8 rounded-lg bg-forest-600 shrink-0" />
                         <div>
                           <span className="text-xs font-extrabold text-forest-900 dark:text-lime uppercase tracking-wide">Hijau</span>
                           <p className="text-[11px] md:text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-0.5">Melambangkan keislaman, kesesuaian, dan persahabatan.</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-200/60 dark:border-gray-700/60">
+                      <div className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700/50">
                         <div className="w-8 h-8 rounded-lg bg-gray-900 dark:bg-white shrink-0" />
                         <div>
                           <span className="text-xs font-extrabold text-gray-900 dark:text-white uppercase tracking-wide">Hitam</span>

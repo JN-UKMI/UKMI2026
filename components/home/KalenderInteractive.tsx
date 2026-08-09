@@ -167,7 +167,7 @@ export function KalenderInteractive({
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         
         {/* Left: Filter Segmented Control — TentangTabs style */}
-        <div className="glass rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-gray-800 flex flex-nowrap gap-1 w-full sm:w-auto relative">
+        <div className="glass rounded-2xl p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime flex flex-nowrap gap-1 w-full sm:w-auto relative">
           <button
             onClick={() => {
               setMonthPage([monthPage, 0]);

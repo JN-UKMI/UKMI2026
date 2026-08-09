@@ -154,7 +154,7 @@ export default function KontakPage() {
           </div>
 
           {/* Navigation Tabs — animated with layout + hover effects */}
-          <div className="grid grid-cols-3 gap-2 bg-gray-100/80 dark:bg-gray-800/60 p-1.5 rounded-2xl border border-gray-200/60 dark:border-gray-700/60">
+          <div className="grid grid-cols-3 gap-2 bg-gray-100/80 dark:bg-gray-800/60 p-1.5 rounded-2xl border-2 border-forest-600 dark:border-lime">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.key;

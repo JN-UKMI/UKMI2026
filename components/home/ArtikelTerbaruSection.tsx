@@ -58,7 +58,7 @@ export function ArtikelTerbaruSection({ articles = [] }: ArtikelTerbaruSectionPr
         </FadeIn>
 
         {displayedArticles.length === 0 ? (
-          <div className="text-center py-12 bg-gray-50 border border-gray-200/50 rounded-2xl">
+          <div className="text-center py-12 bg-gray-50 dark:bg-gray-800/40 border border-gray-100 dark:border-gray-700/50 rounded-2xl">
             <Calendar className="w-10 h-10 text-gray-350 dark:text-gray-600 mx-auto mb-3" />
             <p className="text-gray-500 dark:text-gray-400 font-semibold text-sm">Belum ada artikel. Pantau terus untuk update terbaru.</p>
           </div>
