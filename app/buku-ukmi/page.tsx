@@ -54,52 +54,60 @@ export default async function BukuUkmiPage() {
               title="Layanan Perpustakaan BUMI"
               subtitle="Akses cepat untuk melihat katalog koleksi, mengisi form peminjaman, dan pengembalian buku"
             />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <a href={data.links.daftar_buku} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              <a href={data.links.daftar_buku} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <BookOpen className="w-6 h-6" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Katalog Koleksi Buku</span></h3>
                   </div>
-                  <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">Katalog Koleksi Buku</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Cek seluruh daftar judul buku keislaman, akademik, dan motivasi yang tersedia di BUMI.</p>
+                  <p className="hidden sm:block text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Cek seluruh daftar judul buku keislaman, akademik, dan motivasi yang tersedia di BUMI.</p>
                 </div>
-                <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
                   <SlideButton href={data.links.daftar_buku} label="Cek Daftar Buku" />
                 </div>
               </a>
-              <a href={data.links.peminjaman} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.peminjaman} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <FileCheck className="w-6 h-6" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <FileCheck className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Pinjam Buku</span></h3>
                   </div>
-                  <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">Pinjam Buku</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Isi formulir peminjaman online untuk meminjam buku pilihanmu dari perpustakaan BUMI.</p>
+                  <p className="hidden sm:block text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Isi formulir peminjaman online untuk meminjam buku pilihanmu dari perpustakaan BUMI.</p>
                 </div>
-                <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
                   <SlideButton href={data.links.peminjaman} label="Isi Form Pinjam" />
                 </div>
               </a>
-              <a href={data.links.pengembalian} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.pengembalian} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <RotateCcw className="w-6 h-6" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Kembalikan Buku</span></h3>
                   </div>
-                  <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">Kembalikan Buku</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Sudah selesai membaca? Konfirmasi pengembalian buku di sini agar bisa dipinjam teman lain.</p>
+                  <p className="hidden sm:block text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Sudah selesai membaca? Konfirmasi pengembalian buku di sini agar bisa dipinjam teman lain.</p>
                 </div>
-                <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
                   <SlideButton href={data.links.pengembalian} label="Form Pengembalian" />
                 </div>
               </a>
-              <a href={data.links.jariyah_bumi} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.jariyah_bumi} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <HeartHandshake className="w-6 h-6" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <HeartHandshake className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Jariyah BUMI</span></h3>
                   </div>
-                  <h3 className="card-title-underline text-lg font-black text-forest-900 dark:text-lime mb-2 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">Jariyah BUMI</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Partisipasi dalam donasi atau peminjaman sementara buku agar menjadi ilmu bermanfaat.</p>
+                  <p className="hidden sm:block text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-6">Partisipasi dalam donasi atau peminjaman sementara buku agar menjadi ilmu bermanfaat.</p>
                 </div>
-                <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
                   <SlideButton href={data.links.jariyah_bumi} label="Info Jariyah BUMI" />
                 </div>
               </a>

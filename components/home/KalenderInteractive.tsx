@@ -164,31 +164,34 @@ export function KalenderInteractive({
     >
       
       {/* 1. TOP HEADER CONTROLLER: SEGMENTED PILL FILTER & TODAY BUTTON */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-3 sm:p-4 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-sm transition-colors">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         
-        {/* Left: Filter Segmented Control */}
-        <div className="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80 p-1.5 rounded-2xl w-full sm:w-auto relative">
+        {/* Left: Filter Segmented Control — TentangTabs style */}
+        <div className="glass rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-gray-800 flex flex-nowrap gap-1 w-full sm:w-auto relative">
           <button
             onClick={() => {
               setMonthPage([monthPage, 0]);
               setActiveCategory("all");
             }}
-            className={`group/tab relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50 dark:focus-visible:ring-lime/60 motion-safe:hover:-translate-y-0.5 ${
+            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
               activeCategory === "all"
-                ? "text-forest-900 dark:text-lime"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                ? "text-white"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
             {activeCategory === "all" && (
               <motion.div
-                layoutId="activeCategoryTab"
-                className="absolute inset-0 bg-white dark:bg-gray-700 shadow-sm rounded-xl -z-10 transition-colors duration-300"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                layoutId={shouldReduceMotion ? undefined : "activeCategoryTab"}
+                className="absolute inset-0 bg-forest-600 rounded-xl shadow-md shadow-forest-600/20"
+                transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
             <span className="relative z-10 inline-block">
+              <CalendarDays className="relative z-10 w-3.5 h-3.5 inline mr-1" />
               Semua ({events.length})
-              <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+              {!shouldReduceMotion && activeCategory !== "all" && (
+                <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+              )}
             </span>
           </button>
           <button
@@ -196,22 +199,25 @@ export function KalenderInteractive({
               setMonthPage([monthPage, 0]);
               setActiveCategory("kegiatan");
             }}
-            className={`group/tab relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50 dark:focus-visible:ring-lime/60 motion-safe:hover:-translate-y-0.5 ${
+            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
               activeCategory === "kegiatan"
                 ? "text-white"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
             {activeCategory === "kegiatan" && (
               <motion.div
-                layoutId="activeCategoryTab"
-                className="absolute inset-0 bg-forest-600 dark:bg-forest-700 shadow-sm rounded-xl -z-10 transition-colors duration-300"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                layoutId={shouldReduceMotion ? undefined : "activeCategoryTab"}
+                className="absolute inset-0 bg-forest-600 rounded-xl shadow-md shadow-forest-600/20"
+                transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
             <span className="relative z-10 inline-block">
+              <Sparkles className="relative z-10 w-3.5 h-3.5 inline mr-1" />
               Agenda UKMI
-              <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+              {!shouldReduceMotion && activeCategory !== "kegiatan" && (
+                <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+              )}
             </span>
           </button>
           <button
@@ -219,22 +225,25 @@ export function KalenderInteractive({
               setMonthPage([monthPage, 0]);
               setActiveCategory("puasa");
             }}
-            className={`group/tab relative flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50 dark:focus-visible:ring-lime/60 motion-safe:hover:-translate-y-0.5 ${
+            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
               activeCategory === "puasa"
                 ? "text-white"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
             {activeCategory === "puasa" && (
               <motion.div
-                layoutId="activeCategoryTab"
-                className="absolute inset-0 bg-emerald-700 dark:bg-emerald-800 shadow-sm rounded-xl -z-10 transition-colors duration-300"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                layoutId={shouldReduceMotion ? undefined : "activeCategoryTab"}
+                className="absolute inset-0 bg-forest-600 rounded-xl shadow-md shadow-forest-600/20"
+                transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
             <span className="relative z-10 inline-block">
+              <Moon className="relative z-10 w-3.5 h-3.5 inline mr-1" />
               Puasa Sunnah
-              <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-emerald-700 dark:bg-emerald-300 transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+              {!shouldReduceMotion && activeCategory !== "puasa" && (
+                <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
+              )}
             </span>
           </button>
         </div>
@@ -262,7 +271,7 @@ export function KalenderInteractive({
         <div className="lg:col-span-7">
           <div
             ref={calendarCardRef}
-            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-sm p-6 md:p-7 flex flex-col justify-between relative overflow-hidden transition-colors"
+            className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime shadow-sm p-6 md:p-7 flex flex-col justify-between relative overflow-hidden transition-colors"
           >
 
             <div>
@@ -523,7 +532,7 @@ export function KalenderInteractive({
         {/* KANAN: AGENDA CARD — ukuran natural, scroll internal */}
         <div className="lg:col-span-5">
           <div
-            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-sm p-6 md:p-7 flex flex-col transition-colors"
+            className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime shadow-sm p-6 md:p-7 flex flex-col transition-colors"
           >
             
             {/* Header Right Pane */}

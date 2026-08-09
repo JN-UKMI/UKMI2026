@@ -163,31 +163,27 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                 }`}
               >
                 <div>
-                  <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2.5 sm:mb-4">
-                    <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime border border-forest-600/20 dark:border-forest-800 line-clamp-1">
-                      {item.category}
-                    </span>
+                  <div className="flex items-center gap-2 sm:gap-3 mb-0.5 sm:mb-2">
+                    <div
+                      className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${
+                        isSelected
+                          ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
+                          : "bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime"
+                      }`}
+                    >
+                      {iconElement}
+                    </div>
+
+                    <h3 className="card-title-underline text-sm sm:text-lg font-bold text-forest-900 dark:text-white leading-snug group-hover:text-forest-600 dark:group-hover:text-lime transition-colors line-clamp-2">
+                      {item.name}
+                    </h3>
 
                     {isSelected && (
-                      <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-xs">
-                        <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> <span className="hidden xs:inline">Terpilih</span>
+                      <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-xs shrink-0 ml-auto">
+                        <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> <span className="hidden sm:inline">Terpilih</span>
                       </span>
                     )}
                   </div>
-
-                  <div
-                    className={`w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center mb-2.5 sm:mb-4 transition-transform group-hover:scale-110 ${
-                      isSelected
-                        ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
-                        : "bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime"
-                    }`}
-                  >
-                    {iconElement}
-                  </div>
-
-                  <h3 className="card-title-underline text-base sm:text-xl font-bold text-forest-900 dark:text-white mb-0.5 sm:mb-1 leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
-                    {item.name}
-                  </h3>
 
                   <div className="mt-1 sm:mt-2 mb-3 sm:mb-6">
                     <span className="text-lg sm:text-2xl font-black text-forest-700 dark:text-lime tracking-tight">
@@ -229,174 +225,176 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
       </SlideIn>
 
       {/* 2. GUIDELINE RESMI JN UKMI RENT */}
-      <SlideIn direction="left">
       {data.guideline && (
-        <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-10 border-2 border-forest-600 dark:border-lime shadow-sm transition-colors flex flex-col gap-8">
-          <SectionHeader
-            icon={<BookOpenCheck className="w-6 h-6" />}
-            title={data.guideline.title}
-            subtitle={data.guideline.description}
-          />
+        <>
+          <SlideIn direction="left">
+            <SectionHeader
+              icon={<BookOpenCheck className="w-6 h-6" />}
+              title={data.guideline.title}
+              subtitle={data.guideline.description}
+            />
+          </SlideIn>
 
-          {/* Ketentuan & Durasi Peminjaman */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Clock className="w-5 h-5 text-forest-600 dark:text-lime" />
-              <h3 className="text-lg font-black text-forest-900 dark:text-white">1. Ketentuan & Durasi Peminjaman</h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {data.guideline.rules.map((rule, idx) => (
-                <div
-                  key={idx}
-                  className="bg-gray-50 dark:bg-gray-800/60 rounded-2xl p-5 border border-gray-100 dark:border-gray-700/60 flex flex-col justify-between"
-                >
-                  <div>
-                    <span className="inline-block px-2.5 py-0.5 bg-forest-600/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime rounded-md text-[10px] font-bold uppercase tracking-wider mb-2 border border-forest-600/20 dark:border-forest-800">
-                      {rule.title}
-                    </span>
-                    <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                      {rule.detail}
-                    </p>
+          {/* Card 1: Ketentuan & Durasi Peminjaman */}
+          <SlideIn direction="left">
+            <section className="bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border-2 border-forest-600 dark:border-lime shadow-sm transition-colors">
+              <div className="flex items-center gap-2 mb-5">
+                <Clock className="w-5 h-5 text-forest-600 dark:text-lime" />
+                <h3 className="text-lg font-black text-forest-900 dark:text-white">1. Ketentuan & Durasi Peminjaman</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {data.guideline.rules.map((rule, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-gray-50 dark:bg-gray-800/60 rounded-2xl p-5 border border-gray-100 dark:border-gray-700/60 flex flex-col justify-between"
+                  >
+                    <div>
+                      <span className="inline-block px-2.5 py-0.5 bg-forest-600/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime rounded-md text-[10px] font-bold uppercase tracking-wider mb-2 border border-forest-600/20 dark:border-forest-800">
+                        {rule.title}
+                      </span>
+                      <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
+                        {rule.detail}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
+                ))}
+              </div>
+            </section>
+          </SlideIn>
 
-          {/* Alur & Prosedur Penyewaan */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <ListOrdered className="w-5 h-5 text-forest-600 dark:text-lime" />
-              <h3 className="text-lg font-black text-forest-900 dark:text-white">2. Alur & Prosedur Penyewaan</h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {data.guideline.procedures.map((proc, idx) => (
-                <div
-                  key={idx}
-                  className="bg-gray-50 dark:bg-gray-800/60 rounded-2xl p-5 border border-gray-100 dark:border-gray-700/60 flex items-start gap-3"
-                >
-                  <div className="w-7 h-7 rounded-xl bg-forest-600/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                    {idx + 1}
+          {/* Card 2: Alur & Prosedur Penyewaan */}
+          <SlideIn direction="right">
+            <section className="bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border-2 border-forest-600 dark:border-lime shadow-sm transition-colors">
+              <div className="flex items-center gap-2 mb-5">
+                <ListOrdered className="w-5 h-5 text-forest-600 dark:text-lime" />
+                <h3 className="text-lg font-black text-forest-900 dark:text-white">2. Alur & Prosedur Penyewaan</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {data.guideline.procedures.map((proc, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-gray-50 dark:bg-gray-800/60 rounded-2xl p-5 border border-gray-100 dark:border-gray-700/60 flex items-start gap-3"
+                  >
+                    <div className="w-7 h-7 rounded-xl bg-forest-600/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                      {idx + 1}
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-forest-900 dark:text-white mb-1">
+                        {proc.step.replace(/^[0-9]+\.\s*/, "")}
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {proc.detail}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-forest-900 dark:text-white mb-1">
-                      {proc.step.replace(/^[0-9]+\.\s*/, "")}
-                    </h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {proc.detail}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+                ))}
+              </div>
+            </section>
+          </SlideIn>
 
-          {/* 3. Narahubung / Contact Person */}
-          <div className="border-t border-gray-100 dark:border-gray-800 pt-8">
-            <div className="flex items-center justify-between gap-4 mb-4">
-              <div className="flex items-center gap-2">
+          {/* Card 3: Contact Person */}
+          <SlideIn direction="left">
+            <section className="bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border-2 border-forest-600 dark:border-lime shadow-sm transition-colors">
+              <div className="flex items-center gap-2 mb-4">
                 <UserCheck className="w-5 h-5 text-forest-600 dark:text-lime" />
                 <h3 className="text-lg font-black text-forest-900 dark:text-white">3. Contact Person (Pemesanan via WA)</h3>
               </div>
-            </div>
 
-            {selectedItems.length > 0 ? (
-              <div className="bg-forest-50 dark:bg-forest-950/60 border border-forest-200 dark:border-forest-800 rounded-2xl p-4 mb-5">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-bold text-forest-800 dark:text-lime flex items-center gap-1.5">
-                    <ShoppingBag className="w-4 h-4" /> Daftar Barang Yang Kamu Pilih ({selectedItems.length}):
-                  </span>
-                  <button
-                    type="button"
-                    onClick={clearSelection}
-                    className="text-[11px] font-bold text-red-600 dark:text-red-400 hover:underline cursor-pointer"
-                  >
-                    Batal Pilih Semua
-                  </button>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {selectedItems.map((item) => (
-                    <span
-                      key={item.name}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-white dark:bg-gray-800 text-forest-900 dark:text-gray-100 rounded-full text-xs font-semibold shadow-xs border border-forest-200 dark:border-gray-700"
-                    >
-                      {item.name} ({item.price})
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleSelectItem(item);
-                        }}
-                        className="ml-1 text-gray-400 hover:text-red-500 font-bold"
-                      >
-                        ×
-                      </button>
+              {selectedItems.length > 0 ? (
+                <div className="bg-forest-50 dark:bg-forest-950/60 border border-forest-200 dark:border-forest-800 rounded-2xl p-4 mb-5">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-xs font-bold text-forest-800 dark:text-lime flex items-center gap-1.5">
+                      <ShoppingBag className="w-4 h-4" /> Daftar Barang Yang Kamu Pilih ({selectedItems.length}):
                     </span>
-                  ))}
+                    <button
+                      type="button"
+                      onClick={clearSelection}
+                      className="text-[11px] font-bold text-red-600 dark:text-red-400 hover:underline cursor-pointer"
+                    >
+                      Batal Pilih Semua
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedItems.map((item) => (
+                      <span
+                        key={item.name}
+                        className="inline-flex items-center gap-1 px-3 py-1 bg-white dark:bg-gray-800 text-forest-900 dark:text-gray-100 rounded-full text-xs font-semibold shadow-xs border border-forest-200 dark:border-gray-700"
+                      >
+                        {item.name} ({item.price})
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleSelectItem(item);
+                          }}
+                          className="ml-1 text-gray-400 hover:text-red-500 font-bold"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">
-                💡 <em>Tips: Pilih barang di atas terlebih dahulu. Saat kamu klik CP di bawah, pesananmu akan langsung terisi secara otomatis!</em>
-              </p>
-            )}
+              ) : (
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">
+                  💡 <em>Tips: Pilih barang di atas terlebih dahulu. Saat kamu klik CP di bawah, pesananmu akan langsung terisi secara otomatis!</em>
+                </p>
+              )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {data.contacts.map((contact, index) => {
-                const waUrl = generateWaUrl(contact.phone, contact.name);
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {data.contacts.map((contact, index) => {
+                  const waUrl = generateWaUrl(contact.phone, contact.name);
 
-                return (
-                  <a
-                    key={index}
-                    href={waUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group p-5 bg-forest-600 text-white dark:bg-lime dark:text-forest-950 hover:bg-forest-800 dark:hover:bg-lime/90 rounded-2xl flex items-center justify-between transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer active:scale-95"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-white/40 dark:border-forest-900/40 bg-white/10 shadow-xs">
-                        {contact.avatar ? (
-                          <Image
-                            src={contact.avatar}
-                            alt={`Foto ${contact.name}`}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center font-bold text-xs uppercase">
-                            {contact.role || contact.name.charAt(0)}
-                          </div>
-                        )}
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/20 dark:bg-forest-900/30 text-white dark:text-forest-950">
-                            {contact.role || "Narahubung"}
-                          </span>
+                  return (
+                    <a
+                      key={index}
+                      href={waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group p-5 bg-forest-600 text-white dark:bg-lime dark:text-forest-950 hover:bg-forest-800 dark:hover:bg-lime/90 rounded-2xl flex items-center justify-between transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer active:scale-95"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-white/40 dark:border-forest-900/40 bg-white/10 shadow-xs">
+                          {contact.avatar ? (
+                            <Image
+                              src={contact.avatar}
+                              alt={`Foto ${contact.name}`}
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center font-bold text-xs uppercase">
+                              {contact.role || contact.name.charAt(0)}
+                            </div>
+                          )}
                         </div>
-                        <h4 className="text-sm font-bold text-white dark:text-forest-950 transition-colors mt-0.5">
-                          {contact.name}
-                        </h4>
-                        <p className="text-xs opacity-90">
-                          {contact.phone}
-                        </p>
+                        <div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/20 dark:bg-forest-900/30 text-white dark:text-forest-950">
+                              {contact.role || "Narahubung"}
+                            </span>
+                          </div>
+                          <h4 className="text-sm font-bold text-white dark:text-forest-950 transition-colors mt-0.5">
+                            {contact.name}
+                          </h4>
+                          <p className="text-xs opacity-90">
+                            {contact.phone}
+                          </p>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/20 dark:bg-forest-900/20 font-bold text-xs">
-                      <MessageCircle className="w-4 h-4" />
-                      <span>Kirim WA</span>
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+                      <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/20 dark:bg-forest-900/20 font-bold text-xs">
+                        <MessageCircle className="w-4 h-4" />
+                        <span>Kirim WA</span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          </SlideIn>
+        </>
       )}
-      </SlideIn>
 
       {/* Floating Bottom Bar when items are selected */}
       {selectedItems.length > 0 && (

@@ -7,36 +7,49 @@
     "Tulisan JN UKMI UNS menunjukkan nama lembaga.",
     "Lambang Unit JN UKMI UNS mempunyai kombinasi warna yang terdiri atas:\n\na. Hijau melambangkan keislaman, kesesuaian, dan persahabatan.\n\nb. Hitam melambangkan kesetiaan terhadap dakwah Islam."
   ],
-  "visi": "Menjadikan JN UKMI sebagai wadah mahasiswa muslim UNS untuk berkarya secara inklusif, kolaboratif, dan berintegritas guna merealisasikan karya nyata untuk UNS, Nasional, dan Asia Tenggara.",
+  "visi": "Menjadikan JN UKMI sebagai pusat pembinaan dan wadah pengembangan potensi dakwah islam bagi mahasiswa UNS untuk berkarya secara kreatif, kolaboratif, dan berintegritas guna merealisasikan kontribusi nyata untuk Umat.",
   "misi": [
-    "Mengoptimalkan tata kelola lembaga (good governance) yang efisien, inovatif, dan transformatif dengan melakukan harmonisasi program kerja secara sinergis.",
-    "Mewujudkan kemandirian lembaga dengan mengoptimalkan fungsi kewirausahaan dan kemitraan secara inovatif, efisien, dan berkelanjutan.",
-    "Mengoptimalkan fungsi pembinaan dan kaderisasi untuk mengembangkan potensi kader dakwah serta mempersiapkan mereka untuk berkompetisi dalam kehidupan pasca kampus secara inovatif.",
-    "Mengembangkan koneksi sosial dengan mitra strategis untuk mewujudkan lembaga yang kolaboratif, efisien, dan inklusif guna mendukung terwujudnya khoiru ummah.",
-    "Mewujudkan produk dan gagasan syi’ar secara inovatif, inklusif, dan efisien dengan media yang sesuai dengan isu terkini."
+    "Mengoptimalkan fungsi pembinaan dan kaderisasi untuk mengembangkan potensi kader dakwah serta mempersiapkan mereka untuk berkompetisi dalam kehidupan pasca kampus secara inovatif",
+    "Mewujudkan produk dan gagasan syi'ar secara inovatif dan efisien dengan media yang sesuai dengan isu terkini",
+    "Mengoptimalkan tata kelola lembaga yang efisien dan transformatif dengan harmonisasi program kerja secara sinergis",
+    "Mengembangkan koneksi sosial dengan mitra strategis untuk mewujudkan lembaga yang kolaboratif dan inklusif guna mendukung terwujudnya khoiru ummah"
   ],
-  "nilai": [
-    {
-      "title": "Inklusif",
-      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus mewadahi dan mengakomodir berbagai macam perbedaan lapisan, golongan, pandangan, dan kepentingan seluruh golongan Islam UNS dalam mendukung terwujudnya rumusan besar umat Islam. JN UKMI juga harus bergaul dan membuka diri dengan lingkungan luar untuk mengakomodir beragam perspektif dan pandangan yang masih selaras dengan konsep hidup umat Islam."
-    },
-    {
-      "title": "Transformatif",
-      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus mencanangkan dan menciptakan produk-produk dakwah yang transformatif, tidak terikat dengan budaya masa lalu, dan mampu menyesuaikan dengan arah gerak umat Islam di masa sekarang."
-    },
-    {
-      "title": "Kolaboratif",
-      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus membuka diri seluas-luasnya dengan relasi dan jalinan kemitraan yang produktif dan mampu membawa JN UKMI pada perubahan yang lebih baik."
-    },
-    {
-      "title": "Harmonis",
-      "description": "JN UKMI sebagai wadah pengembangan dan pembinaan kader dakwah harus bisa mengharmonisasi ide serta gagasan yang muncul agar mampu diterima semua lapisan masyarakat yang ada serta membantu JN UKMI untuk bertumbuh menuju perubahan yang lebih positif."
-    },
-    {
-      "title": "Inisiatif",
-      "description": "JN UKMI sebagai rumah besar mahasiswa muslim UNS harus menjadi pelopor kebaikan dan tampil di garda terdepan dalam upaya untuk melaksanakan amar ma’ruf nahi munkar dengan tujuan untuk mencerdaskan kehidupan umat."
-    }
-  ],
+  "tagline": {
+    "title": "JN UKMI UNS Periode 2026 ini mengangkat Tagline berikut:",
+    "quote": "Membumikan Langkah, Melangitkan Kebaikan",
+    "sections": [
+      {
+        "heading": "Filosofi",
+        "items": [
+          {
+            "title": "Membumikan Langkah",
+            "description": "Menancapkan kaki di bumi, berarti memiliki kesadaran akan lingkungan sekitar dan kebutuhan masyarakat. Lembaga dakwah harus memiliki pemahaman yang mendalam tentang kondisi sosial, ekonomi, dan budaya masyarakat, sehingga dapat memberikan kontribusi yang efektif dan berkelanjutan."
+          },
+          {
+            "title": "Melangitkan Kebaikan",
+            "description": "Meninggikan kebaikan dan kebajikan, berarti memiliki tujuan yang tinggi dan mulia untuk meningkatkan kualitas hidup masyarakat. Lembaga dakwah harus memiliki visi yang jelas untuk meningkatkan kesadaran spiritual, meningkatkan kualitas hidup, dan mempromosikan keadilan sosial."
+          }
+        ]
+      },
+      {
+        "heading": "Makna",
+        "items": [
+          "Mengintegrasikan nilai-nilai spiritual dengan kegiatan sosial dan kemasyarakatan.",
+          "Meningkatkan kesadaran akan pentingnya kebaikan dan kebajikan dalam kehidupan sehari-hari.",
+          "Mempromosikan kerjasama dan kolaborasi antara lembaga dakwah dengan masyarakat dan pemerintah."
+        ]
+      },
+      {
+        "heading": "Implikasi",
+        "items": [
+          "Meningkatkan kualitas program dan kegiatan dakwah yang lebih relevan dengan kebutuhan masyarakat.",
+          "Meningkatkan kesadaran akan pentingnya kebaikan dan kebajikan dalam kehidupan sehari-hari.",
+          "Mempromosikan kerjasama dan kolaborasi antara lembaga dakwah dengan masyarakat dan pemerintah."
+        ]
+      }
+    ],
+    "closing": "Tagline tersebut membawa nuansa baru yang akan senantiasa dipegang dan diingat oleh kader dakwah JN UKMI. Kami percaya bahwa kesuksesan dalam mencerahkan dan memberi sumbangsih terbaik pada umat dimulai dari niat yang dibasuh dengan kesucian dan kesungguhan hati untuk berjuang di jalan agama Allah."
+  },
   "timeline": [
     {
       "year": "1982-1985",

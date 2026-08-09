@@ -145,16 +145,15 @@ export function ArticleList({
           </div>
         </form>
 
-        {/* Category filter chips — anchor elements so Cmd/Ctrl-click +
-            middle-click still open the filtered URL in a new tab. Plain click
-            is intercepted to handle state-based filtering without a server
-            roundtrip. ARIA role is "button" with `aria-pressed` rather than
-            "tab" because these are toggle chips, not navigation tabs. */}
+        {/* Category filter pills — TentangTabs style glass container */}
         <div
-          className="flex justify-center gap-1.5 sm:gap-2.5 overflow-x-auto px-1 py-0.5 -mx-1 scrollbar-none"
-          role="group"
-          aria-label="Filter kategori artikel"
+          className="flex justify-center"
         >
+          <div
+            className="glass rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-gray-800 flex flex-nowrap gap-1 overflow-x-auto scrollbar-none"
+            role="group"
+            aria-label="Filter kategori artikel"
+          >
           {CATEGORY_OPTIONS.map((opt) => {
             const isActive = (opt.key || "") === category;
             const href = opt.key
@@ -168,7 +167,6 @@ export function ArticleList({
                 aria-pressed={isActive}
                 aria-current={isActive ? "page" : undefined}
                 onClick={(e) => {
-                  // Allow modifier-clicks (open in new tab) to pass through.
                   if (
                     e.metaKey ||
                     e.ctrlKey ||
@@ -181,30 +179,21 @@ export function ArticleList({
                   e.preventDefault();
                   handleCategoryClick(opt.key);
                 }}
-                className={`group/filter relative isolate shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
+                className={`group/filter relative flex items-center justify-center gap-1.5 shrink-0 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
                   isActive
-                    ? "text-white border-forest-600"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-200 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
+                    ? "text-white"
+                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId={shouldReduceMotion ? undefined : "article-category-pill"}
-                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    className="absolute inset-0 z-0 rounded-full bg-forest-600"
+                    transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 30 }}
+                    className="absolute inset-0 z-0 rounded-xl bg-forest-600 shadow-md shadow-forest-600/20"
                     aria-hidden
                   />
                 )}
-                <span className="relative z-10 sm:hidden">
-                  {opt.short || opt.label}
-                  {!isActive && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/filter:w-full group-focus-visible/filter:w-full"
-                    />
-                  )}
-                </span>
-                <span className="relative z-10 hidden sm:inline">
+                <span className="relative z-10">
                   {opt.label}
                   {!isActive && (
                     <span
@@ -216,6 +205,7 @@ export function ArticleList({
               </a>
             );
           })}
+          </div>
         </div>
       </div>
 

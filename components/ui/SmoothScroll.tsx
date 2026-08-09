@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 
@@ -11,12 +12,14 @@ import { useReducedMotion } from "framer-motion";
  * - Smooth inertia-based scrolling that respects reduced-motion
  * - Uses native scroll interpolation for zero-lag on mobile
  * - Properly destroys on unmount to prevent memory leaks
+ * - Resets scroll and recalculates dimensions on route change
  * 
  * Place this in the root layout around the main content area.
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const pathname = usePathname();
 
   useEffect(() => {
     // Skip smooth scroll when user prefers reduced motion
@@ -48,6 +51,26 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       lenis.destroy();
     };
   }, [shouldReduceMotion]);
+
+  // ── Reset Lenis on route change ──────────────────────────────
+  // When navigating between pages, Lenis retains the scroll limits
+  // from the previous page. Without a resize + scroll-to-top, long
+  // pages appear truncated until the user manually refreshes.
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    if (!lenis || shouldReduceMotion) return;
+
+    // Double rAF ensures the new page's layout + paint cycle
+    // has fully completed before Lenis recalculates dimensions.
+    const raf1 = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        lenis.resize();
+        lenis.scrollTo(0, { immediate: true });
+      });
+    });
+
+    return () => cancelAnimationFrame(raf1);
+  }, [pathname, shouldReduceMotion]);
 
   return <>{children}</>;
 }
