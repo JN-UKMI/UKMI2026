@@ -1,4 +1,4 @@
-import type { MemberCard as MemberCardType, TentangCard } from "@/lib/types";
+import type { MemberCard as MemberCardType } from "@/lib/types";
 import { HeroSection } from "./HeroSection";
 import { DeskripsiSection } from "./DeskripsiSection";
 import { ProgramKerjaCarousel } from "./ProgramKerjaCarousel";
@@ -12,7 +12,6 @@ export interface BidangPageProps {
   instagram_url: string;
   program_kerja: Array<{ title: string; description: string; tanggal?: string; target?: string }>;
   staff: MemberCardType[];
-  tentang_cards?: TentangCard[];
 }
 
 export function BidangTemplate({
@@ -22,12 +21,11 @@ export function BidangTemplate({
   instagram_url,
   program_kerja,
   staff,
-  tentang_cards,
 }: BidangPageProps) {
   return (
     <div className="min-h-screen">
       <HeroSection name={name} slug={slug} instagram_url={instagram_url} />
-      <SlideIn direction="left"><DeskripsiSection deskripsi={deskripsi} tentangCards={tentang_cards} /></SlideIn>
+      <SlideIn direction="left"><DeskripsiSection deskripsi={deskripsi} /></SlideIn>
       <SlideIn direction="right"><ProgramKerjaCarousel program_kerja={program_kerja} /></SlideIn>
       <TimSection staff={staff} />
     </div>

@@ -54,7 +54,6 @@ export default async function BidangPage({
     ...data,
     deskripsi: data.deskripsi || data.description || "",
     instagram_url: data.instagram_url || data.instagram || "https://www.instagram.com/jnukmiuns/",
-    tentang_cards: data.tentang_cards || [],
   };
 
   return <BidangTemplate {...formattedData} />;

@@ -109,8 +109,7 @@ export default async function BukuUkmiPage() {
 
         {/* 2. PROGRAM JARIYAH BUMI */}
         <SlideIn direction="right">
-          <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-12 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_25px_rgb(0,0,0,0.03)] relative overflow-hidden transition-colors">
-            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-forest-600 via-lime to-forest-600 opacity-90" />
+          <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-12 border-2 border-forest-600 dark:border-lime shadow-[0_4px_25px_rgb(0,0,0,0.03)] transition-colors">
             <SectionHeader
               icon={<Sparkles className="w-6 h-6" />}
               title="Program Jariyah BUMI"

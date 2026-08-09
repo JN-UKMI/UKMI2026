@@ -49,12 +49,12 @@ export function DoaCard({
       onClick={increment}
       whileHover={shouldReduceMotion ? undefined : { y: -3 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border transition-all duration-500 cursor-pointer select-none flex flex-col gap-4 border-l-4 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 ${
+      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 transition-all duration-500 cursor-pointer select-none flex flex-col gap-4 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 ${
         isCompleted
-          ? "border-l-lime border-gray-200 dark:border-gray-800 bg-lime/5 dark:bg-lime/10 shadow-lime/5"
+          ? "border-lime dark:border-lime bg-lime/5 dark:bg-lime/10 shadow-lime/5"
           : count > 0
-          ? "border-l-forest-400 border-gray-200 dark:border-gray-800 bg-forest-50/20 dark:bg-gray-850"
-          : "border-l-forest-600 dark:border-l-lime border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-gray-200 dark:hover:border-gray-700"
+          ? "border-forest-400 dark:border-forest-400 bg-forest-50/20 dark:bg-gray-850"
+          : "border-forest-600 dark:border-lime hover:shadow-md"
       }`}
     >
       {/* Top Header: Index, Title & Counter Action */}

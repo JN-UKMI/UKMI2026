@@ -127,7 +127,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
               <motion.div
                 exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.96 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
-                className="group bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 border-l-forest-600 dark:border-l-lime border-gray-100 dark:border-gray-800 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 hover:border-gray-300 dark:hover:border-gray-700 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 relative"
+                className="group bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 border-forest-600 dark:border-lime hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 hover:border-gray-300 dark:hover:border-gray-700 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 relative"
               >
                 {/* Card Header: Category & Title & Copy Button */}
                 <div className="flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 pb-4">
