@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function LoadingScreen() {
   return (
-    <div className="fixed inset-0 top-0 left-0 w-screen h-screen z-[99999] flex flex-col items-center justify-center bg-white dark:bg-gray-950 select-none overflow-hidden">
+    <div className="fixed inset-0 top-0 left-0 w-full h-screen z-[99999] flex flex-col items-center justify-center bg-white dark:bg-gray-950 select-none overflow-hidden">
       {/* Outer center-aligned container */}
       <div className="relative flex flex-col items-center justify-center">
         {/* Core animating loader area */}

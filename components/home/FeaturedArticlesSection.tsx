@@ -58,7 +58,7 @@ export function FeaturedArticlesSection({
             >
             <TransitionLink
               href={`/artikel/${article.slug}`}
-              className="group flex flex-col h-full bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-all duration-300 hover:border-forest-600 dark:hover:border-lime hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
+              className="group flex flex-col h-full bg-white dark:bg-gray-900 rounded-xl overflow-hidden border-2 border-forest-600 dark:border-lime transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
             >
               <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
                 {article.coverImage ? (

@@ -51,7 +51,7 @@ export function UpcomingEventsSection({
           >
             <TransitionLink
               href={`/artikel/${article.slug}`}
-              className="group flex h-full overflow-visible rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99] focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-forest-600 dark:focus-visible:outline-lime hover:outline-2 hover:-outline-offset-1 hover:outline-forest-600 dark:hover:outline-lime"
+              className="group flex h-full overflow-visible rounded-xl border-2 border-forest-600 dark:border-lime bg-white dark:bg-gray-900 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99] focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-forest-600 dark:focus-visible:outline-lime hover:outline-2 hover:-outline-offset-1 hover:outline-forest-600 dark:hover:outline-lime"
             >
               <div className="relative h-full min-h-[8rem] w-32 sm:min-h-[9rem] sm:w-36 lg:w-40 shrink-0 self-stretch bg-gray-200 overflow-hidden">
                 {article.coverImage ? (

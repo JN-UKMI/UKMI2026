@@ -47,7 +47,7 @@ export function ContentColumns() {
             return (
               <StaggerItem
                 key={section.title}
-                className="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
+                className="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
               >
                 {/* Image placeholder */}
                 <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">

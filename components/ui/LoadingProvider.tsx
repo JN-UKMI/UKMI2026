@@ -113,7 +113,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
               ease: [0.76, 0, 0.24, 1],
             }}
             style={{ willChange: "transform" }}
-            className="fixed inset-0 top-0 left-0 w-screen h-screen z-[99999] pointer-events-auto overflow-hidden touch-none"
+            className="fixed inset-0 top-0 left-0 w-full h-screen z-[99999] pointer-events-auto overflow-hidden touch-none"
           >
             <LoadingScreen />
           </motion.div>

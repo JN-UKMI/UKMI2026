@@ -42,7 +42,7 @@ export function AyatCard({
       whileHover={shouldReduceMotion ? undefined : { y: -3 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
       transition={{ type: "spring", stiffness: 280, damping: 24 }}
-      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 transition-all duration-500 flex flex-col gap-4 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 ${
+      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 transition-all duration-500 flex flex-col gap-4 hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 ${
         isBookmarked
           ? "border-amber-500 dark:border-amber-400 bg-amber-50/20 dark:bg-amber-950/20"
           : "border-forest-600 dark:border-lime hover:shadow-md"

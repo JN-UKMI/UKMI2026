@@ -49,7 +49,7 @@ export function DoaCard({
       onClick={increment}
       whileHover={shouldReduceMotion ? undefined : { y: -3 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 transition-all duration-500 cursor-pointer select-none flex flex-col gap-4 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 ${
+      className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 transition-all duration-500 cursor-pointer select-none flex flex-col gap-4 hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 ${
         isCompleted
           ? "border-lime dark:border-lime bg-lime/5 dark:bg-lime/10 shadow-lime/5"
           : count > 0

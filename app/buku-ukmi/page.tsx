@@ -55,7 +55,7 @@ export default async function BukuUkmiPage() {
               subtitle="Akses cepat untuk melihat katalog koleksi, mengisi form peminjaman, dan pengembalian buku"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <a href={data.links.daftar_buku} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.daftar_buku} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                     <BookOpen className="w-6 h-6" />
@@ -67,7 +67,7 @@ export default async function BukuUkmiPage() {
                   <SlideButton href={data.links.daftar_buku} label="Cek Daftar Buku" />
                 </div>
               </a>
-              <a href={data.links.peminjaman} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.peminjaman} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                     <FileCheck className="w-6 h-6" />
@@ -79,7 +79,7 @@ export default async function BukuUkmiPage() {
                   <SlideButton href={data.links.peminjaman} label="Isi Form Pinjam" />
                 </div>
               </a>
-              <a href={data.links.pengembalian} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.pengembalian} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                     <RotateCcw className="w-6 h-6" />
@@ -91,7 +91,7 @@ export default async function BukuUkmiPage() {
                   <SlideButton href={data.links.pengembalian} label="Form Pengembalian" />
                 </div>
               </a>
-              <a href={data.links.jariyah_bumi} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600 dark:hover:border-lime hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.jariyah_bumi} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                     <HeartHandshake className="w-6 h-6" />
@@ -109,7 +109,7 @@ export default async function BukuUkmiPage() {
 
         {/* 2. PROGRAM JARIYAH BUMI */}
         <SlideIn direction="right">
-          <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-12 border-2 border-forest-600 dark:border-lime shadow-[0_4px_25px_rgb(0,0,0,0.03)] transition-colors">
+          <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-12 border-2 border-forest-600 dark:border-lime shadow-sm transition-colors">
             <SectionHeader
               icon={<Sparkles className="w-6 h-6" />}
               title="Program Jariyah BUMI"
@@ -145,7 +145,7 @@ export default async function BukuUkmiPage() {
         {/* 3. LOKASI & NARAHUBUNG */}
         <SlideIn direction="right">
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between transition-colors">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border-2 border-forest-600 dark:border-lime shadow-sm flex flex-col justify-between transition-all duration-300 motion-safe:hover:-translate-y-1">
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center"><MapPin className="w-5 h-5" /></div>
@@ -161,7 +161,7 @@ export default async function BukuUkmiPage() {
                 <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/maps:text-white dark:group-hover/maps:text-forest-950"><MapPin className="h-4 w-4" /> Buka Google Maps Lokasi</span>
               </a>
             </div>
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between transition-colors">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border-2 border-forest-600 dark:border-lime shadow-sm flex flex-col justify-between transition-all duration-300 motion-safe:hover:-translate-y-1">
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center"><MessageCircle className="w-5 h-5" /></div>

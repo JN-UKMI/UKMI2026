@@ -159,7 +159,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                 className={`group cursor-pointer rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border transition-all duration-300 flex flex-col justify-between relative ${
                   isSelected
                     ? "bg-forest-50/60 dark:bg-forest-950/50 border-forest-600 dark:border-lime ring-2 ring-forest-600/30 dark:ring-lime/30 shadow-md"
-                    : "bg-white dark:bg-gray-900 border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-forest-600/50 dark:hover:border-lime/50 hover:shadow-lg"
+                    : "bg-white dark:bg-gray-900 border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl"
                 }`}
               >
                 <div>
@@ -231,7 +231,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
       {/* 2. GUIDELINE RESMI JN UKMI RENT */}
       <SlideIn direction="left">
       {data.guideline && (
-        <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-10 border border-gray-200/80 dark:border-gray-800 shadow-sm transition-colors flex flex-col gap-8">
+        <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-10 border-2 border-forest-600 dark:border-lime shadow-sm transition-colors flex flex-col gap-8">
           <SectionHeader
             icon={<BookOpenCheck className="w-6 h-6" />}
             title={data.guideline.title}

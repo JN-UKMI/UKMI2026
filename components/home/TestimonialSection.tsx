@@ -119,7 +119,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
 /** Reusable testimonial card — used by both carousel (mobile) and grid (desktop) */
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
-    <div className="group relative bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border border-gray-200/80 dark:border-gray-800 shadow-sm hover:border-forest-600/50 dark:hover:border-lime/50 hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">
+    <div className="group relative bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">
       {/* Decorative Quote Watermark */}
       <div className="absolute top-6 right-6 text-forest-600/10 dark:text-lime/10 group-hover:text-forest-600/25 dark:group-hover:text-lime/25 transition-colors">
         <QuoteIcon className="w-12 h-12 rotate-180" />

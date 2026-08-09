@@ -44,7 +44,7 @@ export function FeatureCards() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200/80 dark:border-gray-800 pb-6"
+          className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-forest-600 dark:border-lime pb-6"
         >
           <div>
             <h2 className="section-title-hover text-3xl font-black text-forest-900 dark:text-lime md:text-4xl tracking-tight">
@@ -62,7 +62,7 @@ export function FeatureCards() {
             return (
               <StaggerItem key={feature.title} className={feature.gridClass}>
                 <TransitionLink href={feature.href} className="block h-full cursor-pointer group">
-                  <SpotlightCard className="group/card h-full rounded-2xl border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-gray-900/90 shadow-sm transition-all duration-300 hover:border-forest-600/50 dark:hover:border-lime/50 hover:shadow-xl hover:shadow-forest-600/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1.5 motion-reduce:transform-none motion-reduce:transition-none p-6 md:p-8">
+                  <SpotlightCard className="group/card h-full rounded-2xl border border-forest-600 dark:border-lime bg-white dark:bg-gray-900/90 shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-forest-600/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1.5 motion-safe:hover:scale-[1.01] motion-reduce:transform-none motion-reduce:transition-none p-6 md:p-8">
                     <ShimmerOverlay />
                     <div className="flex flex-col justify-between h-full">
                       <div>

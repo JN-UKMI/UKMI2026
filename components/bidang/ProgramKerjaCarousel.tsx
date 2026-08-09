@@ -114,7 +114,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                     whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.015 }}
                     whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
                     transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                    className="group w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 hover:border-forest-300 dark:hover:border-lime/50 border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-all duration-300"
+                    className="group w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 hover:border-forest-300 dark:hover:border-lime/50 border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-all duration-300"
                   >
                     <div>
                       {/* Top Bar: Number & Icon */}

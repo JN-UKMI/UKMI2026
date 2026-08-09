@@ -16,7 +16,7 @@ function getSharedObserver(): IntersectionObserver {
     return { observe() {}, unobserve() {}, disconnect() {} } as unknown as IntersectionObserver;
   }
   const key = "__ukmi_slide_observer__";
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const existing = (window as any)[key] as IntersectionObserver | undefined;
   if (existing) return existing;
 
@@ -30,7 +30,7 @@ function getSharedObserver(): IntersectionObserver {
     },
     { threshold: [0, 0.2, 0.5] }
   );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   (window as any)[key] = obs;
   return obs;
 }

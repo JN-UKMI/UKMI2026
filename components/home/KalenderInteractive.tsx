@@ -164,7 +164,7 @@ export function KalenderInteractive({
     >
       
       {/* 1. TOP HEADER CONTROLLER: SEGMENTED PILL FILTER & TODAY BUTTON */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-3 sm:p-4 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-colors">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-3 sm:p-4 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-sm transition-colors">
         
         {/* Left: Filter Segmented Control */}
         <div className="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80 p-1.5 rounded-2xl w-full sm:w-auto relative">
@@ -262,7 +262,7 @@ export function KalenderInteractive({
         <div className="lg:col-span-7">
           <div
             ref={calendarCardRef}
-            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col justify-between relative overflow-hidden transition-colors"
+            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-sm p-6 md:p-7 flex flex-col justify-between relative overflow-hidden transition-colors"
           >
 
             <div>
@@ -523,7 +523,7 @@ export function KalenderInteractive({
         {/* KANAN: AGENDA CARD — ukuran natural, scroll internal */}
         <div className="lg:col-span-5">
           <div
-            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col transition-colors"
+            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-sm p-6 md:p-7 flex flex-col transition-colors"
           >
             
             {/* Header Right Pane */}

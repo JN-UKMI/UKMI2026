@@ -83,7 +83,7 @@ export default function KontakPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-xl p-6 sm:p-8 md:p-10 flex flex-col gap-8 transition-colors duration-300"
+          className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime shadow-xl p-6 sm:p-8 md:p-10 flex flex-col gap-8 transition-colors duration-300"
         >
           {/* Header & Description — animates per tab */}
           <div className="text-center max-w-xl mx-auto space-y-3">
@@ -332,7 +332,7 @@ export default function KontakPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/60 dark:border-gray-800 shadow-md p-6 sm:p-8 flex flex-col gap-6 transition-colors duration-300"
+          className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime shadow-md p-6 sm:p-8 flex flex-col gap-6 transition-colors duration-300"
         >
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-forest-50 dark:bg-forest-950/80 text-forest-700 dark:text-lime flex items-center justify-center shadow-inner shrink-0">
