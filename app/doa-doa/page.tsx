@@ -2,7 +2,6 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 import { PageHero } from "@/components/layout/PageHero";
 import { loadDoaDoa } from "@/lib/content";
 import { DoaDoaList } from "@/components/islamic/DoaDoaList";
-
 export const metadata = buildPageMetadata({
   title: 'Database Doa & Zikir',
   description: 'Kumpulan doa-doa pilihan dari Al-Qur\u2019an dan hadits shahih: doa harian, doa pembuka majelis, dan amalan untuk penuntut ilmu.',

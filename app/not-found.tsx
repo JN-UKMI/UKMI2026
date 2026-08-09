@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { TransitionLink } from "@/components/ui/TransitionLink";
+import { SlideIn } from "@/components/ui/SlideIn";
 
 export const metadata = buildPageMetadata({
   title: 'Halaman Tidak Ditemukan',
@@ -12,7 +13,7 @@ export const metadata = buildPageMetadata({
 export default function NotFound() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
-      <div className="text-center max-w-md">
+      <SlideIn direction="left" className="text-center max-w-md">
         <Image
           src="/image/logo-jnukmi.svg"
           alt="JN UKMI Logo"
@@ -31,7 +32,7 @@ export default function NotFound() {
         >
           Kembali ke Beranda
         </TransitionLink>
-      </div>
+      </SlideIn>
     </div>
   );
 }

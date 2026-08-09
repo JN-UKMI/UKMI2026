@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { AyatCard } from "./AyatCard";
+import { SlideIn } from "@/components/ui/SlideIn";
 import { ArrowUp, Eye, EyeOff } from "lucide-react";
 
 interface Ayat {
@@ -127,22 +128,25 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
         </motion.button>
       </motion.div>
 
-      {/* Verses List — Renders all 110 verses directly */}
+      {/* Verses List — Renders all 110 verses directly, alternating slide-in per ayat */}
       <div className="space-y-6">
-        {ayatList.map((ayat) => (
-          <div key={ayat.nomorAyat}>
-            <AyatCard
-              nomorAyat={ayat.nomorAyat}
-              teksArab={ayat.teksArab}
-              teksLatin={ayat.teksLatin}
-              teksIndonesia={ayat.teksIndonesia}
-              showLatin={showGlobalLatin}
-              showTranslation={showGlobalTranslation}
-              isBookmarked={bookmarkedAyat === ayat.nomorAyat}
-              onToggleBookmark={() => toggleBookmark(ayat.nomorAyat)}
-            />
-          </div>
-        ))}
+        {ayatList.map((ayat, idx) => {
+          const direction = idx % 2 === 0 ? "left" : "right";
+          return (
+            <SlideIn key={ayat.nomorAyat} direction={direction}>
+              <AyatCard
+                nomorAyat={ayat.nomorAyat}
+                teksArab={ayat.teksArab}
+                teksLatin={ayat.teksLatin}
+                teksIndonesia={ayat.teksIndonesia}
+                showLatin={showGlobalLatin}
+                showTranslation={showGlobalTranslation}
+                isBookmarked={bookmarkedAyat === ayat.nomorAyat}
+                onToggleBookmark={() => toggleBookmark(ayat.nomorAyat)}
+              />
+            </SlideIn>
+          );
+        })}
       </div>
 
       {/* Floating Action Button (FAB) Back to Top */}

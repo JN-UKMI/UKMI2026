@@ -1,5 +1,5 @@
 import { PageHero } from "@/components/layout/PageHero";
-import { FadeIn } from "@/components/ui/motion";
+import { SlideIn } from "@/components/ui/SlideIn";
 import { TentangTabs } from "@/components/tentang/TentangTabs";
 import { buildPageMetadata } from "@/lib/page-metadata";
 
@@ -23,7 +23,7 @@ export default function TentangPage() {
       {/* Main Container */}
       <div className="max-w-6xl mx-auto px-4 py-16">
         {/* Top Header Title & Subtitle (Centered Layout) */}
-        <FadeIn direction="up" className="mb-12 max-w-3xl mx-auto">
+        <SlideIn direction="left" className="mb-12 max-w-3xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center">
             <h2 className="section-title-hover whitespace-nowrap text-3xl md:text-5xl font-extrabold text-black dark:text-black tracking-tight leading-tight">
               JN UKMI UNS
@@ -33,10 +33,12 @@ export default function TentangPage() {
               perjuangan unit kegiatan mahasiswa Islam tingkat universitas.
             </p>
           </div>
-        </FadeIn>
+        </SlideIn>
 
         {/* Interactive Tabs Client Island */}
-        <TentangTabs />
+        <SlideIn direction="right">
+          <TentangTabs />
+        </SlideIn>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { MemberCard } from "@/components/kabinet/MemberCard";
 import type { MemberCard as MemberCardType } from "@/lib/types";
 import { Users } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { SlideIn } from "@/components/ui/SlideIn";
 
 interface TimSectionProps {
   staff: MemberCardType[];
@@ -42,58 +42,67 @@ export function TimSection({ staff }: TimSectionProps) {
   const mainStaff = orderedStaff.slice(0, fullRowsCount);
   const leftoverStaff = orderedStaff.slice(fullRowsCount);
 
+  // Chunk mainStaff into sub-rows of 4 so each visual row gets its own SlideIn
+  const staffRows: MemberCardType[][] = [];
+  for (let i = 0; i < mainStaff.length; i += 4) {
+    staffRows.push(mainStaff.slice(i, i + 4));
+  }
+
   return (
     <section className="py-20 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
-      <FadeIn className="mb-10">
-        <SectionHeader
-          icon={<Users className="w-6 h-6" />}
-          title="Tim Kami"
-          subtitle="Pimpinan dan seluruh staf pengurus bidang"
-        />
-      </FadeIn>
+      <SectionHeader
+        icon={<Users className="w-6 h-6" />}
+        title="Tim Kami"
+        subtitle="Pimpinan dan seluruh staf pengurus bidang"
+      />
 
-      {/* Layout Mobile: Horizontal Carousel / Layout Desktop: Grid Hierarki */}
-      <StaggerContainer className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
+      {/* Layout Mobile: Horizontal Carousel */}
+      <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 scrollbar-none">
         {mobileOrderedList.map((member, i) => (
-          <StaggerItem key={i} className="shrink-0 w-[290px] snap-center flex justify-center">
+          <div key={i} className="shrink-0 w-[290px] snap-center flex justify-center">
             <MemberCard member={member} />
-          </StaggerItem>
+          </div>
         ))}
-      </StaggerContainer>
+      </div>
 
-      {/* Desktop Layout (sm:flex/grid) */}
-      <StaggerContainer className="hidden sm:flex flex-col gap-10">
-        {/* Baris 1: Kepala & Wakil (2 kolom, gap longgar) */}
-        <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
+      {/* Desktop Layout — each row gets its own SlideIn */}
+      <div className="hidden sm:flex flex-col gap-10">
+        {/* Baris 1: Kepala & Wakil */}
+        <SlideIn direction="left" stagger className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
           {leaders.map((member, i) => (
-            <StaggerItem key={i} className="w-[320px] flex justify-center">
+            <div key={i} className="w-[320px] flex justify-center">
               <MemberCard member={member} />
-            </StaggerItem>
+            </div>
           ))}
-        </div>
+        </SlideIn>
 
-        {/* Baris berikutnya: Staff (4 kolom dengan gap longgar lg:gap-12) */}
-        {mainStaff.length > 0 && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center">
-            {mainStaff.map((member, i) => (
-              <StaggerItem key={i} className="w-full max-w-[320px] flex justify-center">
+        {/* Baris 2+: Staff — each sub-row of 4 gets its own SlideIn */}
+        {staffRows.map((row, i) => (
+          <SlideIn
+            key={row[0].nama}
+            direction={i % 2 === 0 ? "right" : "left"}
+            stagger
+            className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0 justify-items-center"
+          >
+            {row.map((member, j) => (
+              <div key={j} className="w-full max-w-[320px] flex justify-center">
                 <MemberCard member={member} />
-              </StaggerItem>
+              </div>
             ))}
-          </div>
-        )}
+          </SlideIn>
+        ))}
 
-        {/* Baris sisa: Centered pada desktop */}
+        {/* Baris sisa: Centered */}
         {leftoverStaff.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
+          <SlideIn direction="left" stagger className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
             {leftoverStaff.map((member, i) => (
-              <StaggerItem key={i} className="w-[320px] flex justify-center">
+              <div key={i} className="w-[320px] flex justify-center">
                 <MemberCard member={member} />
-              </StaggerItem>
+              </div>
             ))}
-          </div>
+          </SlideIn>
         )}
-      </StaggerContainer>
+      </div>
     </section>
   );
 }

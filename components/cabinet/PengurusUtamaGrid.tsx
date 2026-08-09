@@ -4,7 +4,7 @@ import type { MemberCard as MemberCardType } from "@/lib/types";
 import { MemberCard } from "@/components/kabinet/MemberCard";
 import { ShieldCheck } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
-import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { SlideIn } from "@/components/ui/SlideIn";
 
 interface PengurusUtamaGridProps {
   members: MemberCardType[];
@@ -22,6 +22,12 @@ export function PengurusUtamaGrid({
   const fullRowsCount = Math.floor(staff.length / 4) * 4;
   const mainStaff = staff.slice(0, fullRowsCount);
   const leftoverStaff = staff.slice(fullRowsCount);
+
+  // Chunk mainStaff into sub-rows of 4 so each visual row gets its own SlideIn
+  const staffRows: MemberCardType[][] = [];
+  for (let i = 0; i < mainStaff.length; i += 4) {
+    staffRows.push(mainStaff.slice(i, i + 4));
+  }
 
   return (
     <section className="py-20 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
@@ -43,32 +49,39 @@ export function PengurusUtamaGrid({
       {/* Desktop Layout (sm:flex/grid) */}
       <div className="hidden sm:flex flex-col gap-10">
         {/* Baris 1: Pimpinan Utama (2 kolom) */}
-        <StaggerContainer className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
+        <SlideIn direction="left" stagger className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
           {leaders.map((member) => (
-            <StaggerItem key={member.nama} className="w-[320px] flex justify-center">
+            <div key={member.nama} className="w-[320px] flex justify-center">
               <MemberCard member={member} />
-            </StaggerItem>
+            </div>
           ))}
-        </StaggerContainer>
+        </SlideIn>
 
-        {/* Baris 2: Kepala & Wakil Bidang (4 kolom grid) */}
-        <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full justify-items-center">
-          {mainStaff.map((member) => (
-            <StaggerItem key={member.nama} className="w-full max-w-[320px] flex justify-center">
-              <MemberCard member={member} />
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        {/* Baris 2+: Kepala & Wakil Bidang — each sub-row of 4 gets its own SlideIn */}
+        {staffRows.map((row, i) => (
+          <SlideIn
+            key={row[0].nama}
+            direction={i % 2 === 0 ? "right" : "left"}
+            stagger
+            className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full justify-items-center"
+          >
+            {row.map((member) => (
+              <div key={member.nama} className="w-full max-w-[320px] flex justify-center">
+                <MemberCard member={member} />
+              </div>
+            ))}
+          </SlideIn>
+        ))}
 
         {/* Baris 3: Sisa Staff */}
         {leftoverStaff.length > 0 && (
-          <StaggerContainer className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
+          <SlideIn direction="left" stagger className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full">
             {leftoverStaff.map((member) => (
-              <StaggerItem key={member.nama} className="w-[320px] flex justify-center">
+              <div key={member.nama} className="w-[320px] flex justify-center">
                 <MemberCard member={member} />
-              </StaggerItem>
+              </div>
             ))}
-          </StaggerContainer>
+          </SlideIn>
         )}
       </div>
     </section>

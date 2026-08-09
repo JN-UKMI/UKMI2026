@@ -3,6 +3,7 @@ import { loadOKI } from "@/lib/content";
 
 import { PageHero } from "@/components/layout/PageHero";
 import { buildPageMetadata } from "@/lib/page-metadata";
+import { SlideIn } from "@/components/ui/SlideIn";
 
 export const metadata = buildPageMetadata({
   title: 'Ormawa Kerohanian Islam',
@@ -25,13 +26,13 @@ export default async function OkiPage() {
             </p>
           </div>
         ) : (
-          <div className="flex flex-wrap justify-center gap-6">
+          <SlideIn direction="left" stagger className="flex flex-wrap justify-center gap-6">
             {okiList.map((oki) => (
               <div key={oki.nama} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-72">
                 <LdfCard ldf={oki} />
               </div>
             ))}
-          </div>
+          </SlideIn>
         )}
       </div>
     </main>

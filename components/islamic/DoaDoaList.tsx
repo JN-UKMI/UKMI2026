@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Search, Copy, Check, BookOpen, Sparkles, Eye, EyeOff } from "lucide-react";
+import { SlideIn } from "@/components/ui/SlideIn";
 import type { DoaItem } from "@/lib/types";
 
 interface DoaDoaListProps {
@@ -61,6 +62,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             id="doa-search"
             type="text"
             aria-label="Cari doa"
+            suppressHydrationWarning
             placeholder="Cari doa (misal: Pembuka Majelis, Belajar)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -118,15 +120,13 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             if (showTerjemahan) copyText += `\n\nArtinya:\n"${item.terjemahan}"`;
             
             const isCopied = copiedId === itemId;
+            const direction = idx % 2 === 0 ? "left" : "right";
 
             return (
+              <SlideIn key={itemId} direction={direction}>
               <motion.div
-                key={itemId}
-                layout={!shouldReduceMotion}
-                initial={shouldReduceMotion ? false : { opacity: 0, x: 24 }}
-                animate={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
-                exit={shouldReduceMotion ? undefined : { opacity: 0, x: -24 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.96 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
                 className="group bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border border-l-4 border-l-forest-600 dark:border-l-lime border-gray-100 dark:border-gray-800 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 hover:border-gray-300 dark:hover:border-gray-700 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 relative"
               >
                 {/* Card Header: Category & Title & Copy Button */}
@@ -195,6 +195,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                   </div>
                 )}
               </motion.div>
+              </SlideIn>
             );
             })}
           </AnimatePresence>

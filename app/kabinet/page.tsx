@@ -3,6 +3,7 @@ import { PengurusUtamaGrid } from "@/components/cabinet/PengurusUtamaGrid";
 import { LogoKabinetSection } from "@/components/cabinet/LogoKabinetSection";
 import { PageHero } from "@/components/layout/PageHero";
 import { buildPageMetadata } from "@/lib/page-metadata";
+import { SlideIn } from "@/components/ui/SlideIn";
 
 export const metadata = buildPageMetadata({
   title: 'Kabinet Iskandar Muda',
@@ -20,9 +21,11 @@ export default function KabinetPage() {
       />
 
       {/* Logo Section */}
-      <LogoKabinetSection filosofi={kabinetData.filosofi_logo} items={kabinetData.filosofi_items} />
+      <SlideIn direction="left">
+        <LogoKabinetSection filosofi={kabinetData.filosofi_logo} items={kabinetData.filosofi_items} />
+      </SlideIn>
 
-      {/* Pengurus Utama */}
+      {/* Pengurus Utama — rows animate individually inside the component */}
       <PengurusUtamaGrid members={kabinetData.pengurus} />
     </div>
   );

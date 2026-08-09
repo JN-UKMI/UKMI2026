@@ -2,7 +2,7 @@ import { LdfCard } from "@/components/ldf/LdfCard";
 import { loadPartner } from "@/lib/content";
 
 import { PageHero } from "@/components/layout/PageHero";
-import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
+import { SlideIn } from "@/components/ui/SlideIn";
 import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = buildPageMetadata({
@@ -26,13 +26,13 @@ export default async function PartnerPage() {
             </p>
           </div>
         ) : (
-          <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <SlideIn direction="left" stagger className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {partnerList.map((partner) => (
-              <StaggerItem key={partner.nama} className="h-full">
+              <div key={partner.nama} className="h-full">
                 <LdfCard ldf={partner} />
-              </StaggerItem>
+              </div>
             ))}
-          </StaggerContainer>
+          </SlideIn>
         )}
       </div>
     </main>

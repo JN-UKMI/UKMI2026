@@ -37,6 +37,7 @@ export function FadeIn({
   delay = 0,
   duration = 0.5,
   distance: distanceProp = 24,
+  scale: scaleProp,
   viewportOnce = true,
   className = "",
   ...props
@@ -46,11 +47,14 @@ export function FadeIn({
   delay?: number;
   duration?: number;
   distance?: number;
+  /** When set, adds a scale animation (e.g. 0.96 → 1). Default: no scale. */
+  scale?: number;
   viewportOnce?: boolean;
   className?: string;
 } & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
   const distance = shouldReduceMotion ? 0 : distanceProp;
+  const scale = shouldReduceMotion ? 1 : scaleProp;
 
   const getInitialPosition = () => {
     switch (direction) {
@@ -69,23 +73,29 @@ export function FadeIn({
   };
 
   const initial = {
-    opacity: 0,
     ...getInitialPosition(),
+    ...(scaleProp !== undefined ? { scale } : {}),
+  };
+
+  const target = {
+    x: 0,
+    y: 0,
+    ...(scaleProp !== undefined ? { scale: 1 } : {}),
   };
 
   return (
     <motion.div
       initial={shouldReduceMotion ? false : initial}
-      whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0, y: 0 }}
+      whileInView={shouldReduceMotion ? undefined : target}
       viewport={
         shouldReduceMotion
           ? undefined
-          : { once: viewportOnce, margin: "-60px" }
+          : { once: viewportOnce, margin: scaleProp !== undefined ? "-80px" : "-60px" }
       }
       transition={{
         duration: shouldReduceMotion ? 0.15 : duration,
         delay,
-        ease: EASE_SOFT,
+        ease: scaleProp !== undefined ? EASE_PREMIUM : EASE_SOFT,
       }}
       className={className}
       {...props}
@@ -114,13 +124,12 @@ export function StaggerContainer({
 
   const containerVariants: Variants = shouldReduceMotion
     ? {
-        hidden: { opacity: 1 },
-        show: { opacity: 1 },
+        hidden: {},
+        show: {},
       }
     : {
-        hidden: { opacity: 0 },
+        hidden: {},
         show: {
-          opacity: 1,
           transition: {
             staggerChildren,
             delayChildren,
@@ -161,13 +170,12 @@ export function StaggerItem({
 
   const itemVariants: Variants = shouldReduceMotion
     ? {
-        hidden: { opacity: 1, x: 0, y: 0 },
-        show: { opacity: 1, x: 0, y: 0 },
+        hidden: { x: 0, y: 0 },
+        show: { x: 0, y: 0 },
       }
     : {
-        hidden: { opacity: 0, ...getInitialPosition(direction, distance) },
+        hidden: { ...getInitialPosition(direction, distance) },
         show: {
-          opacity: 1,
           x: 0,
           y: 0,
           transition: {
@@ -203,18 +211,21 @@ function getInitialPosition(
   }
 }
 
-// ── 3. WordReveal (slide-up per word — lebih sinematik) ────────────
+// ── 3. WordReveal (slide-up per word — sinematik, optional blur) ────
 export function WordReveal({
   text,
   className = "",
   delay = 0,
   stagger = 0.045,
+  blur = false,
   as: Tag = "span",
 }: {
   text: string;
   className?: string;
   delay?: number;
   stagger?: number;
+  /** When true, adds a blur→sharp reveal per word. Default: false. */
+  blur?: boolean;
   as?: "span" | "h1" | "h2" | "h3" | "p";
 }) {
   const shouldReduceMotion = useReducedMotion();
@@ -234,24 +245,31 @@ export function WordReveal({
     },
   };
 
-  const wordVariants: Variants = {
-    hidden: { opacity: 0, y: 22 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.55,
-        ease: EASE_PREMIUM,
-      },
-    },
-  };
+  const wordVariants: Variants = blur
+    ? {
+        hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
+        show: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.45, ease: EASE_PREMIUM },
+        },
+      }
+    : {
+        hidden: { opacity: 0, y: 22 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.55, ease: EASE_PREMIUM },
+        },
+      };
 
   return (
     <motion.span
       variants={containerVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: blur ? "-30px" : "-40px" }}
       className={`inline-block ${className}`}
     >
       {words.map((word, i) => (
@@ -561,7 +579,37 @@ export function AmbientBackground() {
   );
 }
 
-// ── 11. GrainOverlay (tekstur grain halus di seluruh halaman) ───────
+// ── 11. ScaleIn — convenience wrapper: FadeIn no-direction with scale ──
+export function ScaleIn({
+  children,
+  delay = 0,
+  scale = 0.94,
+  className = "",
+  viewportOnce = true,
+  ...props
+}: {
+  children: ReactNode;
+  delay?: number;
+  scale?: number;
+  className?: string;
+  viewportOnce?: boolean;
+} & HTMLMotionProps<"div">) {
+  return (
+    <FadeIn
+      direction="none"
+      scale={scale}
+      delay={delay}
+      duration={0.45}
+      viewportOnce={viewportOnce}
+      className={className}
+      {...props}
+    >
+      {children}
+    </FadeIn>
+  );
+}
+
+// ── 12. GrainOverlay (tekstur grain halus di seluruh halaman) ───────
 export function GrainOverlay() {
   return (
     <div

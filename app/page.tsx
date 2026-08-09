@@ -8,6 +8,8 @@ import { MediaSpaceSection } from "@/components/home/MediaSpaceSection";
 import { getArticles, type ArticlesListResult } from "@/lib/sanity";
 import { buildPageMetadata } from "@/lib/page-metadata";
 
+import { SlideIn } from "@/components/ui/SlideIn";
+
 // Dynamic imports for below-the-fold heavy components (Code Splitting)
 const KalenderSection = dynamicImport(
   () => import("@/components/home/KalenderSection").then((m) => m.KalenderSection)
@@ -52,12 +54,12 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
-      <QuoteSection />
-      <KegiatanSeruSection initialEvents={kegiatanSeruList} />
-      <ArtikelTerbaruSection articles={articles} />
-      <KalenderSection />
-      <MediaSpaceSection items={mediaSpaceItems} />
-      <TestimonialSection testimonials={testimonials} />
+      <SlideIn direction="left"><QuoteSection /></SlideIn>
+      <SlideIn direction="right"><KegiatanSeruSection initialEvents={kegiatanSeruList} /></SlideIn>
+      <SlideIn direction="left"><ArtikelTerbaruSection articles={articles} /></SlideIn>
+      <SlideIn direction="right"><KalenderSection /></SlideIn>
+      <SlideIn direction="left"><MediaSpaceSection items={mediaSpaceItems} /></SlideIn>
+      <SlideIn direction="right"><TestimonialSection testimonials={testimonials} /></SlideIn>
     </>
   );
 }

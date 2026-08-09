@@ -3,6 +3,7 @@ import { HeroSection } from "./HeroSection";
 import { DeskripsiSection } from "./DeskripsiSection";
 import { ProgramKerjaCarousel } from "./ProgramKerjaCarousel";
 import { TimSection } from "./TimSection";
+import { SlideIn } from "@/components/ui/SlideIn";
 
 export interface BidangPageProps {
   name: string;
@@ -26,8 +27,8 @@ export function BidangTemplate({
   return (
     <div className="min-h-screen">
       <HeroSection name={name} slug={slug} instagram_url={instagram_url} />
-      <DeskripsiSection deskripsi={deskripsi} tentangCards={tentang_cards} />
-      <ProgramKerjaCarousel program_kerja={program_kerja} />
+      <SlideIn direction="left"><DeskripsiSection deskripsi={deskripsi} tentangCards={tentang_cards} /></SlideIn>
+      <SlideIn direction="right"><ProgramKerjaCarousel program_kerja={program_kerja} /></SlideIn>
       <TimSection staff={staff} />
     </div>
   );

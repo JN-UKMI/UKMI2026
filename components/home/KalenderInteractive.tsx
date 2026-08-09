@@ -46,22 +46,31 @@ export function KalenderInteractive({
   const [[monthPage, direction], setMonthPage] = useState<[number, number]>([0, 0]);
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"all" | "kegiatan" | "puasa">("all");
-  const [calendarHeight, setCalendarHeight] = useState<number>(0);
+  const [calendarHeight, setCalendarHeight] = useState(0);
   const calendarCardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouchDevice = useIsTouchDevice();
 
+  // Track calendar card height so agenda scroll area matches it (desktop only)
   useEffect(() => {
-    const updateHeight = () => {
-      if (calendarCardRef.current && window.innerWidth >= 1024) {
-        setCalendarHeight(calendarCardRef.current.offsetHeight);
+    const el = calendarCardRef.current;
+    if (!el) return;
+    const update = () => {
+      if (window.innerWidth >= 1024 && el) {
+        // Subtract header + padding of the agenda card
+        setCalendarHeight(el.offsetHeight - 140);
       } else {
         setCalendarHeight(0);
       }
     };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
+    const obs = new ResizeObserver(update);
+    obs.observe(el);
+    update();
+    window.addEventListener("resize", update);
+    return () => {
+      obs.disconnect();
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   const today = new Date();
@@ -511,11 +520,10 @@ export function KalenderInteractive({
           </div>
         </div>
 
-        {/* KANAN: AGENDA CARD — tinggi disamakan dengan card kalender via ref */}
+        {/* KANAN: AGENDA CARD — ukuran natural, scroll internal */}
         <div className="lg:col-span-5">
           <div
-            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col overflow-hidden transition-colors"
-            style={{ height: calendarHeight > 0 ? `${calendarHeight}px` : "auto" }}
+            className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-6 md:p-7 flex flex-col transition-colors"
           >
             
             {/* Header Right Pane */}
@@ -539,8 +547,21 @@ export function KalenderInteractive({
               )}
             </div>
 
-            {/* Agenda Cards — Animated Container Slide with Staggered Items */}
-            <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pr-1 relative max-h-[360px] sm:max-h-full">
+            {/* Agenda Cards — scrollable container with wheel capture */}
+            <div
+              className="overflow-y-auto overflow-x-hidden pr-1 relative max-h-[380px]"
+              style={calendarHeight > 0 ? { maxHeight: calendarHeight } : undefined}
+              onWheel={(e) => {
+                const el = e.currentTarget;
+                const atTop = el.scrollTop <= 0;
+                const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+                // If scrolling down and at bottom, let page scroll
+                // If scrolling up and at top, let page scroll
+                // Otherwise, capture the scroll
+                if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) return;
+                e.stopPropagation();
+              }}
+            >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={(selectedDateStr || "month") + monthPage + activeCategory}

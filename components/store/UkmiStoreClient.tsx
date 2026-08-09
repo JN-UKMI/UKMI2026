@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionHeader } from "@/components/layout/SectionHeader";
+import { SlideIn } from "@/components/ui/SlideIn";
 import { UkmiStoreContent, UkmiStoreItem } from "@/lib/types";
 import {
   ShoppingBag,
@@ -81,6 +82,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
   return (
     <main className="max-w-6xl mx-auto px-4 pt-12 flex flex-col gap-16">
       {/* Banner Guideline & Quick Info */}
+      <SlideIn direction="left">
       <section className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white rounded-3xl p-8 sm:p-10 border border-white/10 shadow-xl relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="max-w-2xl">
@@ -107,8 +109,10 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
           </div>
         </div>
       </section>
+      </SlideIn>
 
       {/* 1. KATALOG ALAT SEWA */}
+      <SlideIn direction="right">
       <section>
         <div className="relative mb-6">
           <SectionHeader
@@ -222,8 +226,10 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
           })}
         </div>
       </section>
+      </SlideIn>
 
       {/* 2. GUIDELINE RESMI JN UKMI RENT */}
+      <SlideIn direction="left">
       {data.guideline && (
         <section className="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-10 border border-gray-200/80 dark:border-gray-800 shadow-sm transition-colors flex flex-col gap-8">
           <SectionHeader
@@ -390,6 +396,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
           </div>
         </section>
       )}
+      </SlideIn>
 
       {/* Floating Bottom Bar when items are selected */}
       {selectedItems.length > 0 && (

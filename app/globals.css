@@ -62,6 +62,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -282,6 +283,36 @@ body {
   letter-spacing: 0;
   font-variant-ligatures: normal;
   text-rendering: optimizeLegibility;
+}
+
+/* ── Scroll Slide Animations (IntersectionObserver + CSS transition) ──
+   Initial offset is set via JS (inline style) to avoid layout gaps.
+   .slide-visible overrides the inline transform to slide to position. */
+
+.slide-left,
+.slide-right {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-left.slide-visible,
+.slide-right.slide-visible {
+  transform: translateX(0) !important;
+}
+
+/* Staggered children: each nth-child gets an increasing delay (in+out) */
+.slide-stagger > :nth-child(1) { transition-delay: 0ms; }
+.slide-stagger > :nth-child(2) { transition-delay: 80ms; }
+.slide-stagger > :nth-child(3) { transition-delay: 160ms; }
+.slide-stagger > :nth-child(4) { transition-delay: 240ms; }
+.slide-stagger > :nth-child(5) { transition-delay: 320ms; }
+.slide-stagger > :nth-child(6) { transition-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-left,
+  .slide-right {
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ── Custom Scrollbar (Light & Dark Mode) ── */

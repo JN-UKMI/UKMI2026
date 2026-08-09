@@ -6,6 +6,7 @@ import sughraData from "@/content/al-masurat/sughra.json";
 import kubraData from "@/content/al-masurat/kubra.json";
 import { DoaCard } from "./DoaCard";
 import { MasuratAudioPlayer } from "./MasuratAudioPlayer";
+import { SlideIn } from "@/components/ui/SlideIn";
 import { Sun, Moon, BookOpen, Layers, Eye, EyeOff } from "lucide-react";
 
 type RawDoaItem = {
@@ -214,15 +215,11 @@ export function DoaTabs() {
         </div>
       ) : (
         <div className="space-y-5 w-full">
-          {activeItems.map((doa, idx) => (
+          {activeItems.map((doa, idx) => {
+            const direction = idx % 2 === 0 ? "left" : "right";
+            return (
+            <SlideIn key={`${version}-${time}-${doa.id}`} direction={direction}>
             <DoaCard
-              // Key harus menyertakan (version, time, doa.id). Sughra ↔ Kubra
-              // selalu memakai id yang dimulai dari 1 di masing-masing koleksi,
-              // dan morning ↔ evening juga IDF mulai dari 1 — tanpa ketiga scope
-              // ini, count state DoaCard akan bocor: dzikir yang berbeda tapi
-              // ber-id sama akan mewarisi counter dzikir sebelumnya, sehingga
-              // hitungan dzikir pagi bisa terbawa ke dzikir sore yang berbeda.
-              key={`${version}-${time}-${doa.id}`}
               index={idx + 1}
               title={doa.title}
               arabic={doa.arabic}
@@ -232,7 +229,9 @@ export function DoaTabs() {
               showLatin={showGlobalLatin}
               showTranslation={showGlobalTranslation}
             />
-          ))}
+            </SlideIn>
+            );
+          })}
         </div>
       )}
     </div>

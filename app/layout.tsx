@@ -10,6 +10,7 @@ import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { AmbientBackground, GrainOverlay } from "@/components/ui/motion";
+import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { BASE_URL, siteConfig } from "@/lib/seo";
 import { buildSiteJsonLd } from "@/lib/json-ld";
 import { AuthProvider } from "@/components/providers/AuthProvider";
@@ -185,9 +186,11 @@ export default async function RootLayout({
                 <AmbientBackground />
                 {/* Grain halus global — dekoratif, pointer-events-none, z di bawah konten utama */}
                 <GrainOverlay />
-                <Navbar />
-                <main id="main-content" tabIndex={-1} className="flex-1 outline-none relative z-10">{children}</main>
-                <Footer />
+                <SmoothScroll>
+                  <Navbar />
+                  <main id="main-content" tabIndex={-1} className="flex-1 outline-none relative z-10">{children}</main>
+                  <Footer />
+                </SmoothScroll>
                 <MusicPlayer />
                 <BackToTop />
                 <Analytics />
