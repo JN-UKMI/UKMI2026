@@ -150,7 +150,7 @@ export function ArticleList({
           className="flex justify-center"
         >
           <div
-            className="glass rounded-2xl p-1.5 shadow-sm border-2 border-lime dark:border-lime flex flex-nowrap gap-1 overflow-x-auto scrollbar-none"
+            className="bg-white dark:bg-gray-900 rounded-full sm:rounded-2xl p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime flex flex-nowrap gap-1 overflow-x-auto scrollbar-none transition-all duration-300"
             role="group"
             aria-label="Filter kategori artikel"
           >

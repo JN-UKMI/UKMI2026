@@ -51,7 +51,7 @@ export function TentangTabs() {
         delay={0.1}
         className="flex justify-center mb-12 max-w-full"
       >
-        <div role="tablist" aria-label="Navigasi informasi tentang JN UKMI" className="glass rounded-2xl p-1.5 shadow-sm border-2 border-lime dark:border-lime flex flex-nowrap md:flex-wrap gap-1 max-w-full overflow-x-auto scrollbar-none">
+        <div role="tablist" aria-label="Navigasi informasi tentang JN UKMI" className="bg-white dark:bg-gray-900 rounded-full sm:rounded-2xl p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime flex flex-nowrap md:flex-wrap gap-1 max-w-full overflow-x-auto scrollbar-none transition-all duration-300">
           {tabItems.map((tab) => {
             const isActive = activeTab === tab.id;
             const TabIcon = tab.icon;
