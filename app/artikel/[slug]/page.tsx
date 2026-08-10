@@ -226,7 +226,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
           {/* Meta Info */}
           <FadeIn direction="up" delay={0.1}>
           <header className="mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-forest-50 border border-forest-150 rounded-full text-xs font-bold text-forest-600 mb-4 w-fit">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-forest-50 border border-forest-150 dark:bg-forest-900/60 dark:border-forest-800 rounded-full text-xs font-bold text-forest-600 dark:text-lime mb-4 w-fit">
               <Tag className="w-3.5 h-3.5" />
               <span>{article.category}</span>
             </div>

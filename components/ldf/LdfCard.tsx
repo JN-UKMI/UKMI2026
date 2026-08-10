@@ -19,7 +19,7 @@ export function LdfCard({ ldf }: LdfCardProps) {
       whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.01 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:ring-2 hover:ring-lime/80 transition-all duration-500 overflow-hidden"
+      className="group h-full bg-white dark:bg-gray-900 rounded-2xl border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
     >
       {/* ── Mobile: Horizontal layout (image left, text right) ── */}
       {/* ── sm+: Vertical layout (image top, text bottom) ── */}

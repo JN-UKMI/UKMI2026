@@ -25,7 +25,7 @@ export const metadata = buildPageMetadata({
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SlideButton({ label, href: _href }: { label: string; href?: string }) {
   return (
-    <div className="group/action relative isolate inline-flex w-full items-center justify-between gap-2 overflow-hidden rounded-xl border border-forest-600 dark:border-lime bg-transparent px-3 py-2.5 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-reduce:transition-none">
+    <div className="group/action relative isolate inline-flex w-full items-center justify-between gap-2 overflow-hidden rounded-xl border border-lime dark:border-lime bg-transparent px-3 py-2.5 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-reduce:transition-none">
       <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/action:translate-x-0" />
       <span className="relative z-10 transition-colors duration-300 motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950">{label}</span>
       <ExternalLink className="relative z-10 h-4 w-4 transition-transform duration-300 motion-safe:group-hover/action:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none group-hover/action:text-white dark:group-hover/action:text-forest-950" />
@@ -58,7 +58,7 @@ export default async function BukuUkmiPage() {
               <a href={data.links.daftar_buku} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Katalog Koleksi Buku</span></h3>
@@ -72,7 +72,7 @@ export default async function BukuUkmiPage() {
               <a href={data.links.peminjaman} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <FileCheck className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Pinjam Buku</span></h3>
@@ -86,7 +86,7 @@ export default async function BukuUkmiPage() {
               <a href={data.links.pengembalian} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Kembalikan Buku</span></h3>
@@ -100,7 +100,7 @@ export default async function BukuUkmiPage() {
               <a href={data.links.jariyah_bumi} target="_blank" rel="noopener noreferrer" className="group bg-white dark:bg-gray-900 rounded-3xl p-4 sm:p-6 border-2 border-forest-600 dark:border-lime shadow-sm motion-safe:hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <div>
                   <div className="flex items-center gap-2 sm:gap-3 mb-0 sm:mb-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <HeartHandshake className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <h3 className="text-sm sm:text-lg font-black text-forest-900 dark:text-lime leading-[1.75] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors"><span className="card-title-underline">Jariyah BUMI</span></h3>
@@ -125,13 +125,13 @@ export default async function BukuUkmiPage() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
               {data.jariyah_options.map((opt, i) => (
-                <div key={i} className="bg-gray-50/80 dark:bg-gray-800/60 rounded-2xl p-6 border border-gray-100 dark:border-gray-700/60 flex flex-col justify-between gap-3 hover:border-forest-600/40 dark:hover:border-lime/50 transition-colors">
+                <div key={i} className="bg-gray-50/80 dark:bg-gray-800/60 rounded-2xl p-6 border border-gray-100 dark:border-gray-700/60 flex flex-col justify-between gap-3 hover:border-lime/40 dark:hover:border-lime/50 transition-colors">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <BookmarkCheck className="w-5 h-5 text-forest-600 dark:text-lime" />
                       <h4 className="text-base font-black text-forest-900 dark:text-lime">{opt.title}</h4>
                     </div>
-                    <span className="inline-block px-2.5 py-0.5 bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime rounded-md text-[10px] font-bold uppercase tracking-wider mb-3 border border-forest-600/20 dark:border-forest-800">{opt.subtitle}</span>
+                    <span className="inline-block px-2.5 py-0.5 bg-lime/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime rounded-md text-[10px] font-bold uppercase tracking-wider mb-3 border border-lime/20 dark:border-forest-800">{opt.subtitle}</span>
                     <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">{opt.description}</p>
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export default async function BukuUkmiPage() {
                 <span className="text-xs font-bold text-forest-800 dark:text-lime uppercase tracking-widest block mb-0.5">🌟 Himbauan Partisipasi Bidang:</span>
                 <p className="text-xs text-forest-900 dark:text-gray-200 font-medium">Setiap bidang di lingkungan JN UKMI diharapkan ikut berpartisipasi minimal menyumbang 2 buku.</p>
               </div>
-              <a href={data.links.jariyah_bumi} target="_blank" rel="noopener noreferrer" className="group/jariyah relative isolate inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-forest-600 dark:border-lime bg-transparent px-5 py-2 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.jariyah_bumi} target="_blank" rel="noopener noreferrer" className="group/jariyah relative isolate inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-lime dark:border-lime bg-transparent px-5 py-2 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/jariyah:translate-x-0" />
                 <span className="relative z-10 transition-colors duration-300 motion-reduce:transition-none group-hover/jariyah:text-white dark:group-hover/jariyah:text-forest-950">Ikut Jariyah Buku</span>
               </a>
@@ -156,7 +156,7 @@ export default async function BukuUkmiPage() {
             <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border-2 border-forest-600 dark:border-lime shadow-sm flex flex-col justify-between transition-all duration-300 motion-safe:hover:-translate-y-1">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center"><MapPin className="w-5 h-5" /></div>
+                  <div className="w-10 h-10 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center"><MapPin className="w-5 h-5" /></div>
                   <div>
                     <h3 className="text-base font-black text-forest-900 dark:text-lime">Lokasi Peminjaman</h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Sekretariat JN UKMI Universitas Sebelas Maret</p>
@@ -164,7 +164,7 @@ export default async function BukuUkmiPage() {
                 </div>
                 <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-6">Silakan datang langsung ke lokasi Sekretariat JN UKMI untuk melakukan pemanfaatan buku atau pengambilan/pengembalian fisik buku.</p>
               </div>
-              <a href={data.links.lokasi_maps} target="_blank" rel="noopener noreferrer" className="group/maps relative isolate inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl border border-forest-600 dark:border-lime bg-transparent py-3 text-xs font-bold text-forest-700 dark:text-lime shadow-md transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+              <a href={data.links.lokasi_maps} target="_blank" rel="noopener noreferrer" className="group/maps relative isolate inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl border border-lime dark:border-lime bg-transparent py-3 text-xs font-bold text-forest-700 dark:text-lime shadow-md transition-colors duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                 <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/maps:translate-x-0" />
                 <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/maps:text-white dark:group-hover/maps:text-forest-950"><MapPin className="h-4 w-4" /> Buka Google Maps Lokasi</span>
               </a>
@@ -172,7 +172,7 @@ export default async function BukuUkmiPage() {
             <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border-2 border-forest-600 dark:border-lime shadow-sm flex flex-col justify-between transition-all duration-300 motion-safe:hover:-translate-y-1">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center"><MessageCircle className="w-5 h-5" /></div>
+                  <div className="w-10 h-10 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center"><MessageCircle className="w-5 h-5" /></div>
                   <div>
                     <h3 className="text-base font-black text-forest-900 dark:text-lime">Narahubung Resmi</h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Ada pertanyaan seputar peminjaman atau jariyah?</p>
@@ -182,7 +182,7 @@ export default async function BukuUkmiPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {data.narahubung.map((contact, i) => (
-                  <a key={i} href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="group/whatsapp relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-forest-600 dark:border-lime bg-transparent p-3 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
+                  <a key={i} href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="group/whatsapp relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-lime dark:border-lime bg-transparent p-3 text-xs font-bold text-forest-700 dark:text-lime transition-colors duration-300 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50">
                     <span aria-hidden className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/whatsapp:translate-x-0" />
                     <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/whatsapp:text-white dark:group-hover/whatsapp:text-forest-950"><MessageCircle className="h-4 w-4" /> <span>WhatsApp {contact.nama}</span></span>
                   </a>

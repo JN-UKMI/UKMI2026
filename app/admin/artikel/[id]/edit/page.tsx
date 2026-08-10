@@ -437,7 +437,7 @@ export default function AdminEditArticlePage() {
         <div className="max-w-4xl mx-auto px-4 py-10 md:py-14">
           {/* Meta Info */}
           <header className="mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-forest-50 border border-forest-150 rounded-full text-xs font-bold text-forest-600 mb-4 w-fit">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-forest-50 border border-forest-150 dark:bg-forest-900/60 dark:border-forest-800 rounded-full text-xs font-bold text-forest-600 dark:text-lime mb-4 w-fit">
               <Tag className="w-3.5 h-3.5" />
               {isEditing ? (
                 <select
@@ -459,7 +459,7 @@ export default function AdminEditArticlePage() {
                 type="text"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
-                className="w-full text-2xl md:text-4xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-tight leading-tight bg-transparent border-b-2 border-dashed border-gray-300 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none px-1 py-1 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                className="w-full text-2xl md:text-4xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-tight leading-tight bg-transparent border-b-2 border-dashed border-gray-300 dark:border-gray-700 focus:border-lime dark:focus:border-lime focus:outline-none px-1 py-1 placeholder:text-gray-400 dark:placeholder:text-gray-500"
               />
             ) : (
               <h1 className="text-2xl md:text-4xl font-black text-gray-900 dark:text-white mb-4 uppercase tracking-tight leading-tight">
@@ -475,7 +475,7 @@ export default function AdminEditArticlePage() {
                     type="date"
                     value={editPublishedAt}
                     onChange={(e) => setEditPublishedAt(e.target.value)}
-                    className="bg-transparent border border-dashed border-gray-300 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none text-xs font-semibold text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded dark:text-white"
+                    className="bg-transparent border border-dashed border-gray-300 dark:border-gray-700 focus:border-lime dark:focus:border-lime focus:outline-none text-xs font-semibold text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded dark:text-white"
                   />
                 </div>
               ) : (
@@ -500,7 +500,7 @@ export default function AdminEditArticlePage() {
                     value={editAuthor}
                     onChange={(e) => setEditAuthor(e.target.value)}
                     placeholder="Nama penulis"
-                    className="bg-transparent border-b border-dashed border-gray-300 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none text-xs font-semibold text-gray-500 dark:text-gray-400 w-32 placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:text-white"
+                    className="bg-transparent border-b border-dashed border-gray-300 dark:border-gray-700 focus:border-lime dark:focus:border-lime focus:outline-none text-xs font-semibold text-gray-500 dark:text-gray-400 w-32 placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:text-white"
                   />
                 </div>
               ) : (
@@ -528,11 +528,11 @@ export default function AdminEditArticlePage() {
               value={editExcerpt}
               onChange={(e) => setEditExcerpt(e.target.value)}
               rows={2}
-              className="w-full px-4 py-3 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 text-sm focus:border-forest-600 dark:focus:border-lime focus:outline-none transition-all font-medium text-gray-600 dark:text-gray-300 italic mb-6 bg-gray-50 dark:bg-gray-800/50 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+              className="w-full px-4 py-3 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 text-sm focus:border-lime dark:focus:border-lime focus:outline-none transition-all font-medium text-gray-600 dark:text-gray-300 italic mb-6 bg-gray-50 dark:bg-gray-800/50 placeholder:text-gray-400 dark:placeholder:text-gray-500"
             />
           ) : (
             article.excerpt && (
-              <div className="border-l-4 border-forest-600 dark:border-lime bg-forest-50/20 dark:bg-forest-950/30 px-5 py-3 rounded-r-xl italic text-sm text-gray-600 dark:text-gray-300 font-medium mb-8">
+              <div className="border-l-4 border-lime dark:border-lime bg-forest-50/20 dark:bg-forest-950/30 px-5 py-3 rounded-r-xl italic text-sm text-gray-600 dark:text-gray-300 font-medium mb-8">
                 &ldquo;{article.excerpt}&rdquo;
               </div>
             )

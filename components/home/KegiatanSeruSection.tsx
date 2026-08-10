@@ -161,7 +161,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                 className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl border backdrop-blur-md transition-all duration-300 cursor-pointer ${
                   currentIndex === 0
                     ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-40"
-                    : "border-forest-600/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
+                    : "border-lime/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
                 }`}
               >
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -173,7 +173,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                 className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl border backdrop-blur-md transition-all duration-300 cursor-pointer ${
                   currentIndex >= maxIndex
                     ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-40"
-                    : "border-forest-600/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
+                    : "border-lime/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
                 }`}
               >
                 <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -198,7 +198,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                 >
                   {/* Event Card Component - Always Horizontal Layout (Poster Left, Info Right) */}
                   <div
-                    className="relative bg-white dark:bg-gray-900/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-gray-200/90 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-emerald-500 dark:hover:border-lime dark:hover:shadow-[0_0_30px_rgba(73,154,19,0.25)] transition-all duration-300 group flex flex-row w-full overflow-hidden hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none z-10 hover:z-30 select-none"
+                    className="relative bg-white dark:bg-gray-900/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl hover:border-lime dark:hover:border-lime dark:hover:shadow-[0_0_30px_rgba(142,205,4,0.35)] transition-all duration-300 group flex flex-row w-full overflow-hidden hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none z-10 hover:z-30 select-none"
                   >
                     
                     {/* Left Column: Poster Container (Always Horizontal side by side) */}
@@ -278,7 +278,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="group/detail relative isolate block w-full overflow-hidden rounded-xl sm:rounded-2xl border border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime text-[11px] sm:text-sm font-bold sm:font-black transition-colors duration-300 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+                          className="group/detail relative isolate block w-full overflow-hidden rounded-xl sm:rounded-2xl border border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime text-[11px] sm:text-sm font-bold sm:font-black transition-all duration-300 hover:scale-105 active:scale-95 hover:border-lime dark:hover:border-lime motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
                         >
                           <span
                             aria-hidden

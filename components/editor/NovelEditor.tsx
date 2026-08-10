@@ -394,7 +394,7 @@ function SlashCommandContent() {
             key={item.title}
             value={item.title}
             onCommand={(val) => item.command?.(val)}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all aria-selected:bg-forest-50 aria-selected:text-forest-900 hover:bg-gray-50 cursor-pointer"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all aria-selected:bg-forest-50 aria-selected:text-forest-900 dark:aria-selected:bg-forest-950/70 dark:aria-selected:text-lime hover:bg-gray-50 cursor-pointer"
           >
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 shadow-sm">
               {item.icon}
@@ -1046,7 +1046,7 @@ export default function NovelEditor({
           }
         }
         .dark .novel-editor-wrapper .ProseMirror-gapcursor::after {
-          border-color: #499a13;
+          border-color: #8ecd04;
         }
         .dark .novel-editor-wrapper .ProseMirror-gapcursor::before {
           background: #e5e7eb;
@@ -1065,12 +1065,12 @@ export default function NovelEditor({
           border-color: #1f2937;
         }
         .dark .editor-container:focus-within {
-          border-color: #499a13;
-          box-shadow: 0 0 0 3px rgba(73, 154, 19, 0.08);
+          border-color: #8ecd04;
+          box-shadow: 0 0 0 3px rgba(142, 205, 4, 0.08);
         }
         .dark .novel-editor-wrapper .ProseMirror {
           color: #e5e7eb;
-          caret-color: #499a13;
+          caret-color: #8ecd04;
         }
         .dark .novel-editor-wrapper .ProseMirror h1,
         .dark .novel-editor-wrapper .ProseMirror h2,
@@ -1091,19 +1091,19 @@ export default function NovelEditor({
         .dark .novel-editor-wrapper .ProseMirror blockquote {
           background: #0d2818;
           color: #9ca3af;
-          border-left-color: #499a13;
+          border-left-color: #8ecd04;
         }
         .dark .novel-editor-wrapper .ProseMirror a {
-          color: #499a13;
+          color: #8ecd04;
         }
         .dark .novel-editor-wrapper .ProseMirror a:hover {
           color: #73c91d;
         }
         .dark .novel-editor-wrapper .ProseMirror ul li::marker {
-          color: #499a13;
+          color: #8ecd04;
         }
         .dark .novel-editor-wrapper .ProseMirror ::selection {
-          background-color: rgba(73, 154, 19, 0.2);
+          background-color: rgba(142, 205, 4, 0.2);
         }
         .dark
           .novel-editor-wrapper

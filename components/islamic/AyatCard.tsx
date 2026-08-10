@@ -51,7 +51,7 @@ export function AyatCard({
       {/* Top Header: Verse Number Indicator & Actions */}
       <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono border border-forest-600/20 dark:border-forest-800">
+          <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono border border-lime/20 dark:border-forest-800">
             Ayat {String(nomorAyat).padStart(2, "0")}
           </span>
           {isBookmarked && (

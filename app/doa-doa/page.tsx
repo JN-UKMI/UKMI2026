@@ -15,7 +15,7 @@ export default async function DoaDoaPage() {
     <div className="min-h-screen bg-transparent pb-20 transition-colors duration-300">
       <PageHero
         badge="Khazanah Keislaman"
-        title="DATABASE DOA & ZIKIR"
+        title="DOA & ZIKIR"
         subtitle="Kumpulan doa-doa pilihan dari Al-Qur'an dan Hadits shahih untuk amalan harian, majelis ilmu, dan penuntut ilmu."
       />
 

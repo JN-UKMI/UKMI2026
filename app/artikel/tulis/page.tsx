@@ -177,7 +177,7 @@ export default function TulisArtikelPage() {
     return (
     <div className="bg-transparent min-h-[85vh] flex items-center justify-center px-4">
       <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 dark:border-gray-800 max-w-md w-full text-center transition-colors">
-          <div className="w-16 h-16 bg-forest-600/10 text-forest-600 rounded-3xl flex items-center justify-center mb-6 mx-auto shadow-inner">
+          <div className="w-16 h-16 bg-lime/10 text-forest-600 rounded-3xl flex items-center justify-center mb-6 mx-auto shadow-inner">
             <Lock className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-black text-forest-900 uppercase tracking-wider mb-2">
@@ -268,7 +268,7 @@ export default function TulisArtikelPage() {
 
         {success ? (
           <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-800 text-center flex flex-col items-center justify-center transition-colors">
-            <div className="w-16 h-16 bg-lime/10 text-lime rounded-full flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-lime/10 text-forest-600 dark:text-lime rounded-full flex items-center justify-center mb-6">
               <CheckCircle className="w-10 h-10" />
             </div>
             <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-wide mb-3">
@@ -401,7 +401,7 @@ export default function TulisArtikelPage() {
                 </label>
 
                 <div className={`relative min-h-[220px] border-2 border-dashed rounded-2xl bg-gray-50/50 hover:bg-forest-50/10 transition-all flex flex-col items-center justify-center p-4 text-center group overflow-hidden ${
-                  !imageFile ? "border-amber-300 hover:border-forest-600" : "border-forest-600"
+                  !imageFile ? "border-amber-300 hover:border-lime" : "border-lime"
                 }`}>
                   {imagePreview ? (
                     <div className="relative w-full h-full min-h-[200px] rounded-xl overflow-hidden group">

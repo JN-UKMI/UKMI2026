@@ -158,7 +158,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                 transition={{ type: "spring", stiffness: 320, damping: 24 }}
                 className={`group cursor-pointer rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border transition-all duration-300 flex flex-col justify-between relative ${
                   isSelected
-                    ? "bg-forest-50/60 dark:bg-forest-950/50 border-forest-600 dark:border-lime ring-2 ring-forest-600/30 dark:ring-lime/30 shadow-md"
+                    ? "bg-forest-50/60 dark:bg-forest-950/50 border-lime dark:border-lime ring-2 ring-forest-600/30 dark:ring-lime/30 shadow-md"
                     : "bg-white dark:bg-gray-900 border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl"
                 }`}
               >
@@ -168,7 +168,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                       className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${
                         isSelected
                           ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
-                          : "bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime"
+                          : "bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime"
                       }`}
                     >
                       {iconElement}
@@ -249,7 +249,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                     className="bg-gray-50 dark:bg-gray-800/60 rounded-2xl p-5 border border-gray-100 dark:border-gray-700/60 flex flex-col justify-between"
                   >
                     <div>
-                      <span className="inline-block px-2.5 py-0.5 bg-forest-600/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime rounded-md text-[10px] font-bold uppercase tracking-wider mb-2 border border-forest-600/20 dark:border-forest-800">
+                      <span className="inline-block px-2.5 py-0.5 bg-lime/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime rounded-md text-[10px] font-bold uppercase tracking-wider mb-2 border border-lime/20 dark:border-forest-800">
                         {rule.title}
                       </span>
                       <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -275,7 +275,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                     key={idx}
                     className="bg-gray-50 dark:bg-gray-800/60 rounded-2xl p-5 border border-gray-100 dark:border-gray-700/60 flex items-start gap-3"
                   >
-                    <div className="w-7 h-7 rounded-xl bg-forest-600/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-xl bg-lime/10 dark:bg-forest-900/60 text-forest-700 dark:text-lime flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                       {idx + 1}
                     </div>
                     <div>

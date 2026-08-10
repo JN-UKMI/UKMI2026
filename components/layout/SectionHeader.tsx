@@ -55,10 +55,10 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           whileHover={animateSection ? { scale: 1.12, rotate: 8 } : undefined}
           whileTap={animateSection ? { scale: 0.96 } : undefined}
-          className="w-14 h-14 rounded-2xl bg-forest-600/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-4 border border-forest-600/20 dark:border-forest-800 shadow-sm transition-colors relative group"
+          className="w-14 h-14 rounded-2xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-4 border border-lime/20 dark:border-forest-800 shadow-sm transition-colors relative group"
         >
           {/* Glow halo saat hover */}
-          <div className="absolute inset-0 rounded-2xl bg-forest-600/0 group-hover:bg-forest-600/10 dark:group-hover:bg-lime/10 transition-colors duration-300" />
+          <div className="absolute inset-0 rounded-2xl bg-forest-600/0 group-hover:bg-lime/10 dark:group-hover:bg-lime/10 transition-colors duration-300" />
           <span className="relative">{icon}</span>
         </motion.div>
       )}

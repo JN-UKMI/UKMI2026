@@ -92,16 +92,16 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
 
         {/* Carousel Container */}
         <FadeIn delay={0.2}>
-          <div className="relative px-2 sm:px-12 w-full overflow-hidden">
-          {/* Slider viewport */}
+          <div className="relative px-2 sm:px-12 w-full overflow-x-clip overflow-y-visible">
+          {/* Slider viewport with horizontal and vertical padding buffer so edge cards never clip when scaling */}
           <div
-            className="overflow-hidden w-full touch-pan-y"
+            className="overflow-x-clip overflow-y-visible w-full touch-pan-y px-4 sm:px-6 -mx-4 sm:-mx-6 py-4 sm:py-5 -my-4 sm:-my-5"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
             <motion.div
-              className="flex gap-6"
+              className="flex gap-6 py-2"
               animate={{ x: `calc(-${currentIndex * (100 / visibleCards)}% - ${currentIndex * (24 / visibleCards)}px)` }}
               transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 110, damping: 24 }}
             >
@@ -114,35 +114,37 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
                     whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.015 }}
                     whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
                     transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                    className="group w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 hover:border-forest-300 dark:hover:border-lime/50 border border-gray-200/50 dark:border-gray-800 flex flex-col justify-between h-[360px] transition-all duration-300"
+                    className="group relative z-10 hover:z-30 select-none w-full shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] bg-white dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime flex flex-col justify-between h-[360px] transition-all duration-300"
                   >
-                    <div>
-                      {/* Top Bar: Number & Icon */}
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono text-xs font-bold border border-forest-600/20 dark:border-forest-800 transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-3">
-                          {(i + 1).toString().padStart(2, "0")}
-                        </span>
-                        <Target className="w-5 h-5 text-lime transition-transform duration-300 motion-safe:group-hover:rotate-12 motion-safe:group-hover:scale-110" />
+                    <div className="flex flex-col justify-between flex-1">
+                      <div>
+                        {/* Top Bar: Number & Icon */}
+                        <div className="flex items-center justify-between mb-3.5">
+                          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-lime/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono text-xs font-bold border border-lime/20 dark:border-forest-800 transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-3">
+                            {(i + 1).toString().padStart(2, "0")}
+                          </span>
+                          <Target className="w-5 h-5 text-forest-600 dark:text-lime transition-transform duration-300 motion-safe:group-hover:rotate-12 motion-safe:group-hover:scale-110" />
+                        </div>
+
+                        <h3 className="card-title-underline font-black text-lg md:text-xl text-forest-900 dark:text-lime mb-2.5 leading-snug line-clamp-2">
+                          {prog.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm leading-relaxed line-clamp-3">
+                          {prog.description}
+                        </p>
                       </div>
 
-                      <h3 className="card-title-underline font-black text-xl text-forest-900 dark:text-lime mb-3 leading-[1.75]">
-                        {prog.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-4">
-                        {prog.description}
-                      </p>
-                    </div>
-
-                    {/* Bottom Details Pill */}
-                    <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-medium">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
-                        {tanggal}
-                      </span>
-                      <span className="flex items-center gap-1 text-forest-700 dark:text-lime font-bold">
-                        <Target className="w-3.5 h-3.5 text-lime" />
-                        {target}
-                      </span>
+                      {/* Bottom Details Pill */}
+                      <div className="pt-3.5 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-2 text-xs min-w-0">
+                        <span className="flex items-center gap-1.5 shrink-0 text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">
+                          <Calendar className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
+                          <span className="truncate">{tanggal}</span>
+                        </span>
+                        <span className="flex items-center justify-end gap-1.5 text-forest-700 dark:text-lime font-bold min-w-0 max-w-[60%] text-right" title={target}>
+                          <Target className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
+                          <span className="truncate">{target}</span>
+                        </span>
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -155,7 +157,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             onClick={prevSlide}
             disabled={currentIndex === 0}
             aria-label="Previous Slide"
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 hover:shadow-lg motion-safe:hover:-translate-y-[calc(50%_+_0.125rem)] transition-all z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 hover:shadow-lg motion-safe:hover:-translate-y-[calc(50%_+_0.125rem)] transition-all z-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -164,7 +166,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
             onClick={nextSlide}
             disabled={currentIndex >= maxIndex}
             aria-label="Next Slide"
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 hover:shadow-lg motion-safe:hover:-translate-y-[calc(50%_+_0.125rem)] transition-all z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md flex items-center justify-center text-forest-900 dark:text-lime disabled:opacity-30 disabled:cursor-not-allowed hover:bg-forest-600 dark:hover:bg-forest-700 hover:text-white dark:hover:text-lime hover:border-forest-600 hover:shadow-lg motion-safe:hover:-translate-y-[calc(50%_+_0.125rem)] transition-all z-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/50"
           >
             <ChevronRight className="w-5 h-5" />
           </button>

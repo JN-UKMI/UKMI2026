@@ -82,23 +82,14 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
           whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
           onClick={() => setShowGlobalLatin(!showGlobalLatin)}
           aria-pressed={showGlobalLatin}
-          className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border cursor-pointer active:scale-95 ${
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
             showGlobalLatin
-              ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-750 text-white border-forest-600 dark:border-forest-700"
-              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+              ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 text-white border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
+              : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-gray-750"
           }`}
         >
-          {showGlobalLatin ? (
-            <>
-              <EyeOff className="w-3.5 h-3.5" />
-              Sembunyikan Latin
-            </>
-          ) : (
-            <>
-              <Eye className="w-3.5 h-3.5" />
-              Tampilkan Latin
-            </>
-          )}
+          {showGlobalLatin ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+          <span>Latin</span>
         </motion.button>
 
         {/* Toggle Terjemahan */}
@@ -108,23 +99,14 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
           whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
           onClick={() => setShowGlobalTranslation(!showGlobalTranslation)}
           aria-pressed={showGlobalTranslation}
-          className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm border cursor-pointer active:scale-95 ${
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
             showGlobalTranslation
-              ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-750 text-white border-forest-600 dark:border-forest-700"
-              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+              ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 text-white border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
+              : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-gray-750"
           }`}
         >
-          {showGlobalTranslation ? (
-            <>
-              <EyeOff className="w-3.5 h-3.5" />
-              Sembunyikan Terjemahan
-            </>
-          ) : (
-            <>
-              <Eye className="w-3.5 h-3.5" />
-              Tampilkan Terjemahan
-            </>
-          )}
+          {showGlobalTranslation ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+          <span>Terjemahan</span>
         </motion.button>
       </motion.div>
 

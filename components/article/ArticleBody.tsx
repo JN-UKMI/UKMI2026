@@ -44,7 +44,7 @@ const components: PortableTextComponents = {
       </p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-[3px] border-forest-600 dark:border-forest-400 bg-forest-50/30 dark:bg-forest-900/20 pl-5 py-3 my-6 italic text-gray-600 dark:text-gray-300 rounded-r-lg">
+      <blockquote className="border-l-[3px] border-lime dark:border-lime bg-forest-50/30 dark:bg-forest-900/20 pl-5 py-3 my-6 italic text-gray-600 dark:text-gray-300 rounded-r-lg">
         {children}
       </blockquote>
     ),
@@ -67,7 +67,7 @@ export function ArticleBody({ content }: ArticleBodyProps) {
           prose-h3:text-xl md:prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-8 prose-h3:mb-3
           prose-h4:text-lg prose-h4:font-semibold prose-h4:mt-6 prose-h4:mb-2
           prose-p:text-base md:prose-p:text-lg prose-p:leading-relaxed prose-p:text-gray-700 dark:prose-p:text-gray-100 prose-p:my-5
-          prose-blockquote:border-l-[3px] prose-blockquote:border-forest-600 dark:prose-blockquote:border-forest-400 prose-blockquote:bg-forest-50/30 dark:prose-blockquote:bg-forest-900/20
+          prose-blockquote:border-l-[3px] prose-blockquote:border-lime dark:prose-blockquote:border-lime prose-blockquote:bg-forest-50/30 dark:prose-blockquote:bg-forest-900/20
           prose-blockquote:pl-5 prose-blockquote:py-3 prose-blockquote:my-6 prose-blockquote:italic
           prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-300 prose-blockquote:font-normal prose-blockquote:rounded-r-lg
           prose-ul:list-disc prose-ul:pl-6 prose-ul:my-5

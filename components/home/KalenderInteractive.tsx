@@ -167,13 +167,13 @@ export function KalenderInteractive({
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         
         {/* Left: Filter Segmented Control — TentangTabs style */}
-        <div className="glass rounded-2xl p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime flex flex-nowrap gap-1 w-full sm:w-auto relative">
+        <div className="glass rounded-2xl p-1.5 shadow-sm border-2 border-lime dark:border-lime flex flex-nowrap gap-1 w-full sm:w-auto relative">
           <button
             onClick={() => {
               setMonthPage([monthPage, 0]);
               setActiveCategory("all");
             }}
-            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
+            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime dark:focus-visible:outline-lime z-10 ${
               activeCategory === "all"
                 ? "text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -199,7 +199,7 @@ export function KalenderInteractive({
               setMonthPage([monthPage, 0]);
               setActiveCategory("kegiatan");
             }}
-            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
+            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime dark:focus-visible:outline-lime z-10 ${
               activeCategory === "kegiatan"
                 ? "text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -225,7 +225,7 @@ export function KalenderInteractive({
               setMonthPage([monthPage, 0]);
               setActiveCategory("puasa");
             }}
-            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
+            className={`group/tab relative flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime dark:focus-visible:outline-lime z-10 ${
               activeCategory === "puasa"
                 ? "text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -251,7 +251,7 @@ export function KalenderInteractive({
         {/* Right: Quick Jump Today Button */}
         <button
           onClick={jumpToToday}
-          className="group/today relative isolate inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-2xl border border-forest-600 dark:border-lime bg-transparent px-4 py-2.5 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+          className="group/today relative isolate inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-2xl border border-lime dark:border-lime bg-transparent px-4 py-2.5 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
         >
           <span
             aria-hidden
@@ -329,7 +329,7 @@ export function KalenderInteractive({
                   Sekum
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-forest-600 dark:bg-lime" />
+                  <span className="w-2 h-2 rounded-full bg-lime dark:bg-lime" />
                   Syiar
                 </span>
                 <span className="flex items-center gap-1">
@@ -453,8 +453,8 @@ export function KalenderInteractive({
                                 : hasPuasa
                                 ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-2 border-emerald-500 dark:border-emerald-400 font-bold hover:border-emerald-600 dark:hover:border-emerald-300 hover:shadow-xs"
                                 : hasUkmiEvent
-                                ? "bg-forest-50/80 dark:bg-forest-950/50 text-forest-900 dark:text-lime border-forest-300 dark:border-forest-700 font-bold hover:border-forest-600 dark:hover:border-lime hover:shadow-xs"
-                                : "bg-white dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-forest-600 dark:hover:border-lime hover:shadow-md hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-0.5"
+                                ? "bg-forest-50/80 dark:bg-forest-950/50 text-forest-900 dark:text-lime border-forest-300 dark:border-forest-700 font-bold hover:border-lime dark:hover:border-lime hover:shadow-xs"
+                                : "bg-white dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-lime dark:hover:border-lime hover:shadow-md hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-0.5"
                             }`}
                           >
                             <span className="leading-none">{dayNum}</span>
@@ -470,7 +470,7 @@ export function KalenderInteractive({
                             {hasEvents && !isToday && (
                               <div className="absolute bottom-1.5 flex items-center justify-center gap-1">
                                 {dayEvents.map((e, idx) => {
-                                  let dotColor = "bg-forest-600 dark:bg-lime";
+                                  let dotColor = "bg-lime dark:bg-lime";
                                   if (e.type === "Puasa Sunnah" || e.isPuasa) {
                                     dotColor = "bg-emerald-500 dark:bg-emerald-400";
                                   } else if (e.type === "Ketum") {
@@ -478,7 +478,7 @@ export function KalenderInteractive({
                                   } else if (e.type === "Sekum") {
                                     dotColor = "bg-purple-600 dark:bg-purple-400";
                                   } else if (e.type === "Syiar") {
-                                    dotColor = "bg-forest-600 dark:bg-lime";
+                                    dotColor = "bg-lime dark:bg-lime";
                                   } else if (e.type === "Internal") {
                                     dotColor = "bg-red-700 dark:bg-red-500";
                                   } else if (e.type === "Eksternal") {
@@ -612,7 +612,7 @@ export function KalenderInteractive({
                           className={`p-4 rounded-2xl border transition-all duration-300 ${
                             isPuasa
                               ? "bg-emerald-50/40 dark:bg-emerald-950/30 border-emerald-100/80 dark:border-emerald-800/60 hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] dark:hover:shadow-[0_0_18px_rgba(52,211,153,0.3)]"
-                              : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:border-forest-600 dark:hover:border-lime hover:shadow-[0_0_15px_rgba(37,95,56,0.25)] dark:hover:shadow-[0_0_18px_rgba(73,154,19,0.35)]"
+                              : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:border-lime dark:hover:border-lime hover:shadow-[0_0_15px_rgba(37,95,56,0.25)] dark:hover:shadow-[0_0_18px_rgba(142,205,4,0.35)]"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-2 mb-2">
@@ -625,7 +625,7 @@ export function KalenderInteractive({
                                   : event.type === "Sekum"
                                   ? "bg-purple-700 text-white"
                                   : event.type === "Syiar"
-                                  ? "bg-forest-600 dark:bg-lime dark:text-forest-950 text-white"
+                                  ? "bg-lime dark:bg-lime dark:text-forest-950 text-forest-950"
                                   : event.type === "Internal"
                                   ? "bg-red-800 text-white"
                                   : event.type === "Eksternal"

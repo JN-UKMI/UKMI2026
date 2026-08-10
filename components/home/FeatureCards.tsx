@@ -44,7 +44,7 @@ export function FeatureCards() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-forest-600 dark:border-lime pb-6"
+          className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-lime dark:border-lime pb-6"
         >
           <div>
             <h2 className="section-title-hover text-3xl font-black text-forest-900 dark:text-lime md:text-4xl tracking-tight">
@@ -68,7 +68,7 @@ export function FeatureCards() {
                       <div>
                         <div className="flex items-center justify-between gap-3 mb-4">
                           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-forest-700 dark:text-lime">
-                            <span className="p-1.5 rounded-lg bg-forest-600/10 dark:bg-forest-900/60 transition-transform duration-300 motion-safe:group-hover/card:scale-110 motion-safe:group-hover/card:rotate-3 motion-reduce:transform-none motion-reduce:transition-none">
+                            <span className="p-1.5 rounded-lg bg-lime/10 dark:bg-forest-900/60 transition-transform duration-300 motion-safe:group-hover/card:scale-110 motion-safe:group-hover/card:rotate-3 motion-reduce:transform-none motion-reduce:transition-none">
                               <Icon className="w-4 h-4 text-forest-600 dark:text-lime" />
                             </span>
                             {feature.badge}

@@ -40,7 +40,7 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
       className="h-full flex flex-col flex-1"
     >
-      <SpotlightCard className="group/card flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-100 dark:border-gray-800 hover:border-forest-600 dark:hover:border-lime shadow-sm hover:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(73,154,19,0.35)] transition-all duration-500 overflow-hidden">
+      <SpotlightCard className="group/card flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime shadow-sm hover:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(142,205,4,0.35)] transition-all duration-500 overflow-hidden">
       <ShimmerOverlay />
       <div className="flex flex-col h-full flex-1">
       <TransitionLink
@@ -91,7 +91,7 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
             </div>
 
             {/* Outline CTA with a left-to-right fill reveal on button hover */}
-            <div className="group/cta relative isolate w-full overflow-hidden rounded-full border border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime text-xs font-bold transition-colors duration-300 motion-reduce:transition-none focus-within:ring-2 focus-within:ring-forest-600/40 dark:focus-within:ring-lime/50">
+            <div className="group/cta relative isolate w-full overflow-hidden rounded-full border border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95 hover:border-lime dark:hover:border-lime motion-reduce:transform-none motion-reduce:transition-none focus-within:ring-2 focus-within:ring-forest-600/40 dark:focus-within:ring-lime/50">
               <span
                 aria-hidden
                 className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out group-hover/cta:translate-x-0"

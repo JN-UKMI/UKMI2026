@@ -58,7 +58,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                   className={`p-2.5 rounded-full border transition-all cursor-pointer hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 ${
                     currentIndex === 0
                       ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 opacity-40"
-                      : "border-forest-600/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
+                      : "border-lime/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
                   }`}
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -91,7 +91,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                   className={`p-2.5 rounded-full border transition-all cursor-pointer hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 ${
                     currentIndex >= maxIndex
                       ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 opacity-40"
-                      : "border-forest-600/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
+                      : "border-lime/30 text-forest-800 hover:bg-forest-600 hover:text-white dark:border-lime/40 dark:text-lime dark:hover:bg-lime dark:hover:text-forest-950 shadow-sm"
                   }`}
                 >
                   <ChevronRight className="w-5 h-5" />
@@ -137,7 +137,7 @@ function TestimonialCard({ item }: { item: TestimonialItem }) {
         <motion.div
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 300 }}
-          className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border-2 border-forest-600/30 dark:border-lime/50 bg-gray-100 dark:bg-gray-800 shadow-sm"
+          className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border-2 border-lime/30 dark:border-lime/50 bg-gray-100 dark:bg-gray-800 shadow-sm"
         >
           <Image
             src={item.foto || "/image/laki-laki.png"}

@@ -14,9 +14,9 @@ interface FeaturedArticlesSectionProps {
 }
 
 const categoryColors: Record<string, string> = {
-  Kegiatan: "bg-forest-600/10 text-forest-700 border border-forest-600/20",
-  Kajian: "bg-forest-600/10 text-forest-700 border border-forest-600/20",
-  Isu: "bg-forest-600/10 text-forest-700 border border-forest-600/20",
+  Kegiatan: "bg-lime/10 text-forest-700 border border-lime/20",
+  Kajian: "bg-lime/10 text-forest-700 border border-lime/20",
+  Isu: "bg-lime/10 text-forest-700 border border-lime/20",
 };
 
 export function FeaturedArticlesSection({

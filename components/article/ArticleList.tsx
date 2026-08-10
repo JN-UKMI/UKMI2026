@@ -132,7 +132,7 @@ export function ArticleList({
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Cari artikel berdasarkan kata kunci atau judul..."
-              className="w-full pl-11 pr-24 py-3 bg-gray-50 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 rounded-full text-xs md:text-sm font-medium focus:outline-none focus:border-forest-600 focus:bg-white dark:focus:bg-gray-900 transition-all shadow-inner"
+              className="w-full pl-11 pr-24 py-3 bg-gray-50 dark:bg-gray-800/90 border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime focus:border-lime dark:focus:border-lime focus:bg-white dark:focus:bg-gray-900 rounded-full text-xs md:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 transition-all shadow-sm"
               suppressHydrationWarning
             />
             <Search className="w-4 h-4 text-gray-400 dark:text-gray-500 absolute left-4 pointer-events-none" />
@@ -150,7 +150,7 @@ export function ArticleList({
           className="flex justify-center"
         >
           <div
-            className="glass rounded-2xl p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime flex flex-nowrap gap-1 overflow-x-auto scrollbar-none"
+            className="glass rounded-2xl p-1.5 shadow-sm border-2 border-lime dark:border-lime flex flex-nowrap gap-1 overflow-x-auto scrollbar-none"
             role="group"
             aria-label="Filter kategori artikel"
           >
@@ -179,7 +179,7 @@ export function ArticleList({
                   e.preventDefault();
                   handleCategoryClick(opt.key);
                 }}
-                className={`group/filter relative flex items-center justify-center gap-1.5 shrink-0 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime z-10 ${
+                className={`group/filter relative flex items-center justify-center gap-1.5 shrink-0 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 whitespace-nowrap cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime dark:focus-visible:outline-lime z-10 ${
                   isActive
                     ? "text-white"
                     : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -226,7 +226,7 @@ export function ArticleList({
 
       {/* Grid or empty state */}
       {paginatedArticles.length === 0 ? (
-        <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/60 border border-forest-600/30 dark:border-lime/30 rounded-2xl max-w-xl mx-auto">
+        <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/60 border border-lime/30 dark:border-lime/30 rounded-2xl max-w-xl mx-auto">
           <p className="text-gray-500 dark:text-gray-400 font-semibold text-sm">
             Tidak ditemukan artikel yang sesuai.
           </p>

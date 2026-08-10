@@ -64,7 +64,7 @@ function MediaSpaceCell({
       rel="noopener noreferrer"
       aria-label={`Buka ${item.title} di Instagram`}
       onClick={handleClick}
-      className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-forest-600 dark:border-lime bg-gray-100 dark:bg-gray-900 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 motion-safe:hover:scale-[1.01] focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${className}`}
+      className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-forest-600 dark:border-lime bg-gray-100 dark:bg-gray-900 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 motion-safe:hover:scale-[1.01] focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-lime dark:focus-visible:outline-lime ${className}`}
     >
       {showImage ? (
         <Image

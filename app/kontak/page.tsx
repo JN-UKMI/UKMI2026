@@ -154,7 +154,7 @@ export default function KontakPage() {
           </div>
 
           {/* Navigation Tabs — animated with layout + hover effects */}
-          <div className="grid grid-cols-3 gap-2 bg-gray-100/80 dark:bg-gray-800/60 p-1.5 rounded-2xl border-2 border-forest-600 dark:border-lime">
+          <div className="grid grid-cols-3 gap-2 bg-gray-100/80 dark:bg-gray-800/60 p-1.5 rounded-2xl border-2 border-lime dark:border-lime">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.key;
@@ -204,7 +204,7 @@ export default function KontakPage() {
                   placeholder="Masukkan nama Anda"
                   value={formData.nama}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-lime dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
 
@@ -219,7 +219,7 @@ export default function KontakPage() {
                   placeholder="Contoh: BEM UNS, UKM Kerohanian"
                   value={formData.instansi}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-lime dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
             </div>
@@ -234,7 +234,7 @@ export default function KontakPage() {
                 suppressHydrationWarning
                 value={formData.perihal}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-semibold outline-none transition-all cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-lime dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-semibold outline-none transition-all cursor-pointer"
               >
                 <option value="Media Partner & Kerjasama">🤝 Media Partner & Kerjasama Publikasi</option>
                 <option value="Pertanyaan Umum & Informasi">❓ Pertanyaan Umum & Informasi Kegiatan</option>
@@ -268,7 +268,7 @@ export default function KontakPage() {
                   }
                   value={formData.pesan}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-lime dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-medium outline-none transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </AnimatePresence>
             </div>

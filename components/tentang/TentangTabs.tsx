@@ -51,7 +51,7 @@ export function TentangTabs() {
         delay={0.1}
         className="flex justify-center mb-12 max-w-full"
       >
-        <div role="tablist" aria-label="Navigasi informasi tentang JN UKMI" className="glass rounded-2xl p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime flex flex-nowrap md:flex-wrap gap-1 max-w-full overflow-x-auto scrollbar-none">
+        <div role="tablist" aria-label="Navigasi informasi tentang JN UKMI" className="glass rounded-2xl p-1.5 shadow-sm border-2 border-lime dark:border-lime flex flex-nowrap md:flex-wrap gap-1 max-w-full overflow-x-auto scrollbar-none">
           {tabItems.map((tab) => {
             const isActive = activeTab === tab.id;
             const TabIcon = tab.icon;
@@ -201,7 +201,7 @@ export function TentangTabs() {
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700/50">
-                        <div className="w-8 h-8 rounded-lg bg-forest-600 shrink-0" />
+                        <div className="w-8 h-8 rounded-lg bg-lime shrink-0" />
                         <div>
                           <span className="text-xs font-extrabold text-forest-900 dark:text-lime uppercase tracking-wide">Hijau</span>
                           <p className="text-[11px] md:text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-0.5">Melambangkan keislaman, kesesuaian, dan persahabatan.</p>

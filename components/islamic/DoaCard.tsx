@@ -51,10 +51,10 @@ export function DoaCard({
       whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       className={`group relative bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 transition-all duration-500 cursor-pointer select-none flex flex-col gap-4 hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 ${
         isCompleted
-          ? "border-lime dark:border-lime bg-lime/5 dark:bg-lime/10 shadow-lime/5"
+          ? "border-forest-600 dark:border-lime bg-lime/5 dark:bg-lime/10 shadow-lime/5"
           : count > 0
           ? "border-forest-400 dark:border-forest-400 bg-forest-50/20 dark:bg-gray-850"
-          : "border-forest-600 dark:border-lime hover:shadow-md"
+          : "border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:shadow-md"
       }`}
     >
       {/* Top Header: Index, Title & Counter Action */}
@@ -64,7 +64,7 @@ export function DoaCard({
           <span
             className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shadow-sm ${
               isCompleted
-                ? "bg-lime text-white"
+                ? "bg-lime text-forest-950"
                 : count > 0
                 ? "bg-forest-400 text-white"
                 : "bg-forest-600 dark:bg-lime dark:text-forest-950 text-white"
@@ -85,7 +85,7 @@ export function DoaCard({
             onClick={increment}
             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all ${
               isCompleted
-                ? "bg-lime text-white shadow-sm shadow-lime/20"
+                ? "bg-lime text-forest-950 shadow-sm shadow-lime/20"
                 : count > 0
                 ? "bg-forest-600 dark:bg-forest-700 text-white"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Search, Copy, Check, BookOpen, Sparkles, Eye, EyeOff } from "lucide-react";
+import { Search, Copy, Check, BookOpen, Eye, EyeOff } from "lucide-react";
 import { SlideIn } from "@/components/ui/SlideIn";
 import type { DoaItem } from "@/lib/types";
 
@@ -53,7 +53,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
         initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
         animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
-        className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-4 sm:p-5 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm transition-colors"
+        className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-4 sm:p-5 rounded-3xl border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime shadow-sm hover:shadow-md transition-all duration-300"
       >
         {/* Search Input Bar */}
         <div className="relative w-full sm:max-w-md">
@@ -66,24 +66,25 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             placeholder="Cari doa (misal: Pembuka Majelis, Belajar)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-xs sm:text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 transition-all"
+            className="w-full pl-11 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800/90 border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime focus:border-lime dark:focus:border-lime rounded-2xl text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 transition-all shadow-sm"
           />
         </div>
 
-        {/* Toggle Buttons (Hide/Show Latin & Terjemahan) */}
-        <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+        {/* Toggle Buttons (Hide/Show Latin & Terjemahan — Al-Kahfi Style) */}
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
           <motion.button
             type="button"
             whileHover={shouldReduceMotion ? undefined : { y: -1 }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             onClick={() => setShowLatin(!showLatin)}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer active:scale-95 ${
+            aria-pressed={showLatin}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
               showLatin
-                ? "bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime border-forest-600/20 dark:border-forest-800"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700 line-through"
+                ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 text-white border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
+                : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-gray-750"
             }`}
           >
-            {showLatin ? <Eye className="w-3.5 h-3.5 text-forest-600 dark:text-lime" /> : <EyeOff className="w-3.5 h-3.5" />}
+            {showLatin ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             <span>Latin</span>
           </motion.button>
 
@@ -92,13 +93,14 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             whileHover={shouldReduceMotion ? undefined : { y: -1 }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             onClick={() => setShowTerjemahan(!showTerjemahan)}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer active:scale-95 ${
+            aria-pressed={showTerjemahan}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
               showTerjemahan
-                ? "bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime border-forest-600/20 dark:border-forest-800"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700 line-through"
+                ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 text-white border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
+                : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-gray-750"
             }`}
           >
-            {showTerjemahan ? <Eye className="w-3.5 h-3.5 text-forest-600 dark:text-lime" /> : <EyeOff className="w-3.5 h-3.5" />}
+            {showTerjemahan ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             <span>Terjemahan</span>
           </motion.button>
         </div>
@@ -127,21 +129,13 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
               <motion.div
                 exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.96 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
-                className="group bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 border-forest-600 dark:border-lime hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 hover:border-gray-300 dark:hover:border-gray-700 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 relative"
+                className="group bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-sm border-2 border-forest-600 dark:border-lime hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 hover:border-lime dark:hover:border-lime motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 relative"
               >
-                {/* Card Header: Category & Title & Copy Button */}
-                <div className="flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 pb-4">
-                  <div className="flex flex-col gap-1.5">
-                    {item.kategori && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-forest-600/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime rounded-full text-xs font-bold w-max">
-                        <Sparkles className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
-                        {item.kategori}
-                      </span>
-                    )}
-                    <h3 className="text-lg sm:text-xl font-black text-forest-900 dark:text-lime leading-snug">
-                      {item.judul || `Doa #${idx + 1}`}
-                    </h3>
-                  </div>
+                {/* Card Header: Title & Copy Button */}
+                <div className="flex items-center justify-between gap-4 border-b border-gray-100 dark:border-gray-800 pb-4">
+                  <h3 className="text-lg sm:text-xl font-black text-forest-900 dark:text-lime leading-snug">
+                    {item.judul || `Doa #${idx + 1}`}
+                  </h3>
 
                   <button
                     type="button"

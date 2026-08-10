@@ -76,10 +76,10 @@ export function LogoKabinetSection({ items = DEFAULT_ITEMS }: LogoKabinetSection
       </div>
 
       {/* Main Feature Highlight Display */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl sm:rounded-3xl p-4 sm:p-10 border border-gray-100 dark:border-gray-800 shadow-xl flex flex-col md:flex-row items-center gap-4 sm:gap-12 transition-all">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl sm:rounded-3xl p-4 sm:p-10 border-2 border-forest-600 dark:border-lime shadow-xl flex flex-col md:flex-row items-center gap-4 sm:gap-12 transition-all">
         {/* Active Logo Image Box with Ultra-Light GPU Transition */}
         <div className="relative shrink-0 flex items-center justify-center bg-gray-50 dark:bg-gray-800/60 p-3 sm:p-6 rounded-[10px] border border-gray-100 dark:border-gray-750 group overflow-hidden w-full md:w-80 h-48 sm:h-72">
-          <div className="hidden sm:block absolute inset-0 bg-forest-600/5 dark:bg-lime/5 rounded-[10px] blur-xl group-hover:bg-forest-600/10 dark:group-hover:bg-lime/10 transition-colors pointer-events-none" />
+          <div className="hidden sm:block absolute inset-0 bg-forest-600/5 dark:bg-lime/5 rounded-[10px] blur-xl group-hover:bg-lime/10 dark:group-hover:bg-lime/10 transition-colors pointer-events-none" />
           <motion.div
             key={activeItem.id}
             initial={{ opacity: 0.2, y: 4 }}
@@ -151,10 +151,10 @@ export function LogoKabinetSection({ items = DEFAULT_ITEMS }: LogoKabinetSection
               <div
                 key={item.id}
                 onClick={() => setActiveId(item.id)}
-                className={`w-[44vw] max-w-[160px] aspect-square shrink-0 snap-center bg-white dark:bg-gray-900 rounded-xl p-2.5 border transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center gap-1.5 group shadow-sm active:scale-98 ${
+                className={`w-[44vw] max-w-[160px] aspect-square shrink-0 snap-center bg-white dark:bg-gray-900 rounded-xl p-2.5 border-2 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center gap-1.5 group shadow-sm active:scale-98 ${
                   isActive
-                    ? "border-forest-600 dark:border-lime ring-2 ring-forest-600/20 dark:ring-lime/20"
-                    : "border-gray-100 dark:border-gray-800"
+                    ? "border-lime dark:border-lime ring-2 ring-forest-600/20 dark:ring-lime/20"
+                    : "border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
                 }`}
               >
                 {/* Thumbnail Image Box */}
@@ -206,10 +206,10 @@ export function LogoKabinetSection({ items = DEFAULT_ITEMS }: LogoKabinetSection
             <div
               key={item.id}
               onClick={() => setActiveId(item.id)}
-              className={`aspect-square bg-white dark:bg-gray-900 rounded-2xl p-5 border transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center gap-3 group hover:-translate-y-1 shadow-sm hover:shadow-lg ${
+              className={`aspect-square bg-white dark:bg-gray-900 rounded-2xl p-5 border-2 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center gap-3 group hover:-translate-y-1 shadow-sm hover:shadow-lg ${
                 isActive
-                  ? "border-forest-600 dark:border-lime ring-2 ring-forest-600/20 dark:ring-lime/20"
-                  : "border-gray-100 dark:border-gray-800 hover:border-forest-300 dark:hover:border-forest-700"
+                  ? "border-lime dark:border-lime ring-2 ring-forest-600/20 dark:ring-lime/20"
+                  : "border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
               }`}
             >
               {/* Thumbnail Image Box */}

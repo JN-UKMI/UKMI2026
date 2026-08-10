@@ -877,7 +877,7 @@ export default function AdminPage() {
             onClick={() => setActiveTab("moderasi")}
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
               activeTab === "moderasi"
-                ? "border-forest-600 text-forest-900 dark:text-lime dark:border-lime"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
                 : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
           >
@@ -888,7 +888,7 @@ export default function AdminPage() {
             onClick={() => setActiveTab("terbit")}
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
               activeTab === "terbit"
-                ? "border-forest-600 text-forest-900 dark:text-lime dark:border-lime"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
                 : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
           >
@@ -899,7 +899,7 @@ export default function AdminPage() {
             onClick={() => setActiveTab("kegiatan")}
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
               activeTab === "kegiatan"
-                ? "border-forest-600 text-forest-900 dark:text-lime"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
                 : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
           >
@@ -910,7 +910,7 @@ export default function AdminPage() {
             onClick={() => setActiveTab("media")}
             className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
               activeTab === "media"
-                ? "border-forest-600 text-forest-900 dark:text-lime dark:border-lime"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
                 : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
           >
@@ -953,7 +953,7 @@ export default function AdminPage() {
                   <div className="flex-1 space-y-3.5">
                     {/* Category Badge & Date */}
                     <div className="flex items-center gap-3">
-                      <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 rounded text-[10px] font-bold text-forest-600 uppercase tracking-wide">
+                      <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 dark:bg-forest-900/60 dark:border-forest-800 rounded text-[10px] font-bold text-forest-600 dark:text-lime uppercase tracking-wide">
                         {draft.category}
                       </span>
                       <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
@@ -1253,9 +1253,9 @@ export default function AdminPage() {
                     }}
                     className={`relative border-2 border-dashed rounded-2xl p-5 text-center cursor-pointer transition-all group outline-none ${
                       eventPosterDragOver
-                        ? "border-forest-600 bg-forest-50/70 dark:border-lime dark:bg-forest-950/40"
+                        ? "border-lime bg-lime/10 dark:border-lime dark:bg-forest-950/40"
                         : eventPosterPreview
-                          ? "border-forest-600 bg-forest-50/30 dark:border-lime dark:bg-forest-950/30"
+                          ? "border-lime bg-lime/10 dark:border-lime dark:bg-forest-950/30"
                           : "border-gray-300 hover:border-forest-600 dark:border-gray-700 dark:hover:border-lime focus-visible:ring-2 focus-visible:ring-forest-600/40"
                     }`}
                   >
@@ -1501,9 +1501,9 @@ export default function AdminPage() {
                     }}
                     className={`relative border-2 border-dashed rounded-2xl p-5 text-center cursor-pointer transition-all group outline-none ${
                       mediaImageDragOver
-                        ? "border-forest-600 bg-forest-50/70 dark:border-lime dark:bg-forest-950/40"
+                        ? "border-lime bg-lime/10 dark:border-lime dark:bg-forest-950/40"
                         : mediaImagePreview
-                          ? "border-forest-600 bg-forest-50/30 dark:border-lime dark:bg-forest-950/30"
+                          ? "border-lime bg-lime/10 dark:border-lime dark:bg-forest-950/30"
                           : "border-gray-300 hover:border-forest-600 dark:border-gray-700 dark:hover:border-lime focus-visible:ring-2 focus-visible:ring-forest-600/40"
                     }`}
                   >
@@ -1698,7 +1698,7 @@ export default function AdminPage() {
                         key={item.id}
                         className={`bg-white dark:bg-gray-900 rounded-2xl border p-4 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all ${
                           isSlot1
-                            ? "border-forest-600 dark:border-lime ring-2 ring-forest-600/20 dark:ring-lime/20 bg-forest-50/30 dark:bg-forest-950/20"
+                            ? "border-lime dark:border-lime ring-2 ring-forest-600/20 dark:ring-lime/20 bg-forest-50/30 dark:bg-forest-950/20"
                             : isSlot2
                               ? "border-emerald-500 dark:border-emerald-400 ring-2 ring-emerald-500/20 dark:ring-emerald-400/20 bg-emerald-50/20 dark:bg-emerald-950/10"
                               : isDisplayedOnHome
@@ -1879,7 +1879,7 @@ export default function AdminPage() {
                 <div className="px-6 py-8 md:px-12 md:py-10 max-w-4xl mx-auto">
                   {/* Category Badge & Meta Info */}
                   <header className="mb-6">
-                    <div className="inline-flex items-center gap-2 px-3 py-0.5 bg-forest-50 border border-forest-150 rounded-full text-[10px] font-bold text-forest-600 mb-3 w-fit uppercase tracking-wide">
+                    <div className="inline-flex items-center gap-2 px-3 py-0.5 bg-forest-50 border border-forest-150 dark:bg-forest-900/60 dark:border-forest-800 rounded-full text-[10px] font-bold text-forest-600 dark:text-lime mb-3 w-fit uppercase tracking-wide">
                       <Tag className="w-3 h-3" />
                       <span>{selectedArticle.category}</span>
                     </div>
@@ -1909,7 +1909,7 @@ export default function AdminPage() {
                   </header>
 
                   {/* Excerpt Divider Box */}
-                  <div className="border-l-4 border-forest-600 bg-forest-50/20 dark:bg-forest-950/30 px-4 py-3 rounded-r-xl italic text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-6">
+                  <div className="border-l-4 border-lime bg-forest-50/20 dark:bg-forest-950/30 px-4 py-3 rounded-r-xl italic text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-6">
                     &ldquo;{selectedArticle.excerpt}&rdquo;
                   </div>
 

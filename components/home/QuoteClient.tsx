@@ -81,7 +81,7 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
             <div
               key={index}
               aria-hidden="true"
-              className="quote-progress h-full w-full bg-gradient-to-r from-forest-400 via-lime to-emerald-400 shadow-[0_0_12px_rgba(163,230,53,0.8)]"
+              className="quote-progress h-full w-full bg-gradient-to-r from-forest-400 via-lime to-emerald-400 shadow-[0_0_12px_rgba(142,205,4,0.8)]"
             />
           </div>
         </motion.div>

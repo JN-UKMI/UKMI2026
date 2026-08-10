@@ -63,7 +63,7 @@ export function MemberCard({ member }: MemberCardProps) {
       whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.01 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white dark:bg-gray-900 rounded-3xl border border-gray-200/80 dark:border-gray-800 p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:ring-2 hover:ring-lime/80 group select-none shrink-0 cursor-pointer"
+      className="relative mx-auto w-full max-w-[320px] aspect-[5/8] bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime p-4 md:p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between items-center overflow-hidden transition-all duration-500 hover:border-lime dark:hover:border-lime hover:shadow-[0_20px_40px_rgba(142,205,4,0.25)] group select-none shrink-0 cursor-pointer"
     >
       {/* Ambient spotlight for hover depth */}
       <div className="pointer-events-none absolute -top-20 -right-20 w-48 h-48 rounded-full bg-lime/0 group-hover:bg-lime/10 blur-3xl transition-colors duration-700" />
@@ -79,7 +79,7 @@ export function MemberCard({ member }: MemberCardProps) {
             height={22}
             className="w-5.5 h-5.5 text-forest-600 dark:text-lime"
           />
-          <div className="h-5 w-[2px] bg-forest-600/20 dark:bg-lime/30" />
+          <div className="h-5 w-[2px] bg-lime/20 dark:bg-lime/30" />
           <div className="flex flex-col text-[8px] font-black uppercase text-forest-900 dark:text-lime tracking-widest leading-none">
             <span>KARTU TANDA</span>
             <span className="text-forest-600 dark:text-lime mt-0.5">PENGURUS</span>
@@ -101,7 +101,7 @@ export function MemberCard({ member }: MemberCardProps) {
 
       {/* 3. CENTER PHOTO FRAME */}
       <div className="relative z-10 w-full flex items-center justify-center my-auto">
-        <div className="relative w-full max-w-[268px] h-48 sm:h-52 md:h-56 bg-gray-50 dark:bg-gray-800/50 border-2 border-gray-200/80 dark:border-gray-700 rounded-2xl p-1 shadow-sm flex items-center justify-center group-hover:border-forest-600/40 dark:group-hover:border-lime/40 transition-colors">
+        <div className="relative w-full max-w-[268px] h-48 sm:h-52 md:h-56 bg-gray-50 dark:bg-gray-800/50 border-2 border-gray-200/80 dark:border-gray-700 rounded-2xl p-1 shadow-sm flex items-center justify-center group-hover:border-lime/40 dark:group-hover:border-lime/40 transition-colors">
           <div className="relative w-full h-full rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200/50 dark:border-gray-700 flex items-center justify-center">
             {(() => {
               let photoSrc = member.foto;
