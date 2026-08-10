@@ -84,7 +84,7 @@ Proyek ini menggunakan App Router dari Next.js.
 - `/bidang/[slug]` - Detail program & staf dari masing-masing Bidang
 - `/artikel` & `/artikel/[slug]` - Daftar dan detail artikel dari Sanity CMS
 - `/ldf`, `/oki`, `/partner` - Direktori jaringan dakwah UNS
-- `/al-kahfi`, `/al-masurat`, `/doa-doa` - Fitur layanan islami digital
+- `/al-kahfi`, `/al-matsurat`, `/doa-doa` - Fitur layanan islami digital
 
 ## Perintah Script Tersedia
 

@@ -68,6 +68,11 @@ const nextConfig: NextConfig = {
         destination: "/partner",
         permanent: true,
       },
+      {
+        source: "/al-masurat",
+        destination: "/al-matsurat",
+        permanent: true,
+      },
     ];
   },
 };

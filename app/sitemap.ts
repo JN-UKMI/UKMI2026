@@ -18,7 +18,7 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: "/artikel", priority: 0.7 },
   { path: "/doa-doa", priority: 0.6 },
   { path: "/al-kahfi", priority: 0.6 },
-  { path: "/al-masurat", priority: 0.6 },
+  { path: "/al-matsurat", priority: 0.6 },
   { path: "/bidang/sekretaris", priority: 0.5 },
   { path: "/bidang/bendahara", priority: 0.5 },
   { path: "/bidang/media", priority: 0.5 },

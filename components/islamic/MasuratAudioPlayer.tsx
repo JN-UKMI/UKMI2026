@@ -105,7 +105,7 @@ export function MasuratAudioPlayer({
       initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
       animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="group w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-forest-300 dark:hover:border-lime/50 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 transition-all duration-300"
+      className="group w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl p-4 sm:p-5 shadow-sm border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 transition-all duration-300"
     >
       {/* HTML5 Audio Element */}
       <audio

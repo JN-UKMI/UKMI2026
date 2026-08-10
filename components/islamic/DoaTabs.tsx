@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import sughraData from "@/content/al-masurat/sughra.json";
-import kubraData from "@/content/al-masurat/kubra.json";
+import sughraData from "@/content/al-matsurat/sughra.json";
+import kubraData from "@/content/al-matsurat/kubra.json";
 import { DoaCard } from "./DoaCard";
 import { MasuratAudioPlayer } from "./MasuratAudioPlayer";
 import { SlideIn } from "@/components/ui/SlideIn";
@@ -73,7 +73,7 @@ export function DoaTabs() {
         initial={shouldReduceMotion ? false : { y: -20, opacity: 0 }}
         animate={shouldReduceMotion ? undefined : { y: 0, opacity: 1 }}
         transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 180, damping: 22 }}
-        className="glass rounded-2xl p-4 shadow-md border border-gray-100 dark:border-gray-800 flex flex-col lg:flex-row items-center justify-between gap-4"
+        className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-md border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime transition-all duration-300 flex flex-col lg:flex-row items-center justify-between gap-4"
       >
         {/* Selector 1: Versi (Sughra vs Kubra) */}
         <div className="flex flex-col gap-1.5 w-full lg:flex-1">
