@@ -330,11 +330,12 @@ body {
 .slide-stagger > :nth-child(5) { transition-delay: 320ms; }
 .slide-stagger > :nth-child(6) { transition-delay: 400ms; }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce), (max-width: 767px) {
   .slide-left,
   .slide-right {
-    transform: none;
-    transition: none;
+    transform: none !important;
+    transition: none !important;
+    opacity: 1 !important;
   }
 }
 

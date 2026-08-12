@@ -3,6 +3,8 @@
 import { Info } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
+import { useIsMobile } from "@/lib/hooks";
+
 interface EmptyStateProps {
   title: string;
   message: string;
@@ -10,11 +12,13 @@ interface EmptyStateProps {
 
 export function EmptyState({ title, message }: EmptyStateProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableMotion = shouldReduceMotion || isMobile;
 
   return (
     <motion.div
-      initial={shouldReduceMotion ? false : { y: 20, opacity: 0 }}
-      whileInView={shouldReduceMotion ? undefined : { y: 0, opacity: 1 }}
+      initial={disableMotion ? false : { y: 20, opacity: 0 }}
+      whileInView={disableMotion ? undefined : { y: 0, opacity: 1 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ type: "spring", stiffness: 180, damping: 22 }}
       className="group text-center py-12 px-4 bg-gray-50 dark:bg-gray-800/40 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-forest-300 dark:hover:border-lime/40 hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/10 transition-all duration-300"

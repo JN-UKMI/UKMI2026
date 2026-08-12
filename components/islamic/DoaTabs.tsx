@@ -87,7 +87,7 @@ export function DoaTabs() {
               whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setVersion("sughra")}
               aria-pressed={version === "sughra"}
-              className={`flex-1 px-3 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap text-center ${
+              className={`flex-1 px-2.5 sm:px-3 py-2 rounded-lg text-xs font-bold transition-all truncate text-center min-w-0 ${
                 version === "sughra"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 hover:shadow-sm motion-safe:hover:-translate-y-0.5"
@@ -100,7 +100,7 @@ export function DoaTabs() {
               whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
               onClick={() => setVersion("kubra")}
               aria-pressed={version === "kubra"}
-              className={`flex-1 px-3 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap text-center ${
+              className={`flex-1 px-2.5 sm:px-3 py-2 rounded-lg text-xs font-bold transition-all truncate text-center min-w-0 ${
                 version === "kubra"
                   ? "bg-forest-600 dark:bg-forest-700 text-white shadow-sm"
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 hover:shadow-sm motion-safe:hover:-translate-y-0.5"

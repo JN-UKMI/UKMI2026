@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { useIsMobile } from "@/lib/hooks";
+
 interface Quote {
   arabic: string;
   translation: string;
@@ -10,6 +12,7 @@ interface Quote {
 }
 
 export function QuoteClient({ quotes }: { quotes: Quote[] }) {
+  const isMobile = useIsMobile();
   const [index, setIndex] = useState(0);
   const currentQuote = quotes[index];
 
@@ -30,9 +33,9 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
     <section className="relative bg-transparent transition-colors overflow-hidden">
       <div className="py-10 sm:py-12 px-2 sm:px-4">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          initial={isMobile ? false : { opacity: 0, y: 24 }}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+          viewport={isMobile ? undefined : { once: true, margin: "-100px" }}
           transition={{ type: "spring", stiffness: 60, damping: 15 }}
           className="mx-auto bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white rounded-2xl border-2 border-lime/70 shadow-xl sm:mx-4 md:mx-8 lg:mx-20 overflow-hidden relative"
         >

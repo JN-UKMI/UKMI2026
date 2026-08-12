@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
+import { useIsMobile } from "@/lib/hooks";
+
 /* ── Shared single IntersectionObserver (module-level) ──
    Instead of one observer per SlideIn instance (which kills perf on pages
    with 100+ elements like Al-Kahfi), we register all elements into one
@@ -54,14 +56,20 @@ export function SlideIn({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Use smaller offset on mobile screens to prevent off-screen horizontal displacement
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-    const distance = isMobile ? 32 : 80;
+    // On mobile devices, bypass scroll reveal animations entirely to avoid scroll lag
+    if (isMobile) {
+      el.classList.add("slide-visible");
+      el.style.transform = "none";
+      return;
+    }
+
+    const distance = 80;
     const offset = direction === "left" ? -distance : distance;
 
     // Set initial offset via JS after first paint to avoid layout gap
@@ -90,7 +98,7 @@ export function SlideIn({
       observer.unobserve(el);
       slideCallbacks.delete(el);
     };
-  }, [direction]);
+  }, [direction, isMobile]);
 
   const slideClass = direction === "left" ? "slide-left" : "slide-right";
 

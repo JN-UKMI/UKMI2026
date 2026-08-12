@@ -4,6 +4,7 @@ import { BookOpen, Heart, Users, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ShimmerOverlay, StaggerContainer, StaggerItem, SpotlightCard } from "@/components/ui/motion";
 import { TransitionLink } from "@/components/ui/TransitionLink";
+import { useIsMobile } from "@/lib/hooks";
 
 const features = [
   {
@@ -36,13 +37,15 @@ const features = [
 ];
 
 export function FeatureCards() {
+  const isMobile = useIsMobile();
+
   return (
     <section className="bg-gray-50 dark:bg-gray-950 transition-colors px-4 py-20">
       <div className="mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          initial={isMobile ? false : { opacity: 0, y: 16 }}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+          viewport={isMobile ? undefined : { once: true, margin: "-60px" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-lime dark:border-lime pb-6"
         >

@@ -15,7 +15,7 @@ import {
   useSpring,
   useMotionValue,
 } from "framer-motion";
-import { useIsTouchDevice } from "@/lib/hooks";
+import { useIsTouchDevice, useIsMobile } from "@/lib/hooks";
 
 // ── 0. Shared Easing Curves ──────────────────────────────────────────
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
@@ -53,8 +53,11 @@ export function FadeIn({
   className?: string;
 } & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
-  const distance = shouldReduceMotion ? 0 : distanceProp;
-  const scale = shouldReduceMotion ? 1 : scaleProp;
+  const isMobile = useIsMobile();
+  const disableMotion = shouldReduceMotion || isMobile;
+
+  const distance = disableMotion ? 0 : distanceProp;
+  const scale = disableMotion ? 1 : scaleProp;
 
   const getInitialPosition = () => {
     switch (direction) {
@@ -85,16 +88,16 @@ export function FadeIn({
 
   return (
     <motion.div
-      initial={shouldReduceMotion ? false : initial}
-      whileInView={shouldReduceMotion ? undefined : target}
+      initial={disableMotion ? false : initial}
+      whileInView={disableMotion ? undefined : target}
       viewport={
-        shouldReduceMotion
+        disableMotion
           ? undefined
           : { once: viewportOnce, margin: scaleProp !== undefined ? "-80px" : "-60px" }
       }
       transition={{
-        duration: shouldReduceMotion ? 0.15 : duration,
-        delay,
+        duration: disableMotion ? 0.15 : duration,
+        delay: disableMotion ? 0 : delay,
         ease: scaleProp !== undefined ? EASE_PREMIUM : EASE_SOFT,
       }}
       className={className}
@@ -121,8 +124,10 @@ export function StaggerContainer({
   viewportOnce?: boolean;
 } & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableMotion = shouldReduceMotion || isMobile;
 
-  const containerVariants: Variants = shouldReduceMotion
+  const containerVariants: Variants = disableMotion
     ? {
         hidden: {},
         show: {},
@@ -140,10 +145,10 @@ export function StaggerContainer({
   return (
     <motion.div
       variants={containerVariants}
-      initial={shouldReduceMotion ? false : "hidden"}
-      whileInView={shouldReduceMotion ? undefined : "show"}
+      initial={disableMotion ? false : "hidden"}
+      whileInView={disableMotion ? undefined : "show"}
       viewport={
-        shouldReduceMotion ? undefined : { once: viewportOnce, margin: "-60px" }
+        disableMotion ? undefined : { once: viewportOnce, margin: "-60px" }
       }
       className={className}
       {...props}
@@ -166,9 +171,11 @@ export function StaggerItem({
   className?: string;
 } & HTMLMotionProps<"div">) {
   const shouldReduceMotion = useReducedMotion();
-  const distance = shouldReduceMotion ? 0 : distanceProp;
+  const isMobile = useIsMobile();
+  const disableMotion = shouldReduceMotion || isMobile;
+  const distance = disableMotion ? 0 : distanceProp;
 
-  const itemVariants: Variants = shouldReduceMotion
+  const itemVariants: Variants = disableMotion
     ? {
         hidden: { x: 0, y: 0 },
         show: { x: 0, y: 0 },
@@ -229,9 +236,10 @@ export function WordReveal({
   as?: "span" | "h1" | "h2" | "h3" | "p";
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const words = text.split(" ");
 
-  if (shouldReduceMotion) {
+  if (shouldReduceMotion || isMobile) {
     return <Tag className={className}>{text}</Tag>;
   }
 
@@ -486,6 +494,9 @@ export function Parallax({
   direction?: "y" | "x";
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableMotion = shouldReduceMotion || isMobile;
+
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -498,8 +509,8 @@ export function Parallax({
     damping: 22,
     mass: 0.4,
   });
-  // Saat reduce-motion, kunci nilai ke 0 lewat transform (bukan kondisi di useSpring)
-  const y = useTransform(spring, (v) => (shouldReduceMotion ? 0 : v));
+  // Disable scroll movement on mobile to prevent lag
+  const y = useTransform(spring, (v) => (disableMotion ? 0 : v));
 
   return (
     <motion.div

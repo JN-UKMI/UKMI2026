@@ -67,7 +67,7 @@ export function TentangTabs() {
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 360, damping: 24 }}
                 id={`about-tab-${tab.id}`}
-                className={`group/tab relative flex items-center justify-center gap-2 px-3.5 md:px-5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-colors duration-200 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
+                className={`group/tab relative flex items-center justify-center gap-1.5 md:gap-2 px-2.5 sm:px-3.5 md:px-5 py-2 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-colors duration-200 whitespace-nowrap shrink-0 min-w-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 dark:focus-visible:outline-lime ${
                   isActive
                     ? "text-white"
                     : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50"
@@ -81,9 +81,9 @@ export function TentangTabs() {
                   />
                 )}
                 <TabIcon
-                  className={`relative z-10 w-4 h-4 ${isActive ? "text-white" : "text-gray-400 dark:text-gray-500"}`}
+                  className={`relative z-10 w-3.5 md:w-4 h-3.5 md:h-4 shrink-0 ${isActive ? "text-white" : "text-gray-400 dark:text-gray-500"}`}
                 />
-                <span className="relative z-10">
+                <span className="relative z-10 truncate">
                   {tab.label}
                   {!isActive && (
                     <span
