@@ -186,7 +186,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: buildSiteJsonLd() }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
+      <body className="min-h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative max-w-full overflow-x-clip">
         <AuthProvider>
           <ThemeProvider>
             <MotionProvider>
@@ -197,7 +197,7 @@ export default async function RootLayout({
                 <GrainOverlay />
                 <SmoothScroll>
                   <Navbar />
-                  <main id="main-content" tabIndex={-1} className="flex-1 outline-none relative z-10">{children}</main>
+                  <main id="main-content" tabIndex={-1} className="flex-1 outline-none relative z-10 w-full max-w-full overflow-x-clip">{children}</main>
                   <Footer />
                 </SmoothScroll>
                 <MusicPlayer />

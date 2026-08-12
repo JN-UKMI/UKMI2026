@@ -49,7 +49,7 @@ export function TimSection({ staff }: TimSectionProps) {
   }
 
   return (
-    <section className="py-10 sm:py-14 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
+    <section className="py-10 sm:py-14 px-4 max-w-[1520px] mx-auto flex flex-col gap-10 overflow-x-clip">
       <SectionHeader
         icon={<Users className="w-6 h-6" />}
         title="Tim Kami"

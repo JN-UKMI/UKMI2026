@@ -143,7 +143,7 @@ export function LogoKabinetSection({ items = DEFAULT_ITEMS }: LogoKabinetSection
       </div>
 
       {/* Mobile View: Horizontal Touch Carousel */}
-      <div className="sm:hidden space-y-3">
+      <div className="sm:hidden space-y-3 overflow-x-clip">
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-3 px-1 py-1 -mx-4 px-4">
           {items.map((item) => {
             const isActive = item.id === activeId;

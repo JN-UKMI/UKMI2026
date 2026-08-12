@@ -74,7 +74,8 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -93,6 +94,8 @@ html {
 body {
   font-family: var(--font-geist-sans), Arial, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* ── Premium UI Utilities ─────────────────────────────── */

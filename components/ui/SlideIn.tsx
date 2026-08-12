@@ -54,11 +54,15 @@ export function SlideIn({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const offset = direction === "left" ? -200 : 200;
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Use smaller offset on mobile screens to prevent off-screen horizontal displacement
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+    const distance = isMobile ? 32 : 80;
+    const offset = direction === "left" ? -distance : distance;
 
     // Set initial offset via JS after first paint to avoid layout gap
     const raf = requestAnimationFrame(() => {
@@ -86,7 +90,7 @@ export function SlideIn({
       observer.unobserve(el);
       slideCallbacks.delete(el);
     };
-  }, [offset]);
+  }, [direction]);
 
   const slideClass = direction === "left" ? "slide-left" : "slide-right";
 
