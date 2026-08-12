@@ -77,7 +77,7 @@ export default function KontakPage() {
         subtitle="Kami siap melayani pertanyaan, saran, dan koordinasi syiar dakwah"
       />
 
-      <div className="max-w-4xl mx-auto px-4 py-12 flex flex-col gap-10">
+      <div className="max-w-4xl mx-auto px-4 py-8 sm:py-10 flex flex-col gap-10">
         {/* Main Interactive Form Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

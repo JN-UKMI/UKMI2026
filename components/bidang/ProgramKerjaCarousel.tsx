@@ -80,7 +80,7 @@ export function ProgramKerjaCarousel({ program_kerja }: ProgramKerjaCarouselProp
   const fallbackTarget = (i: number) => fallbackTargets[i % fallbackTargets.length];
 
   return (
-    <section className="bg-transparent py-20 px-4 transition-colors duration-300">
+    <section className="bg-transparent py-10 sm:py-14 px-4 transition-colors duration-300">
       <div className="max-w-5xl mx-auto relative">
         <FadeIn direction="up">
           <SectionHeader

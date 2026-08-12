@@ -60,7 +60,7 @@ export function LogoKabinetSection({ items = DEFAULT_ITEMS }: LogoKabinetSection
   const activeItem = items.find((item) => item.id === activeId) || items[0];
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12 sm:py-16 space-y-8">
+    <section className="max-w-6xl mx-auto px-4 py-8 sm:py-12 space-y-8">
       {/* Section Header */}
       <div className="text-center space-y-3 max-w-2xl mx-auto">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-forest-50 dark:bg-forest-950/60 text-forest-700 dark:text-lime border border-forest-200/80 dark:border-forest-800 rounded-full text-xs font-black uppercase tracking-wider">

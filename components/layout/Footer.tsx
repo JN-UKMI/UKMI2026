@@ -8,7 +8,7 @@ import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 export function Footer() {
   return (
-    <footer className="relative z-20 bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t dark:border-forest-900/60 transition-colors duration-300 overflow-hidden">
+    <footer className="relative z-20 bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t-2 border-lime/60 dark:border-lime/50 transition-colors duration-300 overflow-hidden">
       {/* Decorative glow di pojok footer */}
       <div className="pointer-events-none absolute -top-40 -left-32 w-[30rem] h-[30rem] rounded-full bg-lime/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-40 -right-32 w-[30rem] h-[30rem] rounded-full bg-lime/10 blur-3xl" />

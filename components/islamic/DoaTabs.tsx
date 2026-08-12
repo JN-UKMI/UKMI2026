@@ -67,7 +67,7 @@ export function DoaTabs() {
   const activeItems = activeSection ? activeSection.items : EMPTY_ITEMS;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 pt-8 pb-16 w-full flex flex-col gap-6">
+    <div className="max-w-5xl mx-auto px-4 pt-8 pb-10 sm:pb-12 w-full flex flex-col gap-6">
       {/* Control Panel Toolbar */}
       <motion.div
         initial={shouldReduceMotion ? false : { y: -20, opacity: 0 }}

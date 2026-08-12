@@ -37,7 +37,7 @@ export default async function BukuUkmiPage() {
   const data = await loadBukuUkmi();
 
   return (
-    <div className="min-h-screen bg-transparent pb-20 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent pb-10 sm:pb-14 transition-colors duration-300">
       <PageHero
         badge="Sekretaris Umum"
         title="BUKU UKMI (BUMI)"

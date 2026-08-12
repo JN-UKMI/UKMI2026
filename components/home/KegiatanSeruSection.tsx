@@ -19,11 +19,13 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
   const events = initialEvents;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
+  const [slideGap, setSlideGap] = useState(24);
   const [lightbox, setLightbox] = useState<KegiatanSeruItem | null>(null);
   const lightboxTriggerRef = useRef<HTMLButtonElement | null>(null);
   const lightboxCloseRef = useRef<HTMLButtonElement | null>(null);
   const lightboxContentRef = useRef<HTMLDivElement | null>(null);
   const lightboxWasOpenRef = useRef(false);
+  const cardResizeObservers = useRef<Map<HTMLDivElement, ResizeObserver>>(new Map());
   const mounted = useSyncExternalStore(
     EMPTY_SUBSCRIBE,
     () => true,
@@ -93,6 +95,60 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
     };
   }, [lightbox]);
 
+  // Batasi lebar card event maksimal 2× tingginya agar tidak terlalu panjang.
+  // Anti-getar: tinggi natural diukur HANYA saat card belum di-clamp. Begitu sudah
+  // di-clamp, handler tidak mengukur ulang (guard di applyCap), jadi tidak ada
+  // feedback loop tinggi↔lebar. Saat window di-resize, clamp dibuka lalu
+  // observer meng-clamp ulang dengan ukuran baru (debounce 150ms).
+  useEffect(() => {
+    const map = cardResizeObservers.current;
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const onWindowResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        map.forEach((_observer, el) => {
+          el.style.maxWidth = "";
+        });
+      }, 150);
+    };
+
+    window.addEventListener("resize", onWindowResize);
+    return () => {
+      window.removeEventListener("resize", onWindowResize);
+      clearTimeout(resizeTimer);
+      map.forEach((observer) => observer.disconnect());
+      map.clear();
+    };
+  }, []);
+
+  const attachCardResize = (el: HTMLDivElement | null) => {
+    if (!el) return;
+    if (cardResizeObservers.current.has(el)) return;
+
+    const applyCap = () => {
+      // Sudah di-clamp → jangan ukur ulang (mencegah feedback loop / getar).
+      const currentMax = el.style.maxWidth;
+      if (currentMax && currentMax !== "none" && currentMax !== "") return;
+
+      const naturalHeight = el.offsetHeight;
+      el.style.maxWidth = `${Math.floor(naturalHeight * 2)}px`;
+    };
+
+    applyCap();
+    const observer = new ResizeObserver(applyCap);
+    observer.observe(el);
+    cardResizeObservers.current.set(el, observer);
+
+    // Ukur ulang sekali setelah font selesai dimuat (tinggi bisa berubah).
+    if (typeof document !== "undefined" && "fonts" in document) {
+      document.fonts?.ready.then(() => {
+        if (!el.isConnected) return;
+        el.style.maxWidth = "";
+      });
+    }
+  };
+
   // Return focus to the card that opened the dialog after the lightbox closes.
   useEffect(() => {
     if (lightbox) {
@@ -110,19 +166,17 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
     return () => window.cancelAnimationFrame(frame);
   }, [lightbox]);
 
-  // Responsive visible card counts (2 on desktop lg, 1 on mobile/tablet)
+  // Responsive layout: 2 cards on lg, 1 elsewhere; slideGap matches `gap-4 sm:gap-6`
   useEffect(() => {
-    const updateVisibleCards = () => {
-      if (window.innerWidth >= 1024) {
-        setVisibleCards(2);
-      } else {
-        setVisibleCards(1);
-      }
+    const updateLayout = () => {
+      const width = window.innerWidth;
+      setSlideGap(width >= 640 ? 24 : 16);
+      setVisibleCards(width >= 1024 ? 2 : 1);
     };
 
-    updateVisibleCards();
-    window.addEventListener("resize", updateVisibleCards);
-    return () => window.removeEventListener("resize", updateVisibleCards);
+    updateLayout();
+    window.addEventListener("resize", updateLayout);
+    return () => window.removeEventListener("resize", updateLayout);
   }, []);
 
   if (!events || events.length === 0) return null;
@@ -140,7 +194,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
   return (
     <LayoutGroup id="event-poster-layout">
       <>
-    <section className="py-12 sm:py-20 px-3 sm:px-6 bg-transparent transition-colors duration-300 relative overflow-visible">
+    <section className="py-8 sm:py-14 px-3 sm:px-6 bg-transparent transition-colors duration-300 relative overflow-visible">
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
@@ -150,36 +204,6 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
             title="Event Terdekat"
             subtitle="Berbagai agenda & kegiatan seru yang bikin kamu makin berkembang!"
           />
-
-          {/* Carousel Controls Header Buttons */}
-          {events.length > visibleCards && (
-            <div className="flex items-center justify-center sm:justify-end gap-2 mt-4 sm:mt-0 sm:absolute sm:top-2 sm:right-0">
-              <button
-                onClick={prevSlide}
-                disabled={currentIndex === 0}
-                aria-label="Kegiatan sebelumnya"
-                className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl border backdrop-blur-md transition-all duration-300 cursor-pointer ${
-                  currentIndex === 0
-                    ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-40"
-                    : "border-lime/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
-                }`}
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-              <button
-                onClick={nextSlide}
-                disabled={currentIndex >= maxIndex}
-                aria-label="Kegiatan berikutnya"
-                className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl border backdrop-blur-md transition-all duration-300 cursor-pointer ${
-                  currentIndex >= maxIndex
-                    ? "border-gray-200 text-gray-300 dark:border-gray-800 dark:text-gray-700 cursor-not-allowed opacity-40"
-                    : "border-lime/20 text-forest-800 bg-white/80 hover:bg-forest-600 hover:text-white dark:border-lime/30 dark:text-lime dark:bg-gray-900/80 dark:hover:bg-lime dark:hover:text-forest-950 shadow-md hover:shadow-lg active:scale-95"
-                }`}
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-            </div>
-          )}
         </FadeIn>
 
         {/* Carousel Container Wrapper */}
@@ -188,16 +212,19 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
             <div
               className="flex transition-transform duration-500 ease-out gap-4 sm:gap-6 py-5 sm:py-6"
               style={{
-                transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
+                // Offset = (1 card width + 1 gap) per step, supaya setiap slide
+                // selalu menampilkan tepat `visibleCards` kartu tanpa sisa terpotong.
+                transform: `translateX(calc(-${currentIndex * (100 / visibleCards)}% - ${(currentIndex * slideGap) / visibleCards}px))`,
               }}
             >
               {events.map((item) => (
                 <StaggerItem
                   key={item.id}
-                  className="w-full lg:w-[calc(50%-12px)] shrink-0 flex"
+                  className="w-full lg:w-[calc(50%-12px)] shrink-0 flex justify-center"
                 >
                   {/* Event Card Component - Always Horizontal Layout (Poster Left, Info Right) */}
                   <div
+                    ref={attachCardResize}
                     className="relative bg-white dark:bg-gray-900/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl hover:border-lime dark:hover:border-lime dark:hover:shadow-[0_0_30px_rgba(142,205,4,0.35)] transition-all duration-300 group flex flex-row w-full overflow-hidden hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none z-10 hover:z-30 select-none"
                   >
                     
@@ -298,6 +325,62 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
             </div>
           </StaggerContainer>
         </div>
+
+        {/* Carousel Controls (bottom, prominent) */}
+        {events.length > visibleCards && (
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
+            <button
+              onClick={prevSlide}
+              disabled={currentIndex === 0}
+              aria-label="Kegiatan sebelumnya"
+              className={`flex items-center justify-center p-3 sm:p-3.5 rounded-2xl border-2 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 ${
+                currentIndex === 0
+                  ? "border-gray-200 dark:border-gray-800 bg-transparent text-gray-300 dark:text-gray-700 cursor-not-allowed opacity-50"
+                  : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:shadow-lg hover:shadow-lime/20 hover:border-lime dark:hover:border-lime hover:-translate-y-0.5 active:scale-95"
+              }`}
+            >
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+
+            {/* Dots Indicator (klik untuk lompat, gaya ProgramKerjaCarousel) */}
+            <div
+              className="flex items-center justify-center gap-0.5 sm:gap-1 px-1"
+              role="tablist"
+              aria-label="Navigasi slide event"
+            >
+              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  aria-label={`Ke slide ${index + 1}`}
+                  aria-current={currentIndex === index ? "true" : undefined}
+                  className="p-1.5 sm:p-2 min-w-[28px] min-h-[28px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center cursor-pointer group rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime dark:focus-visible:ring-lime"
+                >
+                  <span
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      currentIndex === index
+                        ? "w-8 bg-forest-600 dark:bg-lime"
+                        : "w-2.5 bg-gray-300 dark:bg-gray-700 group-hover:bg-gray-400 dark:group-hover:bg-gray-600"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={nextSlide}
+              disabled={currentIndex >= maxIndex}
+              aria-label="Kegiatan berikutnya"
+              className={`flex items-center justify-center p-3 sm:p-3.5 rounded-2xl border-2 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 ${
+                currentIndex >= maxIndex
+                  ? "border-gray-200 dark:border-gray-800 bg-transparent text-gray-300 dark:text-gray-700 cursor-not-allowed opacity-50"
+                  : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:shadow-lg hover:shadow-lime/20 hover:border-lime dark:hover:border-lime hover:-translate-y-0.5 active:scale-95"
+              }`}
+            >
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+          </div>
+        )}
       </div>
     </section>
 

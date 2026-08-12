@@ -47,7 +47,7 @@ export function ArtikelTerbaruSection({ articles = [] }: ArtikelTerbaruSectionPr
   const displayedArticles = articles.length > 0 ? articles : dummyArticles;
 
   return (
-    <section className="relative overflow-hidden py-20 px-4 bg-transparent transition-colors duration-300">
+    <section className="relative overflow-hidden py-10 sm:py-14 px-4 bg-transparent transition-colors duration-300">
       <div className="relative z-10 max-w-6xl mx-auto">
         <FadeIn className="mb-8">
           <SectionHeader

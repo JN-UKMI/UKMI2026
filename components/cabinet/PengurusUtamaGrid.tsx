@@ -30,7 +30,7 @@ export function PengurusUtamaGrid({
   }
 
   return (
-    <section className="py-20 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
+    <section className="py-10 sm:py-14 px-4 max-w-[1520px] mx-auto flex flex-col gap-10">
       <SectionHeader
         icon={<ShieldCheck className="w-6 h-6" />}
         title={title}

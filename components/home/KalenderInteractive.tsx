@@ -290,26 +290,26 @@ export function KalenderInteractive({
                   <button
                     onClick={handlePrevMonth}
                     disabled={isMinMonth}
-                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 ${
+                    className={`flex items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 ${
                       isMinMonth
-                        ? "opacity-30 cursor-not-allowed text-gray-400 dark:text-gray-600"
-                        : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
+                        ? "border-gray-200 dark:border-gray-800 bg-transparent text-gray-300 dark:text-gray-700 cursor-not-allowed opacity-50"
+                        : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:shadow-lg hover:shadow-lime/20 hover:border-lime dark:hover:border-lime hover:-translate-y-0.5 active:scale-95"
                     }`}
                     aria-label="Bulan sebelumnya"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-6 h-6" />
                   </button>
                   <button
                     onClick={handleNextMonth}
                     disabled={isMaxMonth}
-                    className={`p-2.5 rounded-2xl border border-gray-200 dark:border-gray-700 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 ${
+                    className={`flex items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 ${
                       isMaxMonth
-                        ? "opacity-30 cursor-not-allowed text-gray-400 dark:text-gray-600"
-                        : "text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime cursor-pointer active:scale-95"
+                        ? "border-gray-200 dark:border-gray-800 bg-transparent text-gray-300 dark:text-gray-700 cursor-not-allowed opacity-50"
+                        : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:shadow-lg hover:shadow-lime/20 hover:border-lime dark:hover:border-lime hover:-translate-y-0.5 active:scale-95"
                     }`}
                     aria-label="Bulan berikutnya"
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-6 h-6" />
                   </button>
                 </div>
               </div>

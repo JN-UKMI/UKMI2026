@@ -21,7 +21,7 @@ export default function TentangPage() {
       />
 
       {/* Main Container */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
+      <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
         {/* Top Header Title & Subtitle (Centered Layout) */}
         <SlideIn direction="left" className="mb-12 max-w-3xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center">

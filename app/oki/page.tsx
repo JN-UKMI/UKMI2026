@@ -17,10 +17,10 @@ export default async function OkiPage() {
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-gray-950 transition-colors duration-300">
       <PageHero badge="Jaringan Dakwah Kampus" title="Ormawa Kerohanian Islam" subtitle="Direktori Ormawa Kerohanian Islam (OKI) di lingkungan kampus Universitas Sebelas Maret" />
-      <div className="mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
 
         {okiList.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-8 sm:py-10">
             <p className="text-lg text-slate-600 dark:text-gray-400">
               Belum ada data OKI yang tersedia
             </p>

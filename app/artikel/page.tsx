@@ -29,7 +29,7 @@ export default async function ArtikelPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="bg-transparent pb-16">
+    <div className="bg-transparent pb-10 sm:pb-12">
       <PageHero
         badge="Media & Syiar Islam"
         title="Artikel & Kajian"

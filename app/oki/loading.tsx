@@ -9,7 +9,7 @@ export default function OkiLoading() {
         title="Ormawa Kerohanian Islam"
         subtitle="Direktori Ormawa Kerohanian Islam (OKI) di lingkungan kampus Universitas Sebelas Maret"
       />
-      <div className="mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap justify-center gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-72">

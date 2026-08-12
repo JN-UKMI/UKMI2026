@@ -9,7 +9,7 @@ interface DeskripsiSectionProps {
 
 export function DeskripsiSection({ deskripsi }: DeskripsiSectionProps) {
   return (
-    <section className="py-16 px-4 max-w-5xl mx-auto">
+    <section className="py-10 sm:py-12 px-4 max-w-5xl mx-auto">
       <FadeIn>
         <div className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime shadow-lg p-8 md:p-10 transition-colors">
           <div className="flex items-center gap-3 mb-5">

@@ -213,7 +213,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
         </div>
         </FadeIn>
 
-        <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto px-4 py-8 sm:py-10">
           {/* Back Button */}
           <TransitionLink
             href="/artikel"

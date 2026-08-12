@@ -13,7 +13,7 @@ export default async function UkmiStorePage() {
   const data = await loadUkmiStore();
 
   return (
-    <div className="min-h-screen bg-transparent pb-20 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent pb-10 sm:pb-14 transition-colors duration-300">
       {/* Hero Banner Header */}
       <PageHero
         title={data.title}
