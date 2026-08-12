@@ -40,8 +40,8 @@ export function QuoteClient({ quotes }: { quotes: Quote[] }) {
           className="mx-auto bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white rounded-2xl border-2 border-lime/70 shadow-xl sm:mx-4 md:mx-8 lg:mx-20 overflow-hidden relative"
         >
           {/* Decorative Glowing Ambient Orbs */}
-          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-lime/15 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none" />
+          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-lime/15 dark:hidden blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-emerald-500/15 dark:hidden blur-3xl pointer-events-none" />
 
           {/* Main Card Container */}
           <div className="p-8 md:p-10 lg:p-12 pb-10 md:pb-12 lg:pb-14 relative z-10">

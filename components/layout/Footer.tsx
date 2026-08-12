@@ -9,15 +9,11 @@ import { StaggerContainer, StaggerItem } from "@/components/ui/motion";
 export function Footer() {
   return (
     <footer className="relative z-20 bg-forest-900 dark:bg-[#070D07] text-white pt-16 pb-8 border-t-2 border-lime/60 dark:border-lime/50 transition-colors duration-300 overflow-hidden">
-      {/* Decorative glow di pojok footer */}
-      <div className="pointer-events-none absolute -top-40 -left-32 w-[30rem] h-[30rem] rounded-full bg-lime/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 -right-32 w-[30rem] h-[30rem] rounded-full bg-lime/10 blur-3xl" />
-
       <div className="max-w-6xl mx-auto px-4 relative">
         <StaggerContainer staggerChildren={0.12} className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Column 1: Logo + Brand */}
-          <StaggerItem className="space-y-4">
-            <div className="flex items-center gap-3">
+          <StaggerItem className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-3">
               <Image
                 src="/image/logo-jnukmi.svg"
                 alt="JN UKMI Logo"
@@ -27,10 +23,10 @@ export function Footer() {
               />
               <h3 className="text-lg font-bold text-white">JN UKMI</h3>
             </div>
-            <p className="text-sm text-white/60 leading-relaxed max-w-xs">
+            <p className="text-sm text-white/60 leading-relaxed max-w-xs text-center sm:text-left">
               Jamaah Nurul Huda &mdash; Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret. Wadah pengembangan nilai-nilai keislaman.
             </p>
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex items-center justify-center sm:justify-start gap-3 pt-1">
               {/* Instagram */}
               <a
                 href="https://instagram.com/jnukmiuns"
@@ -104,30 +100,30 @@ export function Footer() {
           </StaggerItem>
 
           {/* Column 2: Address / Contact */}
-          <StaggerItem className="space-y-4">
+          <StaggerItem className="space-y-4 text-center sm:text-left">
             <h4 className="text-sm font-semibold text-white/80 uppercase tracking-wider">Kontak</h4>
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-sm flex flex-col items-center sm:items-start">
               <div>
                 <p className="text-forest-400 dark:text-lime text-xs font-medium">Email</p>
-                <a href={`mailto:${contactData.email}`} className="group inline-flex items-center gap-1 text-white/60 hover:text-white transition-all duration-200 mt-0.5 motion-safe:hover:translate-x-1 focus-visible:outline-none focus-visible:text-lime">
+                <a href={`mailto:${contactData.email}`} className="group inline-flex items-center justify-center sm:justify-start gap-1 text-white/60 hover:text-white transition-all duration-200 mt-0.5 motion-safe:hover:translate-x-1 focus-visible:outline-none focus-visible:text-lime">
                   {contactData.email}
                 </a>
               </div>
               <div>
                 <p className="text-forest-400 dark:text-lime text-xs font-medium">Telepon</p>
-                <a href={`tel:${contactData.phone}`} className="group inline-flex items-center gap-1 text-white/60 hover:text-white transition-all duration-200 mt-0.5 motion-safe:hover:translate-x-1 focus-visible:outline-none focus-visible:text-lime">
+                <a href={`tel:${contactData.phone}`} className="group inline-flex items-center justify-center sm:justify-start gap-1 text-white/60 hover:text-white transition-all duration-200 mt-0.5 motion-safe:hover:translate-x-1 focus-visible:outline-none focus-visible:text-lime">
                   {contactData.phone}
                 </a>
               </div>
               <div>
                 <p className="text-forest-400 dark:text-lime text-xs font-medium">Alamat</p>
-                <p className="text-white/60 leading-relaxed mt-0.5">{contactData.address}</p>
+                <p className="text-white/60 leading-relaxed mt-0.5 text-center sm:text-left max-w-xs sm:max-w-none">{contactData.address}</p>
               </div>
             </div>
           </StaggerItem>
 
           {/* Column 3: Map */}
-          <StaggerItem className="space-y-4">
+          <StaggerItem className="space-y-4 text-center sm:text-left">
             <h4 className="text-sm font-semibold text-white/80 uppercase tracking-wider">Lokasi</h4>
             <div className="rounded-lg overflow-hidden border border-white/10 shadow-lg shadow-black/20 hover:shadow-lime/20 transition-shadow duration-300">
               <MapEmbed />
@@ -135,14 +131,14 @@ export function Footer() {
           </StaggerItem>
         </StaggerContainer>
 
-        <div className="border-t border-white/10 dark:border-forest-900/80 pt-8 mt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70">
-          <div className="flex flex-col sm:flex-row items-center gap-1.5 text-center sm:text-left">
+        <div className="border-t border-white/10 dark:border-forest-900/80 pt-8 mt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 text-center sm:text-left">
             <span className="font-semibold text-white">&copy; {new Date().getFullYear()} JN UKMI UNS</span>
             <span className="hidden sm:inline text-white/30">&bull;</span>
             <span>Kabinet Iskandar Muda</span>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5">
             <span className="text-white/60">Dibuat oleh:</span>
             <a
               href="https://syaikhasril.web.id"

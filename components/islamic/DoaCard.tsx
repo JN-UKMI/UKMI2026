@@ -149,12 +149,12 @@ export function DoaCard({
       {(showLatin || showTranslation) && (
         <div className="space-y-2 select-text transition-all duration-300">
           {showLatin && (
-            <div className="text-sm font-semibold text-forest-800 dark:!text-white leading-relaxed italic bg-emerald-50/40 dark:bg-gray-800/80 p-3.5 rounded-xl border border-emerald-100/60 dark:border-gray-700">
+            <div className="text-sm font-semibold text-forest-800 dark:!text-white leading-relaxed italic bg-emerald-50/40 dark:bg-gray-800/80 p-3.5 rounded-xl border border-emerald-100/60 dark:border-gray-700 text-justify">
               “{latin}”
             </div>
           )}
           {showTranslation && (
-            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed px-1">
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed px-1 text-justify">
               <strong className="text-gray-900 dark:text-lime font-bold block mb-1">Artinya:</strong>
               “{terjemahan}”
             </div>

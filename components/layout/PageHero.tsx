@@ -49,8 +49,8 @@ export function PageHero({ title, subtitle, children }: PageHeroProps) {
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
 
       {/* Glow ambient orbs */}
-      <div className="pointer-events-none absolute top-1/4 -right-20 w-72 h-72 rounded-full bg-lime/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/4 -right-20 w-72 h-72 rounded-full bg-lime/10 dark:hidden blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-emerald-500/10 dark:hidden blur-3xl" />
 
 
       {/* Content */}

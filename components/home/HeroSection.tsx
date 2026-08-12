@@ -51,8 +51,8 @@ export function HeroSection() {
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/80 via-forest-900/80 to-black/80" />
 
       {/* Glow ambient orbs */}
-      <div className="pointer-events-none absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-lime/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-10 -right-20 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-lime/10 dark:hidden blur-3xl" />
+      <div className="pointer-events-none absolute bottom-10 -right-20 w-96 h-96 rounded-full bg-emerald-500/10 dark:hidden blur-3xl" />
 
       {/* Main Hero Content */}
       <motion.div 

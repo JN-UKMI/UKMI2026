@@ -515,7 +515,7 @@ export function KalenderInteractive({
             {currentQuote && (
               <div className="mt-6 border-t border-gray-100 dark:border-gray-800 pt-5">
                 <div className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white p-5 rounded-2xl border border-white/10 relative overflow-hidden shadow-lg">
-                  <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-lime/10 blur-xl pointer-events-none" />
+                  <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-lime/10 dark:hidden blur-xl pointer-events-none" />
                   <div className="flex items-start gap-3.5 relative z-10">
                     <Quote className="w-5 h-5 text-lime shrink-0 mt-0.5" />
                     <div>
@@ -618,8 +618,8 @@ export function KalenderInteractive({
                           key={event.date + event.title + index}
                           className={`p-4 rounded-2xl border transition-all duration-300 ${
                             isPuasa
-                              ? "bg-emerald-50/40 dark:bg-emerald-950/30 border-emerald-100/80 dark:border-emerald-800/60 hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] dark:hover:shadow-[0_0_18px_rgba(52,211,153,0.3)]"
-                              : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:border-lime dark:hover:border-lime hover:shadow-[0_0_15px_rgba(37,95,56,0.25)] dark:hover:shadow-[0_0_18px_rgba(142,205,4,0.35)]"
+                              ? "bg-emerald-50/40 dark:bg-emerald-950/30 border-emerald-100/80 dark:border-emerald-800/60 hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] dark:hover:shadow-none"
+                              : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:border-lime dark:hover:border-lime hover:shadow-[0_0_15px_rgba(37,95,56,0.25)] dark:hover:shadow-none"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-2 mb-2">

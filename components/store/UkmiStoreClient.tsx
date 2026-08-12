@@ -83,12 +83,9 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
     <main className="max-w-6xl mx-auto px-4 pt-12 flex flex-col gap-16">
       {/* Banner Guideline & Quick Info */}
       <SlideIn direction="left">
-      <section className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white rounded-3xl p-8 sm:p-10 border border-white/10 shadow-xl relative overflow-hidden">
+      <section className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white rounded-3xl p-8 sm:p-10 border-2 border-lime/70 dark:border-lime shadow-xl relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-lime/20 text-lime border border-lime/30 text-xs font-bold uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5" /> JN UKMI OPEN RENT
-            </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
               {data.tagline}
             </h2>
@@ -167,7 +164,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                     <div
                       className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${
                         isSelected
-                          ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
+                          ? "bg-forest-600 text-white dark:bg-forest-800 dark:text-lime border border-forest-600 dark:border-lime shadow-sm"
                           : "bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime"
                       }`}
                     >
@@ -179,7 +176,7 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                     </h3>
 
                     {isSelected && (
-                      <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-xs shrink-0 ml-auto">
+                      <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-forest-600 text-white dark:bg-forest-800 dark:text-lime border border-forest-600 dark:border-lime shadow-xs shrink-0 ml-auto">
                         <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> <span className="hidden sm:inline">Terpilih</span>
                       </span>
                     )}
@@ -201,8 +198,8 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
                   className={`inline-flex items-center justify-center gap-1.5 w-full py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-xs font-bold transition-all shadow-xs ${
                     isSelected
-                      ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
-                      : "bg-forest-50 dark:bg-gray-800 group-hover:bg-forest-600 dark:group-hover:bg-lime text-forest-800 dark:text-gray-200 group-hover:text-white dark:group-hover:text-forest-950 border border-forest-200 dark:border-gray-700"
+                      ? "bg-forest-600 text-white dark:bg-forest-800 dark:text-lime border border-forest-600 dark:border-lime shadow-sm"
+                      : "bg-forest-50 text-forest-800 border border-forest-200 group-hover:bg-forest-600 group-hover:text-white group-hover:border-forest-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:group-hover:bg-forest-800 dark:group-hover:text-lime dark:group-hover:border-lime"
                   }`}
                 >
                   {isSelected ? (
@@ -351,10 +348,10 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                       href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group p-5 bg-forest-600 text-white dark:bg-lime dark:text-forest-950 hover:bg-forest-800 dark:hover:bg-lime/90 rounded-2xl flex items-center justify-between transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer active:scale-95"
+                      className="group p-5 bg-forest-600 text-white dark:bg-forest-900/90 dark:text-white border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:bg-forest-800 dark:hover:bg-forest-800/90 rounded-2xl flex items-center justify-between transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer active:scale-95"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-white/40 dark:border-forest-900/40 bg-white/10 shadow-xs">
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-white/40 dark:border-lime/60 bg-white/10 shadow-xs">
                           {contact.avatar ? (
                             <Image
                               src={contact.avatar}
@@ -363,27 +360,27 @@ export function UkmiStoreClient({ data }: UkmiStoreClientProps) {
                               className="object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center font-bold text-xs uppercase">
+                            <div className="w-full h-full flex items-center justify-center font-bold text-xs uppercase text-white dark:text-lime">
                               {contact.role || contact.name.charAt(0)}
                             </div>
                           )}
                         </div>
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/20 dark:bg-forest-900/30 text-white dark:text-forest-950">
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/20 dark:bg-lime/20 text-white dark:text-lime border border-transparent dark:border-lime/30">
                               {contact.role || "Narahubung"}
                             </span>
                           </div>
-                          <h4 className="text-sm font-bold text-white dark:text-forest-950 transition-colors mt-0.5">
+                          <h4 className="text-sm font-bold text-white dark:text-lime transition-colors mt-0.5">
                             {contact.name}
                           </h4>
-                          <p className="text-xs opacity-90">
+                          <p className="text-xs text-white/90 dark:text-gray-200 font-medium">
                             {contact.phone}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/20 dark:bg-forest-900/20 font-bold text-xs">
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/20 dark:bg-lime/20 text-white dark:text-lime border border-transparent dark:border-lime/30 font-bold text-xs shrink-0">
                         <MessageCircle className="w-4 h-4" />
                         <span>Kirim WA</span>
                       </div>

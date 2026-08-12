@@ -28,7 +28,7 @@ export function HeroSection({ name, instagram_url }: HeroSectionProps) {
 
       {/* Diagonal green-black overlay */}
       <div className="absolute -top-16 inset-x-0 bottom-0 bg-gradient-to-br from-green-950/90 via-forest-900/85 to-black/90" />
-      <div className="pointer-events-none absolute -right-24 top-1/4 w-72 h-72 rounded-full bg-lime/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 top-1/4 w-72 h-72 rounded-full bg-lime/10 dark:hidden blur-3xl" />
 
       {/* Content */}
       <motion.div 

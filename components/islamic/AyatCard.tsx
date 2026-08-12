@@ -51,8 +51,8 @@ export function AyatCard({
       {/* Top Header: Verse Number Indicator & Actions */}
       <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-lime/10 dark:bg-forest-900/50 text-forest-700 dark:text-lime font-mono border border-lime/20 dark:border-forest-800">
-            Ayat {String(nomorAyat).padStart(2, "0")}
+          <span className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shadow-sm bg-forest-600 dark:bg-lime dark:text-forest-950 text-white">
+            {nomorAyat}
           </span>
           {isBookmarked && (
             <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-100/60 dark:bg-amber-900/40 px-2 py-0.5 rounded-md border border-amber-200 dark:border-amber-800">
@@ -78,18 +78,19 @@ export function AyatCard({
 
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 rounded-xl text-xs font-bold transition-all cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
-            title="Salin Ayat Lengkap"
+            aria-label={copied ? "Ayat Tersalin" : "Salin Ayat Lengkap"}
+            title={copied ? "Ayat Tersalin!" : "Salin Ayat Lengkap"}
+            className="inline-flex items-center justify-center gap-1.5 p-1.5 sm:px-3 sm:py-1 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 rounded-xl text-xs font-bold transition-all cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
-                <span className="text-forest-600 dark:text-lime">Tersalin!</span>
+                <Check className="w-3.5 h-3.5 shrink-0 text-forest-600 dark:text-lime" />
+                <span className="hidden sm:inline text-forest-600 dark:text-lime">Tersalin!</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5" />
-                <span>Salin</span>
+                <Copy className="w-3.5 h-3.5 shrink-0" />
+                <span className="hidden sm:inline">Salin</span>
               </>
             )}
           </button>
@@ -108,14 +109,14 @@ export function AyatCard({
 
       {/* Latin Transliteration (Conditional) */}
       {showLatin && (
-        <div className="text-sm font-semibold text-forest-800 dark:text-white leading-relaxed italic bg-emerald-50/40 dark:bg-gray-800/80 p-3.5 rounded-xl border border-emerald-100/60 dark:border-gray-700 transition-all animate-fadeIn">
+        <div className="text-sm font-semibold text-forest-800 dark:text-white leading-relaxed italic bg-emerald-50/40 dark:bg-gray-800/80 p-3.5 rounded-xl border border-emerald-100/60 dark:border-gray-700 transition-all animate-fadeIn text-justify">
           “{teksLatin}”
         </div>
       )}
 
       {/* Indonesian Translation (Conditional) */}
       {showTranslation && (
-        <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed transition-all animate-fadeIn">
+        <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed transition-all animate-fadeIn text-justify">
           <strong className="text-gray-900 dark:text-lime font-bold block mb-1">Artinya:</strong>
           “{teksIndonesia}”
         </div>

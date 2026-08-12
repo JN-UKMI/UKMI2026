@@ -40,7 +40,7 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
       transition={{ type: "spring", stiffness: 350, damping: 22 }}
       className="h-full flex flex-col flex-1"
     >
-      <SpotlightCard className="group/card flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime shadow-sm hover:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(142,205,4,0.35)] transition-all duration-500 overflow-hidden">
+      <SpotlightCard className="group/card flex flex-col h-full flex-1 bg-white dark:bg-gray-900 rounded-2xl border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime shadow-sm hover:shadow-2xl dark:hover:shadow-none transition-all duration-500 overflow-hidden">
       <ShimmerOverlay />
       <div className="flex flex-col h-full flex-1">
       <TransitionLink

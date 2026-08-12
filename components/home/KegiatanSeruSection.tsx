@@ -225,7 +225,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
                   {/* Event Card Component - Always Horizontal Layout (Poster Left, Info Right) */}
                   <div
                     ref={attachCardResize}
-                    className="relative bg-white dark:bg-gray-900/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl hover:border-lime dark:hover:border-lime dark:hover:shadow-[0_0_30px_rgba(142,205,4,0.35)] transition-all duration-300 group flex flex-row w-full overflow-hidden hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none z-10 hover:z-30 select-none"
+                    className="relative bg-white dark:bg-gray-900/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl hover:border-lime dark:hover:border-lime dark:hover:shadow-none transition-all duration-300 group flex flex-row w-full overflow-hidden hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none z-10 hover:z-30 select-none"
                   >
                     
                     {/* Left Column: Poster Container (Always Horizontal side by side) */}

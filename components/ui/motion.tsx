@@ -528,21 +528,21 @@ export function AmbientBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {/* 1. Top Left Glowing Ambient Orb */}
-      <div className="absolute top-10 -left-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-lime/15 dark:bg-lime/15 blur-3xl" />
+      <div className="absolute top-10 -left-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-lime/15 dark:hidden blur-3xl" />
 
       {/* 2. Center Glowing Ambient Orb */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem] md:w-[36rem] h-[30rem] md:h-[36rem] rounded-full bg-emerald-500/10 dark:bg-fresh-lime/15 blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem] md:w-[36rem] h-[30rem] md:h-[36rem] rounded-full bg-emerald-500/10 dark:hidden blur-3xl" />
 
       {/* 3. Bottom Right Glowing Ambient Orb */}
-      <div className="absolute -bottom-20 -right-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-teal/15 dark:bg-lime/15 blur-3xl" />
+      <div className="absolute -bottom-20 -right-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-teal/15 dark:hidden blur-3xl" />
 
       {/* 4. Subtle Clean Decorative Bubbles — Single Solid Color */}
-      <div className="hidden lg:block absolute top-24 left-16 w-40 h-40 rounded-full bg-lime/15 dark:bg-lime/25" />
-      <div className="hidden lg:block absolute top-1/3 right-16 w-52 h-52 rounded-full bg-fresh-lime/15 dark:bg-lime/25" />
-      <div className="hidden lg:block absolute top-[42%] left-[30%] w-32 h-32 rounded-full bg-forest-400/15 dark:bg-lime/20" />
-      <div className="hidden lg:block absolute top-[52%] right-[28%] w-48 h-48 rounded-full bg-sage/15 dark:bg-lime/25" />
-      <div className="hidden lg:block absolute top-2/3 left-20 w-36 h-36 rounded-full bg-teal/15 dark:bg-lime/25" />
-      <div className="hidden lg:block absolute bottom-28 right-1/4 w-44 h-44 rounded-full bg-grass/15 dark:bg-lime/25" />
+      <div className="hidden lg:block absolute top-24 left-16 w-40 h-40 rounded-full bg-lime/15 dark:hidden" />
+      <div className="hidden lg:block absolute top-1/3 right-16 w-52 h-52 rounded-full bg-fresh-lime/15 dark:hidden" />
+      <div className="hidden lg:block absolute top-[42%] left-[30%] w-32 h-32 rounded-full bg-forest-400/15 dark:hidden" />
+      <div className="hidden lg:block absolute top-[52%] right-[28%] w-48 h-48 rounded-full bg-sage/15 dark:hidden" />
+      <div className="hidden lg:block absolute top-2/3 left-20 w-36 h-36 rounded-full bg-teal/15 dark:hidden" />
+      <div className="hidden lg:block absolute bottom-28 right-1/4 w-44 h-44 rounded-full bg-grass/15 dark:hidden" />
 
       {/* 5. Decorative Plain Stars (Bintang Polos 4-Point & 8-Point Minimalis) */}
       {/* Star Top Right */}

@@ -103,22 +103,22 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
           />
         </div>
 
-        {/* Toggle Buttons (Favorit, Latin, Terjemahan) */}
-        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
+        {/* Toggle Buttons (Favorit, Latin, Terjemahan) — Always 1 single row on mobile */}
+        <div className="flex flex-nowrap items-center gap-1 sm:gap-2 w-full sm:w-auto justify-between sm:justify-end min-w-0">
           <motion.button
             type="button"
             whileHover={shouldReduceMotion ? undefined : { y: -1 }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
             aria-pressed={showFavoritesOnly}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer min-w-0 truncate hover:scale-105 active:scale-95 ${
               showFavoritesOnly
                 ? "bg-amber-500 hover:bg-amber-600 text-white border-amber-500 dark:border-amber-400"
                 : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-amber-400 hover:text-amber-600 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-gray-750"
             }`}
           >
-            <Star className={`w-3.5 h-3.5 ${showFavoritesOnly ? "fill-current" : ""}`} />
-            <span>Favorit ({favorites.length})</span>
+            <Star className={`w-3.5 h-3.5 shrink-0 ${showFavoritesOnly ? "fill-current" : ""}`} />
+            <span className="truncate">Favorit ({favorites.length})</span>
           </motion.button>
 
           <motion.button
@@ -127,14 +127,14 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             onClick={() => setShowLatin(!showLatin)}
             aria-pressed={showLatin}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer min-w-0 truncate hover:scale-105 active:scale-95 ${
               showLatin
                 ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 text-white border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
                 : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-gray-750"
             }`}
           >
-            {showLatin ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-            <span>Latin</span>
+            {showLatin ? <EyeOff className="w-3.5 h-3.5 shrink-0" /> : <Eye className="w-3.5 h-3.5 shrink-0" />}
+            <span className="truncate">Latin</span>
           </motion.button>
 
           <motion.button
@@ -143,14 +143,14 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
             whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             onClick={() => setShowTerjemahan(!showTerjemahan)}
             aria-pressed={showTerjemahan}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer min-w-0 truncate hover:scale-105 active:scale-95 ${
               showTerjemahan
                 ? "bg-forest-600 dark:bg-forest-700 hover:bg-forest-800 text-white border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime"
                 : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-gray-750"
             }`}
           >
-            {showTerjemahan ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-            <span>Terjemahan</span>
+            {showTerjemahan ? <EyeOff className="w-3.5 h-3.5 shrink-0" /> : <Eye className="w-3.5 h-3.5 shrink-0" />}
+            <span className="truncate">Terjemahan</span>
           </motion.button>
         </div>
       </motion.div>
@@ -205,18 +205,19 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                   <button
                     type="button"
                     onClick={() => handleCopy(itemId, copyText)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 hover:shadow-sm rounded-xl text-xs font-bold transition-all cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
-                    title="Salin Doa Lengkap"
+                    aria-label={isCopied ? "Doa Tersalin" : "Salin Doa Lengkap"}
+                    title={isCopied ? "Doa Tersalin!" : "Salin Doa Lengkap"}
+                    className="inline-flex items-center justify-center gap-1.5 w-9 h-9 sm:w-auto sm:px-3 sm:py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 hover:shadow-sm rounded-xl text-xs font-bold transition-all cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
                   >
                     {isCopied ? (
                       <>
-                        <Check className="w-4 h-4 text-forest-600 dark:text-lime" />
-                        <span className="text-forest-600 dark:text-lime">Tersalin!</span>
+                        <Check className="w-4 h-4 shrink-0 text-forest-600 dark:text-lime" />
+                        <span className="hidden sm:inline text-forest-600 dark:text-lime">Tersalin!</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="w-4 h-4" />
-                        <span>Salin Doa</span>
+                        <Copy className="w-4 h-4 shrink-0" />
+                        <span className="hidden sm:inline">Salin Doa</span>
                       </>
                     )}
                   </button>
@@ -242,14 +243,14 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
 
                 {/* Latin Transliteration (Conditional) */}
                 {showLatin && (
-                  <div className="text-sm font-semibold text-forest-800 dark:text-white leading-relaxed italic bg-emerald-50/40 dark:bg-gray-800/80 p-3.5 rounded-xl border border-emerald-100/60 dark:border-gray-700 transition-all animate-fadeIn">
+                  <div className="text-sm font-semibold text-forest-800 dark:text-white leading-relaxed italic bg-emerald-50/40 dark:bg-gray-800/80 p-3.5 rounded-xl border border-emerald-100/60 dark:border-gray-700 transition-all animate-fadeIn text-justify">
                     “{item.latin}”
                   </div>
                 )}
 
                 {/* Indonesian Translation (Conditional) */}
                 {showTerjemahan && (
-                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed transition-all animate-fadeIn">
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed transition-all animate-fadeIn text-justify">
                     <strong className="text-gray-900 dark:text-lime font-bold block mb-1">Artinya:</strong>
                     “{item.terjemahan}”
                   </div>

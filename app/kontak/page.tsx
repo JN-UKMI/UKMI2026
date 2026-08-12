@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageHero } from "@/components/layout/PageHero";
 import contactData from "@/content/kontak/main.json";
-import { MessageSquare, Mail, AtSign, MapPin, Send } from "lucide-react";
+import { MessageSquare, Mail, AtSign, MapPin, Send, ChevronDown } from "lucide-react";
 
 export default function KontakPage() {
   const [activeTab, setActiveTab] = useState<"wa" | "email" | "ig">("wa");
@@ -120,37 +120,6 @@ export default function KontakPage() {
                 )}
               </motion.p>
             </AnimatePresence>
-
-            {/* Feature hint card — animates per tab */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`hint-${activeTab}`}
-                initial={{ opacity: 0, x: 20, y: 4 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                exit={{ opacity: 0, x: -20, y: -4 }}
-                transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold"
-              >
-                {activeTab === "wa" && (
-                  <span className="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/60 px-4 py-1.5 rounded-full flex items-center gap-2">
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    Respon cepat &bull; Cocok untuk pertanyaan singkat & koordinasi
-                  </span>
-                )}
-                {activeTab === "email" && (
-                  <span className="bg-forest-50 dark:bg-forest-950/60 text-forest-700 dark:text-lime border border-forest-200/80 dark:border-forest-800/60 px-4 py-1.5 rounded-full flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5" />
-                    Surat resmi &bull; Bisa lampirkan dokumen pendukung
-                  </span>
-                )}
-                {activeTab === "ig" && (
-                  <span className="bg-pink-50 dark:bg-pink-950/60 text-pink-700 dark:text-pink-300 border border-pink-200/80 dark:border-pink-800/60 px-4 py-1.5 rounded-full flex items-center gap-2">
-                    <AtSign className="w-3.5 h-3.5" />
-                    DM Instagram &bull; Pesan akan tersalin otomatis ke clipboard
-                  </span>
-                )}
-              </motion.div>
-            </AnimatePresence>
           </div>
 
           {/* Navigation Tabs — animated with layout + hover effects */}
@@ -181,7 +150,7 @@ export default function KontakPage() {
                       transition={{ type: "spring", stiffness: 350, damping: 28 }}
                     />
                   )}
-                  <Icon className={`w-4 h-4 ${tab.iconColor}`} />
+                  <Icon className={`w-4 h-4 hidden sm:block ${tab.iconColor}`} />
                   <span>{tab.label}</span>
                 </motion.button>
               );
@@ -231,19 +200,35 @@ export default function KontakPage() {
               <label htmlFor="perihal" className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                 Perihal Kontak / Pengajuan <span className="text-rose-500">*</span>
               </label>
-              <select
-                id="perihal"
-                name="perihal"
-                suppressHydrationWarning
-                value={formData.perihal}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/90 text-gray-900 dark:text-white focus:border-lime dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/20 text-sm font-semibold outline-none transition-all cursor-pointer"
-              >
-                <option value="Media Partner & Kerjasama">🤝 Media Partner & Kerjasama Publikasi</option>
-                <option value="Pertanyaan Umum & Informasi">❓ Pertanyaan Umum & Informasi Kegiatan</option>
-                <option value="Undangan Pembicara / Acara">🎤 Undangan Pembicara / Kolaborasi Event</option>
-                <option value="Saran & Masukan">💡 Saran & Masukan Pembangunan Syiar</option>
-              </select>
+              <div className="relative">
+                <select
+                  id="perihal"
+                  name="perihal"
+                  suppressHydrationWarning
+                  value={formData.perihal}
+                  onChange={handleInputChange}
+                  className="w-full appearance-none px-4 py-3.5 pr-10 rounded-xl border-2 border-forest-600 dark:border-lime bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:border-forest-600 dark:focus:border-lime focus:ring-2 focus:ring-forest-600/20 dark:focus:ring-lime/30 text-sm font-bold outline-none transition-all cursor-pointer shadow-xs hover:border-lime dark:hover:border-lime"
+                >
+                  <option value="Media Partner & Kerjasama" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-2 font-semibold">
+                    🤝 Media Partner & Kerjasama Publikasi
+                  </option>
+                  <option value="Pertanyaan Umum & Informasi" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-2 font-semibold">
+                    ❓ Pertanyaan Umum & Informasi Kegiatan
+                  </option>
+                  <option value="Undangan Pembicara / Acara" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-2 font-semibold">
+                    🎤 Undangan Pembicara / Kolaborasi Event
+                  </option>
+                  <option value="Saran & Masukan" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-2 font-semibold">
+                    💡 Saran & Masukan Pembangunan Syiar
+                  </option>
+                  <option value="Lainnya" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-2 font-semibold">
+                    📌 Lainnya (Hal / Keperluan Lainnya)
+                  </option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-forest-600 dark:text-lime">
+                  <ChevronDown className="w-5 h-5 stroke-[2.5]" />
+                </div>
+              </div>
             </div>
 
             {/* Row 3: Pesan */}

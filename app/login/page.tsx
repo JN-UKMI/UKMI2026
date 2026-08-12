@@ -24,8 +24,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-4 transition-colors relative overflow-hidden">
       {/* Decorative Orbs */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-lime/10 dark:bg-lime/10 blur-3xl" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 dark:bg-emerald-400/10 blur-3xl" />
+      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-lime/10 dark:hidden blur-3xl" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 dark:hidden blur-3xl" />
 
       <div className="max-w-md w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-8 shadow-xl relative z-10 text-center space-y-6">
         <div className="flex flex-col items-center">
