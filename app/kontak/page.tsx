@@ -102,7 +102,7 @@ export default function KontakPage() {
                 {activeTab === "wa" && (
                   <>
                     Pesan WhatsApp langsung terkirim ke nomor pengurus{" "}
-                    <span className="font-bold text-emerald-600 dark:text-emerald-400">{contactData.phone}</span>
+                    <span className="font-bold text-emerald-700 dark:text-emerald-300">{contactData.phone}</span>
                   </>
                 )}
                 {activeTab === "email" && (
@@ -193,11 +193,12 @@ export default function KontakPage() {
             {/* Row 1: Nama & Instansi */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                <label htmlFor="nama" className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                   Nama Lengkap <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
+                  id="nama"
                   name="nama"
                   required
                   suppressHydrationWarning
@@ -209,11 +210,12 @@ export default function KontakPage() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                <label htmlFor="instansi" className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                   Instansi / Organisasi / Komunitas
                 </label>
                 <input
                   type="text"
+                  id="instansi"
                   name="instansi"
                   suppressHydrationWarning
                   placeholder="Contoh: BEM UNS, UKM Kerohanian"
@@ -226,10 +228,11 @@ export default function KontakPage() {
 
             {/* Row 2: Perihal */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+              <label htmlFor="perihal" className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                 Perihal Kontak / Pengajuan <span className="text-rose-500">*</span>
               </label>
               <select
+                id="perihal"
                 name="perihal"
                 suppressHydrationWarning
                 value={formData.perihal}
@@ -245,12 +248,13 @@ export default function KontakPage() {
 
             {/* Row 3: Pesan */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+              <label htmlFor="pesan" className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                 Pesan / Detail Kebutuhan <span className="text-rose-500">*</span>
               </label>
               <AnimatePresence mode="wait">
                 <motion.textarea
                   key={`pesan-${activeTab}`}
+                  id="pesan"
                   name="pesan"
                   rows={4}
                   required
@@ -288,7 +292,7 @@ export default function KontakPage() {
                       type="submit"
                       whileHover={{ scale: 1.015, y: -1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full py-3.5 px-6 rounded-xl bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white font-bold text-sm shadow-lg shadow-emerald-700/20 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <MessageSquare className="w-4 h-4" />
                       <span>Kirim via WhatsApp ({contactData.phone})</span>

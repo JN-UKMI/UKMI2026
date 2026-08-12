@@ -44,7 +44,8 @@ export async function GET() {
         excerpt,
         content,
         publishedAt,
-        author
+        author,
+        coverImage
       }`
     );
 

@@ -550,7 +550,9 @@ export default function AdminEditArticlePage() {
               />
             </div>
           ) : (
-            <div className="prose prose-forest dark:prose-invert prose-lg max-w-none mb-12">
+            // article-body: class typography milik ArticleBody sendiri —
+            // jangan bungkus dengan prose lagi agar tidak nested.
+            <div className="article-body mb-12">
               <ArticleBody content={article.content} />
             </div>
           )}

@@ -1,6 +1,7 @@
 "use client";
 
 import { ArticleCard } from "@/components/article/ArticleCard";
+import { ArticleHeroCard } from "@/components/article/ArticleHeroCard";
 import { Calendar, ArrowRight, Newspaper } from "lucide-react";
 import type { ArticlesListResult } from "@/lib/sanity";
 import { SectionHeader } from "@/components/layout/SectionHeader";
@@ -63,16 +64,23 @@ export function ArtikelTerbaruSection({ articles = [] }: ArtikelTerbaruSectionPr
             <p className="text-gray-500 dark:text-gray-400 font-semibold text-sm">Belum ada artikel. Pantau terus untuk update terbaru.</p>
           </div>
         ) : (
-          <StaggerContainer className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none md:grid md:grid-cols-2 md:overflow-x-visible md:pb-0 md:mx-0 md:px-0 lg:grid-cols-3 md:gap-6">
-            {displayedArticles.slice(0, 3).map((article) => (
-              <StaggerItem
-                key={article.slug}
-                className="shrink-0 w-[85vw] max-w-[340px] snap-center md:w-auto md:max-w-none md:shrink flex h-full flex-col"
-              >
-                <ArticleCard article={article} />
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          <>
+            {/* Mobile — semua card memakai style hero (gambar kiri, teks kanan) */}
+            <div className="md:hidden space-y-3">
+              {displayedArticles.slice(0, 3).map((article) => (
+                <ArticleHeroCard key={article.slug} article={article} />
+              ))}
+            </div>
+
+            {/* md+ — grid 2/3 kolom dengan stagger scroll animation */}
+            <StaggerContainer className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 items-stretch">
+              {displayedArticles.slice(0, 3).map((article) => (
+                <StaggerItem key={article.slug} className="flex h-full flex-col">
+                  <ArticleCard article={article} />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </>
         )}
 
         <div className="mt-10 text-center">

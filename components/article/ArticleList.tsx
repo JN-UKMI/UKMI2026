@@ -26,6 +26,25 @@ function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
 
+// Compact page list — tampilkan halaman tepi (1 & terakhir) + sekitar halaman aktif,
+// sisanya diganti ellipsis. Contoh: 1 … 4 5 6 … 12
+function getPageItems(total: number, current: number): (number | "ellipsis")[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const items: (number | "ellipsis")[] = [];
+  for (let p = 1; p <= total; p++) {
+    const isEdge = p === 1 || p === total;
+    const isNear = Math.abs(p - current) <= 1;
+    if (isEdge || isNear) {
+      items.push(p);
+    } else if (items[items.length - 1] !== "ellipsis") {
+      items.push("ellipsis");
+    }
+  }
+  return items;
+}
+
 export function ArticleList({
   articles,
   initialCategory = "",
@@ -237,60 +256,102 @@ export function ArticleList({
 
           {totalPages > 1 && (
             <div
-              className="flex items-center justify-center gap-2 pt-8 border-t border-gray-100 dark:border-gray-800 mt-12"
+              className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap pt-8 border-t border-gray-100 dark:border-gray-800 mt-12"
               role="navigation"
               aria-label="Pagination"
             >
+              {/* Prev — outline dulu, fill slide dari kiri saat hover (pola CTA konsisten) */}
               <button
                 type="button"
                 onClick={() => handlePageChange(safePage - 1)}
                 disabled={safePage === 1}
                 aria-disabled={safePage === 1}
-                className={`flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition-all border ${
+                className={`${
                   safePage === 1
-                    ? "opacity-40 cursor-not-allowed border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600"
-                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-forest-300 dark:hover:border-lime/60 hover:shadow-sm cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5"
+                    ? "inline-flex items-center gap-1 px-3 sm:px-4 py-2 rounded-full text-xs font-bold border-2 border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600 opacity-50 cursor-not-allowed"
+                    : "group/prev relative isolate inline-flex items-center gap-1 overflow-hidden rounded-full border-2 border-forest-600 dark:border-lime bg-transparent px-3 sm:px-4 py-2 text-xs font-bold text-forest-700 dark:text-lime transition-all duration-300 cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:shadow-forest-600/20 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
                 }`}
               >
-                <ChevronLeft className="w-4 h-4" />
-                Sebelumnya
+                {safePage !== 1 && (
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/prev:translate-x-0"
+                  />
+                )}
+                <span
+                  className={`relative z-10 inline-flex items-center gap-1 transition-colors duration-300 motion-reduce:transition-none ${
+                    safePage !== 1
+                      ? "group-hover/prev:text-white dark:group-hover/prev:text-forest-950"
+                      : ""
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4 transition-transform duration-300 motion-safe:group-hover/prev:-translate-x-1 motion-reduce:transform-none" />
+                  <span className="hidden sm:inline">Sebelumnya</span>
+                </span>
               </button>
 
+              {/* Page numbers — pill aktif hijau penuh, idle outline → hover fill.
+                  Dibatasi maksimal ~7 tombol, sisanya ellipsis. */}
               <div className="flex items-center gap-1.5">
-                {Array.from({ length: totalPages }).map((_, i) => {
-                  const pageNum = i + 1;
-                  const isActive = pageNum === safePage;
+                {getPageItems(totalPages, safePage).map((item, i) => {
+                  if (item === "ellipsis") {
+                    return (
+                      <span
+                        key={`ellipsis-${i}`}
+                        aria-hidden
+                        className="w-6 sm:w-8 flex items-center justify-center text-xs font-bold text-gray-400 dark:text-gray-500 select-none"
+                      >
+                        …
+                      </span>
+                    );
+                  }
+                  const isActive = item === safePage;
                   return (
                     <button
-                      key={pageNum}
+                      key={item}
                       type="button"
-                      onClick={() => handlePageChange(pageNum)}
+                      onClick={() => handlePageChange(item)}
                       aria-current={isActive ? "page" : undefined}
-                      className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all cursor-pointer ${
+                      className={`relative isolate w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 ${
                         isActive
-                          ? "bg-forest-600 text-white shadow-sm"
-                          : "bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-forest-700 dark:hover:text-lime hover:shadow-sm motion-safe:hover:-translate-y-0.5"
+                          ? "bg-forest-600 dark:bg-lime text-white dark:text-forest-950 border-2 border-forest-600 dark:border-lime shadow-md shadow-forest-600/25 scale-110"
+                          : "border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-600 dark:text-gray-300 hover:border-forest-600 dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-forest-900/20 hover:shadow-sm motion-safe:hover:-translate-y-0.5 active:scale-95"
                       }`}
                     >
-                      {pageNum}
+                      {item}
                     </button>
                   );
                 })}
               </div>
 
+              {/* Next */}
               <button
                 type="button"
                 onClick={() => handlePageChange(safePage + 1)}
                 disabled={safePage === totalPages}
                 aria-disabled={safePage === totalPages}
-                className={`flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition-all border ${
+                className={`${
                   safePage === totalPages
-                    ? "opacity-40 cursor-not-allowed border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600"
-                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-forest-300 dark:hover:border-lime/60 hover:shadow-sm cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5"
+                    ? "inline-flex items-center gap-1 px-3 sm:px-4 py-2 rounded-full text-xs font-bold border-2 border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600 opacity-50 cursor-not-allowed"
+                    : "group/next relative isolate inline-flex items-center gap-1 overflow-hidden rounded-full border-2 border-forest-600 dark:border-lime bg-transparent px-3 sm:px-4 py-2 text-xs font-bold text-forest-700 dark:text-lime transition-all duration-300 cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:shadow-forest-600/20 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
                 }`}
               >
-                Selanjutnya
-                <ChevronRight className="w-4 h-4" />
+                {safePage !== totalPages && (
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/next:translate-x-0"
+                  />
+                )}
+                <span
+                  className={`relative z-10 inline-flex items-center gap-1 transition-colors duration-300 motion-reduce:transition-none ${
+                    safePage !== totalPages
+                      ? "group-hover/next:text-white dark:group-hover/next:text-forest-950"
+                      : ""
+                  }`}
+                >
+                  <span className="hidden sm:inline">Selanjutnya</span>
+                  <ChevronRight className="w-4 h-4 transition-transform duration-300 motion-safe:group-hover/next:translate-x-1 motion-reduce:transform-none" />
+                </span>
               </button>
             </div>
           )}

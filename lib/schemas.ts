@@ -121,7 +121,24 @@ const BadgeFields = {
   ),
   location: z.string().max(200).optional(),
   description: z.string().min(1).max(2000),
-  instagramUrl: z.string().url().optional().or(z.literal("")),
+  // Wajib http/https — zod `url()` menerima protocol apa pun (mis. javascript:),
+  // jadi perlu refine eksplisit seperti MediaSpaceCreateSchema.
+  instagramUrl: z
+    .string()
+    .refine(
+      (v) => {
+        if (v === "") return true;
+        try {
+          const u = new URL(v);
+          return u.protocol === "http:" || u.protocol === "https:";
+        } catch {
+          return false;
+        }
+      },
+      "URL Instagram harus http/https yang valid"
+    )
+    .optional()
+    .or(z.literal("")),
 };
 
 export const KegiatanCreateSchema = z.object(BadgeFields);

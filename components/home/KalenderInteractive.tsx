@@ -11,9 +11,11 @@ import {
   Sparkles,
   Quote,
   CalendarDays,
+  CalendarPlus,
 } from "lucide-react";
 import type { EventItem } from "@/lib/types";
 import { useIsTouchDevice } from "@/lib/hooks";
+import { downloadIcsEvent } from "@/lib/ics";
 
 interface KalenderInteractiveProps {
   events: EventItem[];
@@ -421,7 +423,8 @@ export function KalenderInteractive({
                         return (
                           <div
                             key={`prev-${i}`}
-                            className="aspect-square flex items-center justify-center text-xs font-medium text-gray-400/40 dark:text-gray-600 pointer-events-none bg-gray-50/30 dark:bg-gray-900/30 rounded-2xl border border-dashed border-gray-200/60 dark:border-gray-800/80 min-w-[38px] min-h-[38px]"
+                            aria-hidden="true"
+                            className="aspect-square flex items-center justify-center text-xs font-medium text-gray-500 dark:text-gray-400 pointer-events-none bg-gray-50/30 dark:bg-gray-900/30 rounded-2xl border border-dashed border-gray-200/60 dark:border-gray-800/80 min-w-[38px] min-h-[38px]"
                           >
                             {dayNum}
                           </div>
@@ -558,6 +561,9 @@ export function KalenderInteractive({
 
             {/* Agenda Cards — scrollable container with wheel capture */}
             <div
+              role="region"
+              aria-label="Daftar agenda kegiatan bulan ini"
+              tabIndex={0}
               className="overflow-y-auto overflow-x-hidden pr-1 relative max-h-[380px]"
               style={calendarHeight > 0 ? { maxHeight: calendarHeight } : undefined}
               onWheel={(e) => {
@@ -619,7 +625,7 @@ export function KalenderInteractive({
                             <span
                               className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-black rounded-md uppercase tracking-wider ${
                                 isPuasa
-                                  ? "bg-emerald-600 dark:bg-emerald-700 text-white"
+                                  ? "bg-emerald-700 dark:bg-emerald-800 text-white"
                                   : event.type === "Ketum"
                                   ? "bg-gray-950 text-white border border-gray-700"
                                   : event.type === "Sekum"
@@ -663,6 +669,23 @@ export function KalenderInteractive({
                               <MapPin className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
                               <span>{event.location}</span>
                             </div>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                downloadIcsEvent({
+                                  title: event.title,
+                                  date: event.date,
+                                  time: event.time,
+                                  location: event.location,
+                                })
+                              }
+                              aria-label={`Tambah ${event.title} ke kalender`}
+                              title="Tambah ke Kalender (.ics)"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-forest-200 dark:border-forest-700 text-forest-600 dark:text-lime font-bold bg-white dark:bg-gray-800 shadow-xs transition-all duration-300 hover:border-lime hover:bg-lime/10 hover:shadow-sm motion-safe:hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                            >
+                              <CalendarPlus className="w-3.5 h-3.5 shrink-0" />
+                              <span>Kalender</span>
+                            </button>
                           </div>
                         </motion.div>
                       );

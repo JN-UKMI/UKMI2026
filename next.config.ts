@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -77,4 +78,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Bundle analyzer: jalankan `ANALYZE=true pnpm build` untuk laporan visual
+// bundle size per route di folder .next/analyze.
+export default withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+})(nextConfig);

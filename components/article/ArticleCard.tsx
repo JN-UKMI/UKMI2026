@@ -77,7 +77,7 @@ export function ArticleCard({ article, actions }: ArticleCardProps) {
 
           <div className="shrink-0 mt-auto">
             {/* Article Metadata info bar */}
-            <div className="flex flex-wrap items-center gap-4 text-xs text-gray-400 dark:text-gray-500 pt-3 border-t border-gray-100 dark:border-gray-800 mb-4">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 pt-3 border-t border-gray-100 dark:border-gray-800 mb-4">
               <span className="flex items-center gap-1.5 font-medium">
                 <Calendar className="w-3.5 h-3.5 text-forest-600 dark:text-lime" />
                 {new Date(article.publishedAt).toLocaleDateString("id-ID", {

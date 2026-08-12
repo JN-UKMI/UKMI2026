@@ -72,7 +72,7 @@ export function LoadingScreen() {
             initial={{ y: 10 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-            className="mt-1.5 text-[10px] font-bold text-gray-400 dark:text-gray-500 tracking-wide uppercase"
+            className="mt-1.5 text-[10px] font-bold text-gray-500 dark:text-gray-400 tracking-wide uppercase"
           >
             Jamaah Nurul Huda UKMI UNS
           </motion.p>

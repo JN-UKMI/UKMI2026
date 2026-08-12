@@ -343,17 +343,13 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
             </button>
 
             {/* Dots Indicator (klik untuk lompat, gaya ProgramKerjaCarousel) */}
-            <div
-              className="flex items-center justify-center gap-0.5 sm:gap-1 px-1"
-              role="tablist"
-              aria-label="Navigasi slide event"
-            >
+            <div className="flex items-center justify-center gap-0.5 sm:gap-1 px-1">
               {Array.from({ length: maxIndex + 1 }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   aria-label={`Ke slide ${index + 1}`}
-                  aria-current={currentIndex === index ? "true" : undefined}
+                  aria-pressed={currentIndex === index}
                   className="p-1.5 sm:p-2 min-w-[28px] min-h-[28px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center cursor-pointer group rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime dark:focus-visible:ring-lime"
                 >
                   <span

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Menu, X, Mail } from "lucide-react";
+import { Menu, X, Mail, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavDropdown } from "./NavDropdown";
 import { MobileMenu } from "./MobileMenu";
@@ -72,18 +72,11 @@ function NavLink({ href, label }: { href: string; label: string }) {
       className={`relative px-3.5 py-1.5 text-sm transition-colors duration-200 rounded-lg cursor-pointer flex items-center justify-center font-semibold group
         ${
           isActive
-            ? "text-white font-bold"
+            ? "bg-forest-600 text-white font-bold shadow-md"
             : "text-gray-700 dark:text-gray-200 hover:text-forest-700 dark:hover:text-lime"
         }
       `}
     >
-      {isActive && (
-        <motion.span
-          layoutId="activeNavBackground"
-          className="absolute inset-0 bg-forest-600 dark:bg-forest-600 border border-forest-600 dark:border-forest-500 rounded-lg shadow-md -z-10"
-          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        />
-      )}
       <span className="relative">
         {label}
         {/* Underline reveal saat hover (non-aktif) */}
@@ -158,8 +151,17 @@ export function Navbar() {
             )}
           </div>
 
-          {/* KANAN: Theme Toggle & Contact */}
+          {/* KANAN: Search, Theme Toggle & Contact */}
           <div className="flex items-center gap-2 sm:gap-3">
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => window.dispatchEvent(new Event("jnukmi:open-search"))}
+              aria-label="Buka pencarian (Ctrl+K)"
+              title="Cari (Ctrl+K)"
+              className="p-2 rounded-xl text-gray-700 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors cursor-pointer border border-transparent hover:border-lime/40 hidden sm:inline-flex"
+            >
+              <Search className="w-4.5 h-4.5" />
+            </motion.button>
             <ThemeToggle />
             <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.96 }}>
               <TransitionLink

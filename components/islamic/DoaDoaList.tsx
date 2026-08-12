@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Search, Copy, Check, BookOpen, Eye, EyeOff } from "lucide-react";
+import { Search, Copy, Check, BookOpen, Eye, EyeOff, Star } from "lucide-react";
 import { SlideIn } from "@/components/ui/SlideIn";
 import type { DoaItem } from "@/lib/types";
 
@@ -15,15 +15,48 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showLatin, setShowLatin] = useState(true);
   const [showTerjemahan, setShowTerjemahan] = useState(true);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  const filteredList = initialList.filter(
-    (item) =>
+  // Load doa favorit dari localStorage (satu kali saat mount).
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("ukmi_doa_favorites");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved favorites once on mount
+          setFavorites(parsed.filter((v) => typeof v === "string"));
+        }
+      }
+    } catch {
+      // localStorage tidak tersedia — abaikan.
+    }
+  }, []);
+
+  const toggleFavorite = (itemId: string) => {
+    const next = favorites.includes(itemId)
+      ? favorites.filter((id) => id !== itemId)
+      : [...favorites, itemId];
+    setFavorites(next);
+    try {
+      localStorage.setItem("ukmi_doa_favorites", JSON.stringify(next));
+    } catch {
+      // abaikan
+    }
+  };
+
+  const filteredList = initialList.filter((item, idx) => {
+    const itemId = item.id || `doa-${idx}`;
+    const matchesSearch =
       (item.judul || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
       (item.kategori || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
       (item.terjemahan || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (item.latin || "").toLowerCase().includes(searchQuery.toLowerCase())
-  );
+      (item.latin || "").toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFavorite = !showFavoritesOnly || favorites.includes(itemId);
+    return matchesSearch && matchesFavorite;
+  });
 
   const handleCopy = async (id: string, text: string) => {
     try {
@@ -70,8 +103,24 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
           />
         </div>
 
-        {/* Toggle Buttons (Hide/Show Latin & Terjemahan — Al-Kahfi Style) */}
+        {/* Toggle Buttons (Favorit, Latin, Terjemahan) */}
         <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
+          <motion.button
+            type="button"
+            whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
+            onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+            aria-pressed={showFavoritesOnly}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shadow-sm border-2 cursor-pointer hover:scale-105 active:scale-95 ${
+              showFavoritesOnly
+                ? "bg-amber-500 hover:bg-amber-600 text-white border-amber-500 dark:border-amber-400"
+                : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-forest-600 dark:border-lime hover:border-amber-400 hover:text-amber-600 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-gray-750"
+            }`}
+          >
+            <Star className={`w-3.5 h-3.5 ${showFavoritesOnly ? "fill-current" : ""}`} />
+            <span>Favorit ({favorites.length})</span>
+          </motion.button>
+
           <motion.button
             type="button"
             whileHover={shouldReduceMotion ? undefined : { y: -1 }}
@@ -137,10 +186,26 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                     {item.judul || `Doa #${idx + 1}`}
                   </h3>
 
+                  <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => toggleFavorite(itemId)}
+                    aria-pressed={favorites.includes(itemId)}
+                    aria-label={favorites.includes(itemId) ? "Hapus dari favorit" : "Tandai doa favorit"}
+                    title={favorites.includes(itemId) ? "Hapus dari Favorit" : "Tandai Favorit"}
+                    className={`inline-flex items-center justify-center w-9 h-9 rounded-xl border transition-all duration-300 cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 ${
+                      favorites.includes(itemId)
+                        ? "bg-amber-500 text-white border-amber-500 hover:bg-amber-600 hover:border-amber-600 shadow-sm"
+                        : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400 dark:hover:border-amber-400"
+                    }`}
+                  >
+                    <Star className={`w-4 h-4 ${favorites.includes(itemId) ? "fill-current" : ""}`} />
+                  </button>
+
                   <button
                     type="button"
                     onClick={() => handleCopy(itemId, copyText)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 hover:shadow-sm shrink-0 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-forest-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime border border-gray-200 dark:border-gray-700 hover:border-forest-200 dark:hover:border-lime/60 hover:shadow-sm rounded-xl text-xs font-bold transition-all cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
                     title="Salin Doa Lengkap"
                   >
                     {isCopied ? (
@@ -155,6 +220,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
                       </>
                     )}
                   </button>
+                  </div>
                 </div>
 
                 {/* Fadhilah / Keutamaan */}

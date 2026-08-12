@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { AtSign, Images, ArrowUpRight } from "lucide-react";
+import { AtSign, Images, ArrowUpRight, Info } from "lucide-react";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { FadeIn } from "@/components/ui/motion";
 import type { MediaSpaceItem } from "@/lib/types";
@@ -64,7 +64,9 @@ function MediaSpaceCell({
       rel="noopener noreferrer"
       aria-label={`Buka ${item.title} di Instagram`}
       onClick={handleClick}
-      className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-forest-600 dark:border-lime bg-gray-100 dark:bg-gray-900 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 motion-safe:hover:scale-[1.01] focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-lime dark:focus-visible:outline-lime ${className}`}
+      className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-forest-600 dark:border-lime bg-gray-100 dark:bg-gray-900 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 motion-safe:hover:scale-[1.01] focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-lime dark:focus-visible:outline-lime ${
+        isMobileActive ? "ring-2 ring-inset ring-lime/80" : ""
+      } ${className}`}
     >
       {showImage ? (
         <Image
@@ -87,6 +89,20 @@ function MediaSpaceCell({
           </span>
         </div>
       )}
+
+      {/* Hint mobile — state idle: beri tahu user tap pertama membuka info.
+          (md:hidden karena desktop pakai hover; hilang saat isMobileActive) */}
+      <span
+        aria-hidden
+        className={`md:hidden absolute top-2.5 right-2.5 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-sm border border-white/20 text-white/95 text-[10px] font-bold pointer-events-none transition-all duration-300 ${
+          isMobileActive
+            ? "opacity-0 scale-90"
+            : "opacity-100 scale-100 motion-safe:animate-pulse motion-reduce:animate-none"
+        }`}
+      >
+        <Info className="w-3 h-3 text-lime" />
+        Ketuk untuk info
+      </span>
 
       {/* Overlay gradient — tersembunyi secara default di mobile, muncul saat isMobileActive atau hover di desktop */}
       <div
@@ -123,8 +139,11 @@ function MediaSpaceCell({
         >
           {item.description}
         </p>
-        <span className="inline-flex items-center gap-1 mt-1.5 sm:mt-2 text-[10px] sm:text-xs font-bold text-lime group-hover:text-lime transition-colors">
-          <span className="md:hidden font-semibold text-white/90">Klik lagi untuk buka</span>
+        <span className="inline-flex items-center gap-1.5 mt-1.5 sm:mt-2 text-[10px] sm:text-xs font-bold text-lime group-hover:text-lime transition-colors">
+          <span className="md:hidden inline-flex items-center gap-1.5 font-semibold text-white/95">
+            <span className="w-1.5 h-1.5 rounded-full bg-lime motion-safe:animate-pulse motion-reduce:animate-none" />
+            Ketuk lagi untuk buka Instagram
+          </span>
           <span className="hidden md:inline">Buka di Instagram</span>
           <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
         </span>
@@ -171,6 +190,11 @@ export function MediaSpaceSection({ items }: MediaSpaceSectionProps) {
             subtitle="Dokumentasi kegiatan & momen dakwah JN UKMI"
           />
         </FadeIn>
+
+        {/* Hint mobile di bawah judul section — memperjelas pola 2x tap */}
+        <p className="md:hidden mt-3 text-center text-[11px] text-gray-500 dark:text-gray-400 font-medium">
+          Ketuk poster untuk lihat info · ketuk lagi untuk membuka Instagram
+        </p>
 
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 auto-rows-[130px] sm:auto-rows-[180px] lg:auto-rows-[200px]">

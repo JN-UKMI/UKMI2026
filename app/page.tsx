@@ -7,6 +7,9 @@ import { loadTestimoni, loadKegiatanSeru, loadMediaSpace } from "@/lib/content";
 import { MediaSpaceSection } from "@/components/home/MediaSpaceSection";
 import { getArticles, type ArticlesListResult } from "@/lib/sanity";
 import { buildPageMetadata } from "@/lib/page-metadata";
+import { buildEventsGraphJsonLd } from "@/lib/json-ld";
+import { headers } from "next/headers";
+import { getAbsoluteUrl } from "@/lib/seo";
 
 import { SlideIn } from "@/components/ui/SlideIn";
 
@@ -51,8 +54,33 @@ export default async function Home() {
     articles = [];
   }
 
+  // Event JSON-LD untuk 3 kegiatan terdekat — Google bisa tampilkan di hasil pencarian.
+  const headersList = await headers();
+  const nonce = headersList.get("x-nonce") ?? undefined;
+  const upcomingEvents = kegiatanSeruList.slice(0, 3);
+  const eventLd =
+    upcomingEvents.length > 0
+      ? buildEventsGraphJsonLd(
+          upcomingEvents.map((e) => ({
+            title: e.title,
+            date: e.date,
+            location: e.location,
+            description: e.description,
+            image: e.posterUrl.startsWith("http") ? e.posterUrl : getAbsoluteUrl(e.posterUrl),
+          }))
+        )
+      : "";
+
   return (
     <>
+      {eventLd && (
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: eventLd }}
+        />
+      )}
       <HeroSection />
       <SlideIn direction="left"><QuoteSection /></SlideIn>
       <SlideIn direction="right"><KegiatanSeruSection initialEvents={kegiatanSeruList} /></SlideIn>

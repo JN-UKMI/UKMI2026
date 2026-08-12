@@ -117,6 +117,49 @@ export function buildArticleJsonLd(opts: ArticleJsonLdOptions): string {
   });
 }
 
+interface EventJsonLdOptions {
+  title: string;
+  /** YYYY-MM-DD */
+  date: string;
+  location?: string;
+  description?: string;
+  /** Absolute poster image URL. */
+  image?: string;
+  url?: string;
+}
+
+/** Builds a single Event JSON-LD object (used for agenda/kegiatan seru). */
+export function buildEventGraphLd(opts: EventJsonLdOptions): Record<string, unknown> {
+  return {
+    "@type": "Event",
+    name: opts.title,
+    description: opts.description,
+    startDate: opts.date,
+    ...(opts.location ? { location: { "@type": "Place", name: opts.location } } : {}),
+    ...(opts.image ? { image: opts.image } : {}),
+    ...(opts.url ? { url: opts.url } : {}),
+    organizer: {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: siteConfig.name,
+      url: BASE_URL,
+    },
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    inLanguage: "id-ID",
+  };
+}
+
+/**
+ * Builds a JSON-LD @graph string containing multiple Events — used on the
+ * homepage so Google can surface upcoming activities in search results.
+ */
+export function buildEventsGraphJsonLd(events: EventJsonLdOptions[]): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": events.map(buildEventGraphLd),
+  });
+}
+
 interface BreadcrumbItem {
   name: string;
   path: string;

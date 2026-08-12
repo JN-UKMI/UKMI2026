@@ -370,3 +370,75 @@ body {
   background: #8ECD04;
 }
 
+/* ── Article reading experience ──────────────────────────────────
+   Pengaya halus untuk .article-body (konten artikel dari NovelEditor). */
+/* Paragraf artikel rata kiri-kanan (justify) otomatis saat dibaca;
+   hyphens:auto membuat pemenggalan kata rapi sehingga baris tetap padat.
+   Pakai selector keturunan (bukan > p) karena paragraf HTML dari NovelEditor
+   masih terbungkus div .prose di dalam .article-body. */
+.article-body p {
+  text-align: justify;
+  hyphens: auto;
+}
+
+.article-body blockquote {
+  position: relative;
+}
+
+.article-body blockquote::before {
+  content: "\201D";
+  position: absolute;
+  top: -0.4rem;
+  right: 1rem;
+  font-size: 5rem;
+  line-height: 1;
+  color: rgb(142 205 4 / 0.3);
+  font-family: Georgia, "Times New Roman", serif;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.article-body blockquote > * {
+  position: relative;
+  z-index: 1;
+}
+
+.article-body a {
+  text-decoration: underline;
+  text-decoration-color: rgb(37 95 56 / 0.4);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition:
+    text-decoration-color 200ms ease,
+    text-decoration-thickness 200ms ease,
+    color 200ms ease;
+}
+
+.article-body a:hover {
+  text-decoration-color: #8ecd04;
+  text-decoration-thickness: 2px;
+}
+
+.article-body hr {
+  border: 0;
+  height: 1px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(37 95 56 / 0.45),
+    transparent
+  );
+}
+
+.dark .article-body hr {
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(142 205 4 / 0.35),
+    transparent
+  );
+}
+
+

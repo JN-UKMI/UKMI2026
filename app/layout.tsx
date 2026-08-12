@@ -14,6 +14,8 @@ import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { BASE_URL, siteConfig } from "@/lib/seo";
 import { buildSiteJsonLd } from "@/lib/json-ld";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import { ServiceWorkerRegister } from "@/components/ui/ServiceWorkerRegister";
+import { CommandPalette } from "@/components/ui/CommandPalette";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -114,6 +116,13 @@ export const metadata: Metadata = {
     email: false,
     address: false,
   },
+  // PWA — manifest + iOS installability
+  manifest: "/favicon_io/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: siteConfig.shortName,
+  },
   verification: siteConfig.googleVerification
     ? { google: siteConfig.googleVerification }
     : undefined,
@@ -193,6 +202,8 @@ export default async function RootLayout({
                 </SmoothScroll>
                 <MusicPlayer />
                 <BackToTop />
+                <ServiceWorkerRegister />
+                <CommandPalette />
                 <Analytics />
                 <SpeedInsights />
               </MusicProvider>

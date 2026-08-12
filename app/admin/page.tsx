@@ -95,6 +95,44 @@ function toIsoFromDisplayOrIso(value: string): string {
   return parseDisplayDateToIso(value);
 }
 
+/** Resolve URL thumbnail dari berbagai format coverImage Sanity (objek asset,
+ *  objek {url|imageUrl|assetId}, atau string) → fallback placeholder. */
+function resolveCoverUrl(coverImage: any): string {
+  if (!coverImage) return "/placeholder.png";
+  try {
+    if (typeof coverImage === "object" && coverImage.asset) {
+      return urlFor(coverImage).url() || "/placeholder.png";
+    }
+    if (typeof coverImage === "object") {
+      const url = coverImage.url || coverImage.imageUrl;
+      if (typeof url === "string" && url.trim() !== "") return url;
+    }
+    if (typeof coverImage === "string" && coverImage.trim() !== "") return coverImage;
+  } catch {
+    return "/placeholder.png";
+  }
+  return "/placeholder.png";
+}
+
+/** Compact page list — halaman tepi (1 & terakhir) + sekitar halaman aktif,
+ *  sisanya diganti ellipsis. Contoh: 1 … 4 5 6 … 12 (pola pagination artikel). */
+function getPageItems(total: number, current: number): (number | "ellipsis")[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const items: (number | "ellipsis")[] = [];
+  for (let p = 1; p <= total; p++) {
+    const isEdge = p === 1 || p === total;
+    const isNear = Math.abs(p - current) <= 1;
+    if (isEdge || isNear) {
+      items.push(p);
+    } else if (items[items.length - 1] !== "ellipsis") {
+      items.push("ellipsis");
+    }
+  }
+  return items;
+}
+
 export default function AdminPage() {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<"moderasi" | "terbit" | "kegiatan" | "media">("moderasi");
@@ -948,56 +986,70 @@ export default function AdminPage() {
               drafts.map((draft) => (
                 <div
                   key={draft._id}
-                  className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-md border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row justify-between gap-6"
+                  className="bg-white dark:bg-gray-900 rounded-3xl shadow-md border border-gray-100 dark:border-gray-800 overflow-hidden transition-colors"
                 >
-                  <div className="flex-1 space-y-3.5">
-                    {/* Category Badge & Date */}
-                    <div className="flex items-center gap-3">
-                      <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 dark:bg-forest-900/60 dark:border-forest-800 rounded text-[10px] font-bold text-forest-600 dark:text-lime uppercase tracking-wide">
-                        {draft.category}
-                      </span>
-                      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-forest-600" />
-                        {new Date(draft.publishedAt).toLocaleDateString("id-ID", {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                      {draft.author && (
-                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
-                          <User className="w-3.5 h-3.5 text-forest-600" />
-                          oleh {draft.author}
+                  {/* Card isi: thumbnail + info */}
+                  <div className="flex flex-col sm:flex-row gap-5 p-5 md:p-6">
+                    {/* Thumbnail */}
+                    <div className="relative w-full sm:w-48 md:w-56 h-40 sm:h-32 shrink-0 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- thumbnail bisa URL runtime Sanity/local */}
+                      <img
+                        src={resolveCoverUrl(draft.coverImage)}
+                        alt={draft.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div className="flex-1 min-w-0 space-y-3">
+                      {/* Category Badge & Date */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="px-2.5 py-0.5 bg-forest-50 border border-forest-150 dark:bg-forest-900/60 dark:border-forest-800 rounded text-[10px] font-bold text-forest-600 dark:text-lime uppercase tracking-wide">
+                          {draft.category}
                         </span>
-                      )}
-                    </div>
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5 text-forest-600" />
+                          {new Date(draft.publishedAt).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
+                        {draft.author && (
+                          <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
+                            <User className="w-3.5 h-3.5 text-forest-600" />
+                            oleh {draft.author}
+                          </span>
+                        )}
+                      </div>
 
-                    {/* Title & Excerpt */}
-                    <div>
-                      <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
-                        {draft.title}
-                      </h3>
-                      <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
-                        {draft.excerpt}
-                      </p>
-                    </div>
+                      {/* Title & Excerpt */}
+                      <div>
+                        <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight line-clamp-2">
+                          {draft.title}
+                        </h3>
+                        <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed line-clamp-2">
+                          {draft.excerpt}
+                        </p>
+                      </div>
 
-                    {/* View Full Content link */}
-                    <a
-                      href={`/artikel/${draft.slug}?preview=true&draft=true&draftId=${draft._id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-forest-600 font-bold hover:underline inline-flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                      Lihat Detail & Preview Isi Artikel (Halaman Baru)
-                    </a>
+                      {/* View Full Content link */}
+                      <a
+                        href={`/artikel/${draft.slug}?preview=true&draft=true&draftId=${draft._id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-forest-600 font-bold hover:underline inline-flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        Lihat Detail & Preview Isi Artikel (Halaman Baru)
+                      </a>
+                    </div>
                   </div>
 
-                  {/* Actions Toolbar */}                    <div className="flex md:flex-col items-center justify-end gap-2.5 shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-gray-100 dark:border-gray-800">
+                  {/* Action bar — TERPISAH di luar card isi */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-950/40 px-5 md:px-6 py-3.5">
                     <TransitionLink
                       href={`/admin/artikel/${encodeURIComponent(draft._id)}/edit`}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95"
                     >
                       <Edit className="w-3.5 h-3.5" />
                       Edit Artikel
@@ -1006,7 +1058,7 @@ export default function AdminPage() {
                     <button
                       disabled={actionLoadingId !== null}
                       onClick={() => handleApprove(draft._id)}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95"
                     >
                       <Check className="w-3.5 h-3.5" />
                       Setujui
@@ -1015,7 +1067,7 @@ export default function AdminPage() {
                     <button
                       disabled={actionLoadingId !== null}
                       onClick={() => handleReject(draft._id)}
-                      className="flex-1 md:flex-none w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 hover:text-red-600 dark:hover:text-red-400 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-white dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 hover:text-red-600 dark:hover:text-red-400 text-gray-600 dark:text-gray-300 rounded-full text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 cursor-pointer active:scale-95"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Tolak & Hapus
@@ -1051,75 +1103,133 @@ export default function AdminPage() {
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 items-stretch">
                     {currentArticles.map((article) => (
-                      <ArticleCard
-                        key={article._id}
-                        article={article}
-                        actions={
-                          <div className="flex items-center gap-2">
-                            <TransitionLink
-                              href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
-                              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95"
-                            >
-                              <Edit className="w-3.5 h-3.5" />
-                              Edit
-                            </TransitionLink>
-                            <button
-                              type="button"
-                              disabled={actionLoadingId !== null}
-                              onClick={() => handleDeletePublished(article._id)}
-                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 rounded-xl text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 cursor-pointer active:scale-95 disabled:opacity-50"
-                              aria-label={`Hapus artikel ${article.title}`}
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                              Hapus
-                            </button>
-                          </div>
-                        }
-                      />
+                      <div key={article._id} className="flex flex-col gap-3">
+                        {/* Card artikel (thumbnail + info) — tanpa tombol */}
+                        <ArticleCard article={article} />
+
+                        {/* Action bar — TERPISAH di luar card artikel */}
+                        <div className="flex items-center gap-2 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-2.5 shadow-sm">
+                          <TransitionLink
+                            href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
+                            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-forest-600 hover:bg-forest-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer active:scale-95"
+                          >
+                            <Edit className="w-3.5 h-3.5" />
+                            Edit
+                          </TransitionLink>
+                          <button
+                            type="button"
+                            disabled={actionLoadingId !== null}
+                            onClick={() => handleDeletePublished(article._id)}
+                            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950/60 text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 rounded-xl text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-800 cursor-pointer active:scale-95 disabled:opacity-50"
+                            aria-label={`Hapus artikel ${article.title}`}
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            Hapus
+                          </button>
+                        </div>
+                      </div>
                     ))}
                   </div>
 
-                  {/* Pagination Controls */}
+                  {/* Pagination Controls — 1 baris: prev | nomor (compact) | next */}
                   {totalPages > 1 && (
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
-                      <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                    <div className="space-y-3 pt-6 border-t border-gray-100 dark:border-gray-800">
+                      <p className="text-center text-xs text-gray-500 dark:text-gray-400 font-medium">
                         Menampilkan {startIndex + 1} - {Math.min(startIndex + ITEMS_PER_PAGE, publishedArticles.length)} dari {publishedArticles.length} artikel terbit
                       </p>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+                        {/* Prev — outline dulu, fill slide dari kiri saat hover */}
                         <button
+                          type="button"
                           onClick={() => setPublishedPage((prev) => Math.max(1, prev - 1))}
                           disabled={currentPage === 1}
-                          className="p-2 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
-                          aria-label="Halaman sebelumnya"
+                          aria-disabled={currentPage === 1}
+                          className={`${
+                            currentPage === 1
+                              ? "inline-flex items-center gap-1 px-3 sm:px-4 py-2 rounded-full text-xs font-bold border-2 border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600 opacity-50 cursor-not-allowed"
+                              : "group/prev relative isolate inline-flex items-center gap-1 overflow-hidden rounded-full border-2 border-forest-600 dark:border-lime bg-transparent px-3 sm:px-4 py-2 text-xs font-bold text-forest-700 dark:text-lime transition-all duration-300 cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:shadow-forest-600/20 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+                          }`}
                         >
-                          <ChevronLeft className="w-4 h-4" />
+                          {currentPage !== 1 && (
+                            <span
+                              aria-hidden
+                              className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/prev:translate-x-0"
+                            />
+                          )}
+                          <span
+                            className={`relative z-10 inline-flex items-center gap-1 transition-colors duration-300 motion-reduce:transition-none ${
+                              currentPage !== 1
+                                ? "group-hover/prev:text-white dark:group-hover/prev:text-forest-950"
+                                : ""
+                            }`}
+                          >
+                            <ChevronLeft className="w-4 h-4 transition-transform duration-300 motion-safe:group-hover/prev:-translate-x-1 motion-reduce:transform-none" />
+                            <span className="hidden sm:inline">Sebelumnya</span>
+                          </span>
                         </button>
 
-                        {Array.from({ length: totalPages }).map((_, idx) => {
-                          const pageNum = idx + 1;
-                          return (
-                            <button
-                              key={pageNum}
-                              onClick={() => setPublishedPage(pageNum)}
-                              className={`w-8 h-8 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                                currentPage === pageNum
-                                  ? "bg-forest-600 text-white dark:bg-lime dark:text-forest-950 shadow-sm"
-                                  : "border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-                              }`}
-                            >
-                              {pageNum}
-                            </button>
-                          );
-                        })}
+                        {/* Nomor halaman — compact (max 7, sisanya ellipsis), aktif hijau penuh */}
+                        <div className="flex items-center gap-1.5">
+                          {getPageItems(totalPages, currentPage).map((item, i) => {
+                            if (item === "ellipsis") {
+                              return (
+                                <span
+                                  key={`ellipsis-${i}`}
+                                  aria-hidden
+                                  className="w-6 sm:w-8 flex items-center justify-center text-xs font-bold text-gray-400 dark:text-gray-500 select-none"
+                                >
+                                  …
+                                </span>
+                              );
+                            }
+                            const isActive = item === currentPage;
+                            return (
+                              <button
+                                key={item}
+                                type="button"
+                                onClick={() => setPublishedPage(item)}
+                                aria-current={isActive ? "page" : undefined}
+                                className={`relative isolate w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 ${
+                                  isActive
+                                    ? "bg-forest-600 dark:bg-lime text-white dark:text-forest-950 border-2 border-forest-600 dark:border-lime shadow-md shadow-forest-600/25 scale-110"
+                                    : "border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-600 dark:text-gray-300 hover:border-forest-600 dark:hover:border-lime hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-forest-900/20 hover:shadow-sm motion-safe:hover:-translate-y-0.5 active:scale-95"
+                                }`}
+                              >
+                                {item}
+                              </button>
+                            );
+                          })}
+                        </div>
 
+                        {/* Next */}
                         <button
+                          type="button"
                           onClick={() => setPublishedPage((prev) => Math.min(totalPages, prev + 1))}
                           disabled={currentPage === totalPages}
-                          className="p-2 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
-                          aria-label="Halaman berikutnya"
+                          aria-disabled={currentPage === totalPages}
+                          className={`${
+                            currentPage === totalPages
+                              ? "inline-flex items-center gap-1 px-3 sm:px-4 py-2 rounded-full text-xs font-bold border-2 border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600 opacity-50 cursor-not-allowed"
+                              : "group/next relative isolate inline-flex items-center gap-1 overflow-hidden rounded-full border-2 border-forest-600 dark:border-lime bg-transparent px-3 sm:px-4 py-2 text-xs font-bold text-forest-700 dark:text-lime transition-all duration-300 cursor-pointer active:scale-95 motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:shadow-forest-600/20 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+                          }`}
                         >
-                          <ChevronRight className="w-4 h-4" />
+                          {currentPage !== totalPages && (
+                            <span
+                              aria-hidden
+                              className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/next:translate-x-0"
+                            />
+                          )}
+                          <span
+                            className={`relative z-10 inline-flex items-center gap-1 transition-colors duration-300 motion-reduce:transition-none ${
+                              currentPage !== totalPages
+                                ? "group-hover/next:text-white dark:group-hover/next:text-forest-950"
+                                : ""
+                            }`}
+                          >
+                            <span className="hidden sm:inline">Selanjutnya</span>
+                            <ChevronRight className="w-4 h-4 transition-transform duration-300 motion-safe:group-hover/next:translate-x-1 motion-reduce:transform-none" />
+                          </span>
                         </button>
                       </div>
                     </div>
