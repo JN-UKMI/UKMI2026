@@ -44,7 +44,7 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
       whileInView={animateSection ? { opacity: 1, y: 0 } : undefined}
       viewport={animateSection ? { once: false, amount: 0.2, margin: "0px 0px -10% 0px" } : undefined}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className={`flex flex-col items-center text-center mb-10 ${className}`}
+      className={`flex flex-col items-center text-center mb-4 sm:mb-5 ${className}`}
     >
       {/* 1. Top Icon Container — double-bezel premium */}
       {icon && (
@@ -55,7 +55,7 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           whileHover={animateSection ? { scale: 1.12, rotate: 8 } : undefined}
           whileTap={animateSection ? { scale: 0.96 } : undefined}
-          className="w-14 h-14 rounded-2xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-4 border border-lime/20 dark:border-forest-800 shadow-sm transition-colors relative group"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-lime/10 dark:bg-forest-900/50 text-forest-600 dark:text-lime flex items-center justify-center mb-2.5 sm:mb-3 border border-lime/20 dark:border-forest-800 shadow-sm transition-colors relative group"
         >
           {/* Glow halo saat hover */}
           <div className="absolute inset-0 rounded-2xl bg-forest-600/0 group-hover:bg-lime/10 dark:group-hover:bg-lime/10 transition-colors duration-300" />
@@ -77,7 +77,7 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
           whileInView={animateSection ? { opacity: 1, y: 0 } : undefined}
           viewport={animateSection ? { once: false, amount: 0.2, margin: "0px 0px -10% 0px" } : undefined}
           transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto font-medium leading-relaxed mt-2"
+          className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto font-medium leading-relaxed mt-1.5 sm:mt-2"
         >
           {subtitle}
         </motion.p>
@@ -89,7 +89,7 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
         whileInView={animateSection ? { opacity: 1, x: 0 } : undefined}
         viewport={animateSection ? { once: false, amount: 0.2, margin: "0px 0px -10% 0px" } : undefined}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="h-1 bg-lime rounded-full mt-3 shadow-sm opacity-90"
+        className="h-1 bg-lime rounded-full mt-2.5 shadow-sm opacity-90"
       />
     </motion.div>
   );

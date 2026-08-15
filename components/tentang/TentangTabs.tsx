@@ -208,7 +208,7 @@ export function TentangTabs() {
                         </div>
                       </div>
                       <div className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700/50">
-                        <div className="w-8 h-8 rounded-lg bg-gray-900 dark:bg-white shrink-0" />
+                        <div className="w-8 h-8 rounded-lg bg-black border border-gray-300 dark:border-gray-700 shrink-0" />
                         <div>
                           <span className="text-xs font-extrabold text-gray-900 dark:text-white uppercase tracking-wide">Hitam</span>
                           <p className="text-[11px] md:text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-0.5">Melambangkan kesetiaan terhadap dakwah Islam.</p>

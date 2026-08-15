@@ -50,7 +50,7 @@ export function ArtikelTerbaruSection({ articles = [] }: ArtikelTerbaruSectionPr
   return (
     <section className="relative overflow-hidden py-10 sm:py-14 px-4 bg-transparent transition-colors duration-300">
       <div className="relative z-10 max-w-6xl mx-auto">
-        <FadeIn className="mb-8">
+        <FadeIn>
           <SectionHeader
             icon={<Newspaper className="w-6 h-6 text-forest-600 dark:text-lime" />}
             title="Artikel Terbaru"

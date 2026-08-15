@@ -4,7 +4,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import homeData from "@/content/beranda/main.json";
-import { GradientText, MagneticButton, Parallax } from "@/components/ui/motion";
+import { MagneticButton, Parallax } from "@/components/ui/motion";
 import { StrokeText } from "@/components/ui/StrokeText";
 
 export function HeroSection() {
@@ -142,12 +142,11 @@ export function HeroSection() {
             href={homeData.universityUrl || "https://uns.ac.id"}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/30 px-7 py-3 text-sm font-semibold text-white/95 transition-colors duration-300 hover:bg-white/20 hover:border-white/50 cursor-pointer"
+            className="group inline-flex items-center rounded-full bg-white/10 backdrop-blur-md border border-white/30 px-7 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/20 hover:border-lime/60 cursor-pointer"
           >
-            <GradientText colors="from-lime via-fresh-lime to-white" className="font-bold">
+            <span className="font-bold text-white group-hover:text-lime transition-colors duration-200">
               {homeData.university || "Universitas Sebelas Maret"}
-            </GradientText>
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+            </span>
           </MagneticButton>
         </motion.div>
       </motion.div>

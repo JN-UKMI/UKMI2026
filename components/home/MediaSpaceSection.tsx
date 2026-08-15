@@ -181,7 +181,7 @@ export function MediaSpaceSection({ items }: MediaSpaceSectionProps) {
   return (
     <section className="py-8 sm:py-14 px-3 sm:px-6 bg-transparent transition-colors duration-300 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
-        <FadeIn className="mb-6 sm:mb-10 text-center">
+        <FadeIn className="text-center">
           <SectionHeader
             icon={
               <Images className="w-5 h-5 sm:w-6 sm:h-6 text-forest-600 dark:text-lime" />

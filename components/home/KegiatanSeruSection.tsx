@@ -198,7 +198,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <FadeIn className="relative mb-6 sm:mb-10 text-center">
+        <FadeIn className="relative text-center">
           <SectionHeader
             icon={<Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-forest-600 dark:text-lime" />}
             title="Event Terdekat"
@@ -210,7 +210,7 @@ export function KegiatanSeruSection({ initialEvents = [] }: KegiatanSeruSectionP
         <div className="relative overflow-x-clip overflow-y-visible px-5 -mx-5">
           <StaggerContainer className="overflow-visible">
             <div
-              className="flex transition-transform duration-500 ease-out gap-4 sm:gap-6 py-5 sm:py-6"
+              className="flex transition-transform duration-500 ease-out gap-4 sm:gap-6 pt-1 pb-5 sm:pb-6"
               style={{
                 // Offset = (1 card width + 1 gap) per step, supaya setiap slide
                 // selalu menampilkan tepat `visibleCards` kartu tanpa sisa terpotong.

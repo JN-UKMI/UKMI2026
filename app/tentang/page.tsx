@@ -25,7 +25,7 @@ export default function TentangPage() {
         {/* Top Header Title & Subtitle (Centered Layout) */}
         <SlideIn direction="left" className="mb-12 max-w-3xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center">
-            <h2 className="section-title-hover whitespace-nowrap text-3xl md:text-5xl font-extrabold text-black dark:text-black tracking-tight leading-tight">
+            <h2 className="section-title-hover whitespace-nowrap text-3xl md:text-5xl font-black text-forest-900 dark:text-lime tracking-tight leading-tight">
               JN UKMI UNS
             </h2>
             <p className="mt-3 text-sm md:text-base text-gray-500 dark:text-gray-400 font-medium max-w-2xl">

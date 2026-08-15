@@ -12,6 +12,7 @@ import { headers } from "next/headers";
 import { getAbsoluteUrl } from "@/lib/seo";
 
 import { SlideIn } from "@/components/ui/SlideIn";
+import { WelcomeModal } from "@/components/home/WelcomeModal";
 
 // Dynamic imports for below-the-fold heavy components (Code Splitting)
 const KalenderSection = dynamicImport(
@@ -81,6 +82,7 @@ export default async function Home() {
           dangerouslySetInnerHTML={{ __html: eventLd }}
         />
       )}
+      {/* <WelcomeModal /> — Disembunyikan sementara */}
       <HeroSection />
       <SlideIn direction="left"><QuoteSection /></SlideIn>
       <SlideIn direction="right"><KegiatanSeruSection initialEvents={kegiatanSeruList} /></SlideIn>

@@ -18,7 +18,7 @@ export function LoadingScreen() {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute h-36 w-36 rounded-full border-4 border-gray-100 border-t-forest-700 border-r-lime"
+            className="absolute h-36 w-36 rounded-full border-4 border-gray-100 dark:border-gray-800/80 border-t-forest-700 dark:border-t-lime border-r-lime"
           />
 
           {/* Center Logo with Scale Spring Pulse */}
@@ -31,7 +31,7 @@ export function LoadingScreen() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="z-10 flex h-28 w-28 items-center justify-center rounded-full bg-forest-50/50 backdrop-blur-xs border border-forest-100/60 shadow-[0_8px_30px_rgb(24,35,15,0.03)]"
+            className="z-10 flex h-28 w-28 items-center justify-center rounded-full bg-forest-50/50 dark:bg-forest-950/60 backdrop-blur-xs border border-forest-100/60 dark:border-forest-800/80 shadow-[0_8px_30px_rgb(24,35,15,0.03)]"
           >
             <Image
               src="/image/logo-jnukmi.svg"
@@ -47,7 +47,7 @@ export function LoadingScreen() {
         {/* Bottom Loading Text with Kinetic Jump Animation */}
         <div className="mt-4 flex flex-col items-center justify-center">
           <div className="flex items-center justify-center space-x-1">
-            <span className="text-xs font-black tracking-widest text-forest-800 uppercase">
+            <span className="text-xs font-black tracking-widest text-forest-900 dark:text-lime uppercase">
               Loading
             </span>
             <div className="flex space-x-1 items-end h-3 pb-0.5">

@@ -34,7 +34,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
         />
 
         {/* ── Desktop: 3-column grid / Mobile: carousel ── */}
-        <div className="mt-12">
+        <div className="mt-2 sm:mt-4">
           {/* Mobile Carousel */}
           <div className="md:hidden">
             <div className="overflow-hidden">

@@ -21,14 +21,14 @@ export default function NotFound() {
           height={100}
           className="mx-auto mb-8 opacity-80"
         />
-        <h1 className="text-6xl font-bold text-forest-900 mb-4">404</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 mb-2">Halaman tidak ditemukan</p>
-        <p className="text-gray-500 dark:text-gray-400 mb-8">
+        <h1 className="text-6xl sm:text-7xl font-black text-forest-900 dark:text-lime mb-4 tracking-tight">404</h1>
+        <p className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Halaman tidak ditemukan</p>
+        <p className="text-gray-500 dark:text-gray-400 mb-8 text-sm sm:text-base">
           Halaman yang Anda cari mungkin telah dipindahkan atau tidak tersedia.
         </p>
         <TransitionLink
           href="/"
-          className="inline-block bg-forest-600 hover:bg-forest-800 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md hover:shadow-lg shadow-forest-600/10"
+          className="inline-block bg-forest-600 dark:bg-lime text-white dark:text-forest-950 font-bold px-6 py-3 rounded-xl transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
         >
           Kembali ke Beranda
         </TransitionLink>
