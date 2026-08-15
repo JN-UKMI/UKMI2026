@@ -18,8 +18,7 @@ export function ArticleGrid({ articles }: ArticleGridProps) {
     <>
       {/* Mobile — semua card memakai style hero (gambar kiri, teks kanan) */}
       <div className="md:hidden space-y-3">
-        <ArticleHeroCard article={first} />
-        {rest.map((article) => (
+        {articles.map((article) => (
           <ArticleHeroCard key={article.slug} article={article} />
         ))}
       </div>
