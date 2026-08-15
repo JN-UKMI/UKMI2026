@@ -15,6 +15,7 @@ import { ArticleBody } from "@/components/article/ArticleBody";
 import { ShareButton } from "@/components/article/ShareButton";
 import { ArticleReadingBar } from "@/components/article/ArticleReadingBar";
 import { ArticleCard } from "@/components/article/ArticleCard";
+import { ArticleHeroCard } from "@/components/article/ArticleHeroCard";
 import Image from "next/image";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArrowLeft, Calendar, Clock, PenLine, Sparkles } from "lucide-react";
@@ -344,7 +345,15 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
               subtitle="Lanjutkan membaca — artikel pilihan dengan tema serupa"
             />
           </SlideIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Mobile view — horizontal card layout (gambar kiri, teks kanan) */}
+          <div className="md:hidden space-y-3">
+            {related.map((a) => (
+              <ArticleHeroCard key={a.slug} article={a} />
+            ))}
+          </div>
+
+          {/* Desktop view — grid 2/3 cards */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {related.map((a, i) => (
               <SlideIn key={a.slug} direction={i % 2 === 0 ? "left" : "right"}>
                 <ArticleCard article={a} />
