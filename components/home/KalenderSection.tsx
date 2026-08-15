@@ -7,8 +7,8 @@ export async function KalenderSection() {
   const { events, monthly_quotes, hijri_months } = await loadEvents();
 
   return (
-    <section className="relative overflow-hidden py-10 sm:py-14 px-4 bg-transparent transition-colors duration-300">
-      <div className="relative z-10 max-w-6xl mx-auto">
+    <section className="relative overflow-hidden py-10 sm:py-14 px-4 sm:px-6 lg:px-8 bg-transparent transition-colors duration-300">
+      <div className="relative z-10 max-w-6xl mx-auto px-1 sm:px-2">
         <SectionHeader
           icon={<Calendar className="w-6 h-6" />}
           title="Kalender UKMI"

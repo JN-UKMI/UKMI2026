@@ -74,6 +74,11 @@ const nextConfig: NextConfig = {
         destination: "/al-matsurat",
         permanent: true,
       },
+      {
+        source: "/artikel/:slug/edit",
+        destination: "/artikel/:slug",
+        permanent: false,
+      },
     ];
   },
 };

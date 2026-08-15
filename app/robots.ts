@@ -22,7 +22,6 @@ export default function robots(): MetadataRoute.Robots {
           "/loading/",
           "/403/",
           "/artikel/tulis",
-          "/artikel/*/edit",
           "/admin/artikel/*/edit",
           "/*?*preview=*",
           "/*?*draft=*",

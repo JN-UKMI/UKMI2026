@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react";
+import { sanitizeArticleContent } from "@/lib/sanitize-content";
 
 export interface ArticleBodyProps {
   content: string | PortableTextBlock[];
@@ -88,7 +89,7 @@ export function ArticleBody({ content }: ArticleBodyProps) {
           prose-hr:border-0 prose-hr:my-12 prose-hr:bg-gradient-to-r prose-hr:from-transparent prose-hr:via-forest-600/40 prose-hr:to-transparent prose-hr:h-px
           prose-figure:my-9
           [style]:!text-inherit [style]:!bg-transparent"
-        dangerouslySetInnerHTML={{ __html: content }}
+        dangerouslySetInnerHTML={{ __html: sanitizeArticleContent(content) }}
       />
     );
   }

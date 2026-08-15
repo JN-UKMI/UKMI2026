@@ -9,4 +9,12 @@ describe("sanitizeArticleContent", () => {
 
     expect(result).toBe('<p>Aman</p><a rel="noopener noreferrer">x</a>');
   });
+
+  it("strips data: URI from anchor tags but allows data: on img tags", () => {
+    const linkResult = sanitizeArticleContent('<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">klik</a>');
+    expect(linkResult).toBe('<a rel="noopener noreferrer">klik</a>');
+
+    const imgResult = sanitizeArticleContent('<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="dot" />');
+    expect(imgResult).toContain('<img src="data:image/png;base64,');
+  });
 });

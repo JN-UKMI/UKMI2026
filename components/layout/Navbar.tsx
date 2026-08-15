@@ -49,6 +49,7 @@ const navItems: NavItem[] = [
       { label: "Al-Ma'tsurat", href: "/al-matsurat" },
       { label: "Buku UKMI", href: "/buku-ukmi" },
       { label: "UKMI Store", href: "/ukmi-store" },
+      { label: "Zakat & Infak", href: "https://upz.uns.ac.id/layanan-zakat-infak/", target: "_blank", rel: "noopener noreferrer" },
       { label: "BPO", href: "https://uns.id/BPOIskandarMuda_26", target: "_blank", rel: "noopener noreferrer" },
     ],
   },

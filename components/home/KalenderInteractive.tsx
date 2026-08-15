@@ -251,20 +251,38 @@ export function KalenderInteractive({
           </button>
         </div>
 
-        {/* Right: Quick Jump Today Button */}
-        <button
-          onClick={jumpToToday}
-          className="group/today relative isolate inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-2xl border border-lime dark:border-lime bg-transparent px-4 py-2.5 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/today:translate-x-0"
-          />
-          <span className="relative z-10 inline-flex items-center justify-center gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/today:text-white dark:group-hover/today:text-forest-950">
-            <CalendarIcon className="w-4 h-4 text-forest-600 dark:text-lime transition-colors duration-300 motion-reduce:transition-none group-hover/today:text-white dark:group-hover/today:text-forest-950" />
-            <span>Ke Tanggal Hari Ini</span>
-          </span>
-        </button>
+        {/* Right: Quick Jump Today & View All Month Buttons */}
+        <div className="flex flex-row items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-x-auto sm:overflow-visible">
+          {selectedDateStr && (
+            <button
+              onClick={() => setSelectedDateStr(null)}
+              className="group/month relative isolate inline-flex shrink-0 items-center justify-center gap-1.5 sm:gap-2 overflow-hidden rounded-2xl border border-lime dark:border-lime bg-transparent px-3.5 sm:px-4 py-2.5 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+            >
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/month:translate-x-0"
+              />
+              <span className="relative z-10 inline-flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/month:text-white dark:group-hover/month:text-forest-950">
+                <CalendarDays className="w-4 h-4 text-forest-600 dark:text-lime transition-colors duration-300 motion-reduce:transition-none group-hover/month:text-white dark:group-hover/month:text-forest-950" />
+                <span className="whitespace-nowrap">Tampilkan Bulan Ini Saja</span>
+              </span>
+            </button>
+          )}
+
+          <button
+            onClick={jumpToToday}
+            className="group/today relative isolate inline-flex shrink-0 items-center justify-center gap-1.5 sm:gap-2 overflow-hidden rounded-2xl border border-lime dark:border-lime bg-transparent px-3.5 sm:px-4 py-2.5 text-xs font-bold text-forest-700 dark:text-lime shadow-sm transition-colors duration-300 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 motion-reduce:transform-none motion-reduce:transition-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-0 -translate-x-full bg-forest-600 dark:bg-lime motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:!translate-x-0 motion-reduce:!opacity-0 group-hover/today:translate-x-0"
+            />
+            <span className="relative z-10 inline-flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-300 motion-reduce:transition-none group-hover/today:text-white dark:group-hover/today:text-forest-950">
+              <CalendarIcon className="w-4 h-4 text-forest-600 dark:text-lime transition-colors duration-300 motion-reduce:transition-none group-hover/today:text-white dark:group-hover/today:text-forest-950" />
+              <span className="whitespace-nowrap">Ke Tanggal Hari Ini</span>
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* 2. MAIN GRID: items-stretch — kiri menentukan tinggi, kanan menyesuaikan */}
@@ -296,7 +314,7 @@ export function KalenderInteractive({
                     className={`flex items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 ${
                       isMinMonth
                         ? "border-gray-200 dark:border-gray-800 bg-transparent text-gray-300 dark:text-gray-700 cursor-not-allowed opacity-50"
-                        : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:shadow-lg hover:shadow-lime/20 hover:border-lime dark:hover:border-lime hover:-translate-y-0.5 active:scale-95"
+                        : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:border-lime dark:hover:border-lime hover:shadow-sm hover:-translate-y-0.5 active:scale-95"
                     }`}
                     aria-label="Bulan sebelumnya"
                   >
@@ -308,7 +326,7 @@ export function KalenderInteractive({
                     className={`flex items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 ${
                       isMaxMonth
                         ? "border-gray-200 dark:border-gray-800 bg-transparent text-gray-300 dark:text-gray-700 cursor-not-allowed opacity-50"
-                        : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:shadow-lg hover:shadow-lime/20 hover:border-lime dark:hover:border-lime hover:-translate-y-0.5 active:scale-95"
+                        : "border-forest-600 dark:border-lime bg-transparent text-forest-700 dark:text-lime shadow-sm hover:bg-lime/10 dark:hover:bg-lime/10 hover:border-lime dark:hover:border-lime hover:shadow-sm hover:-translate-y-0.5 active:scale-95"
                     }`}
                     aria-label="Bulan berikutnya"
                   >
@@ -320,7 +338,7 @@ export function KalenderInteractive({
               {/* Legenda Indikator Warna Bidang */}
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[10px] sm:text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-5 pb-3 border-b border-gray-100/60 dark:border-gray-800">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-forest-900 dark:bg-lime ring-2 ring-lime dark:ring-lime/50 ring-offset-1 dark:ring-offset-gray-900" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-forest-50 dark:bg-forest-950/60 border-2 border-forest-600 dark:border-lime" />
                   Hari Ini
                 </span>
                 <span className="flex items-center gap-1">
@@ -357,7 +375,7 @@ export function KalenderInteractive({
                 </span>
               </div>
 
-              <div className="relative overflow-hidden w-full">
+              <div className="relative overflow-hidden w-full px-1 sm:px-2.5">
                 <AnimatePresence
                 mode={shouldReduceMotion || isTouchDevice ? "wait" : "popLayout"}
                 initial={false}
@@ -425,7 +443,7 @@ export function KalenderInteractive({
                           <div
                             key={`prev-${i}`}
                             aria-hidden="true"
-                            className="aspect-square flex items-center justify-center text-xs font-medium text-gray-500 dark:text-gray-400 pointer-events-none bg-gray-50/30 dark:bg-gray-900/30 rounded-2xl border border-dashed border-gray-200/60 dark:border-gray-800/80 min-w-[38px] min-h-[38px]"
+                            className="aspect-square flex items-center justify-center text-xs font-medium text-gray-500 dark:text-gray-400 pointer-events-none bg-gray-50/30 dark:bg-gray-900/30 rounded-xl border border-dashed border-gray-200/60 dark:border-gray-800/80 min-w-[38px] min-h-[38px]"
                           >
                             {dayNum}
                           </div>
@@ -447,31 +465,26 @@ export function KalenderInteractive({
                           <button
                             key={`curr-${dayNum}`}
                             onClick={() => setSelectedDateStr(isSelected ? null : dateString)}
-                            className={`relative aspect-square flex flex-col items-center justify-center text-xs sm:text-sm font-bold rounded-2xl transition-all border-2 cursor-pointer active:scale-95 min-w-[38px] min-h-[38px] shadow-2xs ${
+                            className={`relative aspect-square flex flex-col items-center justify-center text-xs sm:text-sm font-bold rounded-xl transition-all border-2 cursor-pointer active:scale-95 min-w-[38px] min-h-[38px] shadow-2xs ${
                               isSelected
-                                ? "bg-forest-900 dark:bg-forest-600 text-white border-forest-900 dark:border-lime shadow-lg ring-4 ring-forest-600/30 dark:ring-lime/40 scale-[1.03]"
+                                ? isToday
+                                  ? "bg-forest-600 dark:bg-forest-600 text-white border-2 border-lime dark:border-lime shadow-sm scale-[1.03]"
+                                  : "bg-forest-600 dark:bg-forest-600 text-white border-2 border-forest-600 dark:border-lime shadow-sm scale-[1.03]"
                                 : isToday
-                                ? "bg-forest-900 dark:bg-gray-800 text-white dark:text-lime border-forest-900 dark:border-lime font-black shadow-md ring-4 ring-forest-500/20 dark:ring-lime/30"
+                                ? "bg-forest-50/90 dark:bg-forest-950/60 text-forest-800 dark:text-lime border-2 border-forest-600 dark:border-lime font-black shadow-xs"
                                 : hasPuasa && hasUkmiEvent
-                                ? "bg-white dark:bg-gray-800 text-forest-950 dark:text-lime border-2 border-emerald-500 dark:border-emerald-400 font-black hover:border-emerald-600 dark:hover:border-emerald-300 hover:shadow-xs"
+                                ? "bg-emerald-50/70 dark:bg-emerald-950/60 text-forest-950 dark:text-lime border-2 border-forest-600 dark:border-lime font-black hover:border-lime dark:hover:border-lime hover:shadow-xs motion-safe:hover:-translate-y-0.5"
                                 : hasPuasa
-                                ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-2 border-emerald-500 dark:border-emerald-400 font-bold hover:border-emerald-600 dark:hover:border-emerald-300 hover:shadow-xs"
+                                ? "bg-emerald-50/70 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border-2 border-emerald-600 dark:border-emerald-400 font-black hover:border-emerald-700 dark:hover:border-emerald-300 hover:shadow-xs motion-safe:hover:-translate-y-0.5"
                                 : hasUkmiEvent
-                                ? "bg-forest-50/80 dark:bg-forest-950/50 text-forest-900 dark:text-lime border-forest-300 dark:border-forest-700 font-bold hover:border-lime dark:hover:border-lime hover:shadow-xs"
-                                : "bg-white dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-lime dark:hover:border-lime hover:shadow-md hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-0.5"
+                                ? "bg-forest-50 dark:bg-forest-950/70 text-forest-900 dark:text-lime border-2 border-forest-600 dark:border-lime font-black hover:border-lime dark:hover:border-lime hover:shadow-xs motion-safe:hover:-translate-y-0.5"
+                                : "bg-white/80 dark:bg-gray-800/60 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700/80 font-semibold hover:border-forest-600/70 dark:hover:border-lime/70 hover:text-gray-900 dark:hover:text-white hover:shadow-xs motion-safe:hover:-translate-y-0.5"
                             }`}
                           >
                             <span className="leading-none">{dayNum}</span>
 
-                            {/* Today Badge Pill */}
-                            {isToday && !isSelected && (
-                              <span className="absolute -top-1 px-1 py-[1px] bg-lime text-forest-950 font-black text-[6.5px] rounded-md uppercase tracking-tighter shadow-sm">
-                                HARI INI
-                              </span>
-                            )}
-
                             {/* Multi-Pill Micro Badges for Exact Bidang Colors */}
-                            {hasEvents && !isToday && (
+                            {hasEvents && (
                               <div className="absolute bottom-1.5 flex items-center justify-center gap-1">
                                 {dayEvents.map((e, idx) => {
                                   let dotColor = "bg-lime dark:bg-lime";
@@ -514,8 +527,7 @@ export function KalenderInteractive({
             {/* Monthly Hadith Quote Highlight Box */}
             {currentQuote && (
               <div className="mt-6 border-t border-gray-100 dark:border-gray-800 pt-5">
-                <div className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white p-5 rounded-2xl border border-white/10 relative overflow-hidden shadow-lg">
-                  <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-lime/10 dark:hidden blur-xl pointer-events-none" />
+                <div className="bg-gradient-to-br from-forest-900 via-forest-800 to-black text-white p-5 rounded-2xl border border-white/10 relative overflow-hidden shadow-sm">
                   <div className="flex items-start gap-3.5 relative z-10">
                     <Quote className="w-5 h-5 text-lime shrink-0 mt-0.5" />
                     <div>
@@ -549,15 +561,6 @@ export function KalenderInteractive({
                   {displayedEvents.length} agenda ditemukan
                 </p>
               </div>
-
-              {selectedDateStr && (
-                <button
-                  onClick={() => setSelectedDateStr(null)}
-                  className="text-xs font-bold text-forest-600 dark:text-lime hover:text-forest-800 dark:hover:text-white transition-all motion-safe:hover:-translate-y-0.5 hover:shadow-sm cursor-pointer bg-forest-50 dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-forest-100 dark:border-gray-700 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40"
-                >
-                  Tampilkan Bulan Ini Saja
-                </button>
-              )}
             </div>
 
             {/* Agenda Cards — scrollable container with wheel capture */}
@@ -618,8 +621,8 @@ export function KalenderInteractive({
                           key={event.date + event.title + index}
                           className={`p-4 rounded-2xl border transition-all duration-300 ${
                             isPuasa
-                              ? "bg-emerald-50/40 dark:bg-emerald-950/30 border-emerald-100/80 dark:border-emerald-800/60 hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] dark:hover:shadow-none"
-                              : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:border-lime dark:hover:border-lime hover:shadow-[0_0_15px_rgba(37,95,56,0.25)] dark:hover:shadow-none"
+                              ? "bg-emerald-50/40 dark:bg-emerald-950/30 border-emerald-100/80 dark:border-emerald-800/60 hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-sm"
+                              : "bg-forest-50/40 dark:bg-forest-950/40 border-forest-100/85 dark:border-forest-800/60 hover:border-lime dark:hover:border-lime hover:shadow-sm"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-2 mb-2">

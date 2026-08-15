@@ -38,9 +38,8 @@ const MusicContext = createContext<MusicContextType | undefined>(undefined);
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Music plays on Home (/), Tentang (/tentang), and Kabinet (/kabinet)
+  // Music plays on Tentang (/tentang) and Kabinet (/kabinet) only
   const isAllowedPage =
-    pathname === "/" ||
     pathname === "/tentang" ||
     pathname === "/kabinet";
 

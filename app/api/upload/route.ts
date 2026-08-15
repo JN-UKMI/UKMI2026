@@ -1,17 +1,18 @@
 import { createClient } from "next-sanity";
 import { randomUUID } from "node:crypto";
-import { authorizeAdminOrPasscode } from "@/lib/api-auth";
 import {
   apiOk,
   apiBadRequest,
   apiServerError,
-  apiServiceUnavailable,
-  apiUnauthorized,
   apiRateLimited,
+  apiServiceUnavailable,
 } from "@/lib/api-response";
 import { ContentType, ALLOWED_IMAGE_MIME_TYPES } from "@/lib/schemas";
+import { getClientIp, checkRateLimit, recordAttempt } from "@/lib/api-auth";
 
 const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
+const MAX_UPLOADS_PER_MINUTE = 10;
+const UPLOAD_WINDOW_MS = 60 * 1000;
 
 function extFromMime(mime: string): string {
   switch (mime) {
@@ -41,8 +42,8 @@ function sanitizeFilename(originalName: string, mime: string): string {
 
 function getWriteClient(token: string) {
   return createClient({
-    projectId: "ksc63oa8",
-    dataset: "production",
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "ksc63oa8",
+    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
     apiVersion: "2024-01-01",
     token,
     useCdn: false,
@@ -50,6 +51,17 @@ function getWriteClient(token: string) {
 }
 
 export async function POST(request: Request) {
+  const ip = getClientIp(request);
+  const rateLimitKey = `image-upload:${ip}`;
+
+  const currentLimit = checkRateLimit(rateLimitKey);
+  if (currentLimit.blocked) {
+    return apiRateLimited(
+      "Terlalu banyak permintaan unggah gambar. Silakan tunggu 1 menit.",
+      60
+    );
+  }
+
   let formData: FormData;
   try {
     formData = await request.formData();
@@ -58,24 +70,6 @@ export async function POST(request: Request) {
   }
 
   const file = formData.get("file");
-  const providedPasscode = formData.get("passcode");
-  const passcodeStr =
-    typeof providedPasscode === "string" ? providedPasscode : null;
-
-  const auth = await authorizeAdminOrPasscode(request, passcodeStr);
-  if (!auth.authorized) {
-    if (auth.reason === "rate_limited") {
-      return apiRateLimited("Terlalu banyak percobaan kode akses.", auth.retryAfter ?? 900);
-    }
-    if (auth.reason === "not_configured") {
-      return apiServiceUnavailable(
-        "Login admin atau kode akses pengurus belum dikonfigurasi di server."
-      );
-    }
-    return apiUnauthorized(
-      "Akses ditolak. Login sebagai admin atau gunakan kode akses pengurus."
-    );
-  }
 
   if (!(file instanceof File) || file.size === 0) {
     return apiBadRequest("Tidak ada file yang disertakan.");
@@ -89,6 +83,19 @@ export async function POST(request: Request) {
 
   if (file.size > MAX_UPLOAD_BYTES) {
     return apiBadRequest("Ukuran file maksimal 5MB.");
+  }
+
+  const rateResult = recordAttempt(
+    rateLimitKey,
+    MAX_UPLOADS_PER_MINUTE,
+    UPLOAD_WINDOW_MS,
+    UPLOAD_WINDOW_MS
+  );
+  if (rateResult.blocked) {
+    return apiRateLimited(
+      "Batas unggah gambar per menit tercapai (maksimal 10 gambar/menit). Silakan tunggu sebentar.",
+      60
+    );
   }
 
   const bytes = await file.arrayBuffer();

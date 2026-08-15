@@ -5,7 +5,6 @@ import {
   IsoDateSchema,
   KegiatanCreateSchema,
   MediaSpaceCreateSchema,
-  PasscodeOnlySchema,
   SanityDocumentIdSchema,
   SlugSchema,
 } from "@/lib/schemas";
@@ -50,14 +49,6 @@ describe("SanityDocumentIdSchema", () => {
   });
 });
 
-describe("PasscodeOnlySchema", () => {
-  it("requires a non-empty passcode", () => {
-    expect(PasscodeOnlySchema.safeParse({ passcode: "rahasia" }).success).toBe(true);
-    expect(PasscodeOnlySchema.safeParse({ passcode: "" }).success).toBe(false);
-    expect(PasscodeOnlySchema.safeParse({}).success).toBe(false);
-  });
-});
-
 describe("ArticleCreateSchema", () => {
   const valid = {
     title: "Judul Artikel",
@@ -65,7 +56,6 @@ describe("ArticleCreateSchema", () => {
     category: "Artikel Islami",
     excerpt: "Ringkasan singkat artikel.",
     content: "<p>Isi artikel</p>",
-    passcode: "Semangat25",
   };
 
   it("accepts a minimal valid payload", () => {

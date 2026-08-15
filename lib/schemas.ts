@@ -34,11 +34,6 @@ const ImageBase64Schema = z
   .string()
   .regex(/^data:image\/(jpeg|jpg|png|webp|gif);base64,[A-Za-z0-9+/=]+$/, "Encoding gambar tidak valid");
 
-// ── Auth ────────────────────────────────────────────────────────
-export const PasscodeOnlySchema = z.object({
-  passcode: z.string().min(1).max(200),
-});
-
 export const ContentType = {
   jpeg: "image/jpeg",
   jpg: "image/jpg",
@@ -49,25 +44,19 @@ export const ContentType = {
 
 export const ALLOWED_IMAGE_MIME_TYPES: string[] = Object.values(ContentType);
 
-// ── Artikel create / patch ──────────────────────────────────────
+// ── Artikel create ──────────────────────────────────────────────
 const ArticleContentShape = {
   title: z.string().min(1).max(200),
   author: z.string().min(1).max(100),
   category: z.enum(["Artikel Islami", "Kajian Islami", "Lainnya"]),
   excerpt: z.string().min(1).max(500),
   content: z.string().min(1).max(500_000),
-  passcode: z.string().min(1).max(200),
   publishedAt: z.string().optional(),
   imageName: z.string().max(200).optional(),
   imageBase64: ImageBase64Schema.optional(),
 };
 
 export const ArticleCreateSchema = z.object(ArticleContentShape);
-
-export const ArticlePatchSchema = z.object({
-  slug: SanityDocumentIdSchema,
-  ...ArticleContentShape,
-});
 
 // ── Admin approve ──────────────────────────────────────────────
 export const ApproveSchema = z.object({
@@ -183,14 +172,8 @@ export const MediaSpaceDeleteQuerySchema = z.object({
 
 export type MediaSpaceCreatePayload = z.infer<typeof MediaSpaceCreateSchema>;
 
-// ── Image upload (metadata only — file body checked server-side) ──
-export const ImageUploadMetaSchema = z.object({
-  passcode: z.string().min(1).max(200).optional(),
-});
-
 // Type helpers so server code can `z.infer<typeof FooSchema>`
 export type ArticleCreatePayload = z.infer<typeof ArticleCreateSchema>;
-export type ArticlePatchPayload = z.infer<typeof ArticlePatchSchema>;
 export type ArticleUpdatePayload = z.infer<typeof ArticleUpdateSchema>;
 export type KegiatanCreatePayload = z.infer<typeof KegiatanCreateSchema>;
 export type KegiatanUpdatePayload = z.infer<typeof KegiatanUpdateSchema>;
