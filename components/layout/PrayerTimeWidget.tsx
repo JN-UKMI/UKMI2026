@@ -1,0 +1,163 @@
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
+import { Clock, Compass, Sun, Sunrise, Sunset, Moon } from "lucide-react";
+import type { PrayerData } from "@/lib/prayer-times";
+import { getNextPrayer } from "@/lib/prayer-times";
+import { PrayerScheduleModal } from "./PrayerScheduleModal";
+
+const PRAYER_ICONS: Record<string, typeof Sun> = {
+  Imsak: Moon,
+  Subuh: Sunrise,
+  Terbit: Sun,
+  Dzuhur: Sun,
+  Ashar: Sun,
+  Maghrib: Sunset,
+  Isya: Moon,
+};
+
+export function PrayerTimeWidget() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [prayerData, setPrayerData] = useState<PrayerData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
+  const [now, setNow] = useState<Date | null>(null);
+
+  // Keep live time updated every minute for widget display
+  useEffect(() => {
+    setNow(new Date());
+    const interval = setInterval(() => {
+      setNow(new Date());
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchTimings = useCallback(async (lat?: number, lng?: number, city?: string) => {
+    setIsLoading(true);
+    try {
+      let url = "/api/jadwal-sholat";
+      const params = new URLSearchParams();
+      if (lat !== undefined && lng !== undefined) {
+        params.set("lat", lat.toString());
+        params.set("lng", lng.toString());
+      }
+      if (city) {
+        params.set("city", city);
+      }
+      if (params.toString()) {
+        url += `?${params.toString()}`;
+      }
+
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok) {
+          setPrayerData(data);
+        }
+      }
+    } catch (err) {
+      console.error("[PrayerTimeWidget] Failed to fetch prayer times:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Initial fetch (default to Surakarta)
+  useEffect(() => {
+    // Check if user previously had saved coords in sessionStorage
+    const savedCoords = sessionStorage.getItem("user_coords");
+    if (savedCoords) {
+      try {
+        const parsed = JSON.parse(savedCoords);
+        if (parsed.lat && parsed.lng) {
+          fetchTimings(parsed.lat, parsed.lng, parsed.city);
+          return;
+        }
+      } catch {}
+    }
+    fetchTimings();
+  }, [fetchTimings]);
+
+  // Handle GPS location detection
+  const handleDetectLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      alert("Geolokasi tidak didukung oleh browser Anda.");
+      return;
+    }
+
+    setIsDetectingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        sessionStorage.setItem(
+          "user_coords",
+          JSON.stringify({ lat, lng, city: "Lokasi Anda" })
+        );
+        await fetchTimings(lat, lng, "Lokasi Anda");
+        setIsDetectingLocation(false);
+      },
+      (err) => {
+        console.warn("Geolocation permission denied or failed:", err);
+        setIsDetectingLocation(false);
+        // Fallback fetch default
+        fetchTimings();
+      },
+      { timeout: 8000, maximumAge: 300000 }
+    );
+  }, [fetchTimings]);
+
+  const timings = prayerData?.timings;
+  const nextPrayer = timings && now ? getNextPrayer(timings, now) : null;
+  const NextIcon = nextPrayer ? PRAYER_ICONS[nextPrayer.name] || Clock : Clock;
+
+  return (
+    <>
+      <motion.button
+        type="button"
+        whileHover={{ y: -1.5, scale: 1.02 }}
+        whileTap={{ scale: 0.96 }}
+        onClick={() => setIsOpen(true)}
+        aria-label="Lihat jadwal sholat lengkap"
+        title="Klik untuk melihat Jadwal Sholat Lengkap"
+        className="inline-flex items-center gap-2 px-2.5 py-1 rounded-xl bg-forest-50/90 dark:bg-forest-950/80 hover:bg-forest-100 dark:hover:bg-forest-900 text-forest-900 dark:text-gray-100 border border-forest-300 dark:border-lime hover:border-forest-600 dark:hover:border-lime dark:hover:shadow-[0_0_12px_rgba(142,205,4,0.25)] transition-all duration-300 shadow-xs hover:shadow-sm cursor-pointer group"
+      >
+        <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-forest-600/10 dark:bg-lime/15 border border-forest-600/20 dark:border-lime/40 text-forest-600 dark:text-lime shrink-0">
+          <NextIcon className="w-3.5 h-3.5" />
+        </div>
+
+        <div className="flex flex-col text-left leading-none gap-0.5">
+          {isLoading || !nextPrayer ? (
+            <>
+              <span className="text-[10px] font-semibold text-gray-500 dark:text-gray-400">
+                Sholat
+              </span>
+              <span className="text-[11px] font-mono font-bold text-forest-600 dark:text-lime">
+                --:--
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="text-[10px] font-bold text-forest-950 dark:text-gray-200 tracking-tight">
+                {nextPrayer.name}
+              </span>
+              <span className="text-[11px] font-mono font-bold text-forest-700 dark:text-lime">
+                {nextPrayer.time}
+              </span>
+            </>
+          )}
+        </div>
+      </motion.button>
+
+      <PrayerScheduleModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        prayerData={prayerData}
+        isLoading={isLoading}
+        onRefreshLocation={handleDetectLocation}
+        isDetectingLocation={isDetectingLocation}
+      />
+    </>
+  );
+}

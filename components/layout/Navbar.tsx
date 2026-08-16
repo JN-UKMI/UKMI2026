@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Menu, X, Mail, Search } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavDropdown } from "./NavDropdown";
 import { MobileMenu } from "./MobileMenu";
@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { PrayerTimeWidget } from "./PrayerTimeWidget";
 
 type NavItem = {
   label: string;
@@ -38,6 +39,7 @@ const NAV_ITEMS: NavItem[] = [
           { label: "Kemuslimahan", href: "/bidang/kemuslimahan" },
         ],
       },
+      { label: "BPO", href: "https://uns.id/BPOIskandarMuda_26", target: "_blank", rel: "noopener noreferrer" },
     ],
   },
   { label: "Artikel", href: "/artikel" },
@@ -50,7 +52,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Buku UKMI", href: "/buku-ukmi" },
       { label: "UKMI Store", href: "/ukmi-store" },
       { label: "Zakat & Infak", href: "https://upz.uns.ac.id/layanan-zakat-infak/", target: "_blank", rel: "noopener noreferrer" },
-      { label: "BPO", href: "https://uns.id/BPOIskandarMuda_26", target: "_blank", rel: "noopener noreferrer" },
+      { label: "Kontak", href: "/kontak" },
     ],
   },
   {
@@ -164,15 +166,7 @@ export function Navbar() {
               <Search className="w-4.5 h-4.5" />
             </motion.button>
             <ThemeToggle />
-            <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.96 }}>
-              <TransitionLink
-                href="/kontak"
-                className="hidden md:inline-flex items-center gap-1.5 bg-forest-600 hover:bg-forest-700 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-forest-600/30 hover:scale-[1.03] cursor-pointer active:scale-95"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>Kontak</span>
-              </TransitionLink>
-            </motion.div>
+            <PrayerTimeWidget />
 
             <motion.button
               whileTap={{ scale: 0.9 }}
