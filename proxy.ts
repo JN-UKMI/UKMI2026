@@ -25,7 +25,7 @@ function buildCsp(nonce: string): string {
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://cdn.sanity.io https://lh3.googleusercontent.com",
     "font-src 'self' data:",
-    "connect-src 'self' https://*.sanity.io https://lh3.googleusercontent.com",
+    "connect-src 'self' https://*.sanity.io https://lh3.googleusercontent.com https://*.supabase.co https://va.vercel-scripts.com https://vitals.vercel-insights.com",
     "frame-src 'self' https://www.google.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",

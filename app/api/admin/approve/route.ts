@@ -69,7 +69,8 @@ export async function POST(request: Request) {
 
     return apiOk("Artikel berhasil disetujui dan dipublikasikan.", { publishedId });
   } catch (err: any) {
-    return apiServerError("Gagal menyetujui artikel: " + (err?.message ?? "unknown"));
+    console.error("[admin/approve POST]", err?.message);
+    return apiServerError("Gagal menyetujui artikel.");
   }
 }
 
@@ -100,6 +101,7 @@ export async function DELETE(request: Request) {
     await writeClient.delete(parsed.data.draftId);
     return apiOk("Artikel draf berhasil dihapus.");
   } catch (err: any) {
-    return apiServerError("Gagal menghapus artikel draf: " + (err?.message ?? "unknown"));
+    console.error("[admin/approve DELETE]", err?.message);
+    return apiServerError("Gagal menghapus artikel draf.");
   }
 }

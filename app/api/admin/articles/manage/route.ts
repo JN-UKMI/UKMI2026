@@ -61,7 +61,8 @@ export async function GET(request: Request) {
     if (!article) return apiNotFound("Artikel tidak ditemukan.");
     return NextResponse.json({ article });
   } catch (err: any) {
-    return apiServerError("Gagal mengambil artikel: " + (err?.message ?? "unknown"));
+    console.error("[admin/articles/manage GET]", err?.message);
+    return apiServerError("Gagal mengambil artikel.");
   }
 }
 
@@ -129,7 +130,8 @@ export async function PUT(request: Request) {
     await writeClient.patch(id).set(patchData).commit();
     return apiOk("Artikel berhasil diperbarui.");
   } catch (err: any) {
-    return apiServerError("Gagal memperbarui artikel: " + (err?.message ?? "unknown"));
+    console.error("[admin/articles/manage PUT]", err?.message);
+    return apiServerError("Gagal memperbarui artikel.");
   }
 }
 
@@ -158,6 +160,7 @@ export async function DELETE(request: Request) {
     await writeClient.delete(parsed.data.id);
     return apiOk("Artikel berhasil dihapus.");
   } catch (err: any) {
-    return apiServerError("Gagal menghapus artikel: " + (err?.message ?? "unknown"));
+    console.error("[admin/articles/manage DELETE]", err?.message);
+    return apiServerError("Gagal menghapus artikel.");
   }
 }

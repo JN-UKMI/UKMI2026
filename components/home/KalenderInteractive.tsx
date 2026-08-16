@@ -11,11 +11,9 @@ import {
   Sparkles,
   Quote,
   CalendarDays,
-  CalendarPlus,
 } from "lucide-react";
 import type { EventItem } from "@/lib/types";
 import { useIsTouchDevice, useIsMobile } from "@/lib/hooks";
-import { downloadIcsEvent } from "@/lib/ics";
 
 interface KalenderInteractiveProps {
   events: EventItem[];
@@ -744,23 +742,6 @@ export function KalenderInteractive({
                               <MapPin className="w-3.5 h-3.5 text-forest-600 dark:text-lime shrink-0" />
                               <span>{event.location}</span>
                             </div>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                downloadIcsEvent({
-                                  title: event.title,
-                                  date: event.date,
-                                  time: event.time,
-                                  location: event.location,
-                                })
-                              }
-                              aria-label={`Tambah ${event.title} ke kalender`}
-                              title="Tambah ke Kalender (.ics)"
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-forest-200 dark:border-forest-700 text-forest-600 dark:text-lime font-bold bg-white dark:bg-gray-800 shadow-xs transition-all duration-300 hover:border-lime hover:bg-lime/10 hover:shadow-sm motion-safe:hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-                            >
-                              <CalendarPlus className="w-3.5 h-3.5 shrink-0" />
-                              <span>Kalender</span>
-                            </button>
                           </div>
                         </motion.div>
                       );

@@ -16,7 +16,7 @@ export function sanitizeArticleContent(input: string): string {
       pre: ["class"],
     },
     allowedSchemes: ["http", "https", "mailto"],
-    allowedSchemesByTag: { img: ["http", "https", "data"] },
+    allowedSchemesByTag: { img: ["http", "https"] },
     transformTags: {
       a: sanitizeHtml.simpleTransform("a", { rel: "noopener noreferrer" }),
     },

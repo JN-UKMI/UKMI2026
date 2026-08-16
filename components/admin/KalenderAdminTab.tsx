@@ -15,6 +15,8 @@ import {
   Clock,
   MapPin,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import type { KalenderEventRow } from "@/lib/supabase";
 
@@ -32,6 +34,13 @@ const MONTH_NAMES = [
   "November",
   "Desember",
 ];
+
+function getCurrentYearMonth(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  return `${year}-${month}`;
+}
 
 function formatMonthYear(yearMonth: string): string {
   const parts = yearMonth.split("-");
@@ -61,9 +70,9 @@ export function KalenderAdminTab() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Search & Filters (Month & Type)
+  // Search & Filters (Single Month & Type)
   const [search, setSearch] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState<string>("ALL");
+  const [selectedMonth, setSelectedMonth] = useState<string>(() => getCurrentYearMonth());
   const [selectedType, setSelectedType] = useState<string>("ALL");
 
   // Form State
@@ -157,6 +166,9 @@ export function KalenderAdminTab() {
       if (!res.ok) throw new Error(json.message || "Gagal menyimpan agenda.");
 
       setSuccess(isEditing ? "Agenda berhasil diperbarui." : "Agenda baru berhasil ditambahkan.");
+      if (date.trim()) {
+        setSelectedMonth(date.trim().substring(0, 7));
+      }
       resetForm();
       fetchEvents();
     } catch (err: any) {
@@ -193,9 +205,16 @@ export function KalenderAdminTab() {
   };
 
   // Group events by YYYY-MM
-  const { groupedEvents, availableMonths, totalFilteredCount } = useMemo(() => {
+  const { groupedEvents, availableMonths } = useMemo(() => {
     const map = new Map<string, KalenderEventRow[]>();
     const monthsSet = new Set<string>();
+
+    // Always include all 12 months of the current year so admin can easily pick any month
+    const currentYear = new Date().getFullYear();
+    for (let m = 1; m <= 12; m++) {
+      monthsSet.add(`${currentYear}-${String(m).padStart(2, "0")}`);
+    }
+    monthsSet.add(getCurrentYearMonth());
 
     const q = search.trim().toLowerCase();
     const filtered = events.filter((ev) => {
@@ -236,14 +255,42 @@ export function KalenderAdminTab() {
     return {
       groupedEvents: map,
       availableMonths: sortedMonths,
-      totalFilteredCount: filtered.length,
     };
   }, [events, search, selectedType]);
 
   const displayedMonths = useMemo(() => {
-    if (selectedMonth === "ALL") return availableMonths;
-    return availableMonths.filter((m) => m === selectedMonth);
-  }, [availableMonths, selectedMonth]);
+    return [selectedMonth];
+  }, [selectedMonth]);
+
+  const goToPrevMonth = () => {
+    const currentIndex = availableMonths.indexOf(selectedMonth);
+    if (currentIndex > 0) {
+      setSelectedMonth(availableMonths[currentIndex - 1]);
+    } else {
+      const parts = selectedMonth.split("-").map(Number);
+      if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+        const prevDate = new Date(parts[0], parts[1] - 2, 1);
+        setSelectedMonth(`${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, "0")}`);
+      }
+    }
+  };
+
+  const goToNextMonth = () => {
+    const currentIndex = availableMonths.indexOf(selectedMonth);
+    if (currentIndex >= 0 && currentIndex < availableMonths.length - 1) {
+      setSelectedMonth(availableMonths[currentIndex + 1]);
+    } else {
+      const parts = selectedMonth.split("-").map(Number);
+      if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+        const nextDate = new Date(parts[0], parts[1], 1);
+        setSelectedMonth(`${nextDate.getFullYear()}-${String(nextDate.getMonth() + 1).padStart(2, "0")}`);
+      }
+    }
+  };
+
+  const goToCurrentMonth = () => {
+    setSelectedMonth(getCurrentYearMonth());
+  };
 
   return (
     <div className="space-y-8">
@@ -498,24 +545,54 @@ export function KalenderAdminTab() {
               )}
             </div>
 
-            {/* Filter Dropdown Bulan */}
-            <div className="relative w-full sm:w-auto">
-              <Calendar className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <select
-                value={selectedMonth}
-                onChange={(e) => setSelectedMonth(e.target.value)}
-                className="w-full sm:w-auto pl-9 pr-8 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-forest-600/40 dark:focus:ring-lime/50 focus:outline-none cursor-pointer font-medium"
+            {/* Filter / Pemilih Bulan Tunggal */}
+            <div className="flex items-center gap-1.5 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={goToPrevMonth}
+                className="p-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors cursor-pointer"
+                title="Bulan Sebelumnya"
               >
-                <option value="ALL">Semua Bulan ({totalFilteredCount})</option>
-                {availableMonths.map((m) => {
-                  const count = groupedEvents.get(m)?.length || 0;
-                  return (
-                    <option key={m} value={m}>
-                      {formatMonthYear(m)} ({count})
-                    </option>
-                  );
-                })}
-              </select>
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              <div className="relative flex-1 sm:flex-initial">
+                <Calendar className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <select
+                  value={selectedMonth}
+                  onChange={(e) => setSelectedMonth(e.target.value)}
+                  className="w-full sm:w-auto pl-9 pr-8 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-forest-600/40 dark:focus:ring-lime/50 focus:outline-none cursor-pointer font-bold"
+                >
+                  {availableMonths.map((m) => {
+                    const count = groupedEvents.get(m)?.length || 0;
+                    return (
+                      <option key={m} value={m}>
+                        {formatMonthYear(m)} {count > 0 ? `(${count})` : ""}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              <button
+                type="button"
+                onClick={goToNextMonth}
+                className="p-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors cursor-pointer"
+                title="Bulan Berikutnya"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              {selectedMonth !== getCurrentYearMonth() && (
+                <button
+                  type="button"
+                  onClick={goToCurrentMonth}
+                  className="px-2.5 py-1.5 bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime hover:bg-forest-100 dark:hover:bg-lime/20 rounded-xl border border-forest-200/60 dark:border-lime/30 text-xs font-bold transition-all cursor-pointer whitespace-nowrap"
+                  title="Kembali ke Bulan Sekarang"
+                >
+                  Bulan Ini
+                </button>
+              )}
             </div>
 
             <button
@@ -570,12 +647,6 @@ export function KalenderAdminTab() {
             <Loader2 className="w-8 h-8 animate-spin text-forest-600 dark:text-lime" />
             <span className="text-xs font-bold">Memuat agenda kalender...</span>
           </div>
-        ) : displayedMonths.length === 0 ? (
-          <div className="py-12 text-center text-gray-400 dark:text-gray-500 text-sm">
-            {search
-              ? "Tidak ada agenda yang cocok dengan kata kunci pencarian."
-              : "Belum ada agenda kalender di database."}
-          </div>
         ) : (
           <div className="space-y-6">
             {displayedMonths.map((yearMonth) => {
@@ -598,100 +669,108 @@ export function KalenderAdminTab() {
                     </span>
                   </div>
 
-                  {/* Table for this month */}
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs sm:text-sm">
-                      <thead className="bg-gray-50/50 dark:bg-gray-800/30 text-gray-400 uppercase text-[10px] sm:text-xs border-b border-gray-100 dark:border-gray-800">
-                        <tr>
-                          <th className="py-2.5 px-3 w-28">Tanggal</th>
-                          <th className="py-2.5 px-3">Judul Agenda</th>
-                          <th className="py-2.5 px-3 w-28">Tipe</th>
-                          <th className="py-2.5 px-3 w-32">Bidang</th>
-                          <th className="py-2.5 px-3">Waktu & Lokasi</th>
-                          <th className="py-2.5 px-3 text-right w-24">Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-100 dark:divide-gray-800/60 font-medium">
-                        {monthEvents.map((ev) => (
-                          <tr
-                            key={ev.id}
-                            className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors"
-                          >
-                            <td className="py-3 px-3 whitespace-nowrap font-bold text-gray-900 dark:text-white">
-                              {ev.date}
-                            </td>
-                            <td className="py-3 px-3 font-semibold text-gray-800 dark:text-gray-200">
-                              <div>{ev.title}</div>
-                              {ev.description && (
-                                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 font-normal line-clamp-1">
-                                  {ev.description}
-                                </p>
-                              )}
-                            </td>
-                            <td className="py-3 px-3 whitespace-nowrap">
-                              <span
-                                className={`px-2.5 py-1 rounded-full text-[11px] font-bold ${
-                                  ev.type === "Puasa Sunnah"
-                                    ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
-                                    : "bg-forest-100 text-forest-800 dark:bg-lime/20 dark:text-lime"
-                                }`}
-                              >
-                                {ev.type}
-                              </span>
-                            </td>
-                            <td className="py-3 px-3 whitespace-nowrap">
-                              {ev.bidang ? (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-forest-50 dark:bg-lime/10 text-forest-800 dark:text-lime rounded-lg text-xs font-bold border border-forest-200/50 dark:border-lime/20">
-                                  <Tag className="w-3 h-3 text-forest-600 dark:text-lime" />
-                                  <span>{ev.bidang}</span>
-                                </span>
-                              ) : (
-                                <span className="text-gray-400 text-xs">-</span>
-                              )}
-                            </td>
-                            <td className="py-3 px-3 text-xs text-gray-500 dark:text-gray-400">
-                              {ev.time && (
-                                <div className="flex items-center gap-1">
-                                  <Clock className="w-3 h-3 text-gray-400 shrink-0" />
-                                  <span>{ev.time}</span>
-                                </div>
-                              )}
-                              {ev.location && (
-                                <div className="flex items-center gap-1 mt-0.5">
-                                  <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
-                                  <span className="truncate max-w-[200px]">{ev.location}</span>
-                                </div>
-                              )}
-                              {!ev.time && !ev.location && <span className="text-gray-400">-</span>}
-                            </td>
-                            <td className="py-3 px-3 text-right whitespace-nowrap">
-                              <div className="flex items-center justify-end gap-1">
-                                <button
-                                  onClick={() => startEdit(ev)}
-                                  className="p-1.5 text-forest-600 hover:bg-forest-50 dark:text-lime dark:hover:bg-lime/10 rounded-lg transition-colors cursor-pointer"
-                                  title="Edit Agenda"
-                                >
-                                  <Edit2 className="w-4 h-4" />
-                                </button>
-                                <button
-                                  onClick={() => handleDelete(ev.id, ev.title)}
-                                  disabled={deletingId === ev.id}
-                                  className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
-                                  title="Hapus Agenda"
-                                >
-                                  {deletingId === ev.id ? (
-                                    <Loader2 className="w-4 h-4 animate-spin" />
-                                  ) : (
-                                    <Trash2 className="w-4 h-4" />
-                                  )}
-                                </button>
-                              </div>
-                            </td>
+                  {monthEvents.length === 0 ? (
+                    <div className="py-12 text-center text-gray-400 dark:text-gray-500 text-sm">
+                      {search
+                        ? "Tidak ada agenda pada bulan ini yang cocok dengan pencarian."
+                        : `Belum ada agenda yang dijadwalkan untuk ${formatMonthYear(yearMonth)}.`}
+                    </div>
+                  ) : (
+                    /* Table for this month */
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs sm:text-sm">
+                        <thead className="bg-gray-50/50 dark:bg-gray-800/30 text-gray-400 uppercase text-[10px] sm:text-xs border-b border-gray-100 dark:border-gray-800">
+                          <tr>
+                            <th className="py-2.5 px-3 w-28">Tanggal</th>
+                            <th className="py-2.5 px-3">Judul Agenda</th>
+                            <th className="py-2.5 px-3 w-28">Tipe</th>
+                            <th className="py-2.5 px-3 w-32">Bidang</th>
+                            <th className="py-2.5 px-3">Waktu & Lokasi</th>
+                            <th className="py-2.5 px-3 text-right w-24">Aksi</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-800/60 font-medium">
+                          {monthEvents.map((ev) => (
+                            <tr
+                              key={ev.id}
+                              className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors"
+                            >
+                              <td className="py-3 px-3 whitespace-nowrap font-bold text-gray-900 dark:text-white">
+                                {ev.date}
+                              </td>
+                              <td className="py-3 px-3 font-semibold text-gray-800 dark:text-gray-200">
+                                <div>{ev.title}</div>
+                                {ev.description && (
+                                  <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 font-normal line-clamp-1">
+                                    {ev.description}
+                                  </p>
+                                )}
+                              </td>
+                              <td className="py-3 px-3 whitespace-nowrap">
+                                <span
+                                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold ${
+                                    ev.type === "Puasa Sunnah"
+                                      ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                                      : "bg-forest-100 text-forest-800 dark:bg-lime/20 dark:text-lime"
+                                  }`}
+                                >
+                                  {ev.type}
+                                </span>
+                              </td>
+                              <td className="py-3 px-3 whitespace-nowrap">
+                                {ev.bidang ? (
+                                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-forest-50 dark:bg-lime/10 text-forest-800 dark:text-lime rounded-lg text-xs font-bold border border-forest-200/50 dark:border-lime/20">
+                                    <Tag className="w-3 h-3 text-forest-600 dark:text-lime" />
+                                    <span>{ev.bidang}</span>
+                                  </span>
+                                ) : (
+                                  <span className="text-gray-400 text-xs">-</span>
+                                )}
+                              </td>
+                              <td className="py-3 px-3 text-xs text-gray-500 dark:text-gray-400">
+                                {ev.time && (
+                                  <div className="flex items-center gap-1">
+                                    <Clock className="w-3 h-3 text-gray-400 shrink-0" />
+                                    <span>{ev.time}</span>
+                                  </div>
+                                )}
+                                {ev.location && (
+                                  <div className="flex items-center gap-1 mt-0.5">
+                                    <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
+                                    <span className="truncate max-w-[200px]">{ev.location}</span>
+                                  </div>
+                                )}
+                                {!ev.time && !ev.location && <span className="text-gray-400">-</span>}
+                              </td>
+                              <td className="py-3 px-3 text-right whitespace-nowrap">
+                                <div className="flex items-center justify-end gap-1">
+                                  <button
+                                    onClick={() => startEdit(ev)}
+                                    className="p-1.5 text-forest-600 hover:bg-forest-50 dark:text-lime dark:hover:bg-lime/10 rounded-lg transition-colors cursor-pointer"
+                                    title="Edit Agenda"
+                                  >
+                                    <Edit2 className="w-4 h-4" />
+                                  </button>
+                                  <button
+                                    onClick={() => handleDelete(ev.id, ev.title)}
+                                    disabled={deletingId === ev.id}
+                                    className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                                    title="Hapus Agenda"
+                                  >
+                                    {deletingId === ev.id ? (
+                                      <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                      <Trash2 className="w-4 h-4" />
+                                    )}
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </div>
               );
             })}

@@ -1,5 +1,11 @@
 /**
  * Rate limiting and client IP extraction utilities for API endpoints.
+ * 
+ * SECURITY NOTE (MEDIUM-2): This uses an in-memory Map. In a serverless 
+ * environment (like Vercel), this state is not shared across instances.
+ * For a student organization site, this provides sufficient baseline protection.
+ * If stricter limits are required in the future, migrate to Upstash Redis
+ * or use Vercel Edge Middleware rate limiting.
  */
 
 export interface RateCheckResult {

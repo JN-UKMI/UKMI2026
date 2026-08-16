@@ -36,12 +36,14 @@ export async function GET() {
       .order("date", { ascending: true });
 
     if (error) {
-      return apiServerError(`Gagal mengambil data kalender: ${error.message}`);
+      console.error("[admin/kalender GET]", error.message);
+      return apiServerError("Gagal mengambil data kalender.");
     }
 
     return apiOk("Data kalender berhasil diambil.", data || []);
   } catch (err: any) {
-    return apiServerError(err?.message || "Terjadi kesalahan internal.");
+    console.error("[admin/kalender GET]", err?.message);
+    return apiServerError("Terjadi kesalahan internal.");
   }
 }
 
@@ -84,12 +86,14 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
-      return apiServerError(`Gagal menambahkan agenda: ${error.message}`);
+      console.error("[admin/kalender POST]", error.message);
+      return apiServerError("Gagal menambahkan agenda.");
     }
 
     return apiOk("Agenda kalender berhasil ditambahkan.", data);
   } catch (err: any) {
-    return apiServerError(err?.message || "Terjadi kesalahan internal.");
+    console.error("[admin/kalender POST]", err?.message);
+    return apiServerError("Terjadi kesalahan internal.");
   }
 }
 
@@ -134,12 +138,14 @@ export async function PUT(req: NextRequest) {
       .single();
 
     if (error) {
-      return apiServerError(`Gagal memperbarui agenda: ${error.message}`);
+      console.error("[admin/kalender PUT]", error.message);
+      return apiServerError("Gagal memperbarui agenda.");
     }
 
     return apiOk("Agenda kalender berhasil diperbarui.", data);
   } catch (err: any) {
-    return apiServerError(err?.message || "Terjadi kesalahan internal.");
+    console.error("[admin/kalender PUT]", err?.message);
+    return apiServerError("Terjadi kesalahan internal.");
   }
 }
 
@@ -171,11 +177,13 @@ export async function DELETE(req: NextRequest) {
       .eq("id", parsed.data.id);
 
     if (error) {
-      return apiServerError(`Gagal menghapus agenda: ${error.message}`);
+      console.error("[admin/kalender DELETE]", error.message);
+      return apiServerError("Gagal menghapus agenda.");
     }
 
     return apiOk("Agenda kalender berhasil dihapus.", null);
   } catch (err: any) {
-    return apiServerError(err?.message || "Terjadi kesalahan internal.");
+    console.error("[admin/kalender DELETE]", err?.message);
+    return apiServerError("Terjadi kesalahan internal.");
   }
 }

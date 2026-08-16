@@ -158,7 +158,8 @@ export async function POST(req: Request) {
       const created = await sanityClient.create(doc);
       return apiOk("Konten Media Space berhasil ditambahkan ke Sanity CMS!", created);
     } catch (err: any) {
-      return apiServerError("Gagal menyimpan ke Sanity: " + (err?.message ?? "unknown"));
+      console.error("[admin/media-space POST]", err?.message);
+      return apiServerError("Gagal menyimpan ke Sanity.");
     }
   }
 
@@ -258,7 +259,8 @@ export async function PUT(req: Request) {
       const updated = await sanityClient.patch(itemId).set(patchData).commit();
       return apiOk("Konten Media Space berhasil diperbarui di Sanity CMS!", updated);
     } catch (err: any) {
-      return apiServerError("Gagal memperbarui: " + (err?.message ?? "unknown"));
+      console.error("[admin/media-space PUT]", err?.message);
+      return apiServerError("Gagal memperbarui konten.");
     }
   }
 
@@ -321,7 +323,8 @@ export async function DELETE(req: Request) {
       await sanityClient.delete(parsed.data.id);
       return apiOk("Konten Media Space berhasil dihapus dari Sanity CMS.");
     } catch (err: any) {
-      return apiServerError("Gagal menghapus dari Sanity: " + (err?.message ?? "unknown"));
+      console.error("[admin/media-space DELETE]", err?.message);
+      return apiServerError("Gagal menghapus dari Sanity.");
     }
   }
 
@@ -410,6 +413,7 @@ export async function PATCH(req: Request) {
       data: reordered,
     });
   } catch (err: any) {
-    return apiServerError("Gagal mengatur urutan Media Space: " + (err?.message ?? "unknown"));
+    console.error("[admin/media-space PATCH]", err?.message);
+    return apiServerError("Gagal mengatur urutan Media Space.");
   }
 }

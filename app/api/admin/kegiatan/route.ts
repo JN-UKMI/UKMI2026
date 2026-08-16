@@ -182,7 +182,8 @@ export async function POST(req: Request) {
       const created = await sanityClient.create(doc);
       return apiOk("Event Terdekat berhasil ditambahkan ke Sanity CMS Cloud!", created);
     } catch (err: any) {
-      return apiServerError("Gagal menyimpan ke Sanity: " + (err?.message ?? "unknown"));
+      console.error("[admin/kegiatan POST]", err?.message);
+      return apiServerError("Gagal menyimpan ke Sanity.");
     }
   }
 
@@ -292,7 +293,8 @@ export async function PUT(req: Request) {
       const updated = await sanityClient.patch(parsed.data.id).set(patchData).commit();
       return apiOk("Event Terdekat berhasil diperbarui di Sanity CMS Cloud!", updated);
     } catch (err: any) {
-      return apiServerError("Gagal memperbarui: " + (err?.message ?? "unknown"));
+      console.error("[admin/kegiatan PUT]", err?.message);
+      return apiServerError("Gagal memperbarui kegiatan.");
     }
   }
 
@@ -348,7 +350,8 @@ export async function DELETE(req: Request) {
       await sanityClient.delete(parsed.data.id);
       return apiOk("Kegiatan berhasil dihapus dari Sanity CMS Cloud.");
     } catch (err: any) {
-      return apiServerError("Gagal menghapus dari Sanity: " + (err?.message ?? "unknown"));
+      console.error("[admin/kegiatan DELETE]", err?.message);
+      return apiServerError("Gagal menghapus dari Sanity.");
     }
   }
 

@@ -133,12 +133,14 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
-      return apiServerError(`Gagal menambahkan admin: ${error.message}`);
+      console.error("[admin/admins POST]", error.message);
+      return apiServerError("Gagal menambahkan admin.");
     }
 
     return apiOk("Admin berhasil ditambahkan.", data);
   } catch (err: any) {
-    return apiServerError(err?.message || "Terjadi kesalahan internal.");
+    console.error("[admin/admins POST]", err?.message);
+    return apiServerError("Terjadi kesalahan internal.");
   }
 }
 
@@ -185,7 +187,10 @@ export async function PUT(req: NextRequest) {
         .select()
         .single();
 
-      if (error) return apiServerError(`Gagal memperbarui admin: ${error.message}`);
+      if (error) {
+        console.error("[admin/admins PUT]", error.message);
+        return apiServerError("Gagal memperbarui admin.");
+      }
       return apiOk("Data admin berhasil diperbarui.", data);
     }
 
@@ -200,12 +205,14 @@ export async function PUT(req: NextRequest) {
       .single();
 
     if (error) {
-      return apiServerError(`Gagal memperbarui admin: ${error.message}`);
+      console.error("[admin/admins PUT]", error.message);
+      return apiServerError("Gagal memperbarui admin.");
     }
 
     return apiOk("Data admin berhasil diperbarui.", data);
   } catch (err: any) {
-    return apiServerError(err?.message || "Terjadi kesalahan internal.");
+    console.error("[admin/admins PUT]", err?.message);
+    return apiServerError("Terjadi kesalahan internal.");
   }
 }
 
@@ -257,11 +264,13 @@ export async function DELETE(req: NextRequest) {
       .eq("id", parsed.data.id);
 
     if (error) {
-      return apiServerError(`Gagal menghapus admin: ${error.message}`);
+      console.error("[admin/admins DELETE]", error.message);
+      return apiServerError("Gagal menghapus admin.");
     }
 
     return apiOk("Akses admin berhasil dicabut.");
   } catch (err: any) {
-    return apiServerError(err?.message || "Terjadi kesalahan internal.");
+    console.error("[admin/admins DELETE]", err?.message);
+    return apiServerError("Terjadi kesalahan internal.");
   }
 }

@@ -25,7 +25,7 @@ export async function GET(
 
     return NextResponse.json(article, { status: 200 });
   } catch (err: any) {
-    console.error("Error fetching article:", err);
-    return apiServerError("Gagal memuat artikel: " + (err?.message ?? "unknown"));
+    console.error("[artikel/slug GET]", err?.message);
+    return apiServerError("Gagal memuat artikel.");
   }
 }
