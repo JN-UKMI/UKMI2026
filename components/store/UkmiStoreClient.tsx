@@ -11,7 +11,6 @@ import {
   ExternalLink,
   MessageCircle,
   FileText,
-  Sparkles,
   Package,
   Droplets,
   Zap,

@@ -172,8 +172,49 @@ export const MediaSpaceDeleteQuerySchema = z.object({
 
 export type MediaSpaceCreatePayload = z.infer<typeof MediaSpaceCreateSchema>;
 
+// ── Kalender UKMI (Supabase) ──────────────────────────────────
+export const KalenderEventCreateSchema = z.object({
+  title: z.string().min(1, "Judul agenda wajib diisi").max(200),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format tanggal harus YYYY-MM-DD"),
+  time: z.string().max(100).optional().or(z.literal("")),
+  location: z.string().max(200).optional().or(z.literal("")),
+  type: z.enum(["Agenda UKMI", "Puasa Sunnah"]).default("Agenda UKMI"),
+  bidang: z.string().max(100).optional().or(z.literal("")),
+  description: z.string().max(1000).optional().or(z.literal("")),
+});
+
+export const KalenderEventUpdateSchema = KalenderEventCreateSchema.extend({
+  id: z.string().min(1).max(100),
+});
+
+export const KalenderEventDeleteSchema = z.object({
+  id: z.string().min(1).max(100),
+});
+
+// ── Admin Emails Allowlist (Supabase) ──────────────────────────
+export const AdminEmailCreateSchema = z.object({
+  email: z.string().email("Format email tidak valid").max(100),
+  name: z.string().max(100).optional().or(z.literal("")),
+});
+
+export const AdminEmailUpdateSchema = z.object({
+  id: z.string().min(1).max(100),
+  email: z.string().email("Format email tidak valid").max(100),
+  name: z.string().max(100).optional().or(z.literal("")),
+});
+
+export const AdminEmailDeleteSchema = z.object({
+  id: z.string().min(1).max(100),
+});
+
 // Type helpers so server code can `z.infer<typeof FooSchema>`
 export type ArticleCreatePayload = z.infer<typeof ArticleCreateSchema>;
 export type ArticleUpdatePayload = z.infer<typeof ArticleUpdateSchema>;
 export type KegiatanCreatePayload = z.infer<typeof KegiatanCreateSchema>;
 export type KegiatanUpdatePayload = z.infer<typeof KegiatanUpdateSchema>;
+export type KalenderEventCreatePayload = z.infer<typeof KalenderEventCreateSchema>;
+export type KalenderEventUpdatePayload = z.infer<typeof KalenderEventUpdateSchema>;
+export type AdminEmailCreatePayload = z.infer<typeof AdminEmailCreateSchema>;
+export type AdminEmailUpdatePayload = z.infer<typeof AdminEmailUpdateSchema>;
+
+

@@ -19,7 +19,7 @@ type NavItem = {
   items?: NavItem[];
 };
 
-const navItems: NavItem[] = [
+const NAV_ITEMS: NavItem[] = [
   { label: "Beranda", href: "/" },
   {
     label: "Tentang",
@@ -143,7 +143,7 @@ export function Navbar() {
 
           {/* TENGAH: Nav links (Absolute Centered) */}
           <div className="hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2 items-center gap-1">
-            {navItems.map((item) =>
+            {NAV_ITEMS.map((item) =>
               item.items ? (
                 <NavDropdown key={item.label} item={item} />
               ) : (
@@ -186,7 +186,7 @@ export function Navbar() {
         </motion.div>
 
         <AnimatePresence>
-          {mobileOpen && <MobileMenu items={navItems} onClose={close} />}
+          {mobileOpen && <MobileMenu items={NAV_ITEMS} onClose={close} />}
         </AnimatePresence>
       </div>
     </motion.nav>

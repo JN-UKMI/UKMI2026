@@ -12,7 +12,6 @@ import { headers } from "next/headers";
 import { getAbsoluteUrl } from "@/lib/seo";
 
 import { SlideIn } from "@/components/ui/SlideIn";
-import { WelcomeModal } from "@/components/home/WelcomeModal";
 
 // Dynamic imports for below-the-fold heavy components (Code Splitting)
 const KalenderSection = dynamicImport(

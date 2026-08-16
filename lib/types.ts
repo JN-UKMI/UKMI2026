@@ -106,11 +106,14 @@ export interface Quote {
 }
 
 export interface EventItem {
+  id?: string;
   title: string;
   date: string;
   time: string;
   location: string;
   type: string;
+  bidang?: string;
+  description?: string;
   isPuasa?: boolean;
 }
 

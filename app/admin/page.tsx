@@ -32,7 +32,11 @@ import {
   ChevronDown,
   Sparkles,
   Star,
+  CalendarDays,
+  KeyRound,
 } from "lucide-react";
+import { KalenderAdminTab } from "@/components/admin/KalenderAdminTab";
+import { AdminsAdminTab } from "@/components/admin/AdminsAdminTab";
 
 interface DraftArticle {
   _id: string;
@@ -135,7 +139,9 @@ function getPageItems(total: number, current: number): (number | "ellipsis")[] {
 
 export default function AdminPage() {
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState<"moderasi" | "terbit" | "kegiatan" | "media">("moderasi");
+  const [activeTab, setActiveTab] = useState<
+    "moderasi" | "terbit" | "kegiatan" | "media" | "kalender" | "admins"
+  >("moderasi");
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
   const [publishedArticles, setPublishedArticles] = useState<DraftArticle[]>([]);
@@ -954,6 +960,28 @@ export default function AdminPage() {
           >
             <GalleryVertical className="w-4 h-4" />
             Media Space ({mediaList.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("kalender")}
+            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+              activeTab === "kalender"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+            }`}
+          >
+            <CalendarDays className="w-4 h-4" />
+            Kalender UKMI
+          </button>
+          <button
+            onClick={() => setActiveTab("admins")}
+            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+              activeTab === "admins"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+            }`}
+          >
+            <KeyRound className="w-4 h-4" />
+            Kelola Admin
           </button>
         </div>
 
@@ -1943,6 +1971,12 @@ export default function AdminPage() {
             </div>
           </div>
         )}
+
+        {/* Tab 5: Kalender UKMI (Supabase) */}
+        {activeTab === "kalender" && <KalenderAdminTab />}
+
+        {/* Tab 6: Kelola Admin (Supabase + ENV) */}
+        {activeTab === "admins" && <AdminsAdminTab />}
 
         {/* Modal: View Full Details (Styled like public article details page) */}
         {selectedArticle && (

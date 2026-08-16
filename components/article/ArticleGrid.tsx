@@ -12,8 +12,6 @@ export interface ArticleGridProps {
 export function ArticleGrid({ articles }: ArticleGridProps) {
   if (articles.length === 0) return null;
 
-  const [first, ...rest] = articles;
-
   return (
     <>
       {/* Mobile — semua card memakai style hero (gambar kiri, teks kanan) */}

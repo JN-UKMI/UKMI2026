@@ -10,6 +10,7 @@ type NavItem = {
   href?: string;
   target?: string;
   rel?: string;
+  onClick?: () => void;
   items?: NavItem[];
 };
 
@@ -44,11 +45,11 @@ export function MobileMenu({
               <MobileSubMenu item={item} onClose={onClose} />
             ) : (
               <MobileLink
-                href={item.href || "#"}
+                href={item.href}
                 label={item.label}
                 target={item.target}
                 rel={item.rel}
-                onClick={onClose}
+                onClick={item.onClick ? () => { item.onClick?.(); onClose(); } : onClose}
               />
             )}
           </motion.div>
@@ -118,11 +119,11 @@ function MobileSubMenu({
                     {sub.items.map((leaf) => (
                       <MobileLink
                         key={leaf.label}
-                        href={leaf.href || "#"}
+                        href={leaf.href}
                         label={leaf.label}
                         target={leaf.target}
                         rel={leaf.rel}
-                        onClick={onClose}
+                        onClick={leaf.onClick ? () => { leaf.onClick?.(); onClose(); } : onClose}
                       />
                     ))}
                   </div>
@@ -130,11 +131,11 @@ function MobileSubMenu({
               ) : (
                 <MobileLink
                   key={sub.label}
-                  href={sub.href || "#"}
+                  href={sub.href}
                   label={sub.label}
                   target={sub.target}
                   rel={sub.rel}
-                  onClick={onClose}
+                  onClick={sub.onClick ? () => { sub.onClick?.(); onClose(); } : onClose}
                 />
               )
             )}
@@ -152,15 +153,27 @@ function MobileLink({
   rel,
   onClick,
 }: {
-  href: string;
+  href?: string;
   label: string;
   target?: string;
   rel?: string;
   onClick?: () => void;
 }) {
+  if (!href && onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className="w-full text-left block px-3.5 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime transition-all rounded-xl cursor-pointer"
+      >
+        {label}
+      </button>
+    );
+  }
+
   return (
     <TransitionLink
-      href={href}
+      href={href || "#"}
       target={target}
       rel={rel}
       className="block px-3.5 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-forest-50 dark:hover:bg-gray-800 hover:text-forest-700 dark:hover:text-lime transition-all rounded-xl cursor-pointer"

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import homeData from "@/content/beranda/main.json";
 import { MagneticButton, Parallax } from "@/components/ui/motion";
@@ -136,7 +136,7 @@ export function HeroSection() {
           </span>
         </motion.h1>
 
-        <motion.div variants={itemVariants} className="mt-10">
+        <motion.div variants={itemVariants} className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <MagneticButton
             as="a"
             href={homeData.universityUrl || "https://uns.ac.id"}

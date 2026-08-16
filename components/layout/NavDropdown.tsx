@@ -17,6 +17,7 @@ type NavItem = {
   href?: string;
   target?: string;
   rel?: string;
+  onClick?: () => void;
   items?: NavItem[];
 };
 
@@ -78,14 +79,24 @@ export function NavDropdown({ item }: { item: NavItem }) {
                 <div className="pt-0.5">
                   {sub.items.map((leaf) => (
                     <DropdownMenuItem key={leaf.label}>
-                      <TransitionLink
-                        href={leaf.href || "#"}
-                        target={leaf.target}
-                        rel={leaf.rel}
-                        className="group/leaf block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
-                      >
-                        {leaf.label}
-                      </TransitionLink>
+                      {leaf.onClick ? (
+                        <button
+                          type="button"
+                          onClick={leaf.onClick}
+                          className="group/leaf block w-full text-left text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 cursor-pointer"
+                        >
+                          {leaf.label}
+                        </button>
+                      ) : (
+                        <TransitionLink
+                          href={leaf.href || "#"}
+                          target={leaf.target}
+                          rel={leaf.rel}
+                          className="group/leaf block w-full text-sm rounded-md pl-[26px] pr-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+                        >
+                          {leaf.label}
+                        </TransitionLink>
+                      )}
                     </DropdownMenuItem>
                   ))}
                 </div>
@@ -93,14 +104,24 @@ export function NavDropdown({ item }: { item: NavItem }) {
             </div>
           ) : (
             <DropdownMenuItem key={sub.label}>
-              <TransitionLink
-                href={sub.href || "#"}
-                target={sub.target}
-                rel={sub.rel}
-                className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
-              >
-                {sub.label}
-              </TransitionLink>
+              {sub.onClick ? (
+                <button
+                  type="button"
+                  onClick={sub.onClick}
+                  className="block w-full text-left text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50 cursor-pointer"
+                >
+                  {sub.label}
+                </button>
+              ) : (
+                <TransitionLink
+                  href={sub.href || "#"}
+                  target={sub.target}
+                  rel={sub.rel}
+                  className="block w-full text-sm rounded-md px-3 py-1.5 font-medium text-gray-700 dark:text-gray-200 border-2 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:scale-95 motion-safe:hover:translate-x-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
+                >
+                  {sub.label}
+                </TransitionLink>
+              )}
             </DropdownMenuItem>
           )
         )}

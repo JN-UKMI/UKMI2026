@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import { getSupabaseAdmin } from "./supabase";
 
 const authSecret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
 if (process.env.NODE_ENV === "production" && !authSecret) {
@@ -9,7 +10,7 @@ if (process.env.NODE_ENV === "production" && !authSecret) {
 /**
  * Parses and returns the list of allowed admin email addresses from process.env.ADMIN_EMAILS.
  */
-export function getAdminEmails(): string[] {
+export function getEnvAdminEmails(): string[] {
   const envEmails = process.env.ADMIN_EMAILS || "";
   return envEmails
     .split(",")
@@ -18,11 +19,47 @@ export function getAdminEmails(): string[] {
 }
 
 /**
- * Checks if a given email is present in the admin allowlist.
+ * Fetches all allowed admin emails from Supabase table + process.env.ADMIN_EMAILS.
+ */
+export async function getAdminEmails(): Promise<string[]> {
+  const envEmails = getEnvAdminEmails();
+
+  try {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from("admin_emails")
+        .select("email");
+
+      if (!error && Array.isArray(data)) {
+        const dbEmails = data
+          .map((row: { email: string }) => row.email?.trim().toLowerCase())
+          .filter(Boolean);
+        return Array.from(new Set([...envEmails, ...dbEmails]));
+      }
+    }
+  } catch {
+    // Fallback gracefully to envEmails if database is not reachable
+  }
+
+  return envEmails;
+}
+
+/**
+ * Checks if a given email is present in the admin allowlist (Async check with Supabase DB + env).
+ */
+export async function isEmailAdminAsync(email?: string | null): Promise<boolean> {
+  if (!email) return false;
+  const allowlist = await getAdminEmails();
+  return allowlist.includes(email.trim().toLowerCase());
+}
+
+/**
+ * Synchronous check against process.env.ADMIN_EMAILS (for quick sync filters).
  */
 export function isEmailAdmin(email?: string | null): boolean {
   if (!email) return false;
-  const allowlist = getAdminEmails();
+  const allowlist = getEnvAdminEmails();
   return allowlist.includes(email.trim().toLowerCase());
 }
 
@@ -45,10 +82,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user?.email) {
-        token.isAdmin = isEmailAdmin(user.email);
-      } else if (token.email) {
-        token.isAdmin = isEmailAdmin(token.email);
+      const emailToCheck = user?.email || token?.email;
+      if (emailToCheck) {
+        token.isAdmin = await isEmailAdminAsync(emailToCheck);
       }
       return token;
     },
@@ -66,7 +102,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
  */
 export async function isAdmin(): Promise<boolean> {
   const session = await auth();
-  return Boolean(session?.user?.email && isEmailAdmin(session.user.email));
+  return Boolean(session?.user?.email && (await isEmailAdminAsync(session.user.email)));
 }
 
 /**
@@ -82,8 +118,9 @@ export async function getCurrentUser() {
  */
 export async function requireAdmin() {
   const user = await getCurrentUser();
-  if (!user || !isEmailAdmin(user.email)) {
+  if (!user || !(await isEmailAdminAsync(user.email))) {
     return null;
   }
   return user;
 }
+

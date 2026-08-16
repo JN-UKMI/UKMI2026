@@ -2,6 +2,7 @@
   "name": "website",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.18.0",
   "scripts": {
     "dev": "NODE_OPTIONS='--max-old-space-size=2048' next dev",
     "build": "next build --webpack",
@@ -16,6 +17,7 @@
     "@base-ui/react": "^1.6.0",
     "@portabletext/react": "^6.2.0",
     "@sanity/image-url": "^2.1.1",
+    "@supabase/supabase-js": "^2.112.3",
     "@tailwindcss/typography": "^0.5.20",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",

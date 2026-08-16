@@ -108,11 +108,21 @@ export function CommandPalette() {
     return () => clearTimeout(t);
   }, [open, loaded]);
 
-  // Lock body scroll saat terbuka.
+  const listRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Lock body & html scroll saat terbuka agar scroll mouse tidak bocor ke background.
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [open]);
 
@@ -136,16 +146,24 @@ export function CommandPalette() {
     return [...pages, ...content];
   }, [entries, query]);
 
-  // Keyboard navigation.
+  // Keyboard navigation & auto-scroll item aktif ke dalam tampilan.
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        setActiveIndex((i) => Math.min(i + 1, results.length - 1));
+        setActiveIndex((i) => {
+          const next = Math.min(i + 1, results.length - 1);
+          itemRefs.current[next]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          return next;
+        });
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
-        setActiveIndex((i) => Math.max(i - 1, 0));
+        setActiveIndex((i) => {
+          const prev = Math.max(i - 1, 0);
+          itemRefs.current[prev]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          return prev;
+        });
       } else if (e.key === "Enter") {
         const item = results[activeIndex];
         if (item) {
@@ -174,11 +192,12 @@ export function CommandPalette() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-[90] flex items-start justify-center px-4 pt-[12vh] bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-[90] flex items-start justify-center px-4 pt-[10vh] pb-6 bg-black/60 backdrop-blur-sm overflow-hidden"
           onClick={() => setOpen(false)}
           role="dialog"
           aria-modal="true"
           aria-label="Pencarian global"
+          data-lenis-prevent="true"
         >
           <motion.div
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
@@ -186,10 +205,11 @@ export function CommandPalette() {
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-xl bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border-2 border-forest-600 dark:border-lime overflow-hidden"
+            className="w-full max-w-xl max-h-[80vh] flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border-2 border-forest-600 dark:border-lime overflow-hidden"
+            data-lenis-prevent="true"
           >
             {/* Input */}
-            <div className="flex items-center gap-3 px-4 border-b border-gray-100 dark:border-gray-800">
+            <div className="flex items-center gap-3 px-4 border-b border-gray-100 dark:border-gray-800 shrink-0">
               <Search className="w-5 h-5 text-gray-400 dark:text-gray-500 shrink-0" />
               <input
                 ref={inputRef}
@@ -207,8 +227,14 @@ export function CommandPalette() {
               </kbd>
             </div>
 
-            {/* Results */}
-            <div className="max-h-[50vh] overflow-y-auto p-2">
+            {/* Results (Isolated scrolling container) */}
+            <div
+              ref={listRef}
+              data-lenis-prevent="true"
+              className="flex-1 overflow-y-auto overscroll-contain p-2 max-h-[55vh]"
+              tabIndex={0}
+              onWheel={(e) => e.stopPropagation()}
+            >
               {results.length === 0 ? (
                 <div className="py-10 text-center">
                   <p className="text-sm font-bold text-gray-500 dark:text-gray-400">
@@ -223,6 +249,9 @@ export function CommandPalette() {
                   return (
                     <button
                       key={isPage ? `p-${item.url}` : `c-${item.type}-${item.title}-${index}`}
+                      ref={(el) => {
+                        itemRefs.current[index] = el;
+                      }}
                       type="button"
                       onClick={() => goTo(item.url)}
                       onMouseEnter={() => setActiveIndex(index)}
@@ -261,7 +290,7 @@ export function CommandPalette() {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between px-4 py-2.5 border-t border-gray-100 dark:border-gray-800 text-[10px] font-bold text-gray-400 dark:text-gray-500">
+            <div className="flex items-center justify-between px-4 py-2.5 border-t border-gray-100 dark:border-gray-800 text-[10px] font-bold text-gray-400 dark:text-gray-500 shrink-0">
               <span>JN UKMI UNS — Cari cepat di seluruh situs</span>
               <span className="flex items-center gap-1">
                 <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-700 rounded">↑↓</kbd>

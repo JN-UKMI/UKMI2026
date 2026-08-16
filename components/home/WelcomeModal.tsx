@@ -29,6 +29,7 @@ export function WelcomeModal() {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate check on mount
     setMounted(true);
 
     try {

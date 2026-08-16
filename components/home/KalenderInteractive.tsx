@@ -32,6 +32,85 @@ const DAYS_OF_WEEK = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
+export function getBidangColor(bidangOrType?: string, isPuasa?: boolean): {
+  dotClass: string;
+  badgeClass: string;
+  label: string;
+} {
+  if (isPuasa || bidangOrType === "Puasa Sunnah") {
+    return {
+      dotClass: "bg-emerald-500 dark:bg-emerald-400",
+      badgeClass: "bg-emerald-700 dark:bg-emerald-800 text-white",
+      label: "Puasa Sunnah",
+    };
+  }
+
+  const key = (bidangOrType || "").trim().toLowerCase();
+
+  if (key.includes("ketum") || key.includes("ketua")) {
+    return {
+      dotClass: "bg-gray-950 dark:bg-white",
+      badgeClass: "bg-gray-950 text-white border border-gray-700 dark:bg-white dark:text-gray-950",
+      label: "Ketum",
+    };
+  }
+  if (key.includes("sekum") || key.includes("sekretaris")) {
+    return {
+      dotClass: "bg-purple-600 dark:bg-purple-400",
+      badgeClass: "bg-purple-700 text-white",
+      label: "Sekum",
+    };
+  }
+  if (key.includes("bendum") || key.includes("bendahara")) {
+    return {
+      dotClass: "bg-rose-500 dark:bg-rose-400",
+      badgeClass: "bg-rose-600 text-white",
+      label: "Bendum",
+    };
+  }
+  if (key.includes("syiar")) {
+    return {
+      dotClass: "bg-lime dark:bg-lime",
+      badgeClass: "bg-lime text-forest-950 dark:bg-lime dark:text-forest-950 font-black",
+      label: "Syiar",
+    };
+  }
+  if (key.includes("internal")) {
+    return {
+      dotClass: "bg-red-700 dark:bg-red-500",
+      badgeClass: "bg-red-700 text-white",
+      label: "Internal",
+    };
+  }
+  if (key.includes("eksternal")) {
+    return {
+      dotClass: "bg-amber-800 dark:bg-amber-500",
+      badgeClass: "bg-amber-800 text-white",
+      label: "Eksternal",
+    };
+  }
+  if (key.includes("media")) {
+    return {
+      dotClass: "bg-cyan-500 dark:bg-cyan-400",
+      badgeClass: "bg-cyan-600 text-white",
+      label: "Media",
+    };
+  }
+  if (key.includes("kemus") || key.includes("muslimah")) {
+    return {
+      dotClass: "bg-pink-500 dark:bg-pink-400",
+      badgeClass: "bg-pink-600 text-white",
+      label: "Kemus",
+    };
+  }
+
+  return {
+    dotClass: "bg-forest-600 dark:bg-lime",
+    badgeClass: "bg-forest-900 dark:bg-forest-700 text-white dark:text-lime",
+    label: bidangOrType || "UKMI",
+  };
+}
+
 export function KalenderInteractive({
   events,
   monthlyQuotes,
@@ -49,9 +128,28 @@ export function KalenderInteractive({
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"all" | "kegiatan" | "puasa">("all");
   const [calendarHeight, setCalendarHeight] = useState(0);
+  const [eventList, setEventList] = useState<EventItem[]>(events);
   const calendarCardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouchDevice = useIsTouchDevice();
+
+  // Fetch latest dynamic events from Supabase API (if available)
+  useEffect(() => {
+    async function loadDynamicEvents() {
+      try {
+        const res = await fetch("/api/kalender");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+            setEventList(json.data);
+          }
+        }
+      } catch {
+        // Keep initial fallback events
+      }
+    }
+    loadDynamicEvents();
+  }, []);
 
   // Track calendar card height so agenda scroll area matches it (desktop only)
   useEffect(() => {
@@ -132,7 +230,7 @@ export function KalenderInteractive({
   };
 
   // Filter events based on active category
-  const filteredEvents = events.filter((e) => {
+  const filteredEvents = eventList.filter((e) => {
     if (activeCategory === "kegiatan") return e.type !== "Puasa Sunnah" && !e.isPuasa;
     if (activeCategory === "puasa") return e.type === "Puasa Sunnah" || e.isPuasa;
     return true;
@@ -191,7 +289,7 @@ export function KalenderInteractive({
             )}
             <span className="relative z-10 inline-flex items-center justify-center gap-1 min-w-0 max-w-full truncate">
               <CalendarDays className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">Semua ({events.length})</span>
+              <span className="truncate">Semua ({eventList.length})</span>
               {!shouldReduceMotion && activeCategory !== "all" && (
                 <span aria-hidden className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-[width] duration-300 motion-reduce:transition-none group-hover/tab:w-full group-focus-visible/tab:w-full" />
               )}
@@ -342,12 +440,16 @@ export function KalenderInteractive({
                   Hari Ini
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-gray-950 border border-gray-700" />
+                  <span className="w-2 h-2 rounded-full bg-gray-950 border border-gray-700 dark:bg-white" />
                   Ketum
                 </span>
                 <span className="flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-purple-600" />
                   Sekum
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-rose-500" />
+                  Bendum
                 </span>
                 <span className="flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-lime dark:bg-lime" />
@@ -362,12 +464,12 @@ export function KalenderInteractive({
                   Eksternal
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-pink-500" />
-                  Kemus
+                  <span className="w-2 h-2 rounded-full bg-cyan-500" />
+                  Media
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-rose-500" />
-                  Bendum
+                  <span className="w-2 h-2 rounded-full bg-pink-500" />
+                  Kemus
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
@@ -468,7 +570,7 @@ export function KalenderInteractive({
                             className={`relative aspect-square flex flex-col items-center justify-center text-xs sm:text-sm font-bold rounded-xl transition-all border-2 cursor-pointer active:scale-95 min-w-[38px] min-h-[38px] shadow-2xs ${
                               isSelected
                                 ? isToday
-                                  ? "bg-forest-600 dark:bg-forest-600 text-white border-2 border-lime dark:border-lime shadow-sm scale-[1.03]"
+                                   ? "bg-forest-600 dark:bg-forest-600 text-white border-2 border-lime dark:border-lime shadow-sm scale-[1.03]"
                                   : "bg-forest-600 dark:bg-forest-600 text-white border-2 border-forest-600 dark:border-lime shadow-sm scale-[1.03]"
                                 : isToday
                                 ? "bg-forest-50/90 dark:bg-forest-950/60 text-forest-800 dark:text-lime border-2 border-forest-600 dark:border-lime font-black shadow-xs"
@@ -487,29 +589,17 @@ export function KalenderInteractive({
                             {hasEvents && (
                               <div className="absolute bottom-1.5 flex items-center justify-center gap-1">
                                 {dayEvents.map((e, idx) => {
-                                  let dotColor = "bg-lime dark:bg-lime";
-                                  if (e.type === "Puasa Sunnah" || e.isPuasa) {
-                                    dotColor = "bg-emerald-500 dark:bg-emerald-400";
-                                  } else if (e.type === "Ketum") {
-                                    dotColor = "bg-gray-950 dark:bg-white";
-                                  } else if (e.type === "Sekum") {
-                                    dotColor = "bg-purple-600 dark:bg-purple-400";
-                                  } else if (e.type === "Syiar") {
-                                    dotColor = "bg-lime dark:bg-lime";
-                                  } else if (e.type === "Internal") {
-                                    dotColor = "bg-red-700 dark:bg-red-500";
-                                  } else if (e.type === "Eksternal") {
-                                    dotColor = "bg-amber-800 dark:bg-amber-500";
-                                  } else if (e.type === "Kemus") {
-                                    dotColor = "bg-pink-500 dark:bg-pink-400";
-                                  } else if (e.type === "Bendum") {
-                                    dotColor = "bg-rose-500 dark:bg-rose-400";
-                                  }
+                                  const colorInfo = getBidangColor(
+                                    e.bidang || e.type,
+                                    e.type === "Puasa Sunnah" || e.isPuasa
+                                  );
 
                                   return (
                                     <span
                                       key={idx}
-                                      className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : dotColor}`}
+                                      className={`w-1.5 h-1.5 rounded-full ${
+                                        isSelected ? "bg-white" : colorInfo.dotClass
+                                      }`}
                                     />
                                   );
                                 })}
@@ -574,9 +664,6 @@ export function KalenderInteractive({
                 const el = e.currentTarget;
                 const atTop = el.scrollTop <= 0;
                 const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-                // If scrolling down and at bottom, let page scroll
-                // If scrolling up and at top, let page scroll
-                // Otherwise, capture the scroll
                 if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) return;
                 e.stopPropagation();
               }}
@@ -614,6 +701,8 @@ export function KalenderInteractive({
                   ) : (
                     displayedEvents.map((event, index) => {
                       const isPuasa = event.type === "Puasa Sunnah" || event.isPuasa;
+                      const bidangInfo = getBidangColor(event.bidang || event.type, isPuasa);
+
                       return (
                         <motion.div
                           whileHover={shouldReduceMotion ? undefined : { y: -2 }}
@@ -627,28 +716,10 @@ export function KalenderInteractive({
                         >
                           <div className="flex items-center justify-between gap-2 mb-2">
                             <span
-                              className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-black rounded-md uppercase tracking-wider ${
-                                isPuasa
-                                  ? "bg-emerald-700 dark:bg-emerald-800 text-white"
-                                  : event.type === "Ketum"
-                                  ? "bg-gray-950 text-white border border-gray-700"
-                                  : event.type === "Sekum"
-                                  ? "bg-purple-700 text-white"
-                                  : event.type === "Syiar"
-                                  ? "bg-lime dark:bg-lime dark:text-forest-950 text-forest-950"
-                                  : event.type === "Internal"
-                                  ? "bg-red-800 text-white"
-                                  : event.type === "Eksternal"
-                                  ? "bg-amber-800 text-white"
-                                  : event.type === "Kemus"
-                                  ? "bg-pink-600 text-white"
-                                  : event.type === "Bendum"
-                                  ? "bg-rose-500 text-white"
-                                  : "bg-forest-900 dark:bg-forest-700 text-white dark:text-lime"
-                              }`}
+                              className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-black rounded-md uppercase tracking-wider ${bidangInfo.badgeClass}`}
                             >
                               {isPuasa ? <Moon className="w-3 h-3" /> : <Sparkles className="w-3 h-3" />}
-                              {event.type}
+                              {event.bidang || event.type}
                             </span>
 
                             <span className="text-[10px] font-black text-gray-500 dark:text-gray-400 font-mono">
