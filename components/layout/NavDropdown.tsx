@@ -17,6 +17,7 @@ type NavItem = {
   href?: string;
   target?: string;
   rel?: string;
+  className?: string;
   onClick?: () => void;
   items?: NavItem[];
 };
@@ -103,7 +104,7 @@ export function NavDropdown({ item }: { item: NavItem }) {
               </div>
             </div>
           ) : (
-            <DropdownMenuItem key={sub.label}>
+            <DropdownMenuItem key={sub.label} className={sub.className}>
               {sub.onClick ? (
                 <button
                   type="button"

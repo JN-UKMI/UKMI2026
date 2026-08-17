@@ -10,6 +10,7 @@ type NavItem = {
   href?: string;
   target?: string;
   rel?: string;
+  className?: string;
   onClick?: () => void;
   items?: NavItem[];
 };
@@ -21,16 +22,33 @@ export function MobileMenu({
   items: NavItem[];
   onClose: () => void;
 }) {
+  // In mobile hamburger drawer: Kontak is always a standalone top-level menu (not inside Layanan)
+  const mobileItems = items.map((item) => {
+    if (item.label === "Layanan" && item.items) {
+      return {
+        ...item,
+        items: item.items.filter((sub) => sub.label !== "Kontak"),
+      };
+    }
+    if (item.label === "Kontak") {
+      return {
+        ...item,
+        className: undefined,
+      };
+    }
+    return item;
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20, transition: { duration: 0.18 } }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="md:hidden absolute top-full left-4 right-4 z-50 mt-2 glass rounded-2xl shadow-2xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20 overflow-hidden p-3"
+      className="min-[920px]:hidden absolute top-full left-4 right-4 z-50 mt-2 glass rounded-2xl shadow-2xl border border-gray-200/90 dark:border-lime/40 dark:ring-1 dark:ring-lime/20 overflow-hidden p-3"
     >
       <div className="flex flex-col gap-1">
-        {items.map((item, index) => (
+        {mobileItems.map((item, index) => (
           <motion.div
             key={item.label}
             initial={{ opacity: 0, x: -14 }}

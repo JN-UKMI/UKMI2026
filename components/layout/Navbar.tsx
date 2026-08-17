@@ -17,6 +17,7 @@ type NavItem = {
   href?: string;
   target?: string;
   rel?: string;
+  className?: string;
   items?: NavItem[];
 };
 
@@ -52,6 +53,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Buku UKMI", href: "/buku-ukmi" },
       { label: "UKMI Store", href: "/ukmi-store" },
       { label: "Zakat & Infak", href: "https://upz.uns.ac.id/layanan-zakat-infak/", target: "_blank", rel: "noopener noreferrer" },
+      { label: "Kontak", href: "/kontak", className: "min-[1050px]:hidden" },
     ],
   },
   {
@@ -62,7 +64,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "LDF", href: "/ldf" },
     ],
   },
-  { label: "Kontak", href: "/kontak" },
+  { label: "Kontak", href: "/kontak", className: "hidden min-[1050px]:flex" },
 ];
 
 function NavLink({ href, label }: { href: string; label: string }) {
@@ -138,24 +140,26 @@ export function Navbar() {
           </TransitionLink>
 
           {/* TENGAH: Nav links (Absolute Centered) */}
-          <div className="hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2 items-center gap-1">
+          <div className="hidden min-[920px]:flex min-[920px]:absolute min-[920px]:left-1/2 min-[920px]:-translate-x-1/2 items-center gap-1">
             {NAV_ITEMS.map((item) =>
               item.items ? (
                 <NavDropdown key={item.label} item={item} />
               ) : (
-                <NavLink key={item.label} href={item.href || "#"} label={item.label} />
+                <div key={item.label} className={item.className}>
+                  <NavLink href={item.href || "#"} label={item.label} />
+                </div>
               )
             )}
           </div>
 
-          {/* KANAN: Search, Theme Toggle & Contact */}
+          {/* KANAN: Search, Theme Toggle & Prayer Time Widget */}
           <div className="flex items-center gap-2 sm:gap-3">
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => window.dispatchEvent(new Event("jnukmi:open-search"))}
               aria-label="Buka pencarian (Ctrl+K)"
               title="Cari (Ctrl+K)"
-              className="p-2 rounded-xl text-gray-700 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors cursor-pointer border border-transparent hover:border-lime/40 hidden sm:inline-flex"
+              className="p-2 rounded-xl text-gray-700 dark:text-gray-300 hover:text-forest-700 dark:hover:text-lime hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors cursor-pointer border border-transparent hover:border-lime/40 hidden min-[1200px]:inline-flex"
             >
               <Search className="w-4.5 h-4.5" />
             </motion.button>
@@ -164,7 +168,7 @@ export function Navbar() {
 
             <motion.button
               whileTap={{ scale: 0.9 }}
-              className="md:hidden p-1.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="min-[920px]:hidden p-1.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle Menu Mobile"
             >

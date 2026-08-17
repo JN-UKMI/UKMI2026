@@ -7,6 +7,7 @@ import {
   MediaSpaceCreateSchema,
   SanityDocumentIdSchema,
   SlugSchema,
+  TitipanSemangatCreateSchema,
 } from "@/lib/schemas";
 
 describe("SlugSchema", () => {
@@ -185,6 +186,36 @@ describe("MediaSpaceCreateSchema", () => {
     ).toBe(false);
     expect(
       MediaSpaceCreateSchema.safeParse({ ...base, instagramUrl: "not-a-url" }).success
+    ).toBe(false);
+  });
+});
+
+describe("TitipanSemangatCreateSchema", () => {
+  it("accepts valid name and message", () => {
+    const valid = {
+      name: "Akhi Fulan",
+      message: "Semangat terus berdakwah dan menebar kebaikan!",
+    };
+    expect(TitipanSemangatCreateSchema.safeParse(valid).success).toBe(true);
+  });
+
+  it("rejects empty name or message", () => {
+    expect(TitipanSemangatCreateSchema.safeParse({ name: "", message: "Semangat!" }).success).toBe(false);
+    expect(TitipanSemangatCreateSchema.safeParse({ name: "Fulan", message: "" }).success).toBe(false);
+  });
+
+  it("rejects overlong name or message", () => {
+    expect(
+      TitipanSemangatCreateSchema.safeParse({
+        name: "a".repeat(81),
+        message: "Semangat!",
+      }).success
+    ).toBe(false);
+    expect(
+      TitipanSemangatCreateSchema.safeParse({
+        name: "Fulan",
+        message: "a".repeat(301),
+      }).success
     ).toBe(false);
   });
 });

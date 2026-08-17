@@ -207,6 +207,12 @@ export const AdminEmailDeleteSchema = z.object({
   id: z.string().min(1).max(100),
 });
 
+// ── Titipan Semangat (Pesan Komunitas) ──────────────────────────
+export const TitipanSemangatCreateSchema = z.object({
+  name: z.string().min(1, "Nama wajib diisi").max(80, "Nama maksimal 80 karakter"),
+  message: z.string().min(2, "Pesan minimal 2 karakter").max(300, "Pesan maksimal 300 karakter"),
+});
+
 // Type helpers so server code can `z.infer<typeof FooSchema>`
 export type ArticleCreatePayload = z.infer<typeof ArticleCreateSchema>;
 export type ArticleUpdatePayload = z.infer<typeof ArticleUpdateSchema>;
@@ -216,5 +222,6 @@ export type KalenderEventCreatePayload = z.infer<typeof KalenderEventCreateSchem
 export type KalenderEventUpdatePayload = z.infer<typeof KalenderEventUpdateSchema>;
 export type AdminEmailCreatePayload = z.infer<typeof AdminEmailCreateSchema>;
 export type AdminEmailUpdatePayload = z.infer<typeof AdminEmailUpdateSchema>;
+export type TitipanSemangatCreatePayload = z.infer<typeof TitipanSemangatCreateSchema>;
 
 
