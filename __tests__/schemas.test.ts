@@ -8,6 +8,8 @@ import {
   SanityDocumentIdSchema,
   SlugSchema,
   TitipanSemangatCreateSchema,
+  TitipanSemangatUpdateSchema,
+  TitipanSemangatDeleteSchema,
 } from "@/lib/schemas";
 
 describe("SlugSchema", () => {
@@ -217,5 +219,51 @@ describe("TitipanSemangatCreateSchema", () => {
         message: "a".repeat(301),
       }).success
     ).toBe(false);
+  });
+});
+
+describe("TitipanSemangatUpdateSchema", () => {
+  it("accepts valid id, name, and message", () => {
+    expect(
+      TitipanSemangatUpdateSchema.safeParse({
+        id: "msg-123",
+        name: "Fulan",
+        message: "Pesan yang diperbarui",
+      }).success
+    ).toBe(true);
+  });
+
+  it("rejects missing id, empty name, or empty message", () => {
+    expect(
+      TitipanSemangatUpdateSchema.safeParse({
+        id: "",
+        name: "Fulan",
+        message: "Semangat!",
+      }).success
+    ).toBe(false);
+    expect(
+      TitipanSemangatUpdateSchema.safeParse({
+        id: "msg-123",
+        name: "",
+        message: "Semangat!",
+      }).success
+    ).toBe(false);
+    expect(
+      TitipanSemangatUpdateSchema.safeParse({
+        id: "msg-123",
+        name: "Fulan",
+        message: "",
+      }).success
+    ).toBe(false);
+  });
+});
+
+describe("TitipanSemangatDeleteSchema", () => {
+  it("accepts valid non-empty id", () => {
+    expect(TitipanSemangatDeleteSchema.safeParse({ id: "msg-123" }).success).toBe(true);
+  });
+
+  it("rejects empty id", () => {
+    expect(TitipanSemangatDeleteSchema.safeParse({ id: "" }).success).toBe(false);
   });
 });

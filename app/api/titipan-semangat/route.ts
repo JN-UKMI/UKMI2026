@@ -56,7 +56,7 @@ async function writeLocalMessages(messages: TitipanSemangatItem[]) {
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const limit = Math.min(Math.max(parseInt(searchParams.get("limit") || "50", 10), 1), 100);
+  const limit = Math.min(Math.max(parseInt(searchParams.get("limit") || "10", 10), 1), 10);
 
   const supabase = getSupabaseAdmin();
   if (supabase) {

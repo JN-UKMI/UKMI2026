@@ -213,6 +213,16 @@ export const TitipanSemangatCreateSchema = z.object({
   message: z.string().min(2, "Pesan minimal 2 karakter").max(300, "Pesan maksimal 300 karakter"),
 });
 
+export const TitipanSemangatUpdateSchema = z.object({
+  id: z.string().min(1, "ID pesan wajib diisi"),
+  name: z.string().min(1, "Nama wajib diisi").max(80, "Nama maksimal 80 karakter"),
+  message: z.string().min(2, "Pesan minimal 2 karakter").max(300, "Pesan maksimal 300 karakter"),
+});
+
+export const TitipanSemangatDeleteSchema = z.object({
+  id: z.string().min(1, "ID pesan wajib diisi"),
+});
+
 // Type helpers so server code can `z.infer<typeof FooSchema>`
 export type ArticleCreatePayload = z.infer<typeof ArticleCreateSchema>;
 export type ArticleUpdatePayload = z.infer<typeof ArticleUpdateSchema>;
@@ -223,5 +233,7 @@ export type KalenderEventUpdatePayload = z.infer<typeof KalenderEventUpdateSchem
 export type AdminEmailCreatePayload = z.infer<typeof AdminEmailCreateSchema>;
 export type AdminEmailUpdatePayload = z.infer<typeof AdminEmailUpdateSchema>;
 export type TitipanSemangatCreatePayload = z.infer<typeof TitipanSemangatCreateSchema>;
+export type TitipanSemangatUpdatePayload = z.infer<typeof TitipanSemangatUpdateSchema>;
+export type TitipanSemangatDeletePayload = z.infer<typeof TitipanSemangatDeleteSchema>;
 
 

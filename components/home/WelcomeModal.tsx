@@ -26,10 +26,13 @@ interface TitipanSemangatItem {
   created_at: string;
 }
 
-const SESSION_KEY = "ukmi_welcome_popup_seen_session_v2";
-const PERMANENT_KEY = "ukmi_welcome_popup_dismissed_permanent";
+const POPUP_LAST_SEEN_KEY = "ukmi_welcome_popup_last_seen_ts";
+const POPUP_DISMISS_UNTIL_KEY = "ukmi_welcome_popup_dismiss_until_ts";
 
-// In-memory tracker across client-side page transitions
+const COOLDOWN_10_MIN_MS = 10 * 60 * 1000; // 10 menit (600.000 ms)
+const DISMISS_1_DAY_MS = 24 * 60 * 60 * 1000; // 1 hari (86.400.000 ms)
+
+// In-memory tracker across client-side page transitions (SPA navigation)
 let hasShownInSessionMemory = false;
 
 function formatMessageDate(dateStr: string): string {
@@ -55,22 +58,21 @@ export function WelcomeModal() {
 
   // Titipan Semangat State
   const [messages, setMessages] = useState<TitipanSemangatItem[]>([]);
-  const [visibleCount, setVisibleCount] = useState(6);
   const [name, setName] = useState("");
   const [messageText, setMessageText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  // Load messages on mount
+  // Load messages on mount (maksimal 10 pesan terbaru)
   useEffect(() => {
     async function loadMessages() {
       try {
-        const res = await fetch("/api/titipan-semangat?limit=50");
+        const res = await fetch("/api/titipan-semangat?limit=10");
         if (res.ok) {
           const data = await res.json();
           if (data.ok && Array.isArray(data.messages)) {
-            setMessages(data.messages);
+            setMessages(data.messages.slice(0, 10));
           }
         }
       } catch (err) {
@@ -84,29 +86,49 @@ export function WelcomeModal() {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate check on mount
     setMounted(true);
 
+    // 1. Jika sudah pernah muncul dalam sesi navigasi ini (berpindah antar halaman), jangan tampilkan lagi
+    if (hasShownInSessionMemory) {
+      return;
+    }
+
     try {
-      const isPermanentDismissed = localStorage.getItem(PERMANENT_KEY) === "true";
-      const isSeenInSession = sessionStorage.getItem(SESSION_KEY) === "true" || hasShownInSessionMemory;
+      const now = Date.now();
 
-      if (!isPermanentDismissed && !isSeenInSession) {
-        hasShownInSessionMemory = true;
-
-        timerRef.current = setTimeout(() => {
-          setIsOpen(true);
-          try {
-            sessionStorage.setItem(SESSION_KEY, "true");
-          } catch {
-            // Ignore
-          }
-        }, 900);
+      // 2. Cek apakah user memilih "Jangan tampilkan hari ini" (jeda 1 hari / 24 jam)
+      const dismissUntilStr = localStorage.getItem(POPUP_DISMISS_UNTIL_KEY);
+      if (dismissUntilStr) {
+        const dismissUntil = parseInt(dismissUntilStr, 10);
+        if (!Number.isNaN(dismissUntil) && now < dismissUntil) {
+          // Masih dalam masa penundaan 1 hari
+          return;
+        }
       }
+
+      // 3. Cek timer lokal 10 menit
+      const lastSeenStr = localStorage.getItem(POPUP_LAST_SEEN_KEY);
+      if (lastSeenStr) {
+        const lastSeen = parseInt(lastSeenStr, 10);
+        if (!Number.isNaN(lastSeen) && now - lastSeen < COOLDOWN_10_MIN_MS) {
+          // Masih dalam masa jeda 10 menit
+          return;
+        }
+      }
+
+      // Tandai sudah muncul untuk sesi ini dan catat timestamp sekarang
+      hasShownInSessionMemory = true;
+      localStorage.setItem(POPUP_LAST_SEEN_KEY, String(now));
+
+      // Tampilkan popup dengan delay singkat untuk transisi halus
+      timerRef.current = setTimeout(() => {
+        setIsOpen(true);
+      }, 450);
     } catch {
-      // Storage access fallback
+      // Fallback jika localStorage tidak dapat diakses
       if (!hasShownInSessionMemory) {
         hasShownInSessionMemory = true;
         timerRef.current = setTimeout(() => {
           setIsOpen(true);
-        }, 900);
+        }, 450);
       }
     }
 
@@ -114,6 +136,25 @@ export function WelcomeModal() {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
+
+  // Lock background body scroll when popup is active
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    };
+  }, [isOpen]);
 
   // Handle escape key
   useEffect(() => {
@@ -129,16 +170,17 @@ export function WelcomeModal() {
   const handleClose = () => {
     setIsOpen(false);
     try {
-      sessionStorage.setItem(SESSION_KEY, "true");
+      localStorage.setItem(POPUP_LAST_SEEN_KEY, String(Date.now()));
     } catch {
       // Ignore
     }
   };
 
-  const handleDismissPermanent = () => {
+  const handleDismiss1Day = () => {
     try {
-      localStorage.setItem(PERMANENT_KEY, "true");
-      sessionStorage.setItem(SESSION_KEY, "true");
+      const now = Date.now();
+      localStorage.setItem(POPUP_DISMISS_UNTIL_KEY, String(now + DISMISS_1_DAY_MS));
+      localStorage.setItem(POPUP_LAST_SEEN_KEY, String(now));
     } catch {
       // Ignore
     }
@@ -199,7 +241,7 @@ export function WelcomeModal() {
         };
 
         startTransition(() => {
-          setMessages((prev) => [newItem, ...prev]);
+          setMessages((prev) => [newItem, ...prev].slice(0, 10));
           setName("");
           setMessageText("");
           setFeedback({ type: "success", text: "Pesanmu berhasil dititipkan! 🌟" });
@@ -227,7 +269,10 @@ export function WelcomeModal() {
   return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[999999] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto pointer-events-auto">
+        <div
+          data-lenis-prevent="true"
+          className="fixed inset-0 z-[999999] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden pointer-events-auto overscroll-contain"
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -245,6 +290,8 @@ export function WelcomeModal() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="wrp-title"
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: 20 }}
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 15 }}
@@ -253,7 +300,7 @@ export function WelcomeModal() {
                 ? { duration: 0.15 }
                 : { type: "spring", stiffness: 350, damping: 28 }
             }
-            className="relative w-full max-w-lg max-h-[90vh] flex flex-col bg-white dark:bg-gray-900 border-2 border-forest-600 dark:border-lime rounded-3xl shadow-2xl overflow-hidden z-10 my-auto text-gray-800 dark:text-gray-100"
+            className="relative w-full max-w-lg max-h-[85vh] sm:max-h-[88vh] flex flex-col bg-white dark:bg-gray-900 border-2 border-forest-600 dark:border-lime rounded-3xl shadow-2xl overflow-hidden z-10 my-auto text-gray-800 dark:text-gray-100 overscroll-contain"
           >
             {/* Close Button */}
             <button
@@ -268,7 +315,7 @@ export function WelcomeModal() {
             {/* Header */}
             <div
               id="wrp-header"
-              className="relative pt-6 sm:pt-8 px-6 sm:px-8 pb-4 text-center border-b border-gray-100 dark:border-gray-800 bg-forest-50/50 dark:bg-gray-900/60"
+              className="relative shrink-0 pt-6 sm:pt-8 px-6 sm:px-8 pb-4 text-center border-b border-gray-100 dark:border-gray-800 bg-forest-50/50 dark:bg-gray-900/60"
             >
               {/* Badge */}
               <div
@@ -294,7 +341,12 @@ export function WelcomeModal() {
             </div>
 
             {/* Body (Scrollable) */}
-            <div id="wrp-body" className="overflow-y-auto p-6 sm:p-8 space-y-6 text-sm">
+            <div
+              id="wrp-body"
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              className="flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8 space-y-6 text-sm touch-pan-y focus:outline-none"
+            >
               <p
                 id="wrp-desc"
                 className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium bg-forest-50/40 dark:bg-gray-800/40 p-3.5 rounded-2xl border border-forest-100 dark:border-gray-800"
@@ -372,7 +424,12 @@ export function WelcomeModal() {
                 </div>
 
                 {/* Messages List */}
-                <div id="wrp-msg-list" className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                <div
+                  id="wrp-msg-list"
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="space-y-2.5 max-h-60 overflow-y-auto pr-1"
+                >
                   {messages.length === 0 ? (
                     <div
                       id="wrp-msg-empty"
@@ -381,7 +438,7 @@ export function WelcomeModal() {
                       Belum ada yang nitip semangat nih — kamu duluan dong! 🌟
                     </div>
                   ) : (
-                    messages.slice(0, visibleCount).map((item) => (
+                    messages.slice(0, 10).map((item) => (
                       <div
                         key={item.id}
                         className="wrp-msg-item p-3 rounded-2xl bg-forest-50/40 dark:bg-gray-800/60 border border-forest-100/80 dark:border-gray-700/60 text-xs space-y-1 transition-all hover:border-lime/60 dark:hover:border-lime/60"
@@ -401,17 +458,6 @@ export function WelcomeModal() {
                     ))
                   )}
                 </div>
-
-                {/* Load More Button */}
-                {visibleCount < messages.length && (
-                  <button
-                    id="wrp-msg-load-more"
-                    onClick={() => setVisibleCount((prev) => prev + 5)}
-                    className="w-full py-1.5 text-center text-xs font-semibold text-forest-700 dark:text-lime hover:underline cursor-pointer transition-all"
-                  >
-                    Tampilkan pesan lainnya ({messages.length - visibleCount} lagi)...
-                  </button>
-                )}
 
                 {/* Divider */}
                 <div id="wrp-msg-divider" className="pt-2 text-center text-xs font-bold text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
@@ -489,7 +535,7 @@ export function WelcomeModal() {
             {/* Footer Actions */}
             <div
               id="wrp-footer"
-              className="p-4 sm:p-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/80 flex flex-col gap-3"
+              className="shrink-0 p-4 sm:p-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/80 flex flex-col gap-3"
             >
               <button
                 id="wrp-btn-explore"
@@ -531,10 +577,10 @@ export function WelcomeModal() {
                 </span>
                 <button
                   id="wrp-btn-dismiss"
-                  onClick={handleDismissPermanent}
+                  onClick={handleDismiss1Day}
                   className="font-medium hover:text-forest-600 dark:hover:text-lime transition-colors underline underline-offset-2 cursor-pointer focus-visible:outline-none"
                 >
-                  Jangan tampilkan lagi
+                  Jangan tampilkan lagi hari ini
                 </button>
               </div>
             </div>

@@ -34,9 +34,11 @@ import {
   Star,
   CalendarDays,
   KeyRound,
+  MessageSquareHeart,
 } from "lucide-react";
 import { KalenderAdminTab } from "@/components/admin/KalenderAdminTab";
 import { AdminsAdminTab } from "@/components/admin/AdminsAdminTab";
+import { TitipanSemangatAdminTab } from "@/components/admin/TitipanSemangatAdminTab";
 
 interface DraftArticle {
   _id: string;
@@ -140,7 +142,7 @@ function getPageItems(total: number, current: number): (number | "ellipsis")[] {
 export default function AdminPage() {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<
-    "moderasi" | "terbit" | "kegiatan" | "media" | "kalender" | "admins"
+    "moderasi" | "terbit" | "kegiatan" | "media" | "kalender" | "admins" | "titipan"
   >("moderasi");
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
@@ -982,6 +984,17 @@ export default function AdminPage() {
           >
             <KeyRound className="w-4 h-4" />
             Kelola Admin
+          </button>
+          <button
+            onClick={() => setActiveTab("titipan")}
+            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+              activeTab === "titipan"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+            }`}
+          >
+            <MessageSquareHeart className="w-4 h-4" />
+            Titipan Semangat
           </button>
         </div>
 
@@ -1977,6 +1990,9 @@ export default function AdminPage() {
 
         {/* Tab 6: Kelola Admin (Supabase + ENV) */}
         {activeTab === "admins" && <AdminsAdminTab />}
+
+        {/* Tab 7: Titipan Semangat (Supabase + Local) */}
+        {activeTab === "titipan" && <TitipanSemangatAdminTab />}
 
         {/* Modal: View Full Details (Styled like public article details page) */}
         {selectedArticle && (
