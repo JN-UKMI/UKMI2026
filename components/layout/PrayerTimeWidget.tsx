@@ -121,28 +121,28 @@ export function PrayerTimeWidget() {
         onClick={() => setIsOpen(true)}
         aria-label="Lihat jadwal sholat lengkap"
         title="Klik untuk melihat Jadwal Sholat Lengkap"
-        className="inline-flex items-center gap-2 px-2.5 py-1 rounded-xl bg-forest-50/90 dark:bg-forest-950/80 hover:bg-forest-100 dark:hover:bg-forest-900 text-forest-900 dark:text-gray-100 border border-forest-300 dark:border-lime hover:border-forest-600 dark:hover:border-lime dark:hover:shadow-[0_0_12px_rgba(142,205,4,0.25)] transition-all duration-300 shadow-xs hover:shadow-sm cursor-pointer group"
+        className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-transparent hover:bg-forest-50/80 dark:hover:bg-forest-950/60 text-forest-900 dark:text-gray-100 border border-gray-300/80 dark:border-lime/40 hover:border-forest-600 dark:hover:border-lime transition-all duration-200 cursor-pointer group"
       >
-        <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-forest-600/10 dark:bg-lime/15 border border-forest-600/20 dark:border-lime/40 text-forest-600 dark:text-lime shrink-0">
+        <div className="flex items-center justify-center w-6 h-6 rounded-md bg-forest-600/10 dark:bg-lime/10 border border-forest-600/20 dark:border-lime/30 text-forest-600 dark:text-lime shrink-0 group-hover:border-lime/60 transition-colors">
           <NextIcon className="w-3.5 h-3.5" />
         </div>
 
         <div className="flex flex-col text-left leading-none gap-0.5">
           {isLoading || !nextPrayer ? (
             <>
-              <span className="text-[10px] font-semibold text-gray-500 dark:text-gray-400">
-                Sholat
+              <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                SHOLAT
               </span>
-              <span className="text-[11px] font-mono font-bold text-forest-600 dark:text-lime">
+              <span className="text-xs font-mono font-black text-forest-600 dark:text-lime">
                 --:--
               </span>
             </>
           ) : (
             <>
-              <span className="text-[10px] font-bold text-forest-950 dark:text-gray-200 tracking-tight">
+              <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400 group-hover:text-forest-600 dark:group-hover:text-lime transition-colors">
                 {nextPrayer.name}
               </span>
-              <span className="text-[11px] font-mono font-bold text-forest-700 dark:text-lime">
+              <span className="text-xs font-mono font-black text-forest-950 dark:text-lime tracking-tight">
                 {nextPrayer.time}
               </span>
             </>

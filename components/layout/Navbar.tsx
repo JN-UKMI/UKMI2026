@@ -52,7 +52,6 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Buku UKMI", href: "/buku-ukmi" },
       { label: "UKMI Store", href: "/ukmi-store" },
       { label: "Zakat & Infak", href: "https://upz.uns.ac.id/layanan-zakat-infak/", target: "_blank", rel: "noopener noreferrer" },
-      { label: "Kontak", href: "/kontak" },
     ],
   },
   {
@@ -63,6 +62,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "LDF", href: "/ldf" },
     ],
   },
+  { label: "Kontak", href: "/kontak" },
 ];
 
 function NavLink({ href, label }: { href: string; label: string }) {
@@ -72,21 +72,15 @@ function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <TransitionLink
       href={href}
-      className={`relative px-3.5 py-1.5 text-sm transition-colors duration-200 rounded-lg cursor-pointer flex items-center justify-center font-semibold group
+      className={`group flex items-center justify-center px-3.5 py-1.5 text-sm transition-all duration-150 rounded-lg border-2 active:scale-95 cursor-pointer font-semibold
         ${
           isActive
-            ? "bg-forest-600 text-white font-bold shadow-md"
-            : "text-gray-700 dark:text-gray-200 hover:text-forest-700 dark:hover:text-lime"
+            ? "bg-forest-600 dark:bg-forest-600 text-white font-bold border-forest-600 dark:border-forest-500 shadow-md"
+            : "text-gray-700 dark:text-gray-200 border-transparent hover:border-forest-600/80 hover:bg-forest-50/50 dark:hover:bg-gray-800 active:bg-forest-200/50 active:border-forest-700/60"
         }
       `}
     >
-      <span className="relative">
-        {label}
-        {/* Underline reveal saat hover (non-aktif) */}
-        {!isActive && (
-          <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-forest-600 dark:bg-lime transition-all duration-300 group-hover:w-full" />
-        )}
-      </span>
+      <span>{label}</span>
     </TransitionLink>
   );
 }
