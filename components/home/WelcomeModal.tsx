@@ -5,9 +5,9 @@ import { createPortal } from "react-dom";
 import {
   X,
   Music,
-  Flame,
-  HandHeart,
-  BookOpen,
+  Compass,
+  Heart,
+  Sprout,
   Sun,
   Share2,
   Check,
@@ -189,8 +189,8 @@ export function WelcomeModal() {
 
   const handleShare = async () => {
     const shareData = {
-      title: "Tentang Masa Terang Milikmu — JN UKMI UNS",
-      text: "Tetap teguh di jalan kebaikan gaes! Warisan akal budi gemilang ✨",
+      title: "Ada yang Hilang, Dariku Belakangan — JN UKMI UNS",
+      text: "Yuk, cari lagi yang bikin hati kembali tenang. Bersama JN UKMI UNS 🍃✨",
       url: "https://jnukmi.com",
     };
 
@@ -323,20 +323,20 @@ export function WelcomeModal() {
                 className="inline-flex items-center gap-1.5 px-3 py-1 bg-forest-600 dark:bg-lime text-white dark:text-forest-950 rounded-full text-xs font-bold shadow-sm mb-3"
               >
                 <Music className="w-3.5 h-3.5" />
-                <span>Perunggu • Gemilang</span>
+                <span>Teh Hijau • Tulus</span>
               </div>
 
               <h2
                 id="wrp-title"
                 className="text-xl sm:text-2xl font-black text-forest-900 dark:text-lime leading-snug tracking-tight"
               >
-                Tentang Masa Terang<br />Milikmu, Gaes! ✨
+                Ada yang Hilang,<br />Dariku Belakangan 🍃
               </h2>
               <p
                 id="wrp-header-sub"
-                className="text-xs sm:text-sm font-medium text-forest-700/80 dark:text-gray-400 mt-1"
+                className="text-xs sm:text-sm font-medium text-forest-700/80 dark:text-gray-400 mt-1 italic"
               >
-                seperti lagu Gemilang — <em className="italic">kebul jalan kuterjang</em>
+                &ldquo;Ada yang hilang, dariku belakangan.&rdquo;
               </p>
             </div>
 
@@ -345,63 +345,64 @@ export function WelcomeModal() {
               id="wrp-body"
               data-lenis-prevent="true"
               onWheel={(e) => e.stopPropagation()}
-              className="flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8 space-y-6 text-sm touch-pan-y focus:outline-none"
+              className="flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8 space-y-5 text-sm touch-pan-y focus:outline-none"
             >
-              <p
+              {/* Intro Reflection */}
+              <div
                 id="wrp-desc"
-                className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium bg-forest-50/40 dark:bg-gray-800/40 p-3.5 rounded-2xl border border-forest-100 dark:border-gray-800"
+                className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium bg-forest-50/40 dark:bg-gray-800/40 p-4 rounded-2xl border border-forest-100 dark:border-gray-800 space-y-2"
               >
-                Kayak lirik Perunggu — <em className="italic">“terjilat matahari timur yang kejam, sengat melekat di bahuku”</em> — tapi kamu tetep nerjang gaes. Itu bukan lemah, itu <strong className="text-forest-800 dark:text-lime font-black">gemilang</strong>. Dan Allah liat semua usahamu. 🌟
-              </p>
+                <p>
+                  Mungkin bukan waktumu. Bukan juga semangatmu. Tapi bisa jadi… <strong className="text-forest-900 dark:text-lime font-bold italic">arahmu.</strong>
+                </p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs">
+                  Belakangan ini kuliah jalan, tugas jalan, organisasi jalan—tapi hati kok rasanya <em className="italic text-forest-800 dark:text-gray-200">nggak ikut sampai tujuan?</em>
+                </p>
+              </div>
 
               {/* Feature Cards Grid */}
               <div id="wrp-features" className="space-y-3">
-                {/* Feat 1 */}
+                {/* Feat 1: Waktu Kembali */}
                 <div className="wrp-feat flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
                   <div className="wrp-feat-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
-                    <Flame className="w-4 h-4" />
+                    <Sprout className="w-4 h-4" />
                   </div>
                   <div className="wrp-feat-text text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Kepala Batu itu Berkah lho!</strong>
-                    <span className="wrp-lyric italic text-forest-700/80 dark:text-lime/90 text-xs block mb-1">“Karena ini yang kumau, berkah kepala yang batu”</span>
-                    Teguh di jalan kebaikan? That’s literally azimah — sunnah banget, no cap! 💪
+                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Tenang, gaes. 🌱</strong>
+                    Kadang yang hilang bukan sesuatu yang harus dicari jauh-jauh, melainkan <span className="font-semibold text-forest-800 dark:text-lime">waktu untuk kembali dekat kepada Allah.</span>
                   </div>
                 </div>
 
-                {/* Feat 2 */}
+                {/* Feat 2: Arah Pulang */}
                 <div className="wrp-feat flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
                   <div className="wrp-feat-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
-                    <HandHeart className="w-4 h-4" />
+                    <Compass className="w-4 h-4" />
                   </div>
                   <div className="wrp-feat-text text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Doa Mereka di Setiap Malammu!</strong>
-                    <span className="wrp-lyric italic text-forest-700/80 dark:text-lime/90 text-xs block mb-1">“Tertulis jelas namamu, di setiap harap malammu”</span>
-                    Orang tuamu nyebut namamu tiap malam gaes — itu bahan bakar yang paling W! 🤲
+                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Jangan Kehilangan Arah Pulang 🤍</strong>
+                    Sebab di tengah sibuknya dunia, jangan sampai kita lupa tujuan hakiki dan kehilangan arah pulang kepada-Nya.
                   </div>
                 </div>
 
-                {/* Feat 3 */}
+                {/* Feat 3: Lingkungan yang Mengingatkan */}
                 <div className="wrp-feat flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
                   <div className="wrp-feat-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
-                    <BookOpen className="w-4 h-4" />
+                    <Sparkles className="w-4 h-4" />
                   </div>
                   <div className="wrp-feat-text text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Tinggalkan Sesuatu yang Nyata!</strong>
-                    <span className="wrp-lyric italic text-forest-700/80 dark:text-lime/90 text-xs block mb-1">“Warisan akal budi gemilang”</span>
-                    Bukan follower atau views yang dikenang — tapi ilmu yang bermanfaat &amp; akhlak yang baik. Real legacy! 📚
+                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Temukan Ruang Bertumbuh ✨</strong>
+                    Mungkin yang kamu cari bukan kegiatan baru, melainkan <span className="font-semibold text-forest-800 dark:text-lime">lingkungan yang senantiasa mengingatkanmu kepada-Nya.</span>
                   </div>
                 </div>
 
-                {/* Feat 4 */}
-                <div className="wrp-feat flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
-                  <div className="wrp-feat-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
-                    <Sun className="w-4 h-4" />
-                  </div>
-                  <div className="wrp-feat-text text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Pelan-Pelan, Pasti Sampai!</strong>
-                    <span className="wrp-lyric italic text-forest-700/80 dark:text-lime/90 text-xs block mb-1">“Pelan pasti ku kabulkan segala catatan harapmu”</span>
-                    Jalan kamu mungkin belum selesai, tapi arah kamu udah bener gaes. Keep going! ☀️
-                  </div>
+                {/* Feat 4: Call to Action */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-forest-50 to-emerald-50/60 dark:from-forest-950/60 dark:to-gray-800/80 border border-forest-200/80 dark:border-lime/30 text-center space-y-1">
+                  <p className="text-xs sm:text-sm font-bold text-forest-950 dark:text-lime">
+                    Ada yang hilang belakangan?
+                  </p>
+                  <p className="text-xs text-forest-700/90 dark:text-gray-300 font-medium">
+                    Yuk, cari lagi yang bikin hati kembali tenang. 🍃
+                  </p>
                 </div>
               </div>
 
@@ -550,7 +551,7 @@ export function WelcomeModal() {
                 ) : (
                   <>
                     <Share2 className="w-4 h-4" />
-                    <span>Bagikan Semangat ke Squad! ✊</span>
+                    <span>Bagikan Pesan Ini ke Temanmu! 🍃</span>
                   </>
                 )}
               </button>
@@ -568,7 +569,7 @@ export function WelcomeModal() {
                 >
                   jnukmi.com
                 </a>{" "}
-                lalu bagikan ke Story atau WA squad kamu!
+                lalu bagikan ke Story atau teman-temanmu!
               </div>
 
               <div className="flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400 px-1">
