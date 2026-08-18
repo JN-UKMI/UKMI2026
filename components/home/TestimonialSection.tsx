@@ -116,7 +116,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   );
 }
 
-/** Reusable testimonial card — used by both carousel (mobile) and grid (desktop) */
+/** Reusable testimonial card - used by both carousel (mobile) and grid (desktop) */
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
     <div className="group relative bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">

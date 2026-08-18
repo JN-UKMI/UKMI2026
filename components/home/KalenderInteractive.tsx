@@ -181,7 +181,7 @@ export function KalenderInteractive({
   const isMinMonth = year === 2026 && month === 0;
   const isMaxMonth = year === 2026 && month === 11;
 
-  // First day index (0 = Sunday, 1 = Monday) — week starts on Sunday
+  // First day index (0 = Sunday, 1 = Monday) - week starts on Sunday
   const firstDayIndex = new Date(year, month, 1).getDay();
   const startOffset = firstDayIndex; // 0=Min, 1=Sen, dst
 
@@ -265,7 +265,7 @@ export function KalenderInteractive({
       {/* 1. TOP HEADER CONTROLLER: SEGMENTED PILL FILTER & TODAY BUTTON */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         
-        {/* Left: Filter Segmented Control — TentangTabs style */}
+        {/* Left: Filter Segmented Control - TentangTabs style */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl p-1 sm:p-1.5 shadow-sm border-2 border-forest-600 dark:border-lime hover:border-lime dark:hover:border-lime flex flex-nowrap gap-1 w-full sm:w-auto relative transition-all duration-300 overflow-hidden min-w-0">
           <button
             onClick={() => {
@@ -381,10 +381,10 @@ export function KalenderInteractive({
         </div>
       </div>
 
-      {/* 2. MAIN GRID: items-stretch — kiri menentukan tinggi, kanan menyesuaikan */}
+      {/* 2. MAIN GRID: items-stretch - kiri menentukan tinggi, kanan menyesuaikan */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch w-full">
 
-        {/* KIRI: GRID KALENDER — tinggi alami, tidak diubah */}
+        {/* KIRI: GRID KALENDER - tinggi alami, tidak diubah */}
         <div className="lg:col-span-7">
           <div
             ref={calendarCardRef}
@@ -623,7 +623,7 @@ export function KalenderInteractive({
                         “{currentQuote.text}”
                       </p>
                       <span className="text-[11px] font-bold text-lime block mt-2 tracking-wide">
-                        — {currentQuote.source}
+                        - {currentQuote.source}
                       </span>
                     </div>
                   </div>
@@ -633,7 +633,7 @@ export function KalenderInteractive({
           </div>
         </div>
 
-        {/* KANAN: AGENDA CARD — ukuran natural, scroll internal */}
+        {/* KANAN: AGENDA CARD - ukuran natural, scroll internal */}
         <div className="lg:col-span-5">
           <div
             className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime shadow-sm p-6 md:p-7 flex flex-col transition-colors"
@@ -651,7 +651,7 @@ export function KalenderInteractive({
               </div>
             </div>
 
-            {/* Agenda Cards — scrollable container with wheel capture */}
+            {/* Agenda Cards - scrollable container with wheel capture */}
             <div
               role="region"
               aria-label="Daftar agenda kegiatan bulan ini"

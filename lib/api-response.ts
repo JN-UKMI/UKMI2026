@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
  *
  *   { "ok": true|false, "message": string, "data": any?, "code": string? }
  *
- * - `ok`     — true for 2xx, false for 4xx/5xx (consumes / retry logic can switch on it)
- * - `message`— Indonesian human-readable message (kept consistent with old wire so callers don't break)
- * - `data`   — optional payload for success/envelope
- * - `code`   — optional machine-readable error code (e.g. "AUTH_REQUIRED", "RATE_LIMITED")
+ * - `ok`     - true for 2xx, false for 4xx/5xx (consumes / retry logic can switch on it)
+ * - `message`- Indonesian human-readable message (kept consistent with old wire so callers don't break)
+ * - `data`   - optional payload for success/envelope
+ * - `code`   - optional machine-readable error code (e.g. "AUTH_REQUIRED", "RATE_LIMITED")
  */
 export function apiResponse<T = unknown>(
   status: number,
@@ -22,7 +22,7 @@ export function apiResponse<T = unknown>(
   );
 }
 
-// Convenience helpers — drop boilerplate at the call site.
+// Convenience helpers - drop boilerplate at the call site.
 export const apiOk = <T = unknown>(
   message: string,
   data?: T,

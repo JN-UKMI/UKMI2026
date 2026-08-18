@@ -73,7 +73,7 @@ function extFromMime(mime: string): string {
 // (because the caller treats `undefined`/empty as legitimate), `true` if the
 // file is valid (correct MIME + ≤ 5MB), and `false` if the file is present but
 // invalid. Callers should reject on `false`.
-const MAX_POSTER_BYTES = 2 * 1024 * 1024; // 2MB — sinkron dengan penjelasan & validasi client di form admin
+const MAX_POSTER_BYTES = 2 * 1024 * 1024; // 2MB - sinkron dengan penjelasan & validasi client di form admin
 function validatePosterFile(value: FormDataEntryValue | null): boolean {
   if (!(value instanceof File) || value.size === 0) return true;
   if (!ALLOWED_IMAGE_MIME_TYPES.includes(value.type)) return false;
@@ -97,7 +97,7 @@ function sanitizeLocalEvent(input: KegiatanCreatePayload): KegiatanCreatePayload
   };
 }
 
-// ── GET: Fetch all active events (admin or passcode gated? — read-only public) ──
+// ── GET: Fetch all active events (admin or passcode gated? - read-only public) ──
 export async function GET() {
   const sanityEvents = await getKegiatanSeruFromSanity();
   if (sanityEvents.length > 0) {
@@ -134,7 +134,7 @@ export async function POST(req: Request) {
       "Validasi gagal: " + parsed.error.issues.map((i) => i.message).join("; ")
     );
   }
-  // parsed.data (from KegiatanCreateSchema) is already KegiatanCreatePayload —
+  // parsed.data (from KegiatanCreateSchema) is already KegiatanCreatePayload -
   // no `id` to strip. Pass straight through to the sanitizer.
   const clean = sanitizeLocalEvent(parsed.data);
 

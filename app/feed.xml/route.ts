@@ -17,7 +17,7 @@ export async function GET() {
   try {
     articles = await getArticles();
   } catch {
-    // Sanity tidak tersedia — feed kosong.
+    // Sanity tidak tersedia - feed kosong.
   }
 
   const items = articles
@@ -42,7 +42,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${escapeXml(siteConfig.name)} — Artikel</title>
+    <title>${escapeXml(siteConfig.name)} - Artikel</title>
     <link>${BASE_URL}</link>
     <description>${escapeXml(siteConfig.description)}</description>
     <language>id-id</language>

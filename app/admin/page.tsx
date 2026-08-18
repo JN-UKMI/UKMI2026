@@ -120,7 +120,7 @@ function resolveCoverUrl(coverImage: any): string {
   return "/placeholder.png";
 }
 
-/** Compact page list — halaman tepi (1 & terakhir) + sekitar halaman aktif,
+/** Compact page list - halaman tepi (1 & terakhir) + sekitar halaman aktif,
  *  sisanya diganti ellipsis. Contoh: 1 … 4 5 6 … 12 (pola pagination artikel). */
 function getPageItems(total: number, current: number): (number | "ellipsis")[] {
   if (total <= 7) {
@@ -300,7 +300,7 @@ export default function AdminPage() {
 
   // ── Poster upload (drag & drop / klik) ────────────────────────────
   const validatePosterFile = (file: File): string | null => {
-    // Sama dengan daftar MIME di server (ALLOWED_IMAGE_MIME_TYPES) — drag & drop
+    // Sama dengan daftar MIME di server (ALLOWED_IMAGE_MIME_TYPES) - drag & drop
     // melewati atribut accept, jadi validasi di sini harus tegas.
     if (!ALLOWED_POSTER_TYPES.includes(file.type)) {
       return "Format file tidak didukung. Gunakan JPG, PNG, WEBP, atau GIF.";
@@ -1086,7 +1086,7 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  {/* Action bar — TERPISAH di luar card isi */}
+                  {/* Action bar - TERPISAH di luar card isi */}
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-950/40 px-5 md:px-6 py-3.5">
                     <TransitionLink
                       href={`/admin/artikel/${encodeURIComponent(draft._id)}/edit`}
@@ -1145,10 +1145,10 @@ export default function AdminPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 items-stretch">
                     {currentArticles.map((article) => (
                       <div key={article._id} className="flex flex-col gap-3">
-                        {/* Card artikel (thumbnail + info) — tanpa tombol */}
+                        {/* Card artikel (thumbnail + info) - tanpa tombol */}
                         <ArticleCard article={article} />
 
-                        {/* Action bar — TERPISAH di luar card artikel */}
+                        {/* Action bar - TERPISAH di luar card artikel */}
                         <div className="flex items-center gap-2 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-2.5 shadow-sm">
                           <TransitionLink
                             href={`/admin/artikel/${encodeURIComponent(article._id)}/edit`}
@@ -1172,7 +1172,7 @@ export default function AdminPage() {
                     ))}
                   </div>
 
-                  {/* Pagination Controls — 1 baris: prev | nomor (compact) | next */}
+                  {/* Pagination Controls - 1 baris: prev | nomor (compact) | next */}
                   {totalPages > 1 && (
                     <div className="space-y-3 pt-6 border-t border-gray-100 dark:border-gray-800">
                       <p className="text-center text-xs text-gray-500 dark:text-gray-400 font-medium">
@@ -1180,7 +1180,7 @@ export default function AdminPage() {
                       </p>
 
                       <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-                        {/* Prev — outline dulu, fill slide dari kiri saat hover */}
+                        {/* Prev - outline dulu, fill slide dari kiri saat hover */}
                         <button
                           type="button"
                           onClick={() => setPublishedPage((prev) => Math.max(1, prev - 1))}
@@ -1210,7 +1210,7 @@ export default function AdminPage() {
                           </span>
                         </button>
 
-                        {/* Nomor halaman — compact (max 7, sisanya ellipsis), aktif hijau penuh */}
+                        {/* Nomor halaman - compact (max 7, sisanya ellipsis), aktif hijau penuh */}
                         <div className="flex items-center gap-1.5">
                           {getPageItems(totalPages, currentPage).map((item, i) => {
                             if (item === "ellipsis") {
@@ -1300,7 +1300,7 @@ export default function AdminPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {/* Judul & Hari/Tanggal Kegiatan */}
                   <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.7fr)_minmax(220px,0.8fr)] gap-5 md:col-span-2">
-                    {/* Judul Kegiatan — area lebih lebar */}
+                    {/* Judul Kegiatan - area lebih lebar */}
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="event-title" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                         Judul Kegiatan <span className="text-red-500">*</span>
@@ -1316,7 +1316,7 @@ export default function AdminPage() {
                       />
                     </div>
 
-                    {/* Hari & Tanggal Kegiatan — area lebih kecil */}
+                    {/* Hari & Tanggal Kegiatan - area lebih kecil */}
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="event-date" className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                         Hari & Tanggal <span className="text-red-500">*</span>
@@ -1376,7 +1376,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* Poster Image File Upload — drag & drop / klik */}
+                {/* Poster Image File Upload - drag & drop / klik */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                     Upload Poster Event <span className="text-gray-400 dark:text-gray-500 normal-case">(Portrait 3:4 / 4:5)</span>
@@ -1589,7 +1589,7 @@ export default function AdminPage() {
                   {editingMediaId ? "Edit Konten Media Space" : "Tambah Konten Media Space"}
                 </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">
-                  Konten tampil sebagai grid bento di beranda — klik foto membuka postingan Instagram.
+                  Konten tampil sebagai grid bento di beranda - klik foto membuka postingan Instagram.
                 </p>
               </div>
 
@@ -1625,7 +1625,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* Gambar — drag & drop / klik */}
+                {/* Gambar - drag & drop / klik */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                     Foto Postingan <span className="text-gray-400 dark:text-gray-500 normal-case">(disarankan persegi / landscape)</span>

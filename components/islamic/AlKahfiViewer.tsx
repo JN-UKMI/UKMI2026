@@ -110,7 +110,7 @@ export function AlKahfiViewer({ ayatList }: AlKahfiViewerProps) {
         </motion.button>
       </motion.div>
 
-      {/* Verses List — Renders all 110 verses directly, alternating slide-in per ayat */}
+      {/* Verses List - Renders all 110 verses directly, alternating slide-in per ayat */}
       <div className="space-y-6">
         {ayatList.map((ayat, idx) => {
           const direction = idx % 2 === 0 ? "left" : "right";

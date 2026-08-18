@@ -52,7 +52,7 @@ async function writeLocalMessages(messages: TitipanSemangatItem[]) {
 }
 
 /**
- * GET /api/titipan-semangat — Ambil daftar pesan titipan semangat
+ * GET /api/titipan-semangat - Ambil daftar pesan titipan semangat
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * POST /api/titipan-semangat — Tambah pesan titipan semangat baru
+ * POST /api/titipan-semangat - Tambah pesan titipan semangat baru
  */
 export async function POST(request: NextRequest) {
   const ip = getClientIp(request);

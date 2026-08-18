@@ -25,7 +25,7 @@ export default function KabinetPage() {
         <LogoKabinetSection filosofi={kabinetData.filosofi_logo} items={kabinetData.filosofi_items} />
       </SlideIn>
 
-      {/* Pengurus Utama — rows animate individually inside the component */}
+      {/* Pengurus Utama - rows animate individually inside the component */}
       <PengurusUtamaGrid members={kabinetData.pengurus} />
     </div>
   );

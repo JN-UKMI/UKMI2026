@@ -34,7 +34,7 @@ export default async function ArticleOgImage({ params }: Props) {
       }
     }
   } catch {
-    // Sanity tidak tersedia — pakai judul default.
+    // Sanity tidak tersedia - pakai judul default.
   }
 
   return new ImageResponse(

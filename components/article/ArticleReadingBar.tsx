@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * Reading progress bar — garis tipis di paling atas viewport yang mengisi
+ * Reading progress bar - garis tipis di paling atas viewport yang mengisi
  * seiring scroll, memberi indikator seberapa jauh artikel sudah dibaca.
  * Di-throttle via requestAnimationFrame agar ringan.
  */

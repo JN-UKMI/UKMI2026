@@ -592,7 +592,7 @@ export default function NovelEditor({
         editor.view.dom.removeEventListener("paste", handlePaste);
       };
     },
-    // Stable callback — uses refs for latest values
+    // Stable callback - uses refs for latest values
     []
   );
 
@@ -609,7 +609,7 @@ export default function NovelEditor({
 
   return (
     <div className="relative w-full editor-container">
-      {/* Toolbar outside EditorRoot — receives editor via prop for reliable rendering */}
+      {/* Toolbar outside EditorRoot - receives editor via prop for reliable rendering */}
       {editorInstance && <EditorToolbar editor={editorInstance} />}
 
       <EditorRoot>

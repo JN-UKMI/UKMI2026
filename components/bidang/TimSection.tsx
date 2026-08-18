@@ -65,7 +65,7 @@ export function TimSection({ staff }: TimSectionProps) {
         ))}
       </div>
 
-      {/* Desktop Layout — each row gets its own SlideIn */}
+      {/* Desktop Layout - each row gets its own SlideIn */}
       <div className="hidden sm:flex flex-col gap-10">
         {/* Baris 1: Kepala & Wakil */}
         <SlideIn direction="left" stagger className="flex flex-wrap justify-center gap-8 md:gap-10 lg:gap-12 max-w-[1520px] mx-auto w-full px-2 sm:px-0">
@@ -76,7 +76,7 @@ export function TimSection({ staff }: TimSectionProps) {
           ))}
         </SlideIn>
 
-        {/* Baris 2+: Staff — each sub-row of 4 gets its own SlideIn */}
+        {/* Baris 2+: Staff - each sub-row of 4 gets its own SlideIn */}
         {staffRows.map((row, i) => (
           <SlideIn
             key={row[0].nama}

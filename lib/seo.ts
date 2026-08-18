@@ -1,5 +1,5 @@
 /**
- * SEO utilities — shared resolver for the canonical site URL plus the
+ * SEO utilities - shared resolver for the canonical site URL plus the
  * site-wide configuration that powers our metadata, Open Graph, Twitter
  * cards, and JSON-LD schemas. Imported by robots.ts, sitemap.ts, the
  * root layout, and the page-metadata builder.
@@ -53,7 +53,7 @@ export const siteConfig = {
     region: "Jawa Tengah",
     country: "ID",
   },
-  /** Default Open Graph image — static brand thumbnail served from public/thumbnail.png
+  /** Default Open Graph image - static brand thumbnail served from public/thumbnail.png
    *  for every page that doesn't supply its own custom image (e.g. article covers).
    *  Kept as a stable URL so social platforms can cache it. */
   defaultOgImage: "/thumbnail.png",

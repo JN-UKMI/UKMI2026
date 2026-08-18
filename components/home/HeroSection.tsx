@@ -34,11 +34,11 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[calc(100vh+8px)] sm:min-h-[calc(100vh+16px)] -mt-[88px] sm:-mt-[96px] overflow-hidden flex flex-col justify-center">
-      {/* Background image extended upwards — Optimized Next.js Image for top LCP */}
+      {/* Background image extended upwards - Optimized Next.js Image for top LCP */}
       <Parallax speed={-0.08} className="absolute -top-16 inset-x-0 bottom-0">
         <Image
           src="/image/ukmi-hero.jpg"
-          alt="Hero JN UKMI UNS — Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret"
+          alt="Hero JN UKMI UNS - Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret"
           fill
           priority
           quality={85}
@@ -84,7 +84,7 @@ export function HeroSection() {
           />
         </motion.div>
 
-        {/* Semantic single <h1> — keep a real text name for assistive technology;
+        {/* Semantic single <h1> - keep a real text name for assistive technology;
             the SVG lettering is the visual treatment layered on top. */}
         <motion.h1 variants={itemVariants} className="w-full max-w-6xl text-center">
           <span className="sr-only">

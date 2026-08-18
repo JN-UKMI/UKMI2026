@@ -31,7 +31,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
         }
       }
     } catch {
-      // localStorage tidak tersedia — abaikan.
+      // localStorage tidak tersedia - abaikan.
     }
   }, []);
 
@@ -103,7 +103,7 @@ export function DoaDoaList({ initialList }: DoaDoaListProps) {
           />
         </div>
 
-        {/* Toggle Buttons (Favorit, Latin, Terjemahan) — Always 1 single row on mobile */}
+        {/* Toggle Buttons (Favorit, Latin, Terjemahan) - Always 1 single row on mobile */}
         <div className="flex flex-nowrap items-center gap-1 sm:gap-2 w-full sm:w-auto justify-between sm:justify-end min-w-0">
           <motion.button
             type="button"

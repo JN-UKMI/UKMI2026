@@ -9,7 +9,7 @@ function collectErrors(page: Page) {
   const errors: string[] = [];
   page.on("console", (msg) => {
     if (msg.type() !== "error") return;
-    // Abaikan 404 resource (mis. favicon) — bukan runtime bug.
+    // Abaikan 404 resource (mis. favicon) - bukan runtime bug.
     if (/Failed to load resource: the server responded with a status of 404/.test(msg.text())) return;
     // Dev-only: chunk Next.js dev tidak membawa nonce CSP (prod memakai nonce via proxy.ts).
     if (/Content Security Policy|violates the following/.test(msg.text())) return;
@@ -46,7 +46,7 @@ for (const { path, hint } of PUBLIC_ROUTES) {
     expect(response?.ok(), `GET ${path} should be 2xx`).toBeTruthy();
     await expect(page.locator("#main-content")).toBeVisible();
 
-    // Content hint — at least one matching text node must exist.
+    // Content hint - at least one matching text node must exist.
     await expect(page.locator("body")).toContainText(hint);
 
     // Give client-side hydration a moment, then assert no errors.

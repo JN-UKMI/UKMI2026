@@ -218,7 +218,7 @@ function getInitialPosition(
   }
 }
 
-// ── 3. WordReveal (slide-up per word — sinematik, optional blur) ────
+// ── 3. WordReveal (slide-up per word - sinematik, optional blur) ────
 export function WordReveal({
   text,
   className = "",
@@ -536,7 +536,7 @@ export function AmbientBackground() {
       {/* 3. Bottom Right Glowing Ambient Orb */}
       <div className="absolute -bottom-20 -right-32 w-[28rem] md:w-[32rem] h-[28rem] md:h-[32rem] rounded-full bg-teal/15 dark:hidden blur-3xl" />
 
-      {/* 4. Subtle Clean Decorative Bubbles — Single Solid Color */}
+      {/* 4. Subtle Clean Decorative Bubbles - Single Solid Color */}
       <div className="hidden lg:block absolute top-24 left-16 w-40 h-40 rounded-full bg-lime/15 dark:hidden" />
       <div className="hidden lg:block absolute top-1/3 right-16 w-52 h-52 rounded-full bg-fresh-lime/15 dark:hidden" />
       <div className="hidden lg:block absolute top-[42%] left-[30%] w-32 h-32 rounded-full bg-forest-400/15 dark:hidden" />
@@ -590,7 +590,7 @@ export function AmbientBackground() {
   );
 }
 
-// ── 11. ScaleIn — convenience wrapper: FadeIn no-direction with scale ──
+// ── 11. ScaleIn - convenience wrapper: FadeIn no-direction with scale ──
 export function ScaleIn({
   children,
   delay = 0,

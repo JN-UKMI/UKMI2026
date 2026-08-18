@@ -6,7 +6,7 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 import type { ArticleListItem } from "@/lib/sanity";
 import { resolveArticleCoverUrl } from "@/lib/article-cover";
 
-/** Hero card untuk artikel — tampil di mobile (gambar kiri, teks kanan). */
+/** Hero card untuk artikel - tampil di mobile (gambar kiri, teks kanan). */
 export function ArticleHeroCard({ article }: { article: ArticleListItem }) {
   return (
     <TransitionLink

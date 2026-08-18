@@ -55,12 +55,12 @@ export function DoaTabs() {
   const [showGlobalTranslation, setShowGlobalTranslation] = useState(true);
   const shouldReduceMotion = useReducedMotion();
 
-  // Mendapatkan data aktif berdasarkan pilihan user — O(1) lookup dari index
+  // Mendapatkan data aktif berdasarkan pilihan user - O(1) lookup dari index
   // yang dibangun saat module load, tidak ada re-scan per render.
   // Empty-fallback sudah stable reference di module scope, jadi tidak butuh
   // useMemo (activeSection.items sendiri juga immutable dari JSON import).
   // `?? new Map()` adalah defensive fallback kalau module-level buildIndex
-  // gagal (mis. partial rebuild di dev) — tanpa fallback, .get(time) akan throw.
+  // gagal (mis. partial rebuild di dev) - tanpa fallback, .get(time) akan throw.
   const activeIndex =
     (version === "sughra" ? SUGHRA_INDEX : KUBRA_INDEX) ?? new Map<string, Section>();
   const activeSection = activeIndex.get(time);
@@ -205,7 +205,7 @@ export function DoaTabs() {
         Membaca <span className="font-bold text-forest-600 dark:text-lime">Al-Ma&apos;surat {version === "sughra" ? "Sughra" : "Kubra"}</span> untuk waktu <span className="font-bold text-forest-600 dark:text-lime">{time === "morning" ? "Pagi" : "Sore/Petang"}</span>
       </div>
 
-      {/* List of Doa Cards — render tanpa StaggerContainer agar perpindahan
+      {/* List of Doa Cards - render tanpa StaggerContainer agar perpindahan
           tab instan (tidak ada fade-in / remount → tidak ada "hilang" flash).
           Kartu DoaCard sendiri sudah punya interaksi tap; tidak perlu entry
           animation yang justru terasa berat saat switch tab. */}

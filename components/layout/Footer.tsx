@@ -24,7 +24,7 @@ export function Footer() {
               <h3 className="text-lg font-bold text-white">JN UKMI</h3>
             </div>
             <p className="text-sm text-white/60 leading-relaxed max-w-xs text-center sm:text-left">
-              Jamaah Nurul Huda &mdash; Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret. Wadah pengembangan nilai-nilai keislaman.
+              Jamaah Nurul Huda - Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret. Wadah pengembangan nilai-nilai keislaman.
             </p>
             <div className="flex items-center justify-center sm:justify-start gap-3 pt-1">
               {/* Instagram */}

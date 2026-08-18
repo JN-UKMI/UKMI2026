@@ -15,7 +15,7 @@ interface SearchEntry {
 export async function GET() {
   const entries: SearchEntry[] = [];
 
-  // Artikel (Sanity) — bungkus try/catch agar index tetap hidup saat Sanity down.
+  // Artikel (Sanity) - bungkus try/catch agar index tetap hidup saat Sanity down.
   try {
     const articles = await getArticles();
     // Batasi index agar payload ringan (artikel terbanyak tetap terindeks).
@@ -30,7 +30,7 @@ export async function GET() {
       });
     }
   } catch {
-    // Sanity tidak tersedia — index tanpa artikel.
+    // Sanity tidak tersedia - index tanpa artikel.
   }
 
   // Doa harian
@@ -48,7 +48,7 @@ export async function GET() {
       });
     }
   } catch {
-    // fallback JSON gagal dibaca — lewati.
+    // fallback JSON gagal dibaca - lewati.
   }
 
   // Kegiatan seru (event terdekat)
@@ -74,7 +74,7 @@ export async function GET() {
       entries.push({
         type: "kegiatan",
         title: e.title,
-        subtitle: `${e.type} — ${e.location}`,
+        subtitle: `${e.type} - ${e.location}`,
         url: "/",
         keywords: `${e.date} ${e.time}`,
       });

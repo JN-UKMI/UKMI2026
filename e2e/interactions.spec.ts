@@ -88,7 +88,7 @@ test("navbar mobile: menu terbuka dan bisa menutup", async ({ page, isMobile }) 
   await expect(menuButton).toBeVisible();
   await menuButton.click();
 
-  // Menu terbuka — cek ada link navigasi (misal "Artikel").
+  // Menu terbuka - cek ada link navigasi (misal "Artikel").
   await expect(page.getByRole("link", { name: /Artikel/i }).first()).toBeVisible();
 
   await menuButton.click();

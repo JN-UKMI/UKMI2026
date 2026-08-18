@@ -178,7 +178,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
     if (typeof content === "string") {
       raw = content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
     } else if (Array.isArray(content)) {
-      // Portable Text — ekstrak hanya teks dari children.
+      // Portable Text - ekstrak hanya teks dari children.
       const walk = (nodes: unknown[]): string =>
         nodes
           .map((n) => {
@@ -253,7 +253,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
       />
       <div className="bg-white dark:bg-gray-950">
       <article>
-        {/* Cover Image — -mt menarik gambar ke belakang navbar (pola PageHero)
+        {/* Cover Image - -mt menarik gambar ke belakang navbar (pola PageHero)
             agar tidak ada gap seukuran navbar di atas. */}
         <FadeIn direction="down">
         <div className="relative h-[250px] md:h-[450px] w-full overflow-hidden -mt-[88px] sm:-mt-[96px] z-0">
@@ -271,7 +271,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
         </FadeIn>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 md:pt-10 relative z-10">
-          {/* Back Button — outline dulu, fill saat hover (pola CTA konsisten) */}
+          {/* Back Button - outline dulu, fill saat hover (pola CTA konsisten) */}
           <TransitionLink
             href="/artikel"
             className="group/back relative isolate inline-flex items-center gap-2 overflow-hidden rounded-full border-2 border-forest-600 dark:border-lime bg-transparent px-5 py-2.5 text-sm font-bold text-forest-700 dark:text-lime shadow-sm transition-all duration-300 hover:shadow-md hover:border-lime dark:hover:border-lime mb-8 cursor-pointer active:scale-95 motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600/40 dark:focus-visible:ring-lime/50"
@@ -286,7 +286,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
             </span>
           </TransitionLink>
 
-          {/* Meta Info — kartu header di atas konten */}
+          {/* Meta Info - kartu header di atas konten */}
           <FadeIn direction="up" delay={0.1}>
           <header className="mb-10">
             <h1 className="text-[1.7rem] md:text-5xl font-black text-gray-900 dark:text-white mb-5 leading-[1.15] tracking-tight">
@@ -317,7 +317,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
               </div>
               <ShareButton
                 title={article.title}
-                text={`${article.title} — ${article.excerpt ?? "Baca selengkapnya di website JN UKMI UNS."}`}
+                text={`${article.title} - ${article.excerpt ?? "Baca selengkapnya di website JN UKMI UNS."}`}
                 url={`/artikel/${article.slug}`}
                 className="ml-auto"
               />
@@ -325,7 +325,7 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
           </header>
           </FadeIn>
 
-          {/* Article Content — kolom sempit (measure ~70ch) agar nyaman dibaca */}
+          {/* Article Content - kolom sempit (measure ~70ch) agar nyaman dibaca */}
           <FadeIn delay={0.2}>
           <div className="article-body max-w-3xl mx-auto">
             <ArticleBody content={article.content} />
@@ -342,17 +342,17 @@ export default async function ArtikelDetailPage({ params, searchParams }: PagePr
             <SectionHeader
               icon={<Sparkles className="w-6 h-6" />}
               title="Artikel Terkait"
-              subtitle="Lanjutkan membaca — artikel pilihan dengan tema serupa"
+              subtitle="Lanjutkan membaca - artikel pilihan dengan tema serupa"
             />
           </SlideIn>
-          {/* Mobile view — horizontal card layout (gambar kiri, teks kanan) */}
+          {/* Mobile view - horizontal card layout (gambar kiri, teks kanan) */}
           <div className="md:hidden space-y-3">
             {related.map((a) => (
               <ArticleHeroCard key={a.slug} article={a} />
             ))}
           </div>
 
-          {/* Desktop view — grid 2/3 cards */}
+          {/* Desktop view - grid 2/3 cards */}
           <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {related.map((a, i) => (
               <SlideIn key={a.slug} direction={i % 2 === 0 ? "left" : "right"}>

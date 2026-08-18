@@ -5,7 +5,7 @@ import { loadEvents } from "@/lib/content";
 export const dynamic = "force-dynamic";
 
 /**
- * GET /api/kalender — Public active events from Supabase with fallback to local JSON
+ * GET /api/kalender - Public active events from Supabase with fallback to local JSON
  */
 export async function GET() {
   const supabase = getSupabaseClient();

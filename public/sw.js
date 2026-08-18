@@ -1,6 +1,6 @@
-/* JN UKMI UNS — PWA service worker.
+/* JN UKMI UNS - PWA service worker.
  *
- * Strategy (conservative — never cache API/SSR data):
+ * Strategy (conservative - never cache API/SSR data):
  * - navigations          → network-first, fallback to cache when offline
  * - /_next/static assets → stale-while-revalidate (fast repeat loads)
  * - images / fonts       → cache-first with background revalidate
@@ -41,19 +41,19 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Next.js hashed static chunks — SWR.
+  // Next.js hashed static chunks - SWR.
   if (url.pathname.startsWith("/_next/static/")) {
     event.respondWith(staleWhileRevalidate(request, STATIC_CACHE));
     return;
   }
 
-  // Static images/fonts from our own origin — SWR.
+  // Static images/fonts from our own origin - SWR.
   if (/\.(png|jpe?g|webp|avif|gif|svg|ico|woff2?|otf|ttf)$/.test(url.pathname)) {
     event.respondWith(staleWhileRevalidate(request, STATIC_CACHE));
     return;
   }
 
-  // Page navigations — network-first with offline fallback.
+  // Page navigations - network-first with offline fallback.
   if (request.mode === "navigate") {
     event.respondWith(networkFirst(request));
     return;
@@ -90,7 +90,7 @@ async function trimCache(cache, cacheName, maxEntries) {
       }
     }
   } catch {
-    // abaikan — kegagalan pruning tidak fatal.
+    // abaikan - kegagalan pruning tidak fatal.
   }
 }
 

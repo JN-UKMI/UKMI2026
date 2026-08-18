@@ -6,7 +6,7 @@ import Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 
 /**
- * SmoothScroll — wraps the page with Lenis smooth scrolling.
+ * SmoothScroll - wraps the page with Lenis smooth scrolling.
  *
  * Features:
  * - Smooth inertia-based scrolling that respects reduced-motion

@@ -46,7 +46,7 @@ const components: PortableTextComponents = {
     ),
     blockquote: ({ children }) => (
       <blockquote className="relative overflow-hidden rounded-2xl border-2 border-l-4 border-forest-600 dark:border-lime bg-gradient-to-br from-forest-50/90 via-forest-50/40 to-transparent dark:bg-none dark:bg-gray-800/70 px-6 py-5 my-9 italic text-gray-700 dark:text-gray-200 text-lg leading-relaxed shadow-sm">
-        {/* Ikon kutipan dari CSS .article-body blockquote::before — konsisten
+        {/* Ikon kutipan dari CSS .article-body blockquote::before - konsisten
             dengan branch string (HTML) */}
         {children}
       </blockquote>

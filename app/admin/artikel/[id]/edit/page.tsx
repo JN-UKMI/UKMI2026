@@ -186,7 +186,7 @@ export default function AdminEditArticlePage() {
             assetId: uploadData.assetId,
           };
         } else {
-          // User removed the image — send null to clear it
+          // User removed the image - send null to clear it
           coverImagePayload = null;
         }
       }
@@ -542,7 +542,7 @@ export default function AdminEditArticlePage() {
           {isEditing ? (
             <div className="mt-6">
               <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
-                ✏️ Konten Artikel — edit dengan editor di bawah
+                ✏️ Konten Artikel - edit dengan editor di bawah
               </p>
               <NovelEditor
                 initialContent={editContent}
@@ -550,7 +550,7 @@ export default function AdminEditArticlePage() {
               />
             </div>
           ) : (
-            // article-body: class typography milik ArticleBody sendiri —
+            // article-body: class typography milik ArticleBody sendiri -
             // jangan bungkus dengan prose lagi agar tidak nested.
             <div className="article-body mb-12">
               <ArticleBody content={article.content} />

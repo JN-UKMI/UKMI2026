@@ -6,7 +6,7 @@ import { useEffect } from "react";
  * Registers the PWA service worker (public/sw.js) so the site can be
  * installed on home screens and works offline for cached assets.
  *
- * - Only runs in production — in dev the SW would interfere with Fast Refresh.
+ * - Only runs in production - in dev the SW would interfere with Fast Refresh.
  * - No-op when `navigator.serviceWorker` is unavailable (older browsers).
  */
 export function ServiceWorkerRegister() {
@@ -18,7 +18,7 @@ export function ServiceWorkerRegister() {
     navigator.serviceWorker
       .register("/sw.js")
       .catch(() => {
-        // Non-fatal — the site works fine without a SW.
+        // Non-fatal - the site works fine without a SW.
       });
   }, []);
 

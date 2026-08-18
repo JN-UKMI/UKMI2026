@@ -28,7 +28,7 @@ export default async function LdfPage() {
             </p>
           </div>
         ) : (() => {
-          // Chunk into rows of 4 — each row gets its own alternating SlideIn
+          // Chunk into rows of 4 - each row gets its own alternating SlideIn
           const chunkSize = 4;
           const rows: typeof ldfList[] = [];
           for (let i = 0; i < ldfList.length; i += chunkSize) {

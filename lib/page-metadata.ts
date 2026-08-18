@@ -9,7 +9,7 @@ import { getAbsoluteUrl, siteConfig } from "./seo";
 const DEFAULT_OG = {
   width: 1200,
   height: 630,
-  alt: `${siteConfig.name} — ${siteConfig.shortName}`,
+  alt: `${siteConfig.name} - ${siteConfig.shortName}`,
 };
 
 interface BuildPageMetadataOptions {
@@ -38,7 +38,7 @@ interface BuildPageMetadataOptions {
   /**
    * Set `true` to bypass the root layout title template ("%s | JN UKMI").
    * Used on the homepage so the brand name leads the title tag instead of
-   * the generic page name (e.g. "JN UKMI UNS — ...").
+   * the generic page name (e.g. "JN UKMI UNS - ...").
    */
   titleAbsolute?: boolean;
   /** Override the alt text for the OG/Twitter image (defaults to `title`). */
@@ -68,14 +68,14 @@ export function buildPageMetadata(
   // `openGraph.title.template` / `twitter.title.template` ("%s | JN UKMI"),
   // so a plain string here would get the suffix applied TWICE (known bug:
   // "X | JN UKMI | JN UKMI"). Using { absolute } bypasses the template.
-  // titleAbsolute pages (home) keep the raw brand title — no suffix at all.
+  // titleAbsolute pages (home) keep the raw brand title - no suffix at all.
   const fullTitle = opts.titleAbsolute
     ? opts.title
     : `${opts.title} | ${siteConfig.shortName}`;
 
   return {
     // Keep the page title unsuffixed here; the root layout's title template
-    // appends "| JN UKMI" exactly once — unless the page opts into an
+    // appends "| JN UKMI" exactly once - unless the page opts into an
     // absolute title (homepage brand title) that bypasses the template.
     title: opts.titleAbsolute
       ? { absolute: opts.title }

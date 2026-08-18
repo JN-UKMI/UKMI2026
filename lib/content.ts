@@ -168,7 +168,7 @@ export async function loadKegiatanSeru(): Promise<import("./types").KegiatanSeru
 }
 
 /**
- * Media Space (bento grid) — ambil dari Sanity dulu, fallback ke JSON lokal.
+ * Media Space (bento grid) - ambil dari Sanity dulu, fallback ke JSON lokal.
  */
 export async function loadMediaSpace(): Promise<import("./types").MediaSpaceItem[]> {
   try {

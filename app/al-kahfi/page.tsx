@@ -4,7 +4,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { loadAlKahfi } from "@/lib/content";
 export const metadata = buildPageMetadata({
   title: 'Surah Al-Kahfi',
-  description: 'Baca Surah Al-Kahfi lengkap 110 ayat: teks Arab, latin, dan terjemahan Indonesia — amalan sunnah Jumat dari JN UKMI UNS.',
+  description: 'Baca Surah Al-Kahfi lengkap 110 ayat: teks Arab, latin, dan terjemahan Indonesia - amalan sunnah Jumat dari JN UKMI UNS.',
   path: '/al-kahfi',
 });
 

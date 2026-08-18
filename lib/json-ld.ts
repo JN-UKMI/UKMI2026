@@ -150,7 +150,7 @@ export function buildEventGraphLd(opts: EventJsonLdOptions): Record<string, unkn
 }
 
 /**
- * Builds a JSON-LD @graph string containing multiple Events — used on the
+ * Builds a JSON-LD @graph string containing multiple Events - used on the
  * homepage so Google can surface upcoming activities in search results.
  */
 export function buildEventsGraphJsonLd(events: EventJsonLdOptions[]): string {

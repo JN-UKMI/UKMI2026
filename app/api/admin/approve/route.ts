@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       "Validasi gagal: " + parsed.error.issues.map((i) => i.message).join("; ")
     );
   }
-  // Sanity drafts always start with `drafts.` — anyone sending the bare id
+  // Sanity drafts always start with `drafts.` - anyone sending the bare id
   // of a published doc is rejected up front to prevent accidental promotion.
   if (!parsed.data.draftId.startsWith("drafts.")) {
     return apiBadRequest("Hanya artikel dengan ID berawalan 'drafts.' yang dapat disetujui.");

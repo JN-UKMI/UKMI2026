@@ -26,7 +26,7 @@ function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
 
-// Compact page list — tampilkan halaman tepi (1 & terakhir) + sekitar halaman aktif,
+// Compact page list - tampilkan halaman tepi (1 & terakhir) + sekitar halaman aktif,
 // sisanya diganti ellipsis. Contoh: 1 … 4 5 6 … 12
 function getPageItems(total: number, current: number): (number | "ellipsis")[] {
   if (total <= 7) {
@@ -92,7 +92,7 @@ export function ArticleList({
     return result;
   }, [articles, category, query]);
 
-  // ── Pagination (clamped inline — no state-during-effect) ──
+  // ── Pagination (clamped inline - no state-during-effect) ──
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / ITEMS_PER_PAGE));
   const safePage = clamp(page, 1, totalPages);
   const paginatedArticles = useMemo(() => {
@@ -100,7 +100,7 @@ export function ArticleList({
     return filteredArticles.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredArticles, safePage]);
 
-  // ── Handlers (updaters are pure — no nested setState calls) ──
+  // ── Handlers (updaters are pure - no nested setState calls) ──
   const handleCategoryClick = useCallback(
     (key: string) => {
       if (key === category) return;
@@ -164,7 +164,7 @@ export function ArticleList({
           </div>
         </form>
 
-        {/* Category filter pills — TentangTabs style glass container */}
+        {/* Category filter pills - TentangTabs style glass container */}
         <div
           className="flex justify-center"
         >
@@ -260,7 +260,7 @@ export function ArticleList({
               role="navigation"
               aria-label="Pagination"
             >
-              {/* Prev — outline dulu, fill slide dari kiri saat hover (pola CTA konsisten) */}
+              {/* Prev - outline dulu, fill slide dari kiri saat hover (pola CTA konsisten) */}
               <button
                 type="button"
                 onClick={() => handlePageChange(safePage - 1)}
@@ -290,7 +290,7 @@ export function ArticleList({
                 </span>
               </button>
 
-              {/* Page numbers — pill aktif hijau penuh, idle outline → hover fill.
+              {/* Page numbers - pill aktif hijau penuh, idle outline → hover fill.
                   Dibatasi maksimal ~7 tombol, sisanya ellipsis. */}
               <div className="flex items-center gap-1.5">
                 {getPageItems(totalPages, safePage).map((item, i) => {

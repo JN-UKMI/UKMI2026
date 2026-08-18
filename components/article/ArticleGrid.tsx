@@ -14,14 +14,14 @@ export function ArticleGrid({ articles }: ArticleGridProps) {
 
   return (
     <>
-      {/* Mobile — semua card memakai style hero (gambar kiri, teks kanan) */}
+      {/* Mobile - semua card memakai style hero (gambar kiri, teks kanan) */}
       <div className="md:hidden space-y-3">
         {articles.map((article) => (
           <ArticleHeroCard key={article.slug} article={article} />
         ))}
       </div>
 
-      {/* md+ — grid 2 kolom (tablet) / 3 kolom (desktop) dengan animasi filter */}
+      {/* md+ - grid 2 kolom (tablet) / 3 kolom (desktop) dengan animasi filter */}
       <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 items-stretch">
         <AnimatePresence mode="popLayout">
           {articles.map((article) => (

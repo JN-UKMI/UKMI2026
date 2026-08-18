@@ -9,7 +9,7 @@ const SANITY_CONFIG = {
   useCdn: false,
 } as const;
 
-// Cache the write client — avoid creating a new HTTP pool on every request
+// Cache the write client - avoid creating a new HTTP pool on every request
 let cachedWriteClient: ReturnType<typeof createClient> | null = null;
 function getWriteClient(token: string) {
   if (!cachedWriteClient) {

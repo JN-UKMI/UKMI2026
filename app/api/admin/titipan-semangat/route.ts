@@ -57,7 +57,7 @@ async function writeLocalMessages(messages: TitipanSemangatItem[]) {
 }
 
 /**
- * GET /api/admin/titipan-semangat — List all titipan semangat messages for admin
+ * GET /api/admin/titipan-semangat - List all titipan semangat messages for admin
  */
 export async function GET() {
   const admin = await requireAdmin();
@@ -86,7 +86,7 @@ export async function GET() {
 }
 
 /**
- * POST /api/admin/titipan-semangat — Tambah pesan baru lewat panel admin
+ * POST /api/admin/titipan-semangat - Tambah pesan baru lewat panel admin
  */
 export async function POST(req: NextRequest) {
   const admin = await requireAdmin();
@@ -161,7 +161,7 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * PUT /api/admin/titipan-semangat — Edit pesan titipan semangat
+ * PUT /api/admin/titipan-semangat - Edit pesan titipan semangat
  */
 export async function PUT(req: NextRequest) {
   const admin = await requireAdmin();
@@ -244,7 +244,7 @@ export async function PUT(req: NextRequest) {
 }
 
 /**
- * DELETE /api/admin/titipan-semangat — Hapus pesan titipan semangat
+ * DELETE /api/admin/titipan-semangat - Hapus pesan titipan semangat
  */
 export async function DELETE(req: NextRequest) {
   const admin = await requireAdmin();

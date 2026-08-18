@@ -16,7 +16,7 @@ import {
 export const dynamic = "force-dynamic";
 
 /**
- * GET /api/admin/admins — List all authorized admin emails (Deduplicated)
+ * GET /api/admin/admins - List all authorized admin emails (Deduplicated)
  */
 export async function GET() {
   const admin = await requireAdmin();
@@ -93,7 +93,7 @@ export async function GET() {
 }
 
 /**
- * POST /api/admin/admins — Add new admin email allowlist
+ * POST /api/admin/admins - Add new admin email allowlist
  */
 export async function POST(req: NextRequest) {
   const admin = await requireAdmin();
@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * PUT /api/admin/admins — Update admin role / email
+ * PUT /api/admin/admins - Update admin role / email
  */
 export async function PUT(req: NextRequest) {
   const admin = await requireAdmin();
@@ -217,7 +217,7 @@ export async function PUT(req: NextRequest) {
 }
 
 /**
- * DELETE /api/admin/admins — Remove admin email
+ * DELETE /api/admin/admins - Remove admin email
  */
 export async function DELETE(req: NextRequest) {
   const admin = await requireAdmin();

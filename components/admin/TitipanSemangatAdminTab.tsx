@@ -310,7 +310,7 @@ export function TitipanSemangatAdminTab() {
               {/* Action Toolbar */}
               <div className="flex items-center justify-between pt-2 border-t border-gray-50 dark:border-gray-800/60 text-xs">
                 <button
-                  onClick={() => handleCopy(item.id, `"${item.message}" — ${item.name}`)}
+                  onClick={() => handleCopy(item.id, `"${item.message}" - ${item.name}`)}
                   className="inline-flex items-center gap-1.5 text-[11px] text-gray-500 dark:text-gray-400 hover:text-forest-700 dark:hover:text-lime transition-colors cursor-pointer"
                 >
                   {copiedId === item.id ? (

@@ -23,7 +23,7 @@
 }
 
 :root {
-  /* NOTE: --font-geist-sans & --font-geist-mono are NOT defined here — they
+  /* NOTE: --font-geist-sans & --font-geist-mono are NOT defined here - they
      are injected by next/font/google on the <html> element (app/layout.tsx).
      Defining them here would override the class-based rules (same specificity,
      later in the bundle) and silently fall back to Arial. body{} keeps an
@@ -101,7 +101,7 @@ body {
 /* ── Premium UI Utilities ─────────────────────────────── */
 
 /* Glassmorphism surfaces.
-   NOTE: tanpa box-shadow — biarkan utility shadow Tailwind (shadow-md/xl) yang
+   NOTE: tanpa box-shadow - biarkan utility shadow Tailwind (shadow-md/xl) yang
    mengontrol elevasi. CSS unlayered mengalahkan @layer utilities, jadi kalau
    .glass punya box-shadow sendiri, shadow scrolled navbar tidak akan tampil. */
 .glass {
@@ -133,7 +133,7 @@ body {
   animation: gradient-x 6s ease infinite;
 }
 
-/* Section heading underline — stays exactly as wide as the title text. */
+/* Section heading underline - stays exactly as wide as the title text. */
 .section-title-hover {
   position: relative;
   display: inline-block;
@@ -167,7 +167,7 @@ body {
   }
 }
 
-/* Event card title underline — PER-LINE: every wrapped line of the title
+/* Event card title underline - PER-LINE: every wrapped line of the title
    gets its own underline (via box-decoration-break: clone), growing from
    left to right when the parent card (.group) is hovered or focused.
    Mirrors the visual language of .section-title-hover but follows each
@@ -176,7 +176,7 @@ body {
    (forest-600 light / lime dark) automatically.
    The line sits at the very bottom of each line box (0 100%); the visible
    gap between text and line comes from the element's line-height
-   (half-leading) — pair with a generous leading (e.g. leading-[1.75]). */
+   (half-leading) - pair with a generous leading (e.g. leading-[1.75]). */
 .card-title-underline {
   display: inline;
   background-image: linear-gradient(currentColor, currentColor);
@@ -267,7 +267,7 @@ body {
   background-color: #1A281A !important;
 }
 
-/* Forest tinted surfaces (sekarang token aktif) — gelapkan di dark mode
+/* Forest tinted surfaces (sekarang token aktif) - gelapkan di dark mode
    agar surface terang tidak menyilaukan (pola sama dengan bg-gray-50/100). */
 .dark .bg-forest-50,
 .dark .bg-forest-100,

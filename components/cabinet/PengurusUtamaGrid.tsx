@@ -57,7 +57,7 @@ export function PengurusUtamaGrid({
           ))}
         </SlideIn>
 
-        {/* Baris 2+: Kepala & Wakil Bidang — each sub-row of 4 gets its own SlideIn */}
+        {/* Baris 2+: Kepala & Wakil Bidang - each sub-row of 4 gets its own SlideIn */}
         {staffRows.map((row, i) => (
           <SlideIn
             key={row[0].nama}

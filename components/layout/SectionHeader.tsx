@@ -46,7 +46,7 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={`flex flex-col items-center text-center mb-4 sm:mb-5 ${className}`}
     >
-      {/* 1. Top Icon Container — double-bezel premium */}
+      {/* 1. Top Icon Container - double-bezel premium */}
       {icon && (
         <motion.div
           initial={animateSection ? { opacity: 0, y: 16 } : false}
@@ -63,7 +63,7 @@ export function SectionHeader({ title, subtitle, icon, className = "" }: Section
         </motion.div>
       )}
 
-      {/* 2. Main Title — reveal per kata */}
+      {/* 2. Main Title - reveal per kata */}
       <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-forest-900 dark:text-lime uppercase tracking-wider">
         <span className="section-title-hover">
           <WordReveal text={title} delay={0.04} stagger={0.045} />

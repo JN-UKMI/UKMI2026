@@ -58,7 +58,7 @@ export function CommandPalette() {
     openRef.current = open;
   }, [open]);
 
-  // Reset state saat menutup — dipanggil dari event handler (bukan effect).
+  // Reset state saat menutup - dipanggil dari event handler (bukan effect).
   const closePalette = useCallback(() => {
     setOpen(false);
     setQuery("");
@@ -291,7 +291,7 @@ export function CommandPalette() {
 
             {/* Footer */}
             <div className="flex items-center justify-between px-4 py-2.5 border-t border-gray-100 dark:border-gray-800 text-[10px] font-bold text-gray-400 dark:text-gray-500 shrink-0">
-              <span>JN UKMI UNS — Cari cepat di seluruh situs</span>
+              <span>JN UKMI UNS - Cari cepat di seluruh situs</span>
               <span className="flex items-center gap-1">
                 <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-700 rounded">↑↓</kbd>
                 navigasi

@@ -14,7 +14,7 @@ const slideCallbacks = new WeakMap<HTMLDivElement, SlideCallback>();
 
 function getSharedObserver(): IntersectionObserver {
   if (typeof window === "undefined") {
-    // SSR guard — return a dummy that does nothing
+    // SSR guard - return a dummy that does nothing
     return { observe() {}, unobserve() {}, disconnect() {} } as unknown as IntersectionObserver;
   }
   const key = "__ukmi_slide_observer__";
@@ -38,10 +38,10 @@ function getSharedObserver(): IntersectionObserver {
 }
 
 /**
- * SlideIn — wraps children with a reusable translateX slide animation.
+ * SlideIn - wraps children with a reusable translateX slide animation.
  * Replays every time the element enters/exits the viewport during scroll.
  *
- * Uses a single shared IntersectionObserver for all instances — safe
+ * Uses a single shared IntersectionObserver for all instances - safe
  * even on pages with 100+ elements (e.g. Al-Kahfi 110 ayat).
  */
 export function SlideIn({

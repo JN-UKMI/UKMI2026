@@ -12,7 +12,7 @@ interface MediaSpaceSectionProps {
 }
 
 /**
- * Mosaic 6 — 2 sel besar diagonal (kiri-atas & kanan-bawah) + 4 sel kecil,
+ * Mosaic 6 - 2 sel besar diagonal (kiri-atas & kanan-bawah) + 4 sel kecil,
  * tanpa lubang di grid 4 kolom × 3 baris.
  *
  * Urutan DOM diatur (bukan index items) agar auto-placement CSS menghasilkan
@@ -71,7 +71,7 @@ function MediaSpaceCell({
       {showImage ? (
         <Image
           src={item.imageUrl}
-          alt={`Dokumentasi ${item.title} — JN UKMI UNS Solo`}
+          alt={`Dokumentasi ${item.title} - JN UKMI UNS Solo`}
           fill
           sizes={
             isLarge
@@ -90,7 +90,7 @@ function MediaSpaceCell({
         </div>
       )}
 
-      {/* Hint mobile — state idle: beri tahu user tap pertama membuka info.
+      {/* Hint mobile - state idle: beri tahu user tap pertama membuka info.
           (md:hidden karena desktop pakai hover; hilang saat isMobileActive) */}
       <span
         aria-hidden
@@ -104,7 +104,7 @@ function MediaSpaceCell({
         Ketuk untuk info
       </span>
 
-      {/* Overlay gradient — tersembunyi secara default di mobile, muncul saat isMobileActive atau hover di desktop */}
+      {/* Overlay gradient - tersembunyi secara default di mobile, muncul saat isMobileActive atau hover di desktop */}
       <div
         className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-300 ${
           isMobileActive
@@ -113,7 +113,7 @@ function MediaSpaceCell({
         }`}
       />
 
-      {/* Konten overlay — judul & deskripsi */}
+      {/* Konten overlay - judul & deskripsi */}
       <div
         className={`absolute inset-x-0 bottom-0 p-3 sm:p-5 transition-all duration-300 ${
           isMobileActive
@@ -191,7 +191,7 @@ export function MediaSpaceSection({ items }: MediaSpaceSectionProps) {
           />
         </FadeIn>
 
-        {/* Hint mobile di bawah judul section — memperjelas pola 2x tap */}
+        {/* Hint mobile di bawah judul section - memperjelas pola 2x tap */}
         <p className="md:hidden mt-3 text-center text-[11px] text-gray-500 dark:text-gray-400 font-medium">
           Ketuk poster untuk lihat info · ketuk lagi untuk membuka Instagram
         </p>

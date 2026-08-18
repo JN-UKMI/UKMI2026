@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = buildPageMetadata({
   title: "Offline",
-  description: "Koneksi internet terputus — halaman ini ditampilkan saat offline.",
+  description: "Koneksi internet terputus - halaman ini ditampilkan saat offline.",
   path: "/offline",
 });
 
@@ -20,7 +20,7 @@ export default function OfflinePage() {
         </h1>
         <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
           Koneksi internet terputus. Periksa kembali jaringanmu, lalu coba muat ulang
-          halaman — konten yang pernah kamu buka mungkin masih bisa diakses secara offline.
+          halaman - konten yang pernah kamu buka mungkin masih bisa diakses secara offline.
         </p>
         <Link
           href="/"

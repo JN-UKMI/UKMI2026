@@ -23,7 +23,7 @@ export function PageHero({ title, subtitle, children }: PageHeroProps) {
 
   return (
     <section className="relative min-h-[320px] md:min-h-[380px] -mt-[88px] sm:-mt-[96px] overflow-hidden flex items-center justify-center py-16 px-4">
-      {/* Background image — parallax halus via scroll */}
+      {/* Background image - parallax halus via scroll */}
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0.96 }}
         animate={shouldReduceMotion ? undefined : { opacity: 1 }}

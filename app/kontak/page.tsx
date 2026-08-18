@@ -85,7 +85,7 @@ export default function KontakPage() {
           transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="bg-white dark:bg-gray-900 rounded-3xl border-2 border-forest-600 dark:border-lime shadow-xl p-6 sm:p-8 md:p-10 flex flex-col gap-8 transition-colors duration-300"
         >
-          {/* Header & Description — animates per tab */}
+          {/* Header & Description - animates per tab */}
           <div className="text-center max-w-xl mx-auto space-y-3">
             <h2 className="section-title-hover text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
               Kirim Pesan & Pengajuan
@@ -109,7 +109,7 @@ export default function KontakPage() {
                   <>
                     Kirim email resmi ke{" "}
                     <span className="font-bold text-forest-600 dark:text-lime">{contactData.email}</span>{" "}
-                    — cocok untuk surat menyurat dan proposal
+                    - cocok untuk surat menyurat dan proposal
                   </>
                 )}
                 {activeTab === "ig" && (
@@ -122,7 +122,7 @@ export default function KontakPage() {
             </AnimatePresence>
           </div>
 
-          {/* Navigation Tabs — animated with layout + hover effects */}
+          {/* Navigation Tabs - animated with layout + hover effects */}
           <div className="grid grid-cols-3 gap-2 bg-gray-100/80 dark:bg-gray-800/60 p-1.5 rounded-2xl border-2 border-lime dark:border-lime">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -262,7 +262,7 @@ export default function KontakPage() {
               </AnimatePresence>
             </div>
 
-            {/* Submit Button — animated with AnimatePresence on tab switch */}
+            {/* Submit Button - animated with AnimatePresence on tab switch */}
             <div className="pt-2">
               <AnimatePresence mode="wait">
                 <motion.div

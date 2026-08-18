@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * E2E configuration — smoke tests every public route plus critical
+ * E2E configuration - smoke tests every public route plus critical
  * interactions (kalender, filter artikel, theme, mobile menu).
  *
  * Run: pnpm test:e2e

@@ -21,7 +21,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 /**
- * Root metadata — applied to every page unless overridden by a more specific
+ * Root metadata - applied to every page unless overridden by a more specific
  * `metadata` export or a `generateMetadata` function. The `title.template`
  * means individual page titles like "Artikel Islami" become
  * "Artikel Islami | JN UKMI" automatically.
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   title: {
     // Brand-first default (used when a page ships no title): leads with the
     // short brand so "jnukmi" queries match the title tag directly.
-    default: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
+    default: "JN UKMI UNS - Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
@@ -72,24 +72,24 @@ export const metadata: Metadata = {
       // NOTE: every public page sets its og:title as { absolute } via
       // buildPageMetadata (to avoid the double-suffix bug), so this template
       // is a safety net for pages without an explicit og:title.
-      default: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
+      default: "JN UKMI UNS - Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
       template: `%s | ${siteConfig.shortName}`,
     },
     description: siteConfig.description,
     images: [
       {
-        // Absolute URL — some crawlers (WhatsApp/Telegram) ignore relative og:image
+        // Absolute URL - some crawlers (WhatsApp/Telegram) ignore relative og:image
         url: `${BASE_URL}/thumbnail.png`,
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — Organisasi Kemahasiswaan Islam UNS`,
+        alt: `${siteConfig.name} - Organisasi Kemahasiswaan Islam UNS`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: {
-      default: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
+      default: "JN UKMI UNS - Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
       template: `%s | ${siteConfig.shortName}`,
     },
     description: siteConfig.description,
@@ -116,7 +116,7 @@ export const metadata: Metadata = {
     email: false,
     address: false,
   },
-  // PWA — manifest + iOS installability
+  // PWA - manifest + iOS installability
   manifest: "/favicon_io/site.webmanifest",
   appleWebApp: {
     capable: true,
@@ -129,12 +129,12 @@ export const metadata: Metadata = {
 };
 
 /**
- * Viewport is a separate export in Next 16 — `themeColor` was moved out of
+ * Viewport is a separate export in Next 16 - `themeColor` was moved out of
  * `metadata` so it can adapt per scheme.
  */
 // Geist Sans + Geist Mono (same fonts the site used before the font swap).
 // `next/font/google` self-hosts the woff2 files at build time, so there is
-// NO runtime request to Google — fonts ship from our own origin.
+// NO runtime request to Google - fonts ship from our own origin.
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -193,7 +193,7 @@ export default async function RootLayout({
               <LoadingProvider>
               <MusicProvider>
                 <AmbientBackground />
-                {/* Grain halus global — dekoratif, pointer-events-none, z di bawah konten utama */}
+                {/* Grain halus global - dekoratif, pointer-events-none, z di bawah konten utama */}
                 <GrainOverlay />
                 <SmoothScroll>
                   <Navbar />

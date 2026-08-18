@@ -80,7 +80,7 @@ export const defaultExtensions = [
       color: "#255f38",
       width: 4,
     },
-    // gapcursor enabled by default — allows clicking below block elements
+    // gapcursor enabled by default - allows clicking below block elements
     // (code blocks, blockquotes, etc.) to insert new paragraphs
   }),
   TiptapUnderline,

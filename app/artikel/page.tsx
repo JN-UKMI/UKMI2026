@@ -11,7 +11,7 @@ export const metadata = buildPageMetadata({
   path: '/artikel',
 });
 
-// 1 hour revalidate — Next.js ISR keeps the article list warm server-side.
+// 1 hour revalidate - Next.js ISR keeps the article list warm server-side.
 export const revalidate = 3600;
 
 interface PageProps {

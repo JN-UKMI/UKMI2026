@@ -16,7 +16,7 @@ import {
 export const dynamic = "force-dynamic";
 
 /**
- * GET /api/admin/kalender — List all kalender events from Supabase
+ * GET /api/admin/kalender - List all kalender events from Supabase
  */
 export async function GET() {
   const admin = await requireAdmin();
@@ -48,7 +48,7 @@ export async function GET() {
 }
 
 /**
- * POST /api/admin/kalender — Add new event to Kalender UKMI
+ * POST /api/admin/kalender - Add new event to Kalender UKMI
  */
 export async function POST(req: NextRequest) {
   const admin = await requireAdmin();
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * PUT /api/admin/kalender — Update existing event in Kalender UKMI
+ * PUT /api/admin/kalender - Update existing event in Kalender UKMI
  */
 export async function PUT(req: NextRequest) {
   const admin = await requireAdmin();
@@ -150,7 +150,7 @@ export async function PUT(req: NextRequest) {
 }
 
 /**
- * DELETE /api/admin/kalender — Delete event from Kalender UKMI
+ * DELETE /api/admin/kalender - Delete event from Kalender UKMI
  */
 export async function DELETE(req: NextRequest) {
   const admin = await requireAdmin();

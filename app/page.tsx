@@ -26,12 +26,12 @@ const TestimonialSection = dynamicImport(
 // title tag must lead with the brand name (bypassing the "| JN UKMI"
 // template so it doesn't repeat). Description stays ≤ ~155 chars.
 export const metadata = buildPageMetadata({
-  title: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
+  title: "JN UKMI UNS - Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
   titleAbsolute: true,
   description:
     "Website resmi JN UKMI UNS, Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret sejak 1991: profil, kabinet, kajian, artikel, dan layanan islami.",
   path: "/",
-  imageAlt: "JN UKMI UNS — Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
+  imageAlt: "JN UKMI UNS - Jamaah Nurul Huda Unit Kegiatan Mahasiswa Islam",
   tags: [
     "JN UKMI",
     "JN UKMI UNS",
@@ -55,7 +55,7 @@ export default async function Home() {
     articles = [];
   }
 
-  // Event JSON-LD untuk 3 kegiatan terdekat — Google bisa tampilkan di hasil pencarian.
+  // Event JSON-LD untuk 3 kegiatan terdekat - Google bisa tampilkan di hasil pencarian.
   const headersList = await headers();
   const nonce = headersList.get("x-nonce") ?? undefined;
   const upcomingEvents = kegiatanSeruList.slice(0, 3);

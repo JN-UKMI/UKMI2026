@@ -4,7 +4,7 @@ import { uploadImageToSanity } from "./extensions";
 export const suggestionItems: SuggestionItem[] = createSuggestionItems([
   {
     title: "Heading 1",
-    description: "Judul besar — gunakan di awal section",
+    description: "Judul besar - gunakan di awal section",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="text-forest-700">
         <path d="M4 4v16M8 10h8M8 4v16M17.5 4v8a4 4 0 0 1-4 4h-1" />
@@ -17,7 +17,7 @@ export const suggestionItems: SuggestionItem[] = createSuggestionItems([
   },
   {
     title: "Heading 2",
-    description: "Judul sedang — sub-section utama",
+    description: "Judul sedang - sub-section utama",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="text-forest-700">
         <path d="M4 4v16h8M6 10h4M17.5 4v8a4 4 0 0 1-4 4h-1M13 12h4" />
@@ -30,7 +30,7 @@ export const suggestionItems: SuggestionItem[] = createSuggestionItems([
   },
   {
     title: "Heading 3",
-    description: "Judul kecil — sub-bagian dari H2",
+    description: "Judul kecil - sub-bagian dari H2",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="text-forest-700">
         <path d="M4 4v16M8 10h8M8 4v16M17.5 4v8a4 4 0 0 1-4 4h-1M13 12h4M13 16h4" />

@@ -110,7 +110,7 @@ const BadgeFields = {
   ),
   location: z.string().max(200).optional(),
   description: z.string().min(1).max(2000),
-  // Wajib http/https — zod `url()` menerima protocol apa pun (mis. javascript:),
+  // Wajib http/https - zod `url()` menerima protocol apa pun (mis. javascript:),
   // jadi perlu refine eksplisit seperti MediaSpaceCreateSchema.
   instagramUrl: z
     .string()

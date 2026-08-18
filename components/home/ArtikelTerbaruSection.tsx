@@ -65,14 +65,14 @@ export function ArtikelTerbaruSection({ articles = [] }: ArtikelTerbaruSectionPr
           </div>
         ) : (
           <>
-            {/* Mobile — semua card memakai style hero (gambar kiri, teks kanan) */}
+            {/* Mobile - semua card memakai style hero (gambar kiri, teks kanan) */}
             <div className="md:hidden space-y-3">
               {displayedArticles.slice(0, 3).map((article) => (
                 <ArticleHeroCard key={article.slug} article={article} />
               ))}
             </div>
 
-            {/* md+ — grid 2/3 kolom dengan stagger scroll animation */}
+            {/* md+ - grid 2/3 kolom dengan stagger scroll animation */}
             <StaggerContainer className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 items-stretch">
               {displayedArticles.slice(0, 3).map((article) => (
                 <StaggerItem key={article.slug} className="flex h-full flex-col">

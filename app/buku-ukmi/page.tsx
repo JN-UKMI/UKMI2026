@@ -197,7 +197,7 @@ export default async function BukuUkmiPage() {
           <section className="bg-gradient-to-r from-forest-900 via-forest-800 to-forest-900 text-white rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-lg">
             <Quote className="w-12 h-12 text-lime/30 mx-auto mb-4" />
             <blockquote className="text-base sm:text-lg md:text-xl font-semibold italic max-w-2xl mx-auto leading-relaxed mb-4">&ldquo;{data.quote.text}&rdquo;</blockquote>
-            <cite className="text-xs sm:text-sm font-bold font-mono text-lime uppercase tracking-widest not-italic">— {data.quote.author}</cite>
+            <cite className="text-xs sm:text-sm font-bold font-mono text-lime uppercase tracking-widest not-italic">- {data.quote.author}</cite>
           </section>
         </SlideIn>
 

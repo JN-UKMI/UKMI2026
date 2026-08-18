@@ -189,7 +189,7 @@ export function WelcomeModal() {
 
   const handleShare = async () => {
     const shareData = {
-      title: "Ada yang Hilang, Dariku Belakangan — JN UKMI UNS",
+      title: "Ada yang Hilang, Dariku Belakangan - JN UKMI UNS",
       text: "Yuk, cari lagi yang bikin hati kembali tenang. Bersama JN UKMI UNS 🍃✨",
       url: "https://jnukmi.com",
     };
@@ -334,9 +334,9 @@ export function WelcomeModal() {
               </h2>
               <p
                 id="wrp-header-sub"
-                className="text-xs sm:text-sm font-medium text-forest-700/80 dark:text-gray-400 mt-1 italic"
+                className="text-xs sm:text-sm font-medium text-forest-700/80 dark:text-gray-400 mt-1"
               >
-                &ldquo;Ada yang hilang, dariku belakangan.&rdquo;
+                seperti lagu Teh Hijau
               </p>
             </div>
 
@@ -356,7 +356,7 @@ export function WelcomeModal() {
                   Mungkin bukan waktumu. Bukan juga semangatmu. Tapi bisa jadi… <strong className="text-forest-900 dark:text-lime font-bold italic">arahmu.</strong>
                 </p>
                 <p className="text-gray-500 dark:text-gray-400 text-xs">
-                  Belakangan ini kuliah jalan, tugas jalan, organisasi jalan—tapi hati kok rasanya <em className="italic text-forest-800 dark:text-gray-200">nggak ikut sampai tujuan?</em>
+                  Belakangan ini kuliah jalan, tugas jalan, organisasi jalan - tapi hati kok rasanya <em className="italic text-forest-800 dark:text-gray-200">nggak ikut sampai tujuan?</em>
                 </p>
               </div>
 
@@ -436,7 +436,7 @@ export function WelcomeModal() {
                       id="wrp-msg-empty"
                       className="p-4 rounded-2xl bg-forest-50/50 dark:bg-gray-800/40 text-center text-xs text-gray-500 dark:text-gray-400 border border-dashed border-forest-200 dark:border-gray-700"
                     >
-                      Belum ada yang nitip semangat nih — kamu duluan dong! 🌟
+                      Belum ada yang nitip semangat nih - kamu duluan dong! 🌟
                     </div>
                   ) : (
                     messages.slice(0, 10).map((item) => (

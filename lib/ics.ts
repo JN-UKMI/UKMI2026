@@ -1,7 +1,7 @@
 /**
  * RFC-5545 .ics generation for "Tambah ke Kalender" buttons.
  * Time values use floating time (no Z) so the event lands at the same
- * wall-clock time for users in any timezone — appropriate for local campus events.
+ * wall-clock time for users in any timezone - appropriate for local campus events.
  */
 
 export interface IcsEventInput {

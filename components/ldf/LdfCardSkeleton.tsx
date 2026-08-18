@@ -21,13 +21,13 @@ export function LdfCardSkeleton() {
         {/* Content placeholder */}
         <div className="flex-1 p-3 sm:p-5 flex flex-col justify-between min-w-0">
           <div className="space-y-2 sm:space-y-3">
-            {/* Name placeholder — 2 lines */}
+            {/* Name placeholder - 2 lines */}
             <div className="space-y-1.5">
               <div className="h-4 sm:h-5 bg-gray-200 dark:bg-gray-800 rounded-lg w-3/4" />
               <div className="h-4 sm:h-5 bg-gray-200 dark:bg-gray-800 rounded-lg w-1/2 sm:hidden" />
             </div>
 
-            {/* Description placeholder — 2 lines mobile, 3 lines desktop */}
+            {/* Description placeholder - 2 lines mobile, 3 lines desktop */}
             <div className="space-y-1.5">
               <div className="h-3 sm:h-3.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg w-full" />
               <div className="h-3 sm:h-3.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg w-5/6" />

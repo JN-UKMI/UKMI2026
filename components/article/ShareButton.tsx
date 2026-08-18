@@ -12,7 +12,7 @@ interface ShareButtonProps {
 }
 
 /**
- * Tombol "Bagikan" artikel — memakai Web Share API bila tersedia
+ * Tombol "Bagikan" artikel - memakai Web Share API bila tersedia
  * (mobile), fallback ke salin link ke clipboard, dengan feedback
  * visual "Tersalin!" selama 2 detik.
  */
@@ -45,7 +45,7 @@ export function ShareButton({ title, text, url, className = "" }: ShareButtonPro
         });
         return;
       } catch (err) {
-        // User membatalkan (AbortError) atau share gagal — fallback ke clipboard.
+        // User membatalkan (AbortError) atau share gagal - fallback ke clipboard.
         if ((err as Error)?.name === "AbortError") return;
       }
     }
@@ -54,7 +54,7 @@ export function ShareButton({ title, text, url, className = "" }: ShareButtonPro
       await navigator.clipboard.writeText(shareUrl);
       notifyCopied();
     } catch {
-      // Clipboard tidak tersedia (http non-secure) — fallback terakhir: prompt.
+      // Clipboard tidak tersedia (http non-secure) - fallback terakhir: prompt.
       window.prompt("Salin link artikel ini:", shareUrl);
     }
   }, [notifyCopied, text, title, url]);

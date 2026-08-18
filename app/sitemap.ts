@@ -7,7 +7,7 @@ export const revalidate = 0;
 /**
  * Static routes that have semantic priority for SEO crawlers.
  * Dynamic routes (artikel, kegiatan events) are appended at build time
- * — wrapped in try/catch so a Sanity outage doesn't fail the deployment.
+ * - wrapped in try/catch so a Sanity outage doesn't fail the deployment.
  */
 const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: "/", priority: 1.0 },
@@ -37,7 +37,7 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
  *
  * Note: `getArticles()` calls Sanity via the CDN client. If Sanity is
  * down or the token is missing in production builds, we degrade
- * gracefully to the 17 static routes — better an incomplete sitemap
+ * gracefully to the 17 static routes - better an incomplete sitemap
  * than a failed deployment.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -61,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   } catch (error) {
     // Don't fail the whole sitemap if Sanity is unreachable.
     console.warn(
-      "[sitemap] Failed to fetch dynamic articles — serving static routes only.",
+      "[sitemap] Failed to fetch dynamic articles - serving static routes only.",
       error instanceof Error ? error.message : error,
     );
   }
