@@ -1,0 +1,39 @@
+[
+  {
+    "id": "68cddc66-14d7-4c4b-973e-c478c865ed62",
+    "slug": "pendaftarandaidaiyah",
+    "target_url": "https://forms.gle/Vtvc5Vz1yEzSNkiAA",
+    "title": "Pendaftaran Lomba Dai/Daiyah SIFT 2026",
+    "clicks": 0,
+    "created_by": "maulana23firdaus@gmail.com",
+    "created_at": "2026-08-24T14:00:34.159235+00:00",
+    "updated_at": "2026-08-24T14:00:34.159235+00:00"
+  },
+  {
+    "id": "seed-shortlink-1",
+    "slug": "wa",
+    "target_url": "https://wa.me/6281234567890",
+    "title": "WhatsApp Humas JN UKMI",
+    "clicks": 42,
+    "created_by": "admin@jnukmi.com",
+    "created_at": "2026-08-01T08:00:00.000Z"
+  },
+  {
+    "id": "seed-shortlink-2",
+    "slug": "ig",
+    "target_url": "https://instagram.com/jnukmi_uns",
+    "title": "Instagram Resmi JN UKMI",
+    "clicks": 128,
+    "created_by": "admin@jnukmi.com",
+    "created_at": "2026-08-05T10:30:00.000Z"
+  },
+  {
+    "id": "seed-shortlink-3",
+    "slug": "buku",
+    "target_url": "https://jnukmi.com/buku-ukmi",
+    "title": "E-Book & Panduan UKMI",
+    "clicks": 19,
+    "created_by": "admin@jnukmi.com",
+    "created_at": "2026-08-10T14:15:00.000Z"
+  }
+]

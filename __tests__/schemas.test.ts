@@ -10,6 +10,9 @@ import {
   TitipanSemangatCreateSchema,
   TitipanSemangatUpdateSchema,
   TitipanSemangatDeleteSchema,
+  ShortlinkCreateSchema,
+  ShortlinkUpdateSchema,
+  ShortlinkDeleteSchema,
 } from "@/lib/schemas";
 
 describe("SlugSchema", () => {
@@ -265,5 +268,80 @@ describe("TitipanSemangatDeleteSchema", () => {
 
   it("rejects empty id", () => {
     expect(TitipanSemangatDeleteSchema.safeParse({ id: "" }).success).toBe(false);
+  });
+});
+
+describe("ShortlinkCreateSchema", () => {
+  it("accepts valid slug, target_url, and optional title", () => {
+    const valid = {
+      slug: "daftar-diklat-2026",
+      target_url: "https://forms.gle/xyz123",
+      title: "Pendaftaran Diklat",
+    };
+    expect(ShortlinkCreateSchema.safeParse(valid).success).toBe(true);
+  });
+
+  it("rejects invalid target URL", () => {
+    expect(
+      ShortlinkCreateSchema.safeParse({
+        slug: "link-invalid",
+        target_url: "not-a-valid-url",
+      }).success
+    ).toBe(false);
+  });
+
+  it("rejects invalid slug with spaces or special characters", () => {
+    expect(
+      ShortlinkCreateSchema.safeParse({
+        slug: "link dengan spasi",
+        target_url: "https://example.com",
+      }).success
+    ).toBe(false);
+    expect(
+      ShortlinkCreateSchema.safeParse({
+        slug: "link@special!",
+        target_url: "https://example.com",
+      }).success
+    ).toBe(false);
+  });
+});
+
+describe("ShortlinkUpdateSchema", () => {
+  it("accepts valid update payload", () => {
+    expect(
+      ShortlinkUpdateSchema.safeParse({
+        id: "shortlink-123",
+        slug: "new-slug",
+        target_url: "https://updated-target.com",
+        title: "Updated Title",
+      }).success
+    ).toBe(true);
+  });
+
+  it("rejects missing id or invalid url", () => {
+    expect(
+      ShortlinkUpdateSchema.safeParse({
+        id: "",
+        slug: "new-slug",
+        target_url: "https://updated-target.com",
+      }).success
+    ).toBe(false);
+    expect(
+      ShortlinkUpdateSchema.safeParse({
+        id: "shortlink-123",
+        slug: "new-slug",
+        target_url: "invalid-url",
+      }).success
+    ).toBe(false);
+  });
+});
+
+describe("ShortlinkDeleteSchema", () => {
+  it("accepts valid non-empty id", () => {
+    expect(ShortlinkDeleteSchema.safeParse({ id: "shortlink-123" }).success).toBe(true);
+  });
+
+  it("rejects empty id", () => {
+    expect(ShortlinkDeleteSchema.safeParse({ id: "" }).success).toBe(false);
   });
 });

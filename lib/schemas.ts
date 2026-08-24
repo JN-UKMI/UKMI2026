@@ -223,6 +223,78 @@ export const TitipanSemangatDeleteSchema = z.object({
   id: z.string().min(1, "ID pesan wajib diisi"),
 });
 
+// ── Shortlink Generator ─────────────────────────────────────────
+export const RESERVED_SLUGS = new Set([
+  "403",
+  "404",
+  "admin",
+  "al-kahfi",
+  "al-masurat",
+  "al-matsurat",
+  "api",
+  "artikel",
+  "bidang",
+  "buku-ukmi",
+  "doa-doa",
+  "feed.xml",
+  "kabinet",
+  "kontak",
+  "ldf",
+  "loading",
+  "login",
+  "offline",
+  "oki",
+  "partner",
+  "partnership",
+  "s",
+  "tentang",
+  "ukmi-store",
+  "manifest",
+  "manifest.webmanifest",
+  "robots.txt",
+  "sitemap",
+  "sitemap.xml",
+  "sw.js",
+  "favicon.ico",
+]);
+
+export const ShortlinkCreateSchema = z.object({
+  slug: z
+    .string()
+    .min(2, "Slug minimal 2 karakter")
+    .max(80, "Slug maksimal 80 karakter")
+    .regex(/^[a-zA-Z0-9_-]+$/, "Slug hanya boleh berisi huruf, angka, tanda strip (-), dan garis bawah (_)")
+    .refine((val) => !RESERVED_SLUGS.has(val.toLowerCase()), {
+      message: "Slug ini merupakan nama halaman sistem yang dilindungi dan tidak dapat digunakan.",
+    }),
+  target_url: z
+    .string()
+    .url("Format URL target tidak valid (harus diawali http:// atau https://)")
+    .max(2048, "URL target maksimal 2048 karakter"),
+  title: z.string().max(150, "Judul/keterangan maksimal 150 karakter").optional().or(z.literal("")),
+});
+
+export const ShortlinkUpdateSchema = z.object({
+  id: z.string().min(1, "ID shortlink wajib diisi"),
+  slug: z
+    .string()
+    .min(2, "Slug minimal 2 karakter")
+    .max(80, "Slug maksimal 80 karakter")
+    .regex(/^[a-zA-Z0-9_-]+$/, "Slug hanya boleh berisi huruf, angka, tanda strip (-), dan garis bawah (_)")
+    .refine((val) => !RESERVED_SLUGS.has(val.toLowerCase()), {
+      message: "Slug ini merupakan nama halaman sistem yang dilindungi dan tidak dapat digunakan.",
+    }),
+  target_url: z
+    .string()
+    .url("Format URL target tidak valid (harus diawali http:// atau https://)")
+    .max(2048, "URL target maksimal 2048 karakter"),
+  title: z.string().max(150, "Judul/keterangan maksimal 150 karakter").optional().or(z.literal("")),
+});
+
+export const ShortlinkDeleteSchema = z.object({
+  id: z.string().min(1, "ID shortlink wajib diisi"),
+});
+
 // Type helpers so server code can `z.infer<typeof FooSchema>`
 export type ArticleCreatePayload = z.infer<typeof ArticleCreateSchema>;
 export type ArticleUpdatePayload = z.infer<typeof ArticleUpdateSchema>;
@@ -235,5 +307,8 @@ export type AdminEmailUpdatePayload = z.infer<typeof AdminEmailUpdateSchema>;
 export type TitipanSemangatCreatePayload = z.infer<typeof TitipanSemangatCreateSchema>;
 export type TitipanSemangatUpdatePayload = z.infer<typeof TitipanSemangatUpdateSchema>;
 export type TitipanSemangatDeletePayload = z.infer<typeof TitipanSemangatDeleteSchema>;
+export type ShortlinkCreatePayload = z.infer<typeof ShortlinkCreateSchema>;
+export type ShortlinkUpdatePayload = z.infer<typeof ShortlinkUpdateSchema>;
+export type ShortlinkDeletePayload = z.infer<typeof ShortlinkDeleteSchema>;
 
 

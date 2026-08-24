@@ -21,6 +21,17 @@ export interface AdminEmailRow {
   created_at?: string;
 }
 
+export interface ShortlinkRow {
+  id: string;
+  slug: string;
+  target_url: string;
+  title?: string | null;
+  clicks: number;
+  created_by?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
 // Global cached client instance
 let cachedSupabase: SupabaseClient | null = null;
 let cachedSupabaseAdmin: SupabaseClient | null = null;

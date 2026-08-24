@@ -35,10 +35,12 @@ import {
   CalendarDays,
   KeyRound,
   MessageSquareHeart,
+  Link2,
 } from "lucide-react";
 import { KalenderAdminTab } from "@/components/admin/KalenderAdminTab";
 import { AdminsAdminTab } from "@/components/admin/AdminsAdminTab";
 import { TitipanSemangatAdminTab } from "@/components/admin/TitipanSemangatAdminTab";
+import { ShortlinkAdminTab } from "@/components/admin/ShortlinkAdminTab";
 
 interface DraftArticle {
   _id: string;
@@ -142,7 +144,7 @@ function getPageItems(total: number, current: number): (number | "ellipsis")[] {
 export default function AdminPage() {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<
-    "moderasi" | "terbit" | "kegiatan" | "media" | "kalender" | "admins" | "titipan"
+    "moderasi" | "terbit" | "kegiatan" | "media" | "kalender" | "admins" | "titipan" | "shortlinks"
   >("moderasi");
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
@@ -995,6 +997,17 @@ export default function AdminPage() {
           >
             <MessageSquareHeart className="w-4 h-4" />
             Titipan Semangat
+          </button>
+          <button
+            onClick={() => setActiveTab("shortlinks")}
+            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+              activeTab === "shortlinks"
+                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
+                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+            }`}
+          >
+            <Link2 className="w-4 h-4" />
+            Shortlink
           </button>
         </div>
 
@@ -1993,6 +2006,9 @@ export default function AdminPage() {
 
         {/* Tab 7: Titipan Semangat (Supabase + Local) */}
         {activeTab === "titipan" && <TitipanSemangatAdminTab />}
+
+        {/* Tab 8: Shortlink Generator (Supabase + Local) */}
+        {activeTab === "shortlinks" && <ShortlinkAdminTab />}
 
         {/* Modal: View Full Details (Styled like public article details page) */}
         {selectedArticle && (

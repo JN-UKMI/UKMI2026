@@ -220,7 +220,7 @@ function TestimonialCard({ item }: { item: TestimonialItem }) {
           />
         </motion.div>
         <div className="flex flex-col min-w-0 flex-1">
-          <h3 className="card-title-underline font-bold text-xs sm:text-sm text-forest-900 dark:text-lime leading-tight group-hover:text-forest-600 dark:group-hover:text-lime transition-colors truncate">
+          <h3 className="font-bold text-xs sm:text-sm text-forest-900 dark:text-lime leading-tight group-hover:text-forest-600 dark:group-hover:text-lime transition-colors truncate">
             {item.nama}
           </h3>
           <p className="text-[11px] sm:text-xs text-forest-600 dark:text-gray-300 font-semibold truncate mt-0.5">
