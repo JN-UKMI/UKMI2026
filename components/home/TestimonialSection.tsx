@@ -19,12 +19,10 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   const shouldReduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Determine items per view based on viewport width (Mobile: 1, Tablet: 2, Desktop: 3)
+  // Determine items per view: Desktop/Tablet (>= 768px): 2 cards per view, Mobile (< 768px): 1 card per view
   useEffect(() => {
     function updateItemsPerView() {
-      if (window.innerWidth >= 1024) {
-        setItemsPerView(Math.min(3, testimonials.length));
-      } else if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 768) {
         setItemsPerView(Math.min(2, testimonials.length));
       } else {
         setItemsPerView(1);
@@ -87,7 +85,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   const showControls = testimonials.length > itemsPerView;
 
   return (
-    <section className="relative overflow-hidden py-10 sm:py-14 px-4 sm:px-6 lg:px-8 bg-transparent transition-colors duration-300">
+    <section className="relative overflow-hidden py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-transparent transition-colors duration-300">
       <div className="relative z-10 max-w-6xl mx-auto">
         <SectionHeader
           icon={<MessageSquareQuote className="w-6 h-6 text-forest-600 dark:text-lime" />}
@@ -98,7 +96,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
         {/* Carousel Container */}
         <div className="mt-4 sm:mt-6" ref={containerRef}>
           {/* Slider Track Wrapper */}
-          <div className="overflow-hidden py-4 -mx-2.5 sm:-mx-3.5 px-0.5">
+          <div className="overflow-hidden py-3 -mx-2.5 sm:-mx-3.5 px-0.5">
             <motion.div
               className="flex items-stretch"
               animate={{
@@ -127,7 +125,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
 
           {/* Carousel Controls & Indicators */}
           {showControls && (
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mt-6">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mt-5 sm:mt-6">
               {/* Prev Button */}
               <button
                 onClick={goToPrev}
@@ -183,47 +181,53 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   );
 }
 
-/** Reusable testimonial card with uniform equal height and structure */
+/** Reusable testimonial card with landscape proportion, scrollable text when long, and equal height */
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
-    <div className="group relative bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border-2 border-forest-600 dark:border-lime shadow-xs hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full min-h-[300px] sm:min-h-[330px]">
+    <div className="group relative bg-white dark:bg-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-7 border-2 border-forest-600 dark:border-lime shadow-xs hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">
       {/* Decorative Quote Watermark */}
-      <div className="absolute top-6 right-6 text-forest-600/10 dark:text-lime/10 group-hover:text-forest-600/25 dark:group-hover:text-lime/25 transition-colors pointer-events-none select-none">
-        <QuoteIcon className="w-10 h-10 sm:w-12 sm:h-12 rotate-180" />
+      <div className="absolute top-4 right-4 sm:top-5 sm:right-5 text-forest-600/10 dark:text-lime/10 group-hover:text-forest-600/25 dark:group-hover:text-lime/25 transition-colors pointer-events-none select-none">
+        <QuoteIcon className="w-8 h-8 sm:w-10 sm:h-10 rotate-180" />
       </div>
 
-      {/* Testimonial Text */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center mb-6">
-        <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed italic">
-          &ldquo;{item.testimoni}&rdquo;
-        </p>
+      {/* Testimonial Text (Scrollable if text exceeds ~7 lines) */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center mb-4 sm:mb-5 pr-4 sm:pr-6">
+        <div
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+          className="max-h-[135px] sm:max-h-[155px] overflow-y-auto overscroll-contain pr-1.5 focus:outline-none no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <p className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm leading-relaxed italic">
+            &ldquo;{item.testimoni}&rdquo;
+          </p>
+        </div>
       </div>
 
       {/* Author Info Card Bottom */}
-      <div className="relative z-10 pt-4 border-t border-gray-100 dark:border-gray-800/80 flex items-center gap-3.5 sm:gap-4 shrink-0">
+      <div className="relative z-10 pt-3.5 border-t border-gray-100 dark:border-gray-800/80 flex items-center gap-3 sm:gap-3.5 shrink-0">
         <motion.div
           whileHover={{ scale: 1.08 }}
           transition={{ type: "spring", stiffness: 300 }}
-          className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border-2 border-lime/40 dark:border-lime/60 bg-gray-100 dark:bg-gray-800 shadow-xs"
+          className="relative w-11 h-11 shrink-0 rounded-full overflow-hidden border-2 border-lime/40 dark:border-lime/60 bg-gray-100 dark:bg-gray-800 shadow-xs"
         >
           <Image
             src={item.foto || "/image/laki-laki.png"}
             alt={item.nama}
             fill
-            sizes="48px"
+            sizes="44px"
             loading="lazy"
             className="object-cover"
           />
         </motion.div>
         <div className="flex flex-col min-w-0 flex-1">
-          <h3 className="card-title-underline font-bold text-sm sm:text-base text-forest-900 dark:text-lime leading-[1.6] group-hover:text-forest-600 dark:group-hover:text-lime transition-colors truncate">
+          <h3 className="card-title-underline font-bold text-xs sm:text-sm text-forest-900 dark:text-lime leading-tight group-hover:text-forest-600 dark:group-hover:text-lime transition-colors truncate">
             {item.nama}
           </h3>
-          <p className="text-xs text-forest-600 dark:text-gray-300 font-semibold truncate">
+          <p className="text-[11px] sm:text-xs text-forest-600 dark:text-gray-300 font-semibold truncate mt-0.5">
             {item.periode}
           </p>
           {item.kabinet && (
-            <span className="text-[11px] text-gray-500 dark:text-gray-400 font-medium truncate">
+            <span className="text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 font-medium truncate">
               {item.kabinet}
             </span>
           )}
