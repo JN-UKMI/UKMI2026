@@ -19,10 +19,12 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   const shouldReduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Determine items per view: Desktop/Tablet (>= 768px): 2 cards per view, Mobile (< 768px): 1 card per view
+  // Determine items per view: Desktop (>=1024px): 3 cards, Tablet (>=768px): 2 cards, Mobile (<768px): 1 card
   useEffect(() => {
     function updateItemsPerView() {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
+        setItemsPerView(Math.min(3, testimonials.length));
+      } else if (window.innerWidth >= 768) {
         setItemsPerView(Math.min(2, testimonials.length));
       } else {
         setItemsPerView(1);
@@ -184,50 +186,46 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
 /** Reusable testimonial card with landscape proportion, scrollable text when long, and equal height */
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
-    <div className="group relative bg-white dark:bg-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-7 border-2 border-forest-600 dark:border-lime shadow-xs hover:shadow-xl hover:shadow-forest-900/10 dark:hover:shadow-lime/10 motion-safe:hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">
+    <div className="group relative bg-white dark:bg-gray-900 rounded-2xl p-5 sm:p-5.5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/5 motion-safe:hover:-translate-y-0.5 transition-all duration-300 flex flex-col h-full">
       {/* Decorative Quote Watermark */}
-      <div className="absolute top-4 right-4 sm:top-5 sm:right-5 text-forest-600/10 dark:text-lime/10 group-hover:text-forest-600/25 dark:group-hover:text-lime/25 transition-colors pointer-events-none select-none">
-        <QuoteIcon className="w-8 h-8 sm:w-10 sm:h-10 rotate-180" />
+      <div className="absolute top-3 right-3.5 text-forest-600/[0.06] dark:text-lime/[0.06] group-hover:text-forest-600/15 dark:group-hover:text-lime/15 transition-colors pointer-events-none select-none">
+        <QuoteIcon className="w-7 h-7 rotate-180" />
       </div>
 
-      {/* Testimonial Text (Scrollable if text exceeds ~7 lines) */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center mb-4 sm:mb-5 pr-4 sm:pr-6">
-        <div
-          data-lenis-prevent="true"
-          onWheel={(e) => e.stopPropagation()}
-          className="max-h-[135px] sm:max-h-[155px] overflow-y-auto overscroll-contain pr-1.5 focus:outline-none no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-        >
-          <p className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm leading-relaxed italic">
+      {/* Testimonial Text - scrollable when long, double height */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center mb-3 pr-3 min-h-[168px] sm:min-h-[192px]">
+        <div className="overflow-y-auto pr-1 max-h-full">
+          <p className="text-gray-600 dark:text-gray-400 text-[13px] leading-relaxed italic">
             &ldquo;{item.testimoni}&rdquo;
           </p>
         </div>
       </div>
 
-      {/* Author Info Card Bottom */}
-      <div className="relative z-10 pt-3.5 border-t border-gray-100 dark:border-gray-800/80 flex items-center gap-3 sm:gap-3.5 shrink-0">
+      {/* Author Info - compact row */}
+      <div className="relative z-10 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center gap-2.5 shrink-0">
         <motion.div
           whileHover={{ scale: 1.08 }}
           transition={{ type: "spring", stiffness: 300 }}
-          className="relative w-11 h-11 shrink-0 rounded-full overflow-hidden border-2 border-lime/40 dark:border-lime/60 bg-gray-100 dark:bg-gray-800 shadow-xs"
+          className="relative w-9 h-9 shrink-0 rounded-full overflow-hidden ring-2 ring-forest-600/20 dark:ring-lime/30 bg-gray-100 dark:bg-gray-800"
         >
           <Image
             src={item.foto || "/image/laki-laki.png"}
             alt={item.nama}
             fill
-            sizes="44px"
+            sizes="36px"
             loading="lazy"
             className="object-cover"
           />
         </motion.div>
         <div className="flex flex-col min-w-0 flex-1">
-          <h3 className="font-bold text-xs sm:text-sm text-forest-900 dark:text-lime leading-tight group-hover:text-forest-600 dark:group-hover:text-lime transition-colors truncate">
+          <h3 className="font-bold text-xs text-gray-900 dark:text-white leading-tight truncate">
             {item.nama}
           </h3>
-          <p className="text-[11px] sm:text-xs text-forest-600 dark:text-gray-300 font-semibold truncate mt-0.5">
+          <p className="text-[11px] text-forest-600 dark:text-lime font-semibold truncate mt-px">
             {item.periode}
           </p>
           {item.kabinet && (
-            <span className="text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 font-medium truncate">
+            <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium truncate">
               {item.kabinet}
             </span>
           )}

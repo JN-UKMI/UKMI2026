@@ -1,5 +1,6 @@
 import { createClient } from "next-sanity";
 import { requireAdmin } from "@/lib/auth";
+import { logAdminActivity } from "@/lib/admin-log";
 import {
   apiOk,
   apiBadRequest,
@@ -67,6 +68,16 @@ export async function POST(request: Request) {
       .delete(parsed.data.draftId)
       .commit();
 
+    // Log activity
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "approve_article",
+      target_type: "artikel",
+      target_id: publishedId,
+      target_name: (draftDoc as any)?.title || null,
+    });
+
     return apiOk("Artikel berhasil disetujui dan dipublikasikan.", { publishedId });
   } catch (err: any) {
     console.error("[admin/approve POST]", err?.message);
@@ -99,6 +110,16 @@ export async function DELETE(request: Request) {
   try {
     const writeClient = getWriteClient(token);
     await writeClient.delete(parsed.data.draftId);
+
+    // Log activity
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "reject_article",
+      target_type: "artikel",
+      target_id: parsed.data.draftId,
+    });
+
     return apiOk("Artikel draf berhasil dihapus.");
   } catch (err: any) {
     console.error("[admin/approve DELETE]", err?.message);

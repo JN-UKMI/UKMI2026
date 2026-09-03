@@ -36,11 +36,13 @@ import {
   KeyRound,
   MessageSquareHeart,
   Link2,
+  Activity,
 } from "lucide-react";
 import { KalenderAdminTab } from "@/components/admin/KalenderAdminTab";
 import { AdminsAdminTab } from "@/components/admin/AdminsAdminTab";
 import { TitipanSemangatAdminTab } from "@/components/admin/TitipanSemangatAdminTab";
 import { ShortlinkAdminTab } from "@/components/admin/ShortlinkAdminTab";
+import { ActivityLogTab } from "@/components/admin/ActivityLogTab";
 
 interface DraftArticle {
   _id: string;
@@ -144,7 +146,7 @@ function getPageItems(total: number, current: number): (number | "ellipsis")[] {
 export default function AdminPage() {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<
-    "moderasi" | "terbit" | "kegiatan" | "media" | "kalender" | "admins" | "titipan" | "shortlinks"
+    "moderasi" | "terbit" | "kegiatan" | "media" | "kalender" | "admins" | "titipan" | "shortlinks" | "logs"
   >("moderasi");
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
@@ -919,96 +921,55 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Tab Switcher */}
-        <div className="flex flex-wrap gap-x-2 gap-y-1 border-b border-gray-200 dark:border-gray-800 mb-8">
-          <button
-            onClick={() => setActiveTab("moderasi")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "moderasi"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <FileText className="w-4 h-4" />
-            Antrean Draf ({drafts.length})
-          </button>
-          <button
-            onClick={() => setActiveTab("terbit")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "terbit"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <Check className="w-4 h-4" />
-            Artikel Terbit ({publishedArticles.length})
-          </button>
-          <button
-            onClick={() => setActiveTab("kegiatan")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "kegiatan"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <Calendar className="w-4 h-4" />
-            Event Terdekat ({kegiatanList.length})
-          </button>
-          <button
-            onClick={() => setActiveTab("media")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "media"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <GalleryVertical className="w-4 h-4" />
-            Media Space ({mediaList.length})
-          </button>
-          <button
-            onClick={() => setActiveTab("kalender")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "kalender"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <CalendarDays className="w-4 h-4" />
-            Kalender UKMI
-          </button>
-          <button
-            onClick={() => setActiveTab("admins")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "admins"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <KeyRound className="w-4 h-4" />
-            Kelola Admin
-          </button>
-          <button
-            onClick={() => setActiveTab("titipan")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "titipan"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <MessageSquareHeart className="w-4 h-4" />
-            Titipan Semangat
-          </button>
-          <button
-            onClick={() => setActiveTab("shortlinks")}
-            className={`pb-3.5 px-4 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === "shortlinks"
-                ? "border-lime text-forest-900 dark:text-lime dark:border-lime"
-                : "border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-            }`}
-          >
-            <Link2 className="w-4 h-4" />
-            Shortlink
-          </button>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3 mb-8">
+          {[
+            {
+              key: "moderasi" as const,
+              icon: <FileText className="w-4 h-4" />,
+              label: `Antrean Draf (${drafts.length})`,
+            },
+            {
+              key: "terbit" as const,
+              icon: <Check className="w-4 h-4" />,
+              label: `Artikel Terbit (${publishedArticles.length})`,
+            },
+            {
+              key: "kegiatan" as const,
+              icon: <Calendar className="w-4 h-4" />,
+              label: `Event Terdekat (${kegiatanList.length})`,
+            },
+            {
+              key: "media" as const,
+              icon: <GalleryVertical className="w-4 h-4" />,
+              label: `Media Space (${mediaList.length})`,
+            },
+            { key: "kalender" as const, icon: <CalendarDays className="w-4 h-4" />, label: "Kalender UKMI" },
+            { key: "admins" as const, icon: <KeyRound className="w-4 h-4" />, label: "Kelola Admin" },
+            { key: "titipan" as const, icon: <MessageSquareHeart className="w-4 h-4" />, label: "Titipan Semangat" },
+            { key: "shortlinks" as const, icon: <Link2 className="w-4 h-4" />, label: "Shortlink" },
+            { key: "logs" as const, icon: <Activity className="w-4 h-4" />, label: "Log Aktivitas" },
+          ].map((tab) => {
+            const active = activeTab === tab.key;
+            return (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                aria-pressed={active}
+                className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  active
+                    ? "bg-forest-600 dark:bg-lime text-white dark:text-forest-950 border-forest-600 dark:border-lime shadow-sm"
+                    : "bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:text-forest-700 dark:hover:text-lime hover:border-forest-300 dark:hover:border-lime/40"
+                }`}
+              >
+                {tab.icon}
+                <span className="truncate">{tab.label}</span>
+              </button>
+            );
+          })}
+          <div className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 text-xs font-bold text-gray-400 dark:text-gray-500 select-none">
+            <Sparkles className="w-4 h-4" />
+            <span className="truncate">Coming Soon</span>
+          </div>
         </div>
 
         {/* Notification alerts */}
@@ -2009,6 +1970,9 @@ export default function AdminPage() {
 
         {/* Tab 8: Shortlink Generator (Supabase + Local) */}
         {activeTab === "shortlinks" && <ShortlinkAdminTab />}
+
+        {/* Tab 9: Log Aktivitas Admin */}
+        {activeTab === "logs" && <ActivityLogTab />}
 
         {/* Modal: View Full Details (Styled like public article details page) */}
         {selectedArticle && (

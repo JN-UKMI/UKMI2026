@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { requireAdmin, getEnvAdminEmails } from "@/lib/auth";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { logAdminActivity } from "@/lib/admin-log";
 import {
   AdminEmailCreateSchema,
   AdminEmailUpdateSchema,
@@ -137,6 +138,17 @@ export async function POST(req: NextRequest) {
       return apiServerError("Gagal menambahkan admin.");
     }
 
+    // Log activity
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "add_admin",
+      target_type: "admin",
+      target_id: data?.id || null,
+      target_name: email,
+      details: `Role: ${role}`,
+    });
+
     return apiOk("Admin berhasil ditambahkan.", data);
   } catch (err: any) {
     console.error("[admin/admins POST]", err?.message);
@@ -209,6 +221,17 @@ export async function PUT(req: NextRequest) {
       return apiServerError("Gagal memperbarui admin.");
     }
 
+    // Log activity
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "update_admin",
+      target_type: "admin",
+      target_id: id,
+      target_name: normEmail,
+      details: `Role: ${cleanRole}`,
+    });
+
     return apiOk("Data admin berhasil diperbarui.", data);
   } catch (err: any) {
     console.error("[admin/admins PUT]", err?.message);
@@ -267,6 +290,16 @@ export async function DELETE(req: NextRequest) {
       console.error("[admin/admins DELETE]", error.message);
       return apiServerError("Gagal menghapus admin.");
     }
+
+    // Log activity
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "delete_admin",
+      target_type: "admin",
+      target_id: parsed.data.id,
+      target_name: targetAdmin?.email || null,
+    });
 
     return apiOk("Akses admin berhasil dicabut.");
   } catch (err: any) {

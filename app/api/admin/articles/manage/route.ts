@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 import { requireAdmin } from "@/lib/auth";
+import { logAdminActivity } from "@/lib/admin-log";
 import {
   apiOk,
   apiBadRequest,
@@ -128,6 +129,17 @@ export async function PUT(request: Request) {
 
     // FIX: actually dispatch the patch to Sanity.
     await writeClient.patch(id).set(patchData).commit();
+
+    // Log activity
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "update_article",
+      target_type: "artikel",
+      target_id: id,
+      target_name: title || null,
+    });
+
     return apiOk("Artikel berhasil diperbarui.");
   } catch (err: any) {
     console.error("[admin/articles/manage PUT]", err?.message);
@@ -158,6 +170,16 @@ export async function DELETE(request: Request) {
   try {
     const writeClient = getWriteClient(token);
     await writeClient.delete(parsed.data.id);
+
+    // Log activity
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "delete_article",
+      target_type: "artikel",
+      target_id: parsed.data.id,
+    });
+
     return apiOk("Artikel berhasil dihapus.");
   } catch (err: any) {
     console.error("[admin/articles/manage DELETE]", err?.message);

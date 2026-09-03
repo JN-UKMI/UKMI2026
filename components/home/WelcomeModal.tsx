@@ -300,27 +300,27 @@ export function WelcomeModal() {
                 ? { duration: 0.15 }
                 : { type: "spring", stiffness: 350, damping: 28 }
             }
-            className="relative w-full max-w-lg max-h-[85vh] sm:max-h-[88vh] flex flex-col bg-white dark:bg-gray-900 border-2 border-forest-600 dark:border-lime rounded-3xl shadow-2xl overflow-hidden z-10 my-auto text-gray-800 dark:text-gray-100 overscroll-contain"
+            className="relative w-full max-w-xs sm:max-w-sm max-h-[70vh] sm:max-h-[75vh] flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden z-10 my-auto text-gray-800 dark:text-gray-100 overscroll-contain"
           >
             {/* Close Button */}
             <button
               id="wrp-x"
               onClick={handleClose}
               aria-label="Tutup popup"
-              className="absolute top-4 right-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-forest-50 dark:bg-gray-800 text-forest-700 dark:text-lime border border-forest-200 dark:border-gray-700 transition-all hover:bg-forest-100 dark:hover:bg-gray-700 hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime"
+              className="absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-forest-50 dark:bg-gray-800 text-forest-700 dark:text-lime border border-forest-200 dark:border-gray-700 transition-all hover:bg-forest-100 dark:hover:bg-gray-700 hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
 
             {/* Header */}
             <div
               id="wrp-header"
-              className="relative shrink-0 pt-6 sm:pt-8 px-6 sm:px-8 pb-4 text-center border-b border-gray-100 dark:border-gray-800 bg-forest-50/50 dark:bg-gray-900/60"
+              className="relative shrink-0 pt-5 px-5 pb-3 text-center border-b border-gray-100 dark:border-gray-800 bg-forest-50/50 dark:bg-gray-900/60"
             >
               {/* Badge */}
               <div
                 id="wrp-badge"
-                className="inline-flex items-center gap-1.5 px-3 py-1 bg-forest-600 dark:bg-lime text-white dark:text-forest-950 rounded-full text-xs font-bold shadow-sm mb-3"
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-forest-600 dark:bg-lime text-white dark:text-forest-950 rounded-full text-[10px] font-bold shadow-sm mb-2"
               >
                 <Music className="w-3.5 h-3.5" />
                 <span>Teh Hijau • Tulus</span>
@@ -328,13 +328,13 @@ export function WelcomeModal() {
 
               <h2
                 id="wrp-title"
-                className="text-xl sm:text-2xl font-black text-forest-900 dark:text-lime leading-snug tracking-tight"
+                className="text-base sm:text-lg font-black text-forest-900 dark:text-lime leading-snug tracking-tight"
               >
                 Ada yang Hilang,<br />Dariku Belakangan 🍃
               </h2>
               <p
                 id="wrp-header-sub"
-                className="text-xs sm:text-sm font-medium text-forest-700/80 dark:text-gray-400 mt-1"
+                className="text-[11px] font-medium text-forest-700/80 dark:text-gray-400 mt-0.5"
               >
                 seperti lagu Teh Hijau
               </p>
@@ -345,62 +345,62 @@ export function WelcomeModal() {
               id="wrp-body"
               data-lenis-prevent="true"
               onWheel={(e) => e.stopPropagation()}
-              className="flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8 space-y-5 text-sm touch-pan-y focus:outline-none"
+              className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5 space-y-3.5 text-sm touch-pan-y focus:outline-none"
             >
               {/* Intro Reflection */}
               <div
                 id="wrp-desc"
-                className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium bg-forest-50/40 dark:bg-gray-800/40 p-4 rounded-2xl border border-forest-100 dark:border-gray-800 space-y-2"
+                className="text-[11px] sm:text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-medium bg-forest-50/40 dark:bg-gray-800/40 p-3 rounded-xl border border-forest-100 dark:border-gray-800 space-y-1.5"
               >
                 <p>
                   Mungkin bukan waktumu. Bukan juga semangatmu. Tapi bisa jadi… <strong className="text-forest-900 dark:text-lime font-bold italic">arahmu.</strong>
                 </p>
-                <p className="text-gray-500 dark:text-gray-400 text-xs">
+                <p className="text-gray-500 dark:text-gray-400">
                   Belakangan ini kuliah jalan, tugas jalan, organisasi jalan - tapi hati kok rasanya <em className="italic text-forest-800 dark:text-gray-200">nggak ikut sampai tujuan?</em>
                 </p>
               </div>
 
               {/* Feature Cards Grid */}
-              <div id="wrp-features" className="space-y-3">
+              <div id="wrp-features" className="space-y-2">
                 {/* Feat 1: Waktu Kembali */}
-                <div className="wrp-feat flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
-                  <div className="wrp-feat-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
-                    <Sprout className="w-4 h-4" />
+                <div className="wrp-feat flex items-start gap-2.5 p-3 rounded-xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
+                  <div className="wrp-feat-icon flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
+                    <Sprout className="w-3.5 h-3.5" />
                   </div>
-                  <div className="wrp-feat-text text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Tenang, gaes. 🌱</strong>
+                  <div className="wrp-feat-text text-[11px] sm:text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <strong className="text-forest-900 dark:text-white font-bold block mb-px">Tenang, gaes. 🌱</strong>
                     Kadang yang hilang bukan sesuatu yang harus dicari jauh-jauh, melainkan <span className="font-semibold text-forest-800 dark:text-lime">waktu untuk kembali dekat kepada Allah.</span>
                   </div>
                 </div>
 
                 {/* Feat 2: Arah Pulang */}
-                <div className="wrp-feat flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
-                  <div className="wrp-feat-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
-                    <Compass className="w-4 h-4" />
+                <div className="wrp-feat flex items-start gap-2.5 p-3 rounded-xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
+                  <div className="wrp-feat-icon flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
+                    <Compass className="w-3.5 h-3.5" />
                   </div>
-                  <div className="wrp-feat-text text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Jangan Kehilangan Arah Pulang 🤍</strong>
+                  <div className="wrp-feat-text text-[11px] sm:text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <strong className="text-forest-900 dark:text-white font-bold block mb-px">Jangan Kehilangan Arah Pulang 🤍</strong>
                     Sebab di tengah sibuknya dunia, jangan sampai kita lupa tujuan hakiki dan kehilangan arah pulang kepada-Nya.
                   </div>
                 </div>
 
                 {/* Feat 3: Lingkungan yang Mengingatkan */}
-                <div className="wrp-feat flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
-                  <div className="wrp-feat-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
-                    <Sparkles className="w-4 h-4" />
+                <div className="wrp-feat flex items-start gap-2.5 p-3 rounded-xl bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 shadow-xs hover:border-lime dark:hover:border-lime transition-all">
+                  <div className="wrp-feat-icon flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-forest-50 dark:bg-lime/10 text-forest-700 dark:text-lime border border-forest-200 dark:border-lime/30">
+                    <Sparkles className="w-3.5 h-3.5" />
                   </div>
-                  <div className="wrp-feat-text text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <strong className="text-forest-900 dark:text-white font-bold block mb-0.5">Temukan Ruang Bertumbuh ✨</strong>
+                  <div className="wrp-feat-text text-[11px] sm:text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <strong className="text-forest-900 dark:text-white font-bold block mb-px">Temukan Ruang Bertumbuh ✨</strong>
                     Mungkin yang kamu cari bukan kegiatan baru, melainkan <span className="font-semibold text-forest-800 dark:text-lime">lingkungan yang senantiasa mengingatkanmu kepada-Nya.</span>
                   </div>
                 </div>
 
                 {/* Feat 4: Call to Action */}
-                <div className="p-4 rounded-2xl bg-gradient-to-r from-forest-50 to-emerald-50/60 dark:from-forest-950/60 dark:to-gray-800/80 border border-forest-200/80 dark:border-lime/30 text-center space-y-1">
-                  <p className="text-xs sm:text-sm font-bold text-forest-950 dark:text-lime">
+                <div className="p-3 rounded-xl bg-gradient-to-r from-forest-50 to-emerald-50/60 dark:from-forest-950/60 dark:to-gray-800/80 border border-forest-200/80 dark:border-lime/30 text-center space-y-0.5">
+                  <p className="text-[11px] sm:text-xs font-bold text-forest-950 dark:text-lime">
                     Ada yang hilang belakangan?
                   </p>
-                  <p className="text-xs text-forest-700/90 dark:text-gray-300 font-medium">
+                  <p className="text-[10px] sm:text-[11px] text-forest-700/90 dark:text-gray-300 font-medium">
                     Yuk, cari lagi yang bikin hati kembali tenang. 🍃
                   </p>
                 </div>
@@ -409,17 +409,17 @@ export function WelcomeModal() {
               {/* Titipan Semangat Section */}
               <div
                 id="wrp-msg-section"
-                className="pt-5 border-t border-gray-100 dark:border-gray-800 space-y-4"
+                className="pt-3.5 border-t border-gray-100 dark:border-gray-800 space-y-3"
               >
                 <div
                   id="wrp-msg-heading"
-                  className="flex items-center justify-between text-xs sm:text-sm font-bold text-forest-950 dark:text-lime"
+                  className="flex items-center justify-between text-[11px] sm:text-xs font-bold text-forest-950 dark:text-lime"
                 >
                   <div className="flex items-center gap-2">
                     <MessageSquareHeart className="w-4 h-4 text-forest-600 dark:text-lime" />
                     <span>Ada Titipan Semangat Buatmu 💛</span>
                   </div>
-                  <span className="text-[11px] font-mono text-gray-400 font-normal">
+                  <span className="text-[10px] font-mono text-gray-400 font-normal">
                     {messages.length} pesan
                   </span>
                 </div>
@@ -429,7 +429,7 @@ export function WelcomeModal() {
                   id="wrp-msg-list"
                   data-lenis-prevent="true"
                   onWheel={(e) => e.stopPropagation()}
-                  className="space-y-2.5 max-h-60 overflow-y-auto pr-1"
+                  className="space-y-2 max-h-40 overflow-y-auto pr-1"
                 >
                   {messages.length === 0 ? (
                     <div
@@ -442,7 +442,7 @@ export function WelcomeModal() {
                     messages.slice(0, 10).map((item) => (
                       <div
                         key={item.id}
-                        className="wrp-msg-item p-3 rounded-2xl bg-forest-50/40 dark:bg-gray-800/60 border border-forest-100/80 dark:border-gray-700/60 text-xs space-y-1 transition-all hover:border-lime/60 dark:hover:border-lime/60"
+                        className="wrp-msg-item p-2.5 rounded-xl bg-forest-50/40 dark:bg-gray-800/60 border border-forest-100/80 dark:border-gray-700/60 text-[11px] space-y-0.5 transition-all hover:border-lime/60 dark:hover:border-lime/60"
                       >
                         <div className="wrp-msg-item-header flex items-center justify-between text-[11px] gap-2">
                           <span className="wrp-msg-item-name font-bold text-forest-900 dark:text-white truncate">
@@ -461,7 +461,7 @@ export function WelcomeModal() {
                 </div>
 
                 {/* Divider */}
-                <div id="wrp-msg-divider" className="pt-2 text-center text-xs font-bold text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
+                <div id="wrp-msg-divider" className="pt-1.5 text-center text-[11px] font-bold text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
                   <div className="h-px bg-gray-200 dark:bg-gray-800 flex-1" />
                   <span className="flex items-center gap-1.5 text-forest-800 dark:text-lime">
                     <PenLine className="w-3.5 h-3.5" /> Giliran Kamu Nitip ✨
@@ -474,9 +474,9 @@ export function WelcomeModal() {
                   id="wrp-msg-form"
                   onSubmit={handleSendMessage}
                   noValidate
-                  className="space-y-2.5 bg-forest-50/50 dark:bg-gray-800/40 p-3.5 rounded-2xl border border-forest-100 dark:border-gray-800"
+                  className="space-y-2 bg-forest-50/50 dark:bg-gray-800/40 p-3 rounded-xl border border-forest-100 dark:border-gray-800"
                 >
-                  <div id="wrp-msg-form-fields" className="space-y-2">
+                  <div id="wrp-msg-form-fields" className="space-y-1.5">
                     <input
                       id="wrp-msg-name"
                       type="text"
@@ -485,7 +485,7 @@ export function WelcomeModal() {
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Namamu siapa? 😊"
                       autoComplete="off"
-                      className="w-full text-xs px-3.5 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none transition-colors text-gray-800 dark:text-gray-100 placeholder:text-gray-400"
+                      className="w-full text-[11px] px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none transition-colors text-gray-800 dark:text-gray-100 placeholder:text-gray-400"
                     />
                     <textarea
                       id="wrp-msg-text"
@@ -494,19 +494,19 @@ export function WelcomeModal() {
                       onChange={(e) => setMessageText(e.target.value)}
                       placeholder="Titip kata semangat buat temanmu... 🌟"
                       rows={2}
-                      className="w-full text-xs px-3.5 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none transition-colors text-gray-800 dark:text-gray-100 placeholder:text-gray-400 resize-none"
+                      className="w-full text-[11px] px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-forest-600 dark:focus:border-lime focus:outline-none transition-colors text-gray-800 dark:text-gray-100 placeholder:text-gray-400 resize-none"
                     />
                   </div>
 
                   <div id="wrp-msg-form-footer" className="flex items-center justify-between gap-2">
-                    <span id="wrp-msg-char" className="text-[10px] font-mono text-gray-400">
+                    <span id="wrp-msg-char" className="text-[9px] font-mono text-gray-400">
                       {messageText.length}/300
                     </span>
                     <button
                       type="submit"
                       id="wrp-msg-submit"
                       disabled={isSubmitting || !name.trim() || !messageText.trim()}
-                      className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-forest-600 dark:bg-lime text-white dark:text-forest-950 rounded-xl text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 bg-forest-600 dark:bg-lime text-white dark:text-forest-950 rounded-lg text-[10px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
                     >
                       {isSubmitting ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -536,12 +536,12 @@ export function WelcomeModal() {
             {/* Footer Actions */}
             <div
               id="wrp-footer"
-              className="shrink-0 p-4 sm:p-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/80 flex flex-col gap-3"
+              className="shrink-0 p-3 sm:p-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/80 flex flex-col gap-2"
             >
               <button
                 id="wrp-btn-explore"
                 onClick={handleShare}
-                className="group/share relative isolate inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-forest-600 dark:bg-lime text-white dark:text-forest-950 py-3 text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98] cursor-pointer"
+                className="group/share relative isolate inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-forest-600 dark:bg-lime text-white dark:text-forest-950 py-2.5 text-xs font-bold shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98] cursor-pointer"
               >
                 {copied ? (
                   <>
@@ -572,7 +572,7 @@ export function WelcomeModal() {
                 lalu bagikan ke Story atau teman-temanmu!
               </div>
 
-              <div className="flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400 px-1">
+              <div className="flex items-center justify-between text-[10px] text-gray-500 dark:text-gray-400 px-0.5">
                 <span className="inline-flex items-center gap-1 font-mono">
                   <Sparkles className="w-3 h-3 text-lime" /> jnukmi.com
                 </span>
