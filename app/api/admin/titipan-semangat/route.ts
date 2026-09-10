@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import { requireAdmin } from "@/lib/auth";
+import { logAdminActivity } from "@/lib/admin-log";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import {
   TitipanSemangatCreateSchema,
@@ -157,6 +158,15 @@ export async function POST(req: NextRequest) {
     console.warn("[admin/titipan-semangat POST local sync warning]", err);
   }
 
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "create_titipan",
+    target_type: "titipan_semangat",
+    target_id: createdItem.id,
+    target_name: createdItem.name,
+  });
+
   return apiOk("Pesan titipan semangat berhasil ditambahkan.", createdItem);
 }
 
@@ -240,6 +250,15 @@ export async function PUT(req: NextRequest) {
     console.warn("[admin/titipan-semangat PUT local sync warning]", err);
   }
 
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "update_titipan",
+    target_type: "titipan_semangat",
+    target_id: updatedItem.id,
+    target_name: updatedItem.name,
+  });
+
   return apiOk("Pesan titipan semangat berhasil diperbarui.", updatedItem);
 }
 
@@ -296,6 +315,14 @@ export async function DELETE(req: NextRequest) {
   } catch (err) {
     console.warn("[admin/titipan-semangat DELETE local sync warning]", err);
   }
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "delete_titipan",
+    target_type: "titipan_semangat",
+    target_id: id,
+  });
 
   return apiOk("Pesan titipan semangat berhasil dihapus.", { id });
 }

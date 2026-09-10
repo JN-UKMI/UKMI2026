@@ -154,14 +154,18 @@ export default function AdminPage() {
   const [qrText, setQrText] = useState("https://jnukmi.com");
   const [qrFg, setQrFg] = useState("#1a4d2e");
   const [qrBg, setQrBg] = useState("#ffffff");
+  const [qrFgText, setQrFgText] = useState(qrFg);
+  const [qrBgText, setQrBgText] = useState(qrBg);
+  const HEX_RE = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
   const [qrSize, setQrSize] = useState(600);
+  const [qrEcc, setQrEcc] = useState<"L" | "M" | "Q" | "H">("M");
   const [qrLogoPercent, setQrLogoPercent] = useState(22);
   const [qrLogoFile, setQrLogoFile] = useState<File | null>(null);
   const [qrLogoUrl, setQrLogoUrl] = useState<string | null>(null);
   const [qrDownloading, setQrDownloading] = useState(false);
   const qrCanvasRef = useRef<HTMLCanvasElement>(null);
   const qrPreviewUrl = qrText.trim()
-    ? `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(qrText.trim())}&color=${qrFg.replace("#", "")}&bgcolor=${qrBg.replace("#", "")}&ecc=${qrLogoUrl ? "H" : "M"}&margin=1`
+    ? `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(qrText.trim())}&color=${qrFg.replace("#", "")}&bgcolor=${qrBg.replace("#", "")}&ecc=${qrLogoUrl ? "H" : qrEcc}&margin=1`
     : "";
   
   const [drafts, setDrafts] = useState<DraftArticle[]>([]);
@@ -950,11 +954,11 @@ export default function AdminPage() {
         {/* Header Toolbar & User Profile */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <TransitionLink
-            href="/artikel"
+            href="/"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 dark:text-gray-400 hover:text-forest-600 dark:hover:text-lime transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
-            Kembali ke Artikel
+            Kembali ke Beranda
           </TransitionLink>
 
           {session?.user && (
@@ -996,7 +1000,7 @@ export default function AdminPage() {
               Panel Moderasi & Pengelolaan
             </h1>
             <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold mt-1">
-              Setujui draf artikel yang tertunda, or kelola dan edit artikel yang telah terbit secara langsung.
+              Admin disarankan membuka lewat dekstop/laptop saja, jangan dari hp.
             </p>
           </div>
         </div>
@@ -1027,8 +1031,8 @@ export default function AdminPage() {
             { key: "admins" as const, icon: <KeyRound className="w-4 h-4" />, label: "Kelola Admin" },
             { key: "titipan" as const, icon: <MessageSquareHeart className="w-4 h-4" />, label: "Titipan Semangat" },
             { key: "shortlinks" as const, icon: <Link2 className="w-4 h-4" />, label: "Shortlink" },
-            { key: "logs" as const, icon: <Activity className="w-4 h-4" />, label: "Log Aktivitas" },
             { key: "qr" as const, icon: <QrCode className="w-4 h-4" />, label: "QR Generator" },
+            { key: "logs" as const, icon: <Activity className="w-4 h-4" />, label: "Log Aktivitas" },
           ].map((tab) => {
             const active = activeTab === tab.key;
             return (
@@ -2046,7 +2050,14 @@ export default function AdminPage() {
         {activeTab === "titipan" && <TitipanSemangatAdminTab />}
 
         {/* Tab 8: Shortlink Generator (Supabase + Local) */}
-        {activeTab === "shortlinks" && <ShortlinkAdminTab />}
+        {activeTab === "shortlinks" && (
+            <ShortlinkAdminTab
+              onGenerateQr={(url) => {
+                setQrText(url);
+                setActiveTab("qr");
+              }}
+            />
+          )}
 
         {/* Tab 9: Log Aktivitas Admin */}
         {activeTab === "logs" && <ActivityLogTab />}
@@ -2059,7 +2070,7 @@ export default function AdminPage() {
                 QR Code Generator
               </h2>
               <p className="text-xs text-gray-400 dark:text-gray-500 font-medium mt-1">
-                Custom warna + logo di tengah. Logo otomatis pakai ECC H biar tetap scan.
+                Custom warna + logo di tengah.
               </p>
             </div>
 
@@ -2078,7 +2089,7 @@ export default function AdminPage() {
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {["https://jnukmi.com", "https://instagram.com/jnukmiuns", "https://wa.me/6281234567890"].map((preset) => (
+                  {["jnukmi.com", "instagram.com/jnukmiuns"].map((preset) => (
                     <button
                       key={preset}
                       type="button"
@@ -2094,15 +2105,31 @@ export default function AdminPage() {
                   <label className="flex flex-col gap-1.5">
                     <span className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Warna QR</span>
                     <span className="flex items-center gap-2 px-3 py-2 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
-                      <input type="color" value={qrFg} onChange={(e) => setQrFg(e.target.value)} className="w-7 h-7 rounded cursor-pointer border-0 p-0 bg-transparent" />
-                      <span className="text-xs font-mono text-gray-600 dark:text-gray-400">{qrFg}</span>
+                      <input type="color" value={qrFg} onChange={(e) => { setQrFg(e.target.value); setQrFgText(e.target.value); }} className="w-7 h-7 rounded cursor-pointer border-0 p-0 bg-transparent" />
+                      <input
+                        type="text"
+                        value={qrFgText}
+                        onChange={(e) => {
+                          setQrFgText(e.target.value);
+                          if (HEX_RE.test(e.target.value)) setQrFg(e.target.value);
+                        }}
+                        className="flex-1 min-w-0 text-xs font-mono text-gray-600 dark:text-gray-400 bg-transparent focus:outline-none"
+                      />
                     </span>
                   </label>
                   <label className="flex flex-col gap-1.5">
                     <span className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Background</span>
                     <span className="flex items-center gap-2 px-3 py-2 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
-                      <input type="color" value={qrBg} onChange={(e) => setQrBg(e.target.value)} className="w-7 h-7 rounded cursor-pointer border-0 p-0 bg-transparent" />
-                      <span className="text-xs font-mono text-gray-600 dark:text-gray-400">{qrBg}</span>
+                      <input type="color" value={qrBg} onChange={(e) => { setQrBg(e.target.value); setQrBgText(e.target.value); }} className="w-7 h-7 rounded cursor-pointer border-0 p-0 bg-transparent" />
+                      <input
+                        type="text"
+                        value={qrBgText}
+                        onChange={(e) => {
+                          setQrBgText(e.target.value);
+                          if (HEX_RE.test(e.target.value)) setQrBg(e.target.value);
+                        }}
+                        className="flex-1 min-w-0 text-xs font-mono text-gray-600 dark:text-gray-400 bg-transparent focus:outline-none"
+                      />
                     </span>
                   </label>
                 </div>
@@ -2125,6 +2152,26 @@ export default function AdminPage() {
                       <span className="text-xs font-mono text-gray-600 dark:text-gray-400 w-9 text-right">{qrLogoPercent}%</span>
                     </span>
                   </label>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Level Koreksi Error</span>
+                  <select
+                    value={qrLogoUrl ? "H" : qrEcc}
+                    disabled={!!qrLogoUrl}
+                    onChange={(e) => setQrEcc(e.target.value as "L" | "M" | "Q" | "H")}
+                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-xs font-bold text-gray-900 dark:text-white focus:border-forest-600 focus:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <option value="L">L — 7% (QR paling pendek, cukup untuk area bersih)</option>
+                    <option value="M">M — 15% (standar)</option>
+                    <option value="Q">Q — 25% (tahan rusak sebagian)</option>
+                    <option value="H">H — 30% (paling tahan, wajib jika ada logo)</option>
+                  </select>
+                  {qrLogoUrl && (
+                    <p className="text-[10px] text-forest-600 dark:text-lime font-semibold">
+                      Logo aktif → ECC terkunci di H agar QR tetap bisa di-scan.
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-1.5">

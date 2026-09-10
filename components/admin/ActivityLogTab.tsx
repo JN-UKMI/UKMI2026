@@ -216,6 +216,7 @@ export function ActivityLogTab() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [filter, setFilter] = useState("");
+  const [page, setPage] = useState(1);
   const [currentEmail, setCurrentEmail] = useState("");
 
   const fetchLogs = async (action?: string) => {
@@ -233,6 +234,7 @@ export function ActivityLogTab() {
 
       setLogs(json.data?.logs || []);
       setCurrentEmail(json.data?.currentAdminEmail || "");
+      setPage(1);
     } catch (err: any) {
       setError(err?.message || "Gagal memuat log aktivitas.");
     } finally {
@@ -246,6 +248,7 @@ export function ActivityLogTab() {
 
   const handleFilterChange = (value: string) => {
     setFilter(value);
+    setPage(1);
     fetchLogs(value || undefined);
   };
 
@@ -258,6 +261,11 @@ export function ActivityLogTab() {
       }
     );
   };
+
+  const PAGE_SIZE = 10;
+  const totalPages = Math.max(1, Math.ceil(logs.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pageLogs = logs.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   return (
     <div className="space-y-6">
@@ -323,7 +331,7 @@ export function ActivityLogTab() {
             </p>
           </div>
         ) : (
-          logs.map((log) => {
+          pageLogs.map((log) => {
             const config = getActionConfig(log.action);
             const isSelf =
               currentEmail &&
@@ -395,6 +403,34 @@ export function ActivityLogTab() {
           })
         )}
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <span className="text-xs text-gray-500 dark:text-gray-400">
+            Menampilkan {(currentPage - 1) * PAGE_SIZE + 1}–
+            {Math.min(currentPage * PAGE_SIZE, logs.length)} dari {logs.length} entri
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:border-lime dark:hover:border-lime disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+            >
+              ← Sebelumnya
+            </button>
+            <span className="text-xs font-bold text-gray-600 dark:text-gray-300 px-2">
+              Halaman {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => setPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:border-lime dark:hover:border-lime disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+            >
+              Berikutnya →
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

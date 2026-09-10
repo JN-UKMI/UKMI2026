@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { getSupabaseAdmin } from "./supabase";
+import { logAdminActivity } from "./admin-log";
 
 const authSecret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
 if (process.env.NODE_ENV === "production" && !authSecret) {
@@ -93,6 +94,32 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.isAdmin = Boolean(token.isAdmin);
       }
       return session;
+    },
+  },
+  events: {
+    async signIn({ user }) {
+      if (user?.email && (await isEmailAdminAsync(user.email))) {
+        await logAdminActivity({
+          admin_email: user.email,
+          admin_name: user.name || null,
+          action: "login",
+          target_type: "session",
+          target_name: user.email,
+        });
+      }
+    },
+    async signOut(params) {
+      if (!("token" in params) || !params.token) return;
+      const email = typeof params.token.email === "string" ? params.token.email : null;
+      if (email && params.token.isAdmin) {
+        await logAdminActivity({
+          admin_email: email,
+          admin_name: typeof params.token.name === "string" ? params.token.name : null,
+          action: "logout",
+          target_type: "session",
+          target_name: email,
+        });
+      }
     },
   },
 });

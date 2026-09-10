@@ -269,7 +269,17 @@ export const ShortlinkCreateSchema = z.object({
     }),
   target_url: z
     .string()
-    .url("Format URL target tidak valid (harus diawali http:// atau https://)")
+    .refine(
+      (v) => {
+        try {
+          const u = new URL(v);
+          return u.protocol === "http:" || u.protocol === "https:";
+        } catch {
+          return false;
+        }
+      },
+      "URL target harus diawali http:// atau https://"
+    )
     .max(2048, "URL target maksimal 2048 karakter"),
   title: z.string().max(150, "Judul/keterangan maksimal 150 karakter").optional().or(z.literal("")),
 });
@@ -286,7 +296,17 @@ export const ShortlinkUpdateSchema = z.object({
     }),
   target_url: z
     .string()
-    .url("Format URL target tidak valid (harus diawali http:// atau https://)")
+    .refine(
+      (v) => {
+        try {
+          const u = new URL(v);
+          return u.protocol === "http:" || u.protocol === "https:";
+        } catch {
+          return false;
+        }
+      },
+      "URL target harus diawali http:// atau https://"
+    )
     .max(2048, "URL target maksimal 2048 karakter"),
   title: z.string().max(150, "Judul/keterangan maksimal 150 karakter").optional().or(z.literal("")),
 });

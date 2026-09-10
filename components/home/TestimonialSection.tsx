@@ -186,7 +186,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
 /** Reusable testimonial card with landscape proportion, scrollable text when long, and equal height */
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
-    <div className="group relative bg-white dark:bg-gray-900 rounded-2xl p-5 sm:p-5.5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/5 motion-safe:hover:-translate-y-0.5 transition-all duration-300 flex flex-col h-full">
+    <div className="group relative bg-white dark:bg-gray-900 rounded-2xl p-5 sm:p-5.5 border-2 border-forest-600 dark:border-lime shadow-sm hover:shadow-lg hover:shadow-forest-900/5 dark:hover:shadow-lime/5 motion-safe:hover:-translate-y-0.5 transition-all duration-300 flex flex-col h-full">
       {/* Decorative Quote Watermark */}
       <div className="absolute top-3 right-3.5 text-forest-600/[0.06] dark:text-lime/[0.06] group-hover:text-forest-600/15 dark:group-hover:text-lime/15 transition-colors pointer-events-none select-none">
         <QuoteIcon className="w-7 h-7 rotate-180" />

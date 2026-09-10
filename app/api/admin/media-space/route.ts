@@ -6,6 +6,7 @@ import { randomUUID } from "node:crypto";
 import sanitizeHtml from "sanitize-html";
 
 import { requireAdmin } from "@/lib/auth";
+import { logAdminActivity } from "@/lib/admin-log";
 import {
   apiOk,
   apiBadRequest,
@@ -156,6 +157,14 @@ export async function POST(req: Request) {
         ...(imageRef ? { image: imageRef } : {}),
       };
       const created = await sanityClient.create(doc);
+      await logAdminActivity({
+        admin_email: admin.email || "unknown",
+        admin_name: admin.name || null,
+        action: "create_media_space",
+        target_type: "media_space",
+        target_id: created._id,
+        target_name: clean.title,
+      });
       return apiOk("Konten Media Space berhasil ditambahkan ke Sanity CMS!", created);
     } catch (err: any) {
       console.error("[admin/media-space POST]", err?.message);
@@ -188,6 +197,15 @@ export async function POST(req: Request) {
   const items = await readItems();
   items.unshift(newItem);
   await writeItems(items);
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "create_media_space",
+    target_type: "media_space",
+    target_id: newItem.id,
+    target_name: clean.title,
+  });
 
   return NextResponse.json({
     ok: true,
@@ -257,6 +275,14 @@ export async function PUT(req: Request) {
       };
       if (imageRef) patchData.image = imageRef;
       const updated = await sanityClient.patch(itemId).set(patchData).commit();
+      await logAdminActivity({
+        admin_email: admin.email || "unknown",
+        admin_name: admin.name || null,
+        action: "update_media_space",
+        target_type: "media_space",
+        target_id: itemId,
+        target_name: clean.title,
+      });
       return apiOk("Konten Media Space berhasil diperbarui di Sanity CMS!", updated);
     } catch (err: any) {
       console.error("[admin/media-space PUT]", err?.message);
@@ -296,6 +322,15 @@ export async function PUT(req: Request) {
   };
   await writeItems(items);
 
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "update_media_space",
+    target_type: "media_space",
+    target_id: itemId,
+    target_name: clean.title,
+  });
+
   return NextResponse.json({
     ok: true,
     message: "Konten Media Space berhasil diperbarui!",
@@ -321,6 +356,13 @@ export async function DELETE(req: Request) {
   if (sanityClient && !parsed.data.id.startsWith("media-space-")) {
     try {
       await sanityClient.delete(parsed.data.id);
+      await logAdminActivity({
+        admin_email: admin.email || "unknown",
+        admin_name: admin.name || null,
+        action: "delete_media_space",
+        target_type: "media_space",
+        target_id: parsed.data.id,
+      });
       return apiOk("Konten Media Space berhasil dihapus dari Sanity CMS.");
     } catch (err: any) {
       console.error("[admin/media-space DELETE]", err?.message);
@@ -337,6 +379,14 @@ export async function DELETE(req: Request) {
       await fs.unlink(path.join(process.cwd(), "public", target.imageUrl));
     } catch {}
   }
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "delete_media_space",
+    target_type: "media_space",
+    target_id: parsed.data.id,
+  });
 
   const updatedItems = items.filter((i) => i.id !== parsed.data.id);
   await writeItems(updatedItems);
@@ -376,6 +426,14 @@ export async function PATCH(req: Request) {
         await transaction.commit();
         const updatedSanity = await getMediaSpaceFromSanity();
         if (updatedSanity.length > 0) {
+          await logAdminActivity({
+            admin_email: admin.email || "unknown",
+            admin_name: admin.name || null,
+            action: "reorder_media_space",
+            target_type: "media_space",
+            target_id: null,
+            target_name: `${itemIds.length} item`,
+          });
           return NextResponse.json({
             ok: true,
             message: "Urutan Sanity CMS Media Space berhasil disimpan!",
@@ -406,6 +464,14 @@ export async function PATCH(req: Request) {
     }
 
     await writeItems(reordered);
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "reorder_media_space",
+      target_type: "media_space",
+      target_id: null,
+      target_name: `${reordered.length} item`,
+    });
     return NextResponse.json({
       ok: true,
       message: "Urutan tampilan Media Space berhasil diperbarui!",

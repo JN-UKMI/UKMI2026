@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const { searchParams } = new URL(req.url);
-    const limit = Math.min(parseInt(searchParams.get("limit") || "100", 10), 200);
+    const limit = Math.min(Math.max(Number(searchParams.get("limit")) || 100, 1), 200);
     const actionFilter = searchParams.get("action") || null;
 
     let query = supabase

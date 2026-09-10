@@ -9,10 +9,9 @@ import {
   Check,
   ExternalLink,
   Edit2,
+  QrCode,
   Trash2,
   RefreshCw,
-  MousePointerClick,
-  Sparkles,
   AlertCircle,
   X,
   Loader2,
@@ -29,12 +28,14 @@ function generateRandomSlug(length = 6): string {
   return result;
 }
 
-export function ShortlinkAdminTab() {
+export function ShortlinkAdminTab({ onGenerateQr }: { onGenerateQr: (url: string) => void }) {
   const [links, setLinks] = useState<ShortlinkRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://jnukmi.com";
+  const [page, setPage] = useState(1);
 
   // Modal Create / Edit State
   const [modalOpen, setModalOpen] = useState(false);
@@ -61,6 +62,7 @@ export function ShortlinkAdminTab() {
       const json = await res.json();
       if (res.ok && json.ok && json.data) {
         setLinks(json.data.links || []);
+        setPage(1);
       } else {
         setError(json.error?.message || "Gagal memuat data shortlink.");
       }
@@ -175,7 +177,6 @@ export function ShortlinkAdminTab() {
   };
 
   const handleCopyLink = async (item: ShortlinkRow) => {
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://jnukmi.com";
     const fullUrl = `${origin}/${item.slug}`;
     try {
       await navigator.clipboard.writeText(fullUrl);
@@ -196,7 +197,10 @@ export function ShortlinkAdminTab() {
     );
   });
 
-  const totalClicks = links.reduce((sum, item) => sum + (item.clicks || 0), 0);
+  const PAGE_SIZE = 10;
+  const totalPages = Math.max(1, Math.ceil(filteredLinks.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pageLinks = filteredLinks.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   return (
     <div className="space-y-6">
@@ -243,11 +247,6 @@ export function ShortlinkAdminTab() {
               <span className="block text-[10px] uppercase font-bold text-gray-400">Total Link</span>
               <span className="text-base font-black text-forest-900 dark:text-lime">{links.length}</span>
             </div>
-            <div className="h-6 w-px bg-gray-200 dark:bg-gray-700" />
-            <div className="text-center">
-              <span className="block text-[10px] uppercase font-bold text-gray-400">Total Klik</span>
-              <span className="text-base font-black text-forest-900 dark:text-lime">{totalClicks}</span>
-            </div>
           </div>
 
           <button
@@ -275,7 +274,10 @@ export function ShortlinkAdminTab() {
         <input
           type="text"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setPage(1);
+          }}
           placeholder="Cari berdasarkan slug, target URL, atau keterangan..."
           className="w-full pl-11 pr-4 py-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-lime dark:focus:border-lime transition-all"
         />
@@ -308,7 +310,7 @@ export function ShortlinkAdminTab() {
           </div>
         ) : (
           <div className="divide-y divide-gray-100 dark:divide-gray-800">
-            {filteredLinks.map((item) => {
+            {pageLinks.map((item) => {
               const isCopied = copiedId === item.id;
               return (
                 <div
@@ -327,10 +329,6 @@ export function ShortlinkAdminTab() {
                           {item.title}
                         </span>
                       )}
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-mono">
-                        <MousePointerClick className="w-3 h-3 text-forest-600 dark:text-lime" />
-                        {item.clicks || 0} klik
-                      </span>
                     </div>
 
                     <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
@@ -382,6 +380,14 @@ export function ShortlinkAdminTab() {
                     </a>
 
                     <button
+                      onClick={() => onGenerateQr(`${origin}/${item.slug}`)}
+                      className="p-2 bg-gray-100 dark:bg-gray-800 hover:bg-forest-50 hover:text-forest-700 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl transition-all cursor-pointer"
+                      title="Buat QR untuk shortlink ini"
+                    >
+                      <QrCode className="w-4 h-4" />
+                    </button>
+
+                    <button
                       onClick={() => handleOpenEdit(item)}
                       className="p-2 bg-gray-100 dark:bg-gray-800 hover:bg-forest-50 hover:text-forest-700 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl transition-all cursor-pointer"
                       title="Edit Shortlink"
@@ -403,6 +409,34 @@ export function ShortlinkAdminTab() {
           </div>
         )}
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <span className="text-xs text-gray-500 dark:text-gray-400">
+            Menampilkan {(currentPage - 1) * PAGE_SIZE + 1}–
+            {Math.min(currentPage * PAGE_SIZE, filteredLinks.length)} dari {filteredLinks.length} link
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:border-lime dark:hover:border-lime disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+            >
+              ← Sebelumnya
+            </button>
+            <span className="text-xs font-bold text-gray-600 dark:text-gray-300 px-2">
+              Halaman {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => setPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:border-lime dark:hover:border-lime disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+            >
+              Berikutnya →
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Modal: Create / Edit Shortlink */}
       {modalOpen && (

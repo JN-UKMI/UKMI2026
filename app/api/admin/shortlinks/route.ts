@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 import sanitizeHtml from "sanitize-html";
 import { getSupabaseAdmin, type ShortlinkRow } from "@/lib/supabase";
 import { requireAdmin } from "@/lib/auth";
+import { logAdminActivity } from "@/lib/admin-log";
 import {
   ShortlinkCreateSchema,
   ShortlinkUpdateSchema,
@@ -93,7 +94,6 @@ export async function GET() {
   return apiOk("Daftar shortlink berhasil diambil.", {
     links,
     total: links.length,
-    totalClicks: links.reduce((sum, item) => sum + (item.clicks || 0), 0),
   });
 }
 
@@ -133,7 +133,6 @@ export async function POST(req: NextRequest) {
     slug: cleanSlug,
     target_url: cleanTarget,
     title: cleanTitle,
-    clicks: 0,
     created_by: admin.email,
     created_at: nowIso,
     updated_at: nowIso,
@@ -161,7 +160,6 @@ export async function POST(req: NextRequest) {
           slug: cleanSlug,
           target_url: cleanTarget,
           title: cleanTitle,
-          clicks: 0,
           created_by: admin.email,
         })
         .select("*")
@@ -196,6 +194,16 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.warn("[admin/shortlinks POST local sync warning]", err);
   }
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "create_shortlink",
+    target_type: "shortlink",
+    target_id: createdItem.id,
+    target_name: cleanSlug,
+    details: `Target: ${cleanTarget}`,
+  });
 
   return apiOk("Shortlink berhasil dibuat.", createdItem);
 }
@@ -233,7 +241,6 @@ export async function PUT(req: NextRequest) {
     slug: cleanSlug,
     target_url: cleanTarget,
     title: cleanTitle,
-    clicks: 0,
     updated_at: nowIso,
   };
 
@@ -279,7 +286,6 @@ export async function PUT(req: NextRequest) {
     const local = await readLocalShortlinks();
     const index = local.findIndex((l) => l.id === id);
     if (index !== -1) {
-      updatedItem.clicks = local[index].clicks || 0;
       updatedItem.created_at = local[index].created_at || nowIso;
       updatedItem.created_by = local[index].created_by || admin.email;
       local[index] = { ...local[index], ...updatedItem };
@@ -290,6 +296,16 @@ export async function PUT(req: NextRequest) {
   } catch (err) {
     console.warn("[admin/shortlinks PUT local sync warning]", err);
   }
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "update_shortlink",
+    target_type: "shortlink",
+    target_id: id,
+    target_name: cleanSlug,
+    details: `Target: ${cleanTarget}`,
+  });
 
   return apiOk("Shortlink berhasil diperbarui.", updatedItem);
 }
@@ -342,6 +358,14 @@ export async function DELETE(req: NextRequest) {
   } catch (err) {
     console.warn("[admin/shortlinks DELETE local sync warning]", err);
   }
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "delete_shortlink",
+    target_type: "shortlink",
+    target_id: id,
+  });
 
   return apiOk("Shortlink berhasil dihapus.", { id });
 }

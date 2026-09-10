@@ -23,22 +23,6 @@ async function readLocalShortlinks(): Promise<ShortlinkRow[]> {
   }
 }
 
-async function incrementLocalClicks(slug: string): Promise<void> {
-  try {
-    const links = await readLocalShortlinks();
-    const index = links.findIndex(
-      (l) => l.slug.toLowerCase() === slug.toLowerCase()
-    );
-    if (index !== -1) {
-      links[index].clicks = (links[index].clicks || 0) + 1;
-      links[index].updated_at = new Date().toISOString();
-      await fs.writeFile(localLinksFilePath, JSON.stringify(links, null, 2), "utf-8");
-    }
-  } catch (err) {
-    console.warn("[shortlink local increment error]", err);
-  }
-}
-
 export async function GET(
   req: NextRequest,
   props: { params: Promise<{ slug: string }> }
@@ -57,20 +41,11 @@ export async function GET(
     try {
       const { data, error } = await supabase
         .from("shortlinks")
-        .select("id, slug, target_url, clicks")
+        .select("slug, target_url")
         .ilike("slug", cleanSlug)
         .maybeSingle();
 
       if (!error && data && data.target_url) {
-        // Increment click count asynchronously in background
-        void supabase
-          .from("shortlinks")
-          .update({
-            clicks: (data.clicks || 0) + 1,
-            updated_at: new Date().toISOString(),
-          })
-          .eq("id", data.id);
-
         return NextResponse.redirect(data.target_url, { status: 307 });
       }
     } catch (err) {
@@ -86,7 +61,6 @@ export async function GET(
     );
 
     if (found && found.target_url) {
-      incrementLocalClicks(cleanSlug).catch(() => {});
       return NextResponse.redirect(found.target_url, { status: 307 });
     }
   } catch (err) {

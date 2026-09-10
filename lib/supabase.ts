@@ -26,7 +26,6 @@ export interface ShortlinkRow {
   slug: string;
   target_url: string;
   title?: string | null;
-  clicks: number;
   created_by?: string | null;
   created_at?: string;
   updated_at?: string;

@@ -6,6 +6,7 @@ import { randomUUID } from "node:crypto";
 import sanitizeHtml from "sanitize-html";
 
 import { requireAdmin } from "@/lib/auth";
+import { logAdminActivity } from "@/lib/admin-log";
 import {
   apiOk,
   apiBadRequest,
@@ -180,6 +181,15 @@ export async function POST(req: Request) {
         ...(imageRef ? { poster: imageRef } : {}),
       };
       const created = await sanityClient.create(doc);
+      await logAdminActivity({
+        admin_email: admin.email || "unknown",
+        admin_name: admin.name || null,
+        action: "create_kegiatan",
+        target_type: "kegiatan",
+        target_id: created._id,
+        target_name: clean.title,
+        details: `Tanggal: ${clean.date}`,
+      });
       return apiOk("Event Terdekat berhasil ditambahkan ke Sanity CMS Cloud!", created);
     } catch (err: any) {
       console.error("[admin/kegiatan POST]", err?.message);
@@ -216,6 +226,16 @@ export async function POST(req: Request) {
   const events = await readEvents();
   events.unshift(newEvent);
   await writeEvents(events);
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "create_kegiatan",
+    target_type: "kegiatan",
+    target_id: newEvent.id,
+    target_name: clean.title,
+    details: `Tanggal: ${clean.date}`,
+  });
 
   return apiOk("Event Terdekat berhasil ditambahkan!", newEvent);
 }
@@ -291,6 +311,15 @@ export async function PUT(req: Request) {
       };
       if (imageRef) patchData.poster = imageRef;
       const updated = await sanityClient.patch(parsed.data.id).set(patchData).commit();
+      await logAdminActivity({
+        admin_email: admin.email || "unknown",
+        admin_name: admin.name || null,
+        action: "update_kegiatan",
+        target_type: "kegiatan",
+        target_id: parsed.data.id,
+        target_name: clean.title,
+        details: `Tanggal: ${clean.date}`,
+      });
       return apiOk("Event Terdekat berhasil diperbarui di Sanity CMS Cloud!", updated);
     } catch (err: any) {
       console.error("[admin/kegiatan PUT]", err?.message);
@@ -328,6 +357,16 @@ export async function PUT(req: Request) {
   };
   await writeEvents(events);
 
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "update_kegiatan",
+    target_type: "kegiatan",
+    target_id: events[idx].id,
+    target_name: clean.title,
+    details: `Tanggal: ${clean.date}`,
+  });
+
   return apiOk("Event Terdekat berhasil diperbarui!", events[idx]);
 }
 
@@ -348,6 +387,13 @@ export async function DELETE(req: Request) {
   if (sanityClient && !parsed.data.id.startsWith("event-")) {
     try {
       await sanityClient.delete(parsed.data.id);
+      await logAdminActivity({
+        admin_email: admin.email || "unknown",
+        admin_name: admin.name || null,
+        action: "delete_kegiatan",
+        target_type: "kegiatan",
+        target_id: parsed.data.id,
+      });
       return apiOk("Kegiatan berhasil dihapus dari Sanity CMS Cloud.");
     } catch (err: any) {
       console.error("[admin/kegiatan DELETE]", err?.message);
@@ -364,6 +410,14 @@ export async function DELETE(req: Request) {
       await fs.unlink(path.join(process.cwd(), "public", target.posterUrl));
     } catch {}
   }
+
+  await logAdminActivity({
+    admin_email: admin.email || "unknown",
+    admin_name: admin.name || null,
+    action: "delete_kegiatan",
+    target_type: "kegiatan",
+    target_id: parsed.data.id,
+  });
 
   await writeEvents(events.filter((e) => e.id !== parsed.data.id));
   return apiOk("Kegiatan berhasil dihapus.");

@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { requireAdmin } from "@/lib/auth";
+import { logAdminActivity } from "@/lib/admin-log";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import {
   KalenderEventCreateSchema,
@@ -90,6 +91,16 @@ export async function POST(req: NextRequest) {
       return apiServerError("Gagal menambahkan agenda.");
     }
 
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "create_kalender",
+      target_type: "kalender_event",
+      target_id: data?.id || null,
+      target_name: data?.title || null,
+      details: `Tanggal: ${data?.date ?? "-"}`,
+    });
+
     return apiOk("Agenda kalender berhasil ditambahkan.", data);
   } catch (err: any) {
     console.error("[admin/kalender POST]", err?.message);
@@ -142,6 +153,16 @@ export async function PUT(req: NextRequest) {
       return apiServerError("Gagal memperbarui agenda.");
     }
 
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "update_kalender",
+      target_type: "kalender_event",
+      target_id: data?.id || null,
+      target_name: data?.title || null,
+      details: `Tanggal: ${data?.date ?? "-"}`,
+    });
+
     return apiOk("Agenda kalender berhasil diperbarui.", data);
   } catch (err: any) {
     console.error("[admin/kalender PUT]", err?.message);
@@ -180,6 +201,14 @@ export async function DELETE(req: NextRequest) {
       console.error("[admin/kalender DELETE]", error.message);
       return apiServerError("Gagal menghapus agenda.");
     }
+
+    await logAdminActivity({
+      admin_email: admin.email || "unknown",
+      admin_name: admin.name || null,
+      action: "delete_kalender",
+      target_type: "kalender_event",
+      target_id: parsed.data.id,
+    });
 
     return apiOk("Agenda kalender berhasil dihapus.", null);
   } catch (err: any) {
