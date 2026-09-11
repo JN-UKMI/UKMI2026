@@ -15,9 +15,6 @@ import { SlideIn } from "@/components/ui/SlideIn";
 import { WelcomeModal } from "@/components/home/WelcomeModal";
 
 // Dynamic imports for below-the-fold heavy components (Code Splitting)
-const KalenderSection = dynamicImport(
-  () => import("@/components/home/KalenderSection").then((m) => m.KalenderSection)
-);
 const TestimonialSection = dynamicImport(
   () => import("@/components/home/TestimonialSection").then((m) => m.TestimonialSection)
 );
@@ -87,7 +84,6 @@ export default async function Home() {
       <SlideIn direction="left"><QuoteSection /></SlideIn>
       <SlideIn direction="right"><KegiatanSeruSection initialEvents={kegiatanSeruList} /></SlideIn>
       <SlideIn direction="left"><ArtikelTerbaruSection articles={articles} /></SlideIn>
-      <SlideIn direction="right"><KalenderSection /></SlideIn>
       <SlideIn direction="left"><MediaSpaceSection items={mediaSpaceItems} /></SlideIn>
       <SlideIn direction="right"><TestimonialSection testimonials={testimonials} /></SlideIn>
     </>

@@ -26,6 +26,7 @@ const STATIC_PAGES: { title: string; subtitle: string; url: string }[] = [
   { title: "Tentang Kami", subtitle: "Visi, misi, sejarah JN UKMI", url: "/tentang" },
   { title: "Kabinet", subtitle: "Pengurus periode 2026", url: "/kabinet" },
   { title: "Al-Ma'tsurat", subtitle: "Dzikir pagi & petang", url: "/al-matsurat" },
+  { title: "Kalender UKMI", subtitle: "Jadwal kegiatan & puasa sunnah", url: "/kalender" },
   { title: "Doa-doa Harian", subtitle: "Kumpulan doa harian", url: "/doa-doa" },
   { title: "Surah Al-Kahfi", subtitle: "Bacaan & terjemahan", url: "/al-kahfi" },
   { title: "Buku UKMI", subtitle: "Layanan perpustakaan bumi", url: "/buku-ukmi" },

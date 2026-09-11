@@ -50,6 +50,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Doa-doa", href: "/doa-doa" },
       { label: "Al Kahfi", href: "/al-kahfi" },
       { label: "Al-Ma'tsurat", href: "/al-matsurat" },
+      { label: "Kalender UKMI", href: "/kalender" },
       { label: "Buku UKMI", href: "/buku-ukmi" },
       { label: "UKMI Store", href: "/ukmi-store" },
       { label: "Zakat & Infak", href: "https://upz.uns.ac.id/layanan-zakat-infak/", target: "_blank", rel: "noopener noreferrer" },
