@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import Lenis from "lenis";
+import type Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 
 /**
@@ -22,6 +22,7 @@ import { useReducedMotion } from "framer-motion";
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const [lenisReady, setLenisReady] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const pathname = usePathname();
 
@@ -29,30 +30,44 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     // Skip smooth scroll when user prefers reduced motion
     if (shouldReduceMotion) return;
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      touchMultiplier: 2,
-      wheelMultiplier: 1,
-      lerp: 0.1,
-      infinite: false,
+    let cancelled = false;
+    let rafId = 0;
+
+    // Lenis di-import dinamis agar tidak ikut bundle awal halaman -
+    // komponen ini membungkus children, jadi tidak bisa dipindah ke
+    // next/dynamic; import dinamis di sini memberi efek yang sama.
+    import("lenis").then(({ default: LenisCtor }) => {
+      if (cancelled) return;
+
+      const lenis = new LenisCtor({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        touchMultiplier: 2,
+        wheelMultiplier: 1,
+        lerp: 0.1,
+        infinite: false,
+      });
+
+      lenisRef.current = lenis;
+      setLenisReady(true);
+
+      function raf(time: number) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
     });
 
-    lenisRef.current = lenis;
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    const rafId = requestAnimationFrame(raf);
-
     return () => {
+      cancelled = true;
       cancelAnimationFrame(rafId);
-      lenis.destroy();
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
+      setLenisReady(false);
     };
   }, [shouldReduceMotion]);
 
@@ -74,7 +89,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     });
 
     return () => cancelAnimationFrame(raf1);
-  }, [pathname, shouldReduceMotion]);
+  }, [pathname, shouldReduceMotion, lenisReady]);
 
   // ── Recalc scroll limit on content changes ───────────────────
   // Lenis caches `limit` (scrollHeight - viewport height). Ganti tab,
@@ -112,7 +127,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       observer.disconnect();
       window.removeEventListener("load", onImageLoad, true);
     };
-  }, [pathname, shouldReduceMotion]);
+  }, [pathname, shouldReduceMotion, lenisReady]);
 
   return <>{children}</>;
 }

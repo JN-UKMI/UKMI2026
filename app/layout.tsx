@@ -4,7 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
-import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { MusicProvider } from "@/components/ui/MusicContext";
 import { LoadingProvider } from "@/components/ui/LoadingProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
@@ -15,8 +14,9 @@ import { BASE_URL, siteConfig } from "@/lib/seo";
 import { buildSiteJsonLd } from "@/lib/json-ld";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { ServiceWorkerRegister } from "@/components/ui/ServiceWorkerRegister";
-import { CommandPalette } from "@/components/ui/CommandPalette";
+import { CommandPalette, MusicPlayer } from "@/components/ui/LazyUi";
 import { Analytics } from "@vercel/analytics/react";
+
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 

@@ -54,6 +54,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Buku UKMI", href: "/buku-ukmi" },
       { label: "UKMI Store", href: "/ukmi-store" },
       { label: "Zakat & Infak", href: "https://upz.uns.ac.id/layanan-zakat-infak/", target: "_blank", rel: "noopener noreferrer" },
+      { label: "QR Code Generator", href: "/qr-generator" },
       { label: "Kontak", href: "/kontak", className: "min-[1050px]:hidden" },
     ],
   },

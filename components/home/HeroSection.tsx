@@ -41,7 +41,7 @@ export function HeroSection() {
           alt="Hero JN UKMI UNS - Unit Kegiatan Mahasiswa Islam Universitas Sebelas Maret"
           fill
           priority
-          quality={85}
+          quality={75}
           sizes="100vw"
           className="object-cover object-center scale-110"
         />
