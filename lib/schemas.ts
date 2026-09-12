@@ -224,6 +224,18 @@ export const TitipanSemangatDeleteSchema = z.object({
 });
 
 // ── Shortlink Generator ─────────────────────────────────────────
+
+/**
+ * Karakter tak terlihat (zero-width, bidi marks, Word Joiner, dll.) yang
+ * sering menempel di belakang URL saat link disalin/dibagikan lewat WA,
+ * sehingga slug tidak match database dan redirect ke 404.
+ */
+const INVISIBLE_CHARS = /[\u00AD\u034F\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u2069\uFEFF]/g;
+
+export function normalizeShortlinkSlug(raw: string): string {
+  return raw.trim().replace(INVISIBLE_CHARS, "").toLowerCase();
+}
+
 export const RESERVED_SLUGS = new Set([
   "403",
   "404",

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import { getSupabaseAdmin, type ShortlinkRow } from "@/lib/supabase";
-import { RESERVED_SLUGS } from "@/lib/schemas";
+import { RESERVED_SLUGS, normalizeShortlinkSlug } from "@/lib/schemas";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +28,7 @@ export async function GET(
   props: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await props.params;
-  const cleanSlug = (slug || "").trim().toLowerCase();
+  const cleanSlug = normalizeShortlinkSlug(slug);
 
   // If empty or matches system reserved path, do not process as shortlink
   if (!cleanSlug || RESERVED_SLUGS.has(cleanSlug)) {
